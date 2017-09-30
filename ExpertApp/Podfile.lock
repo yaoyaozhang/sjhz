@@ -1,0 +1,77 @@
+PODS:
+  - ASIHTTPRequest (1.8.2):
+    - ASIHTTPRequest/ASIWebPageRequest (= 1.8.2)
+    - ASIHTTPRequest/CloudFiles (= 1.8.2)
+    - ASIHTTPRequest/Core (= 1.8.2)
+    - ASIHTTPRequest/S3 (= 1.8.2)
+  - ASIHTTPRequest/ASIWebPageRequest (1.8.2):
+    - ASIHTTPRequest/Core
+  - ASIHTTPRequest/CloudFiles (1.8.2):
+    - ASIHTTPRequest/Core
+  - ASIHTTPRequest/Core (1.8.2):
+    - Reachability
+  - ASIHTTPRequest/S3 (1.8.2):
+    - ASIHTTPRequest/Core
+  - FMDB (2.7.2):
+    - FMDB/standard (= 2.7.2)
+  - FMDB/standard (2.7.2)
+  - MJRefresh (2.4.12)
+  - PICircularProgressView (0.1.1)
+  - QBPopupMenu (2.0)
+  - Reachability (3.2)
+  - SDWebImage (3.7.6):
+    - SDWebImage/Core (= 3.7.6)
+  - SDWebImage/Core (3.7.6)
+  - Toast (2.4)
+  - UMengAnalytics-NO-IDFA (4.2.5)
+  - UMengUShare/Core (6.4.5):
+    - UMengUShare/Network
+  - UMengUShare/Network (6.4.5)
+  - UMengUShare/Social/AlipayShare (6.4.5):
+    - UMengUShare/Core
+  - UMengUShare/Social/QQ (6.4.5):
+    - UMengUShare/Core
+    - UMengUShare/Social/ReducedQQ
+  - UMengUShare/Social/ReducedQQ (6.4.5):
+    - UMengUShare/Core
+  - UMengUShare/Social/ReducedSina (6.4.5):
+    - UMengUShare/Core
+  - UMengUShare/Social/ReducedWeChat (6.4.5):
+    - UMengUShare/Core
+  - UMengUShare/Social/WeChat (6.4.5):
+    - UMengUShare/Core
+    - UMengUShare/Social/ReducedWeChat
+  - UMengUShare/UI (6.4.5):
+    - UMengUShare/Core
+
+DEPENDENCIES:
+  - ASIHTTPRequest (~> 1.8.2)
+  - FMDB (~> 2.5)
+  - MJRefresh (~> 2.4.7)
+  - PICircularProgressView (~> 0.1.1)
+  - QBPopupMenu
+  - SDWebImage
+  - Toast (~> 2.4)
+  - UMengAnalytics-NO-IDFA
+  - UMengUShare/Social/AlipayShare
+  - UMengUShare/Social/QQ
+  - UMengUShare/Social/ReducedQQ
+  - UMengUShare/Social/ReducedSina
+  - UMengUShare/Social/WeChat
+  - UMengUShare/UI
+
+SPEC CHECKSUMS:
+  ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
+  FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
+  MJRefresh: ca8e9589895977df32d379d46e6b8a5450b3ff44
+  PICircularProgressView: 85f83198fcfb14ce4a69e981e7a6b2185163f9f8
+  QBPopupMenu: e370cbc7ad8a8d09afe1726117aa18f92696f66a
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
+  UMengAnalytics-NO-IDFA: 16666e32edce5be44ae5b14aaaa7f3582e09d6ab
+  UMengUShare: a5711c54e640b04e3048e931d2b88d50f9cfa55c
+
+PODFILE CHECKSUM: 915a8545e16bf557962c42b70874c222a3483466
+
+COCOAPODS: 1.1.1

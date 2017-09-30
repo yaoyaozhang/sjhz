@@ -1,0 +1,44 @@
+target 'ExpertApp' do
+
+platform :ios,’6.0’
+pod 'ASIHTTPRequest', '~> 1.8.2'
+pod 'Toast', '~> 2.4'
+pod 'MJRefresh', '~> 2.4.7'
+pod 'SDWebImage'
+pod 'QBPopupMenu'
+pod 'FMDB', '~> 2.5'
+pod 'PICircularProgressView', '~> 0.1.1'
+
+# 友盟统计
+pod 'UMengAnalytics-NO-IDFA'
+
+# U-Share SDK UI模块（分享面板，建议添加）
+pod 'UMengUShare/UI’
+
+# 集成微信(精简版0.2M)
+#pod 'UMengUShare/Social/ReducedWeChat'
+
+# 集成支付宝
+pod 'UMengUShare/Social/AlipayShare'
+
+# 集成微信(完整版14.4M)
+pod 'UMengUShare/Social/WeChat'
+
+# 集成QQ/QZone/TIM(精简版0.5M)
+pod 'UMengUShare/Social/ReducedQQ'
+
+# 集成QQ/QZone/TIM(完整版7.6M)
+pod 'UMengUShare/Social/QQ'
+
+# 集成新浪微博(精简版1M)
+pod 'UMengUShare/Social/ReducedSina'
+
+# 集成新浪微博(完整版25.3M)
+#pod 'UMengUShare/Social/Sina'
+
+#platform :ios,'6.0'
+#pod 'XHImageViewer', '~> 0.1.2'
+
+#platform :ios,'6.1'
+
+end
