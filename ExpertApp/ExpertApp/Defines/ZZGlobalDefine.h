@@ -28,8 +28,15 @@
 #define IntToString(x)                      [NSString stringWithFormat:@"%d",x]
 #define UserDefaults                        [NSUserDefaults standardUserDefaults]
 #define NOTIFICATION_CENTER                 [NSNotificationCenter defaultCenter]
-#define NavBarHeight                        (iOS7 ? 64.0 : 44.0)
-#define StatusBarHeight                     (iOS7 ? 20.0 : 0.0)
+
+// iPhoneX
+#define ZC_iPhoneX (ScreenWidth == 375.f && ScreenHeight == 812.f ? YES : NO)
+
+
+#define NavBarHeight                        (ZC_iPhoneX ? 88.f : (iOS7 ? 64.0 : 44.0))//(iOS7 ? 64.0 : 44.0)
+
+#define StatusBarHeight                     (ZC_iPhoneX ? 44.0 : (iOS7 ? 20.0 : 0.0))//(iOS7 ? 20.0 : 0.0)
+
 #define ScreenWidth                         [[UIScreen mainScreen] bounds].size.width
 #define ScreenHeight                        [[UIScreen mainScreen] bounds].size.height
 #define ScreenScale                          (ScreenWidth / 320.f)

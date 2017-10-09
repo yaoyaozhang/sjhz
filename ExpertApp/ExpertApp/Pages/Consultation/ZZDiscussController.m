@@ -26,6 +26,9 @@
     UITapGestureRecognizer *tapRecognizer;
     
     ZZUserInfo *loginUser;
+    
+    
+    CGFloat keyboardHeight;
 }
 
 @property(nonatomic,strong)UITableView      *listTable;
@@ -139,10 +142,11 @@
         _textView.text = @"";
         
         [ZZRequsetInterface post:API_SaveTalkCase param:dict timeOut:HttpGetTimeOut start:^{
-            
+            [SVProgressHUD show];
         } finish:^(id response, NSData *data) {
+            [SVProgressHUD dismiss];
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        } complete:^(NSDictionary *dict) {
+        } complete:^(NSDictionary *dictResult) {
             if(btn.tag == 4){
                 btn.hidden = YES;
                 if(_model.firstDoc){
@@ -150,6 +154,16 @@
                     [self goBack:nil];
                 }
             }
+            ZZCaseTalkModel *model = [ZZCaseTalkModel new];
+            model.talkId = 0;
+            model.userId = loginUser.userId;
+            model.context = dict[@"context"];
+            model.docName = loginUser.docName;
+            model.imgUrl = loginUser.userImageUrl;
+            [_listArray addObject:model];
+            [_listTable reloadData];
+            [self scrollTableToBottom];
+            
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             
         } progress:^(CGFloat progress) {
@@ -178,6 +192,8 @@
                 
             }
             [_listTable reloadData];
+            
+            [self scrollTableToBottom];
         }
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         
@@ -343,6 +359,44 @@
     [self setTableSeparatorInset];
 }
 
+
+-(void)scrollTableToBottom{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(_listArray.count>0){
+                [self removePlaceholderView];
+            }
+            
+            CGFloat ch=_listTable.contentSize.height;
+            CGFloat h=_listTable.bounds.size.height;
+            
+            //        NSLog(@"当前滚动的高度：%f,%f",ch,h);
+            CGRect tf         = _listTable.frame;
+            CGFloat x = tf.size.height-_listTable.contentSize.height;
+            CGFloat botH = 0;
+            if (ZC_iPhoneX && keyboardHeight >0) {
+                botH = 34;
+            }
+            
+            if(x > 0){
+                if(x<keyboardHeight){
+                    tf.origin.y = NavBarHeight - (keyboardHeight - x);
+                }
+            }else{
+                
+                tf.origin.y   = NavBarHeight - keyboardHeight + botH;
+            }
+            
+            _listTable.frame  = tf;
+            if(ch > h){
+                
+                [_listTable setContentOffset:CGPointMake(0, ch-h) animated:NO];
+            }
+        });
+    });
+    
+}
+
 #pragma mark UITableView delegate end
 
 /**
@@ -467,7 +521,7 @@
     [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     
-    
+    keyboardHeight = 0;
     CGRect f = _footerView.frame;
     f.origin.y = ScreenHeight - 120;
     _footerView.frame = f;
@@ -484,7 +538,7 @@
 - (void)keyboardWillShow:(NSNotification *)notification {
     float animationDuration = [[[notification userInfo] valueForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
-    CGFloat keyboardHeight = [[[notification userInfo] objectForKey:@"UIKeyboardBoundsUserInfoKey"] CGRectValue].size.height;
+    keyboardHeight = [[[notification userInfo] objectForKey:@"UIKeyboardBoundsUserInfoKey"] CGRectValue].size.height;
     
     NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
     [UIView beginAnimations:nil context:NULL];
