@@ -12,6 +12,7 @@
 
 // ID
 @property(nonatomic,assign) int nid;
+@property(nonatomic,assign) int userId;
 // 标题
 @property(nonatomic,strong) NSString *title;
 // 内容

@@ -8,6 +8,10 @@
 
 #import "ZZRewardController.h"
 #import "UIButtonUpDown.h"
+#import "ZZPayHandler.h"
+#import "ZZUserHomeModel.h"
+#import "ZZChapterModel.h"
+#import "ZZHZEngity.h"
 
 @interface ZZRewardController (){
     UIButton *checkNum;
@@ -36,7 +40,20 @@
     
     y = NavBarHeight + 95;
     
-    [self createLabel:@"吕超" y:y];
+    NSString *author = @"";
+    if(_type == ZZRewardTypeDoctor){
+        ZZUserHomeModel *model = _rewardModel;
+        author = model.docName;
+    }
+    if(_type == ZZRewardTypeChapter){
+        ZZChapterModel *model = _rewardModel;
+        author = model.author;
+    }
+    if(_type == ZZRewardTypeHZ){
+        ZZHZEngity *model = _rewardModel;
+        author = model.docName;
+    }
+    [self createLabel:author y:y];
     
     y = NavBarHeight + 131;
     
@@ -64,6 +81,7 @@
     btn.layer.borderColor = UIColorFromRGB(BgTitleColor).CGColor;
     [btn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"pay_wechat"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"pay_wechat"] forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(checkButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     btn.tag = 111;
     [self.view addSubview:btn];
@@ -74,6 +92,7 @@
     [btn2.titleLabel setFont:ListDetailFont];
     [btn2 setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
     [btn2 setImage:[UIImage imageNamed:@"pay_alipay"] forState:UIControlStateNormal];
+    [btn2 setImage:[UIImage imageNamed:@"pay_alipay"] forState:UIControlStateHighlighted];
     [btn2 setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
     btn2.layer.cornerRadius = 4.0f;
     btn2.layer.masksToBounds = YES;
@@ -89,26 +108,44 @@
 -(void)checkButtonClick:(UIButton *) btn{
     // 0 完成， 1-5价格
     if(btn.tag > 5){
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertToString(@"") forKey:@""];
-
-        if(btn.tag == 111){
-            // 微信
-        }else{
-            // 支付宝
+        if(checkNum == nil){
+            return;
         }
         
-        [ZZRequsetInterface post:API_Register param:dict timeOut:HttpGetTimeOut start:^{
-            
-        } finish:^(id response, NSData *data) {
-            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        } complete:^(NSDictionary *dict) {
-            
-        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-            
-        } progress:^(CGFloat progress) {
-            
-        }];
+        NSString *num = checkNum.titleLabel.text;
+        if(checkNum.tag < 5){
+            num = [num stringByReplacingOccurrencesOfString:@"元" withString:@""];
+        }
+        
+        NSString *desc = @"";
+        int receivedId = 0;
+        if(_type == ZZRewardTypeDoctor){
+            ZZUserHomeModel *model = _rewardModel;
+            desc = [NSString stringWithFormat:@"打赏%@医生",model.docName];
+            receivedId = model.userId;
+        }
+        if(_type == ZZRewardTypeChapter){
+            ZZChapterModel *model = _rewardModel;
+            desc = [NSString stringWithFormat:@"打赏%@的文章：%@",model.author,model.title];
+            receivedId = model.userId;
+        }
+        if(_type == ZZRewardTypeHZ){
+            ZZHZEngity *model = _rewardModel;
+            desc = [NSString stringWithFormat:@"打赏%@医生会诊：%@",model.docName,model.caseName];
+            receivedId = model.caseId;
+        }
+        
+        if(btn.tag == 111){
+            // 微信
+            [ZZPayHandler startJumppay:receivedId payType:ZZPayTypeWX type:_type otherId:@"111" desc:desc prict:[num floatValue] result:^(int code, NSString *msg) {
+                [self.view makeToast:msg];
+            }];
+        }else{
+            // 支付宝
+            [ZZPayHandler startJumppay:receivedId payType:ZZPayTypeZFB type:_type otherId:@"111" desc:desc prict:[num floatValue] result:^(int code, NSString *msg) {
+                [self.view makeToast:msg];
+            }];
+        }
     }else if(btn.tag < 5){
         
         if(checkNum!=nil){

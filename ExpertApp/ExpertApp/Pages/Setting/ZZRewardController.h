@@ -8,8 +8,9 @@
 
 #import "BaseController.h"
 typedef NS_ENUM(NSInteger,ZZRewardType) {
-    ZZRewardTypeDoctor=1,
-    ZZRewardTypeChapter=2,
+    ZZRewardTypeChapter=1,
+    ZZRewardTypeDoctor=2,
+    ZZRewardTypeHZ=3,
 };
 
 @interface ZZRewardController : BaseController

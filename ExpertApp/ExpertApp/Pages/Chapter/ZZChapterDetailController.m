@@ -150,7 +150,7 @@
     if(type == 0){
         // 打赏
         ZZRewardController *rewardVC = [[ZZRewardController alloc] init];
-        rewardVC.type = ZZShareTypeChapter;
+        rewardVC.type = ZZRewardTypeChapter;
         rewardVC.rewardModel = _model;
         [self openNav:rewardVC sound:nil];
     }

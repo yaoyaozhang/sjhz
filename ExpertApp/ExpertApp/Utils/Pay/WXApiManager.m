@@ -50,7 +50,11 @@
         
         switch (resp.errCode) {
             case WXSuccess:
-                strMsg = @"支付结果：成功！";
+                strMsg = @"支付成功！";
+                NSLog(@"支付成功－PaySuccess，retcode = %d", resp.errCode);
+                break;
+            case WXErrCodeUserCancel:
+                strMsg = @"支付失败！ 用户取消了支付！";
                 NSLog(@"支付成功－PaySuccess，retcode = %d", resp.errCode);
                 break;
                 

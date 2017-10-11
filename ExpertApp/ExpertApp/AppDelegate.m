@@ -118,8 +118,9 @@
                 NSLog(@"result = %@",resultDic);
             }];
         }else{
-            // 其他如支付等SDK的回调
-//            return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+            if([url.absoluteString hasPrefix:@"wx759030b1505761bf://pay/"]){
+                return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+            }
         }
     }
     return result;
@@ -136,7 +137,9 @@
         }];
         
     }else{
-//        return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+        if([url.absoluteString hasPrefix:@"wx759030b1505761bf://pay/"]){
+            return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+        }
     }
     return YES;
 }
@@ -151,10 +154,9 @@
             NSLog(@"result = %@",resultDic);
         }];
     }else{
-        if([url.host isEqual:@"wx759030b1505761bf://oauth"]){
-            
+        if([url.absoluteString hasPrefix:@"wx759030b1505761bf://pay/"]){
+            return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
         }
-//        return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
     return YES;
 }
