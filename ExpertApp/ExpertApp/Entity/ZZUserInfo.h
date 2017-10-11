@@ -37,7 +37,7 @@
 // 是否删除
 @property(nonatomic,assign) int isDel;
 // 是否是医生
-@property(nonatomic,assign) int doctor;
+@property(nonatomic,assign) int isDoctor;
 
 
 

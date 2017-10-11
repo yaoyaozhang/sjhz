@@ -56,7 +56,7 @@
     
     ZZSettingController *settingView=[[ZZSettingController alloc]init];
     
-    if(loginUser && loginUser.doctor == 1){
+    if(loginUser && loginUser.isDoctor == 1){
         
         tabBarItemImages = @[@"tab_treatment",@"tab_news",@"tab_mine"];
         tabBarItemTitles = @[@"慧诊",@"消息",@"我的"];

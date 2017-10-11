@@ -26,10 +26,12 @@
 
 #import "ZZLeaderDoctorController.h"
 #import "ZZDiscussController.h"
+#import "ZZHZResultController.h"
 
 #import "ZZShareView.h"
 
 #import "ZZHZEngity.h"
+
 
 @interface ZZDoctorHomeController ()<ZZDoctorCaseDelegate>{
     ZZUserInfo *loginUser;
@@ -335,6 +337,10 @@
         [self openNav:vc sound:nil];
     }else if(model.state == 2){
         ZZDiscussController *vc = [[ZZDiscussController alloc] init];
+        vc.model = model;
+        [self openNav:vc sound:nil];
+    }else if(model.state>2){
+        ZZHZResultController *vc = [[ZZHZResultController alloc] init];
         vc.model = model;
         [self openNav:vc sound:nil];
     }

@@ -70,7 +70,7 @@
     _mainScroll.bounces = NO;
     _mainScroll.scrollEnabled = NO;
     
-    if(!loginUser.doctor || _model.state == 3){
+    if(!loginUser.isDoctor || _model.state == 3){
         [self createInitView];
         [self handleKeyboard];
     }

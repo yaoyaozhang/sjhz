@@ -193,7 +193,7 @@
             }
             [_listTable reloadData];
             
-            [self scrollTableToBottom];
+//            [self scrollTableToBottom];
         }
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         
@@ -525,6 +525,8 @@
     CGRect f = _footerView.frame;
     f.origin.y = ScreenHeight - 120;
     _footerView.frame = f;
+    
+    [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight-NavBarHeight - 120)];
     
     [UIView commitAnimations];
     

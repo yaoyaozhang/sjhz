@@ -7,6 +7,7 @@
 //
 
 #import "ZZCommentCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation ZZCommentCell
 
@@ -51,6 +52,9 @@
     _tempModel = model;
     [_labName setText:convertToString(model.name)];
     [_labText setText:convertToString(model.content)];
+    [_labTime setText:intervalSinceNow(model.createTime)];
+    [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:convertToString(model.userImageUrl)]];
+    
     [self autoWidthOfLabel:_labText with:_labText.frame.size.width];
     CGRect f = _labText.frame;
     CGRect tf = _labTime.frame;
@@ -73,7 +77,7 @@
             if(item.cid==0){
                 continue;
             }
-            fy = [self createReplyLabel:[NSString stringWithFormat:@"%@%@",convertToString(item.name),convertToString(item.content)] fy:fy fw:fw model:item];
+            fy = [self createReplyLabel:[NSString stringWithFormat:@"%@ %@",convertToString(item.name),convertToString(item.content)] fy:fy fw:fw model:item];
             
             if(i<model.child.count-1){
                 UIImageView *lineView = [[UIImageView alloc] initWithFrame:CGRectMake(10, fy + 10, fw - 20, 1.f)];

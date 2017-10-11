@@ -30,7 +30,7 @@
 //    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
     
 //    [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:dict[@"avatar"]]];
-    [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:dict[@"avatar"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:convertToString(dict[@"avatar"])] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         NSLog(@"%@",error);
     }];
     [_labelUname setText:dict[@"uname"]];

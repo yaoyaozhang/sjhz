@@ -302,10 +302,11 @@
     [dict setObject:convertIntToString(loginUser.userId) forKey:@"docId"];
     if(checkModel){
         [dict setObject:convertIntToString(checkModel.baseId) forKey:@"departmentId"];
+    }else{
+        [dict setObject:@"0" forKey:@"departmentId"];
     }
-//    API_getMyDoctorList
     
-    [ZZRequsetInterface post:API_findUserHome param:dict timeOut:HttpGetTimeOut start:^{
+    [ZZRequsetInterface post:API_getMyDoctorList param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD show];
     } finish:^(id response, NSData *data) {
         [SVProgressHUD dismiss];
@@ -427,7 +428,7 @@
     cell.cellType = ZZDoctorCellTypeCheck;
     cell.delegate = self;
     ZZUserHomeModel *model=[_listArray objectAtIndex:indexPath.section];
-    if([checkDict objectForKey:convertIntToString(model.docId)]){
+    if([checkDict objectForKey:convertIntToString(model.userId)]){
         model.isChecked = YES;
     }else{
         model.isChecked = NO;
@@ -441,10 +442,10 @@
 -(void)onDoctorCellClick:(ZZDoctorCellType)type model:(ZZUserHomeModel *)model{
     if(model.isChecked){
         model.isChecked = NO;
-        [checkDict removeObjectForKey:convertIntToString(model.docId)];
+        [checkDict removeObjectForKey:convertIntToString(model.userId)];
     }else{
         model.isChecked = YES;
-        [checkDict setObject:model forKey:convertIntToString(model.docId)];
+        [checkDict setObject:model forKey:convertIntToString(model.userId)];
     }
     [_listTable reloadData];
 }

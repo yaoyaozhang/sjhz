@@ -17,6 +17,8 @@
 @property(nonatomic,strong) ZZChapterModel *chatpterModel;
 @property(nonatomic,strong) NSString *nid;
 
+@property(nonatomic,strong) void (^ResultBlock)(int code);
+
 
 -(instancetype)initWithDelegate:(UIViewController *) delegate changeView:(UIScrollView *) changeView show:(BOOL) isShowKeyboard;
 
@@ -25,5 +27,6 @@
 
 
 -(void)setReplyModel:(ZZChapterCommentModel *) model;
+
 
 @end

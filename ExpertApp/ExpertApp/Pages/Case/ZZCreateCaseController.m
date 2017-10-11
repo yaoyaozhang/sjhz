@@ -149,6 +149,7 @@
     }
     if(sender.tag == 111){
         NSMutableDictionary *param = [NSMutableDictionary dictionaryWithCapacity:0];
+        [param setObject:convertIntToString([ZZDataCache getInstance].getLoginUser.userId) forKey:@"userId"];
         for(NSDictionary *item in _listArray){
             int isoption = [item[@"isOption"] intValue];
             NSString *dictName = convertToString(item[@"dictName"]);

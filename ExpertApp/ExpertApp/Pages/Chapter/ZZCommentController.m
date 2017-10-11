@@ -42,6 +42,12 @@
         _nid = _model.nid;
     }
     _keyboardView.nid =  convertIntToString(_nid);
+    
+    [_keyboardView setResultBlock:^(int code){
+        if(code == 0){
+            [self loadMoreData];
+        }
+    }];
 }
 
 
@@ -57,9 +63,9 @@
     }
     
     
-    MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-    footer.stateLabel.hidden=YES;
-    _listTable.footer=footer;
+    MJRefreshStateHeader *footer=[MJRefreshStateHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+//    footer.stateLabel.hidden=YES;
+    _listTable.header=footer;
     
     [_listTable setSeparatorColor:UIColorFromRGB(BgLineColor)];
     [_listTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
@@ -75,7 +81,6 @@
  加载更多
  */
 -(void)loadMoreData{
-    _nid = 1;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:convertIntToString(_nid) forKey:@"nid"];
     [ZZRequsetInterface post:API_findChapterComment param:dict timeOut:HttpGetTimeOut start:^{
@@ -90,6 +95,8 @@
                 [_listArray addObject:[[ZZChapterCommentModel alloc] initWithMyDict:item]];
             }
             [_listTable reloadData];
+            
+            [self scrollTableToBottom];
         }
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         
@@ -224,6 +231,21 @@
 -(void)onCommentCellClick:(id)obj{
     [_keyboardView setReplyModel:obj];
 }
+
+
+
+-(void)scrollTableToBottom{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CGFloat yOffset = 0; //设置要滚动的位置 0最顶部 CGFLOAT_MAX最底部
+        if (_listTable.contentSize.height > _listTable.bounds.size.height) {
+            yOffset = _listTable.contentSize.height - _listTable.bounds.size.height;
+        }
+        [_listTable setContentOffset:CGPointMake(0, yOffset) animated:NO];
+        
+    });
+    
+}
+
 
 #pragma mark UITableView delegate end
 

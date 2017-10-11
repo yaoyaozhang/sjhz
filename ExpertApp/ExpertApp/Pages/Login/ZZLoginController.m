@@ -86,7 +86,7 @@
 
 -(IBAction)buttonClick:(UIButton *)sender{
     [self hiddenKeyboard:nil];
-    if(sender.tag == _btnRegister.tag){
+    if(sender.tag == _btnRegister.tag){        
         ZZRegisterController *registerVC = [[ZZRegisterController alloc] init];
         [self openNav:registerVC sound:nil];
     }

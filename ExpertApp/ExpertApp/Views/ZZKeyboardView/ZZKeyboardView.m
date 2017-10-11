@@ -84,7 +84,7 @@
 
 -(void)setReplyModel:(ZZChapterCommentModel *)model{
     if(model!=nil){
-        [_textField setText:[NSString stringWithFormat:@"@%@",model.name]];
+        [_textField setText:[NSString stringWithFormat:@"@%@ ",model.name]];
         tempModel = model;
     }
 }
@@ -184,7 +184,11 @@
     [dict setObject:convertToString(_nid) forKey:@"nid"];
     [dict setObject:convertIntToString([ZZDataCache getInstance].getLoginUser.userId) forKey:@"uid"];
     [dict setObject:convertToString(textField.text) forKey:@"content"];
-    [dict setObject:convertToString(textField.text) forKey:@"deptCid"];
+    if(tempModel!=nil){
+        [dict setObject:convertIntToString(tempModel.cid) forKey:@"deptCid"];
+    }else{
+        [dict setObject:@"0" forKey:@"deptCid"];
+    }
     
     [ZZRequsetInterface post:API_SendChapterComment param:dict timeOut:HttpGetTimeOut start:^{
         _textField.text = @"";
@@ -193,6 +197,9 @@
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         [_curVC.view makeToast:@"评论成功!"];
+        if(_ResultBlock){
+            _ResultBlock(0);
+        }
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         
     } progress:^(CGFloat progress) {

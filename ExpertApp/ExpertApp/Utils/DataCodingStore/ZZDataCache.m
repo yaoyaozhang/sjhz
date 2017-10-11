@@ -178,7 +178,7 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
         } seq:1];
         
         //设置标签
-        NSSet * set = [[NSSet alloc] initWithObjects:info.isYj?@"医生":@"用户",info.phone, nil];
+        NSSet * set = [[NSSet alloc] initWithObjects:(info.isDoctor == 1)?@"医生":@"用户",info.phone,convertToString(info.departmentName), nil];
         [JPUSHService setTags:set completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
             
         } seq:2];

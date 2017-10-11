@@ -268,7 +268,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     ZZUserHomeModel *model =  _listArray[indexPath.row];
     ZZDoctorDetailController  *listVC = [[ZZDoctorDetailController alloc]init];
-    listVC.docId = model.docId;
+    listVC.docId = model.userId;
     listVC.model = model;
     [self openNav:listVC sound:nil];
 }

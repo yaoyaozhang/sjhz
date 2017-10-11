@@ -130,11 +130,6 @@
 
 // 返回section下得行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
-
-    if(_listArray==nil){
-        return 0;
-    }
     return _listArray.count;
 }
 

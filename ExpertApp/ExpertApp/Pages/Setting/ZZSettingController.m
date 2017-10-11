@@ -98,7 +98,7 @@
     [_listArray removeAllObjects];
     [_listArray addObject:@[@{@"avatar":convertToString(loginUser.userImageUrl),@"uname":convertToString(loginUser.userName),@"num":convertIntToString(loginUser.tcNumber)}]];
     
-    if(loginUser.doctor != 1){
+    if(loginUser.isDoctor != 1){
         NSArray *arr1 = @[@{@"code":@"1",@"icon":@"my_consultationresult",@"text":@"会诊结果"},
                           @{@"code":@"2",@"icon":@"my_healthrecords",@"text":@"健康档案"},
                           @{@"code":@"3",@"icon":@"my_doctor",@"text":@"我的关注"},

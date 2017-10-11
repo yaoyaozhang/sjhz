@@ -172,3 +172,7 @@
  */
 #define API_followUserDoctor [NSString stringWithFormat:@"%@/doctor/followDoctor",API_HOST]
 
+
+
+#define API_payOrder [NSString stringWithFormat:@"%@/pay/createOrder",API_HOST]
+

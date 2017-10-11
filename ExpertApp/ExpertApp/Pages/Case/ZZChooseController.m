@@ -168,7 +168,7 @@
  */
 -(void)loadMoreData{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userid"];
+    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
     [ZZRequsetInterface post:API_SearchAllCase param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD showWithStatus:@"病例加载中"];
     } finish:^(id response, NSData *data) {

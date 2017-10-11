@@ -56,7 +56,7 @@
     }else if(sender.tag == 111){
         // 关注
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertIntToString(_model.docId) forKey:@"toUserId"];
+        [dict setObject:convertIntToString(_model.userId) forKey:@"toUserId"];
         [ZZRequsetInterface post:API_followUserDoctor param:dict timeOut:HttpGetTimeOut start:^{
             
         } finish:^(id response, NSData *data) {
@@ -71,7 +71,7 @@
     }else if(sender.tag == 222){
         // 咨询
         ZZChooseController *chooseVC = [[ZZChooseController alloc] init];
-        chooseVC.doctorId = convertIntToString(_model.docId);
+        chooseVC.doctorId = convertIntToString(_model.userId);
         [self openNav:chooseVC sound:nil];
         
     }else if(sender.tag == 333){
