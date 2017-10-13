@@ -70,7 +70,7 @@
     _mainScroll.bounces = NO;
     _mainScroll.scrollEnabled = NO;
     
-    if(!loginUser.isDoctor || _model.state == 3){
+    if(!loginUser.isDoctor && _model.state == 3){
         [self createInitView];
         [self handleKeyboard];
     }
@@ -197,8 +197,15 @@
     
     
     CGFloat x = 0;
-    CGFloat xw = (ScreenWidth - 2)/3;
+    int column = 3;
+    if(_model.state == 4){
+        column = 2;
+    }
+    CGFloat xw = (ScreenWidth - column-1)/column;
     for(int i=0;i<3;i++){
+        if(_model.state == 4 && i==0){
+            continue;
+        }
         UIButton  *saleButton = [UIButton buttonWithType:UIButtonTypeCustom];
         if(i==0){
             saleButton.tag = 111;
@@ -347,7 +354,8 @@
                 y = y + [self createWhiteText:convertToString(tjDict[@"tjOutdoc"]) y:y arr:tjArr] + 15;
             }
             
-            
+            //
+//            y = y + [self createWhiteText:convertToString(@"客户评价了你：嘻嘻嘻嘻嘻嘻嘻嘻嘻") y:y arr:nil] +15;
             
             [_headerView  setFrame:CGRectMake(0, 0, ScreenHeight, y)];
             [_mainScroll addSubview:_headerView];
@@ -422,10 +430,10 @@
     }];
     [_headerView addSubview:label];
     
-    f.size.height = y + cf.size.height + 30;
+    f.size.height = cf.size.height + 30;
     [whiteBg setFrame:f];
     
-    return cf.size.height + 30;
+    return cf.size.height+30;
 }
 
 

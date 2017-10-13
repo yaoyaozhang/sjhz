@@ -264,10 +264,22 @@
         return;
     }
     ZZHZEngity *entity = [_listArray objectAtIndex:indexPath.row];
-    
-    ZZHZResultController *vc = [[ZZHZResultController alloc] init];
-    vc.model = entity;
-    [self openNav:vc sound:nil];
+    if(entity.state < 3){
+        NSString *warning = @"";
+        if(entity.state == 0){
+            warning = @"您的会诊请求正在等待医生处理！";
+        }else if(entity.state == 1){
+            warning = @"医生已接收到你的会诊申请，请耐心等待会诊结果！";
+        }else{
+            warning = @"医生正在为你会诊，请耐心等待会诊结果！";
+        }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"会诊状态" message:warning delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }else if(entity.state == 3 || entity.state == 4){
+        ZZHZResultController *vc = [[ZZHZResultController alloc] init];
+        vc.model = entity;
+        [self openNav:vc sound:nil];
+    }
 }
 
 //设置分割线间距
