@@ -14,6 +14,7 @@
 @property(nonatomic,assign) int userId;
 // 手机号
 @property(nonatomic,strong) NSString *phone;
+@property(nonatomic,strong) NSString *token;
 // 用户名
 @property(nonatomic,strong) NSString *userName;
 // 密码

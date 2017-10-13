@@ -37,13 +37,12 @@
 }
 
 
--(void)dataToView:(NSIndexPath *) indexPath{
-    [_labelText setText:@"我是内容啊啊啊啊啊收到发来束带结发收费的静安寺；放假啊；家嘎嘎"];
-    [_labelTime setText:intervalSinceNow(@"2017-08-01 13:03:44")];
-    if(indexPath.row%2==0){
+-(void)dataToView:(NSIndexPath *) indexPath model:(ZZNewsModel *)model{
+    [_labelText setText:model.context];
+    [_labelTime setText:intervalSinceNow(model.createTime)];
+    if(model.state == 1){
         _imgDot.hidden = YES;
     }else{
-        [_labelText setText:@"哈哈哈难道不行吗站那还是"];
         _imgDot.hidden = NO;
     }
     

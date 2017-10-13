@@ -56,6 +56,10 @@
     [request setHTTPMethod:@"GET"];
     [request setTimeoutInterval:HttpGetTimeOut];
     [request setValue:HttpUserAgent forHTTPHeaderField:@"User-Agent"];
+    ZZUserInfo *loginUser = [ZZDataCache getInstance].getLoginUser;
+    if(loginUser){
+        [request setValue:convertToString(loginUser.token) forHTTPHeaderField:@"token"];
+    }
     
     //第三步，连接服务器
     //获取一个主队列
@@ -165,6 +169,11 @@
     // 请求体的长度
     [request setValue:[NSString stringWithFormat:@"%zd", body.length] forHTTPHeaderField:@"Content-Length"];
     [request setValue:HttpUserAgent forHTTPHeaderField:@"User-Agent"];
+    
+    ZZUserInfo *loginUser = [ZZDataCache getInstance].getLoginUser;
+    if(loginUser){
+        [request setValue:convertToString(loginUser.token) forHTTPHeaderField:@"token"];
+    }
     
     [request setHTTPBody:body];
     [request setHTTPMethod:@"POST"];

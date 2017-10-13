@@ -12,7 +12,6 @@
 
 // ID
 @property(nonatomic,assign) int nid;
-@property(nonatomic,assign) int userId;
 // 标题
 @property(nonatomic,strong) NSString *title;
 // 内容
@@ -30,7 +29,7 @@
 // 创建时间
 @property(nonatomic,strong) NSString *createTime;
 // 创建人
-@property(nonatomic,strong) NSString *createUser;
+@property(nonatomic,assign) int userId;
 // 修改时间
 @property(nonatomic,strong) NSString *updateTime;
 // 修改人

@@ -174,5 +174,14 @@
 
 
 
+/**
+ 支付接口
+
+ @return
+ */
 #define API_payOrder [NSString stringWithFormat:@"%@/pay/createOrder",API_HOST]
+
+
+#define API_findNewsTops [NSString stringWithFormat:@"%@/comment/findMessageTop10",API_HOST]
+#define API_findNews [NSString stringWithFormat:@"%@/comment/findMessage",API_HOST]
 

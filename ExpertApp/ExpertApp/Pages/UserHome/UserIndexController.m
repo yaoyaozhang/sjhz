@@ -165,6 +165,7 @@
 #pragma mark -- 上拉加载
 - (void)beginNetRefreshData{
     [_listArray removeAllObjects];
+    [SVProgressHUD show];
     [self endNetRefreshData];
 }
 
@@ -172,6 +173,7 @@
     [ZZRequsetInterface get:API_findUserHome start:^{
         
     } finish:^(id response,NSData * data) {
+        [SVProgressHUD dismiss];
         NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         if(_listTable.footer && [_listTable.footer isRefreshing]){
             [_listTable.footer endRefreshing];

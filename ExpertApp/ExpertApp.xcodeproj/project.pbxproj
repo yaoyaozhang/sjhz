@@ -293,6 +293,8 @@
 		7B70FFF91F3AE6A400C59281 /* ZZSettingHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B70FFF81F3AE6A400C59281 /* ZZSettingHelpController.m */; };
 		7B70FFFC1F3AEA2F00C59281 /* ZZDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B70FFFB1F3AEA2F00C59281 /* ZZDataCache.m */; };
 		7B70FFFF1F3AEBBE00C59281 /* ZZUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B70FFFE1F3AEBBE00C59281 /* ZZUserInfo.m */; };
+		7B73A2DD1F905E65004F89C0 /* ZZNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B73A2DC1F905E65004F89C0 /* ZZNewsModel.m */; };
+		7B73A2E01F905F3D004F89C0 /* ZZNewsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B73A2DF1F905F3D004F89C0 /* ZZNewsListController.m */; };
 		7B74A7171F7B927E00FA2BF3 /* AFMacros.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B74A7111F7B927E00FA2BF3 /* AFMacros.m */; };
 		7B74A7181F7B927E00FA2BF3 /* CoreTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B74A7131F7B927E00FA2BF3 /* CoreTextLabel.m */; };
 		7B74A7191F7B927E00FA2BF3 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B74A7161F7B927E00FA2BF3 /* NSString+HTML.m */; };
@@ -832,6 +834,10 @@
 		7B70FFFB1F3AEA2F00C59281 /* ZZDataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDataCache.m; sourceTree = "<group>"; };
 		7B70FFFD1F3AEBBE00C59281 /* ZZUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZUserInfo.h; sourceTree = "<group>"; };
 		7B70FFFE1F3AEBBE00C59281 /* ZZUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZUserInfo.m; sourceTree = "<group>"; };
+		7B73A2DB1F905E65004F89C0 /* ZZNewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNewsModel.h; sourceTree = "<group>"; };
+		7B73A2DC1F905E65004F89C0 /* ZZNewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNewsModel.m; sourceTree = "<group>"; };
+		7B73A2DE1F905F3D004F89C0 /* ZZNewsListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNewsListController.h; sourceTree = "<group>"; };
+		7B73A2DF1F905F3D004F89C0 /* ZZNewsListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNewsListController.m; sourceTree = "<group>"; };
 		7B74A7101F7B927E00FA2BF3 /* AFMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFMacros.h; sourceTree = "<group>"; };
 		7B74A7111F7B927E00FA2BF3 /* AFMacros.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFMacros.m; sourceTree = "<group>"; };
 		7B74A7121F7B927E00FA2BF3 /* CoreTextLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextLabel.h; sourceTree = "<group>"; };
@@ -1124,6 +1130,8 @@
 				7B7F3D571F31AA5D00132669 /* ZZNewsCell.h */,
 				7B7F3D581F31AA5D00132669 /* ZZNewsCell.m */,
 				7B7F3D591F31AA5D00132669 /* ZZNewsCell.xib */,
+				7B73A2DE1F905F3D004F89C0 /* ZZNewsListController.h */,
+				7B73A2DF1F905F3D004F89C0 /* ZZNewsListController.m */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -1855,6 +1863,8 @@
 				7B06B9CA1F7A5D2F00C5EF83 /* ZZCaseTalkModel.m */,
 				7B74A72B1F7F311500FA2BF3 /* ZZChapterCommentModel.h */,
 				7B74A72C1F7F311500FA2BF3 /* ZZChapterCommentModel.m */,
+				7B73A2DB1F905E65004F89C0 /* ZZNewsModel.h */,
+				7B73A2DC1F905E65004F89C0 /* ZZNewsModel.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2846,6 +2856,7 @@
 				7B7001AD1F4596F700C59281 /* ZZPerfectInfoController.m in Sources */,
 				7B5C1CE61F1F5B7B00DDDA78 /* TTTAttributedLabel.m in Sources */,
 				7B20C0301F68E3A400FBFD9F /* ZZDoctorChapterController.m in Sources */,
+				7B73A2DD1F905E65004F89C0 /* ZZNewsModel.m in Sources */,
 				7B74A7181F7B927E00FA2BF3 /* CoreTextLabel.m in Sources */,
 				7BF1102C1F1874EC00456E55 /* RDVTabBar.m in Sources */,
 				7B7002C11F6126D300C59281 /* ZZShareView.m in Sources */,
@@ -2863,6 +2874,7 @@
 				7B7002691F55117600C59281 /* ZZCaseModel.m in Sources */,
 				7B5C1CE71F1F5B7B00DDDA78 /* ZCTTMLEmojiLabel.m in Sources */,
 				7BF1106C1F1884F400456E55 /* ZCLibUncaughtExceptionHandler.m in Sources */,
+				7B73A2E01F905F3D004F89C0 /* ZZNewsListController.m in Sources */,
 				7BF1102E1F1874EC00456E55 /* RDVTabBarItem.m in Sources */,
 				7B70FFF91F3AE6A400C59281 /* ZZSettingHelpController.m in Sources */,
 				7B5C1CE81F1F5B7B00DDDA78 /* ZHPickView.m in Sources */,

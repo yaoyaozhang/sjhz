@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZZNewsModel.h"
 
 @interface ZZNewsCell : UITableViewCell
 
--(void)dataToView:(NSIndexPath *) indexPath;
+-(void)dataToView:(NSIndexPath *) indexPath model:(ZZNewsModel *) model;
 
 @end
