@@ -38,7 +38,7 @@
     // Do any additional setup after loading the view from its nib.
     
     [self createTitleMenu];
-    [self.menuTitleButton setTitle:@"消息通知" forState:UIControlStateNormal];
+    [self.menuTitleButton setTitle:@"个人信息" forState:UIControlStateNormal];
     self.menuLeftButton.hidden = NO;
     
     [self createTableView];
@@ -179,7 +179,7 @@
     }
     
     int code =  [_listArray[indexPath.section][@"code"] intValue];
-    if(code == 0){
+    if(code == 1){
         [self didAddImage];
     }
     if(code == 3){
@@ -379,9 +379,14 @@
 
 #pragma mark -- 上传附件和图片
 - (void)updateloadFile:(NSString *)filePath fileName:(NSString *)fileName{
+    
+    _loginUser.userImageUrl = filePath;
+    [_listTable reloadData];
+    
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithCapacity:0];
     paramDic[@"file"] = filePath;
     paramDic[@"type"] = @"uhead";
+    paramDic[@"userId"] = convertIntToString(_loginUser.userId);
     
     [ZZRequsetInterface post:API_UploadFile param:paramDic timeOut:HttpPostTimeOut start:^{
         [SVProgressHUD showWithStatus:@"上传中"];
@@ -390,7 +395,6 @@
     } complete:^(NSDictionary *dict) {
         [SVProgressHUD showSuccessWithStatus:@"上传成功!"];
         _loginUser.userImageUrl = convertToString(dict[@"filepath"]);
-        
         [[ZZDataCache getInstance] changeUserInfo:_loginUser];
         
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {

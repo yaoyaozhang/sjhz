@@ -68,7 +68,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    if(_caseArray.count == 0 || _xtArray.count){
+    if(_caseArray.count == 0 || _xtArray.count == 0){
         [self loadMoreData];
     }
 }
@@ -101,6 +101,9 @@
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
+        [_caseArray removeAllObjects];
+        [_xtArray removeAllObjects];
+        
         NSDictionary  * ret = dict[@"retData"];
         if(ret && ret[@"caseMsg"]){
             NSArray *caseMsg = ret[@"caseMsg"];
@@ -132,6 +135,9 @@
 
 // 返回section高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if(section == 0){
+        return 50;
+    }
     return 65;
 }
 

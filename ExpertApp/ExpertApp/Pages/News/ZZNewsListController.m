@@ -30,6 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+
     [self createTitleMenu];
     
     loginUser = [ZZDataCache getInstance].getLoginUser;
@@ -61,10 +63,10 @@
     }
     
     
-    MJRefreshStateHeader *header=[MJRefreshStateHeader headerWithRefreshingTarget:self refreshingAction:@selector(beginNetRefreshData)];
+    MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(beginNetRefreshData)];
     header.stateLabel.hidden=YES;
     _listTable.header=header;
-    
+
     MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     footer.stateLabel.hidden=YES;
     _listTable.footer=footer;
@@ -104,7 +106,7 @@
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         
-        if(_listTable.footer && [_listTable.header isRefreshing]){
+        if(_listTable.header && [_listTable.header isRefreshing]){
             [_listTable.header endRefreshing];
         }
         
@@ -127,6 +129,9 @@
             if(caseMsg.count == 30){
                 page = page + 1;
             }else{
+                if(_listTable.footer && [_listTable.footer isRefreshing]){
+                    [_listTable.footer endRefreshing];
+                }
                 [_listTable.footer removeFromSuperview];
                 _listTable.footer = nil;
             }
@@ -148,15 +153,12 @@
 
 // 返回section高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 15;
+    return 0;
 }
 
 // 返回section 的View
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 15)];
-    [titleView setBackgroundColor:[UIColor clearColor]];
-    
-    return titleView;
+    return nil;
 }
 
 // 返回section下得行数

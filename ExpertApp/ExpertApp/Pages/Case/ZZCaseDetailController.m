@@ -231,6 +231,7 @@
             cell = [[ZZCaseDtailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierM];
         }
     }
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     
     [cell dataToView:itemDict];

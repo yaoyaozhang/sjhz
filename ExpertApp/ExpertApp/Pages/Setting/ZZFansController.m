@@ -28,6 +28,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self createTitleMenu];
+    [self.menuTitleButton setTitle:@"我的粉丝" forState:UIControlStateNormal];
+    [self createTableView];
 }
 
 
@@ -156,9 +160,9 @@
 // table 行的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70.0f;
-    //    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-    //    return cell.frame.size.height;
+//    return 70.0f;
+    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return cell.frame.size.height;
 }
 
 // table 行的点击事件

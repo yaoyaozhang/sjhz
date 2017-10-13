@@ -36,7 +36,11 @@
         tf.origin.y = (80-44)/2;
         _labelName.frame = tf;
         
-        [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:loginUser.userImageUrl]];
+        if(![loginUser.userImageUrl hasPrefix:@"http"]){
+            [_imgAvatar setImage:[UIImage imageWithContentsOfFile:loginUser.userImageUrl]];
+        }else{
+            [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:loginUser.userImageUrl]];
+        }
     }
     if(code == 2){
         _imgAvatar.hidden = YES;
@@ -44,7 +48,7 @@
         _labelDesc.hidden = NO;
         tf.origin.y = 0;
         _labelName.frame = tf;
-        _labelDesc.text = loginUser.userName;
+        _labelDesc.text = loginUser.name;
         [_labelDesc setTextColor:UIColorFromRGB(TextSizeNineColor)];
     }
     

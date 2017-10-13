@@ -30,8 +30,6 @@
     if(iOS7){
         self.automaticallyAdjustsScrollViewInsets=NO;
     }
-    
-    // 注册融云消息监听
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

@@ -37,6 +37,8 @@
 }
 @property(nonatomic,strong) UIScrollView *mainScroll;
 @property(nonatomic,strong)UIView           *headerView;
+@property(nonatomic,strong)UIView           *bottomView;
+
 @property(nonatomic,strong)UIView           *contentView;
 @property(nonatomic,strong)NSMutableArray   *listArray;
 @property(nonatomic,strong)ZCTextPlaceholderView   *textView;
@@ -70,8 +72,10 @@
     _mainScroll.bounces = NO;
     _mainScroll.scrollEnabled = NO;
     
-    if(!loginUser.isDoctor && _model.state == 3){
+    if(!loginUser.isDoctor){
         [self createInitView];
+        
+        
         [self handleKeyboard];
     }
     
@@ -88,23 +92,34 @@
         [shareView show];
     }else if(sender.tag == 111){
         // 评价
-        NSString *score = @"";
+        int score = 0;
         if(checkButton){
-            score = checkButton.titleLabel.text;
+            score = (int)checkButton.tag;
         }
         NSString *text = _textView.text;
         if(is_null(text)){
             [self.view makeToast:@"评价内容不能为空!"];
         }
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertToString(text) forKey:@""];
-        [dict setObject:convertToString(score) forKey:@""];
-        [ZZRequsetInterface post:API_SendChapterComment param:dict timeOut:HttpGetTimeOut start:^{
+        [dict setObject:convertToString(text) forKey:@"context"];
+        
+        // 1 满意，2一般，3不满意
+        [dict setObject:convertIntToString(score) forKey:@"satisfied"];
+        
+        [dict setObject:@"1" forKey:@"type"];
+        [dict setObject:convertIntToString(_model.caseId) forKey:@"caseid"];
+        
+        [ZZRequsetInterface post:API_getTalkAssess param:dict timeOut:HttpGetTimeOut start:^{
             
         } finish:^(id response, NSData *data) {
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
+            _model.state = 4;
+            [_contentView removeFromSuperview];
+            [_bottomView removeFromSuperview];
+            [self createBottomView];
             
+            [self.view makeToast:@"评价成功!"];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             
         } progress:^(CGFloat progress) {
@@ -191,16 +206,21 @@
     
     xh = xh + 60;
     [_contentView setFrame:CGRectMake(0, 0, ScreenWidth, xh)];
-    
-    
-    
-    
+}
+
+-(void)createBottomView{
+    if(_model.state != 3 && _model.state != 4){
+        return;
+    }
     
     CGFloat x = 0;
     int column = 3;
     if(_model.state == 4){
         column = 2;
     }
+    
+    _bottomView =[[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 40, ScreenWidth, 40)];
+    [_bottomView setBackgroundColor:[UIColor clearColor]];
     CGFloat xw = (ScreenWidth - column-1)/column;
     for(int i=0;i<3;i++){
         if(_model.state == 4 && i==0){
@@ -218,16 +238,18 @@
             [saleButton setTitle:@"我要复诊" forState:UIControlStateNormal];
         }
         
-        [saleButton setFrame:CGRectMake(x, ScreenHeight-40, xw, 40)];
+        [saleButton setFrame:CGRectMake(x, 0, xw, 40)];
         [saleButton setTitleColor:UIColorFromRGB(TextWhiteColor) forState:UIControlStateNormal];
         [saleButton setBackgroundColor:UIColorFromRGB(BgTitleColor)];
         saleButton.tag = OTHER_BUTTON;
         [saleButton.titleLabel setFont:ListTitleFont];
         [saleButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         saleButton.tag = i+1;
-        [self.view addSubview:saleButton];
+        [_bottomView addSubview:saleButton];
         x = x + xw + 1;
     }
+    
+    [self.view addSubview:_bottomView];
 }
 
 

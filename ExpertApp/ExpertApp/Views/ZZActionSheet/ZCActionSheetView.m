@@ -127,7 +127,7 @@
     // 创建按钮
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, BtnHeight * (_btnTag - 1) , ScreenWidth, BtnHeight)];
     [btn setBackgroundImage:[self createImageWithColor:UIColorFromRGB(TextWhiteColor)] forState:UIControlStateNormal];
-    [btn setBackgroundImage:[self createImageWithColor:UIColorFromRGB(TextLightDarkColor)] forState:UIControlStateHighlighted];
+    [btn setBackgroundImage:[self createImageWithColor:UIColorFromRGB(BgListSectionColor)] forState:UIControlStateHighlighted];
     [btn setTitle:title forState:UIControlStateNormal];
     if(_selectIndex==_btnTag){
         [btn setTitleColor:UIColorFromRGB(TextLinkColor) forState:UIControlStateNormal];

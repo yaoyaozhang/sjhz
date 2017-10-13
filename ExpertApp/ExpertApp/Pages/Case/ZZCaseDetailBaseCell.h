@@ -12,6 +12,8 @@
 
 @interface ZZCaseDetailBaseCell : UITableViewCell
 
+@property(nonatomic,strong) NSDictionary *tempDict;
+
 -(void)dataToView:(NSDictionary *) item;
 
 @end

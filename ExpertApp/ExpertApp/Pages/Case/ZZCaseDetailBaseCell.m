@@ -17,6 +17,7 @@
 
 -(void)dataToView:(NSDictionary *) item
 {
+    self.tempDict = item;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

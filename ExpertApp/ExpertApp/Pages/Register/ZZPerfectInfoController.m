@@ -231,7 +231,12 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
             [_params setObject:convertToString(heaerUrl) forKey:@"imageUrl"];
             [_params setObject:convertToString(zhengsuUrl) forKey:@"certificateUrl1"];
         }
-        [ZZRequsetInterface post:API_Register param:_params timeOut:0 start:^{
+        
+        NSString *api = API_Register;
+        if(_isEdit){
+            api = API_UpdateUserInfo;
+        }
+        [ZZRequsetInterface post:api param:_params timeOut:0 start:^{
             
         } finish:^(id response, NSData *data) {
             NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);

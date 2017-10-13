@@ -9,6 +9,8 @@
 #import "ZZCaseDetailMulCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
+#import "XHImageViewer.h"
+
 @implementation ZZCaseDetailMulCell
 
 - (void)awakeFromNib {
@@ -26,10 +28,17 @@
     _imgFile.layer.borderWidth = 1.0f;
     _imgFile.layer.borderColor = UIColorFromRGB(BgLineColor).CGColor;
     [_imgFile setContentMode:UIViewContentModeScaleAspectFit];
+    
+    //设置点击事件
+    UITapGestureRecognizer *tapGesturer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imgTouchUpInside:)];
+    _imgFile.userInteractionEnabled=YES;
+    [_imgFile addGestureRecognizer:tapGesturer];
 }
 
 
 -(void)dataToView:(NSDictionary *)item{
+    [super dataToView:item];
+    
     [_labTag setText:@""];
     _labDesc.hidden = YES;
     _imgFile.hidden = YES;
@@ -77,6 +86,58 @@
     [label updateConstraintsIfNeeded];
     
     return expectedLabelSize;
+}
+
+
+
+/**
+ *  点击查看大图
+ *
+ *  @param recognizer
+ */
+-(void) imgTouchUpInside:(UITapGestureRecognizer *)recognizer{
+    
+    int type = [self.tempDict[@"dictType"] intValue];
+    NSString *value = convertToString(self.tempDict[@"dictValue"]);
+    
+    BOOL isImage = NO;
+    if([[value lowercaseString] hasSuffix:@".png"]
+       || [[value lowercaseString] hasSuffix:@".pneg"]
+       || [[value lowercaseString] hasSuffix:@".jpg"]
+       || [[value lowercaseString] hasSuffix:@".jpeg"]
+       || [[value lowercaseString] hasSuffix:@".bmp"]
+       || [[value lowercaseString] hasSuffix:@".gif"]){
+        isImage = YES;
+    }
+    
+    if(type != ZZEditControlTypeButton || !isImage){
+        return;
+    }
+    
+    NSLog(@"我怎么不处罚呢：");
+    UIImageView *_picView = (UIImageView*)recognizer.view;
+    
+    CALayer *calayer = _picView.layer.mask;
+    [_picView.layer.mask removeFromSuperlayer];
+    
+    
+    
+    XHImageViewer *xh = [[XHImageViewer alloc] initWithImageViewerWillDismissWithSelectedViewBlock:^(XHImageViewer *imageViewer, UIImageView *selectedView) {
+        
+    } didDismissWithSelectedViewBlock:^(XHImageViewer *imageViewer, UIImageView *selectedView) {
+        
+        selectedView.layer.mask = calayer;
+        [selectedView setNeedsDisplay];
+        
+    } didChangeToImageViewBlock:^(XHImageViewer *imageViewer, UIImageView *selectedView) {
+    }];
+    
+    NSMutableArray *photos = [[NSMutableArray alloc] init];
+    [photos addObject:_picView];
+    
+    //    xh.delegate = self;
+    xh.disableTouchDismiss = NO;
+    [xh showWithImageViews:photos selectedView:_picView];
 }
 
 

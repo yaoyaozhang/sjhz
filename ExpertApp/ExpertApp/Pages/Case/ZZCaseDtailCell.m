@@ -29,6 +29,8 @@
 }
 
 -(void)dataToView:(NSDictionary *)item{
+    [super dataToView:item];
+    
     [_labUnit setText:@""];
     if(item){
         [_labTag setText:item[@"dictDesc"]];

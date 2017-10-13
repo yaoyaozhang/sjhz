@@ -46,7 +46,7 @@
 #define API_UpdatePwd [NSString stringWithFormat:@"%@/file/findPassWord",API_HOST]
 
 
-#define API_UpdateUserInfo [NSString stringWithFormat:@"%@/file/updateUser",API_HOST]
+#define API_UpdateUserInfo [NSString stringWithFormat:@"%@/user/updateUser",API_HOST]
 
 
 #define API_SaveCase [NSString stringWithFormat:@"%@/comconCase/add",API_HOST]
@@ -142,6 +142,14 @@
 
 // 关注的医生
 #define API_getMyDoctorList [NSString stringWithFormat:@"%@/doctor/getMyDoctorInfo",API_HOST]
+
+
+/**
+ 评价会诊结果
+ @param 不可空
+ @return
+ */
+#define API_getTalkAssess [NSString stringWithFormat:@"%@/doctor/saveTalkAssess",API_HOST]
 
 
 // 收藏文章

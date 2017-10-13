@@ -51,7 +51,7 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
 
 
 -(ZZUserInfo *)getLoginUser{
-    NSLog(@"-----%@",_loginUserInfo);
+//    NSLog(@"-----%@",_loginUserInfo);
     if(!_loginUserInfo){
         NSDictionary *loginInfo = [ZCLocalStore getLocalDictionary:KEY_LOGIN_USERINFO];
         if(!is_null(loginInfo)){
@@ -61,10 +61,13 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
     return _loginUserInfo;
 }
 -(void)changeUserInfo:(ZZUserInfo *) info{
+    if(info.thirdId == nil){
+        info.thirdId = @"";
+    }
     _loginUserInfo = info;
-    
     if(_loginUserInfo){
-        [ZCLocalStore addObject:[ZCLocalStore getObjectData:_loginUserInfo] forKey:KEY_LOGIN_USERINFO];
+        NSDictionary *changeDict = [ZCLocalStore getObjectData:_loginUserInfo];
+        [ZCLocalStore addObject:changeDict forKey:KEY_LOGIN_USERINFO];
     }
     
 }
