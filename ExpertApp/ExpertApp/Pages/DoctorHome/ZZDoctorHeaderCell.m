@@ -24,9 +24,11 @@
     [_labDesc setFont:ListDetailFont];
     [_labHospital setFont:ListDetailFont];
     [_labKes setFont:ListDetailFont];
+    [_labFansChapterS setFont:ListDetailFont];
     [_labName setFont:TitleFont];
     
     
+    [_labFansChapterS setTextColor:UIColorFromRGB(TextWhiteColor)];
     [_labName setTextColor:UIColorFromRGB(TextWhiteColor)];
     [_labKes setTextColor:UIColorFromRGB(TextWhiteColor)];
     [_labHospital setTextColor:UIColorFromRGB(TextWhiteColor)];
@@ -40,6 +42,7 @@
     if(model){
         [_imgHeader sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]];
         [_labName setText:convertToString(model.docName)];
+        [_labFansChapterS setText:[NSString stringWithFormat:@"粉丝:%d   文章:%d",model.fansNum,model.articleNum]];
         [_labKes setText:convertToString(model.departmentName)];
         [_labHospital setText:convertToString(model.hospital)];
         [_labDesc setText:convertToString(model.accomplished)];

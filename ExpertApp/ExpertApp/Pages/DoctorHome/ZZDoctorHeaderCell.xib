@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="personalpage_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="AiW-xE-h6y">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="243"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="242"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v7X-Qo-7xt">
@@ -27,19 +27,19 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dts-Y7-W2J">
-                        <rect key="frame" x="150" y="30" width="56" height="21"/>
+                        <rect key="frame" x="150" y="29" width="56" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a5L-ny-bxB">
-                        <rect key="frame" x="203" y="33" width="154" height="16"/>
+                        <rect key="frame" x="203" y="32" width="154" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ins-I0-xZH">
-                        <rect key="frame" x="150" y="64" width="217" height="21"/>
+                        <rect key="frame" x="150" y="82" width="217" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -53,7 +53,14 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbF-GZ-azg">
-                        <rect key="frame" x="150" y="86" width="207" height="21"/>
+                        <rect key="frame" x="150" y="104" width="207" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDp-Dm-dl2">
+                        <rect key="frame" x="150" y="58" width="207" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -64,6 +71,7 @@
             <connections>
                 <outlet property="imgHeader" destination="v7X-Qo-7xt" id="RLI-M7-ZHB"/>
                 <outlet property="labDesc" destination="Cgd-0Z-Gzd" id="bO9-2n-jNR"/>
+                <outlet property="labFansChapterS" destination="WDp-Dm-dl2" id="ePJ-xY-0Na"/>
                 <outlet property="labHospital" destination="nbF-GZ-azg" id="dHd-sc-eDk"/>
                 <outlet property="labKes" destination="Ins-I0-xZH" id="ZXn-7B-Gxe"/>
                 <outlet property="labName" destination="dts-Y7-W2J" id="B9e-Kz-PnQ"/>
@@ -73,6 +81,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="personalpage_bg.png" width="375" height="245"/>
+        <image name="personalpage_bg.png" width="375" height="155"/>
     </resources>
 </document>

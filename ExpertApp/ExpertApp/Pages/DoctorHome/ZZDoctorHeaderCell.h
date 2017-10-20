@@ -13,6 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgHeader;
 
+@property (weak, nonatomic) IBOutlet UILabel *labFansChapterS;
+
 @property (weak, nonatomic) IBOutlet UIView *viewZhic;
 
 @property (weak, nonatomic) IBOutlet UILabel *labName;
