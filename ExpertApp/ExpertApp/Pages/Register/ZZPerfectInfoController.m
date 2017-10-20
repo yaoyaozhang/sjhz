@@ -454,6 +454,20 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
         [self setViewCheckedBorder:btn];
         [btn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
         
+        if(![model.name isEqual:@"全部科室"] && ![@"运动康复" isEqual:model.name]){
+            NSArray *keys = keshiMap.allKeys;
+            for (NSString *key in keys) {
+                if(![key isEqual:@"全部科室"] && ![@"运动康复" isEqual:key]){
+                    MyButton *rBtn = [keshiMap objectForKey:key];
+                    [self setViewBorder:rBtn];
+                    [rBtn setTitleColor:UIColorFromRGB(TextBlackColor) forState:UIControlStateNormal];
+                    
+                    [keshiMap removeObjectForKey:key];
+                }
+                
+            }
+        }
+        
         [keshiMap setObject:btn forKey:model.name];
         
     }else{
