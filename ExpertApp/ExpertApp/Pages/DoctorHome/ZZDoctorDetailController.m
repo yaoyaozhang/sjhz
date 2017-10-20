@@ -24,7 +24,9 @@
 
 #import "ZZShareView.h"
 
-@interface ZZDoctorDetailController ()
+@interface ZZDoctorDetailController (){
+    ZZUserInfo *loginUser;
+}
 @property(nonatomic,strong)UITableView      *listTable;
 @property(nonatomic,strong)NSMutableArray   *listArray;
 
@@ -37,6 +39,8 @@
     // Do any additional setup after loading the view.
     
     [self createTableView];
+    
+    loginUser = [[ZZDataCache getInstance] getLoginUser];
     
     [self createTitleMenu];
     self.menuRightButton.hidden = NO;
@@ -57,12 +61,15 @@
         // 关注
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:convertIntToString(_model.userId) forKey:@"toUserId"];
+        [dict setObject:convertIntToString(loginUser.userId) forKey:@"forUserId"];
         [ZZRequsetInterface post:API_followUserDoctor param:dict timeOut:HttpGetTimeOut start:^{
             
         } finish:^(id response, NSData *data) {
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
-            
+            [self.view makeToast:@"关注成功!"];
+            [sender setTitle:@"已关注" forState:UIControlStateNormal];
+            [sender setEnabled:NO];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             
         } progress:^(CGFloat progress) {

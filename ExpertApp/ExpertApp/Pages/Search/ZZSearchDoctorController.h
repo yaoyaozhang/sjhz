@@ -10,8 +10,8 @@
 #import "ZZDictModel.h"
 typedef NS_ENUM(NSInteger,ZZSearchDoctorType) {
     ZZSearchDoctorTypeDefault  = 0,
-    ZZSearchDoctorTypeHospital = 1,
-    ZZSearchDoctorTypeDoctor   = 2,
+    ZZSearchDoctorTypeDoctor   = 1,
+    ZZSearchDoctorTypeHospital = 2,
 };
 
 @interface ZZSearchDoctorController : BaseController

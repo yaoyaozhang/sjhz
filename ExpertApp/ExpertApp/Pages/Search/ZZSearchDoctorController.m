@@ -87,16 +87,15 @@
 
 -(void)endNetRefreshData{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(pageNumber) forKey:@"page"];
     [dict setObject:convertToString(_searchTF.text) forKey:@"value"];
     [dict setObject:convertIntToString(_searchType) forKey:@"type"];
     if(btnDepartment && btnDepartment.objTag){
         ZZDictModel *model = btnDepartment.objTag;
-        [dict setObject:convertToString(model.name) forKey:@"department"];
+        [dict setObject:convertIntToString(model.baseId) forKey:@"keshi"];
     }
     if(btnArea && btnArea.objTag){
         ZZDictModel *model = btnDepartment.objTag;
-        [dict setObject:convertToString(model.name) forKey:@"region"];
+        [dict setObject:convertIntToString(model.baseId) forKey:@"diqu"];
     }
     [ZZRequsetInterface post:API_searchDoctor param:dict timeOut:HttpGetTimeOut start:^{
         
@@ -106,18 +105,13 @@
         if(_listTable.footer && [_listTable.footer respondsToSelector:@selector(endRefreshing)]){
             [_listTable.footer endRefreshing];
         }
-        
-        NSString *jsonStr= @"{\"retData\":[{\"accomplished\":\"放假放假，皮肤病\",\"hospital\":\"海淀妇幼\",\"titleNmae\":\"高级职称,第二高级\",\"departmentName\":\"全部科室\",\"docName\":\"李丹\",\"imageUrl\":\"url:/upload/uhead/2017-09-06/demoUploadimage1001504693326.jpg\",\"userId\":\"7\",\"docId\":1}]}";
-        NSDictionary *dict = [ZCLocalStore dictionaryWithJsonString:jsonStr];
-        
+    } complete:^(NSDictionary *dict) {
         NSArray *arr = dict[@"retData"];
         
         for (NSDictionary *item in arr) {
             [_listArray addObject:[[ZZUserHomeModel alloc] initWithMyDict:item]];
         }
         
-        [_listTable reloadData];
-    } complete:^(NSDictionary *dict) {
         [_listTable reloadData];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         [_listTable reloadData];

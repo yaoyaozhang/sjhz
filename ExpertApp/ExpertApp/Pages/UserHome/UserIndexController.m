@@ -128,6 +128,9 @@
     
     curCheckTag = ZZSearchDoctorTypeDefault;
     
+    MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingTarget:self refreshingAction:@selector(beginNetRefreshData)];
+    header.stateLabel.hidden = YES;
+    _listTable.header = header;
     // 占位图
 //    [self createPlaceholderView:@"搜素医生信息" message:@"" image:[UIImage imageNamed:@"icon_search"] withView:_listTable action:nil];
     
@@ -177,6 +180,9 @@
         NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         if(_listTable.footer && [_listTable.footer isRefreshing]){
             [_listTable.footer endRefreshing];
+        }
+        if(_listTable.header && [_listTable.header isRefreshing]){
+            [_listTable.header endRefreshing];
         }
     } complete:^(NSDictionary *dict) {
         NSArray *arr = dict[@"retData"];

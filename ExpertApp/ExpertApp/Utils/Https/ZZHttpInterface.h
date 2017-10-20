@@ -139,7 +139,7 @@
 #define API_findUserHome [NSString stringWithFormat:@"%@/doctor/findHome",API_HOST]
 
 // 搜索医生
-#define API_searchDoctor [NSString stringWithFormat:@"%@/comconCase/selectDoc",API_HOST]
+#define API_searchDoctor [NSString stringWithFormat:@"%@/doctor/findDoctorAll",API_HOST]
 
 // 关注的医生
 #define API_getMyDoctorList [NSString stringWithFormat:@"%@/doctor/getMyDoctorInfo",API_HOST]

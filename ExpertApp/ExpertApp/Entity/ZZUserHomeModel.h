@@ -31,8 +31,11 @@
 @property(nonatomic,assign) int     chickLikeNum;//": 0,
 @property(nonatomic,assign) int     chickedNum;//": 79,
 @property(nonatomic,assign) int     nid;//: 1
+@property(nonatomic,assign) int     articleNum;//: 文章量
+@property(nonatomic,assign) int     fansNum;//: 粉丝数
 
 
 @property(nonatomic,assign) BOOL isChecked;
+
 
 @end

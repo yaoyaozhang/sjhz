@@ -44,6 +44,11 @@
         [_labHospital setText:convertToString(model.hospital)];
         [_labDesc setText:convertToString(model.accomplished)];
         
+        CGSize size = [self autoWidthOfLabel:_labName with:_labName.frame.size.height];
+        CGRect f = _viewZhic.frame;
+        f.origin.x = _labName.frame.origin.x + size.width + 5;
+        [_viewZhic setFrame:f];
+        
         if(model.titleNmae){
             NSArray *arr = [model.titleNmae componentsSeparatedByString:@","];
             CGFloat xx = 0;
