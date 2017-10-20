@@ -96,7 +96,7 @@
 -(void)loadMoreData{
     loginUser = [[ZZDataCache getInstance] getLoginUser];
     [_listArray removeAllObjects];
-    [_listArray addObject:@[@{@"avatar":convertToString(loginUser.userImageUrl),@"uname":convertToString(loginUser.userName),@"num":convertIntToString(loginUser.tcNumber)}]];
+    [_listArray addObject:@[@{@"avatar":convertToString(loginUser.imageUrl),@"uname":convertToString(loginUser.userName),@"num":convertIntToString(loginUser.tcNumber)}]];
     
     if(loginUser.isDoctor != 1){
         NSArray *arr1 = @[@{@"code":@"1",@"icon":@"my_consultationresult",@"text":@"会诊结果"},

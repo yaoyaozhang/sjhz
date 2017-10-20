@@ -161,7 +161,7 @@
         id value = [obj valueForKey:propName];//kvc读值
         if(value == nil)
         {
-            value = [NSNull null];
+            value = convertToString([NSNull null]);
         }
         else
         {

@@ -18,6 +18,7 @@
 #import "ZCActionSheetView.h"
 #import <Toast/UIView+Toast.h>
 #import "ZZFindPwdController.h"
+#import "ZZNickController.h"
 
 
 
@@ -91,6 +92,11 @@
     if(sender.tag == 1){
         
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [_listTable reloadData];
 }
 
 
@@ -181,6 +187,10 @@
     int code =  [_listArray[indexPath.section][@"code"] intValue];
     if(code == 1){
         [self didAddImage];
+    }
+    if(code == 2){
+        ZZNickController *vc = [[ZZNickController alloc] init];
+        [self openNav:vc sound:nil];
     }
     if(code == 3){
         ZZFindPwdController *vc = [[ZZFindPwdController alloc] init];
@@ -380,7 +390,7 @@
 #pragma mark -- 上传附件和图片
 - (void)updateloadFile:(NSString *)filePath fileName:(NSString *)fileName{
     
-    _loginUser.userImageUrl = filePath;
+    _loginUser.imageUrl = filePath;
     [_listTable reloadData];
     
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithCapacity:0];
@@ -394,7 +404,7 @@
         
     } complete:^(NSDictionary *dict) {
         [SVProgressHUD showSuccessWithStatus:@"上传成功!"];
-        _loginUser.userImageUrl = convertToString(dict[@"filepath"]);
+        _loginUser.imageUrl = convertToString(dict[@"filepath"]);
         [[ZZDataCache getInstance] changeUserInfo:_loginUser];
         
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {

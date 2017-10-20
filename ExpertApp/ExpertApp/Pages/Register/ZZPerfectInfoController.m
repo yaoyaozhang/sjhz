@@ -113,6 +113,8 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     if(_isEdit){
         loginUser = [[ZZDataCache getInstance] getLoginUser];
         [_btnCommit setTitle:@"保存" forState:UIControlStateNormal];
+        zhengsuUrl = loginUser.certificateUrl1;
+        heaerUrl = loginUser.imageUrl;
     }else{
         [_btnCommit setTitle:@"提交审核" forState:UIControlStateNormal];
     }
@@ -227,19 +229,20 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
             if(areaModel){
                 [_params setObject:convertToString(areaModel.name) forKey:@"location"];
             }
-            [_params setObject:convertToString(heaerUrl) forKey:@"userImageUrl"];
             [_params setObject:convertToString(heaerUrl) forKey:@"imageUrl"];
             [_params setObject:convertToString(zhengsuUrl) forKey:@"certificateUrl1"];
         }
         
         NSString *api = API_Register;
         if(_isEdit){
-            api = API_UpdateUserInfo;
+            [_params setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+            api = API_UpdateDoctorUserInfo;
         }
         [ZZRequsetInterface post:api param:_params timeOut:0 start:^{
-            
+            [SVProgressHUD show];
         } finish:^(id response, NSData *data) {
             NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            [SVProgressHUD dismiss];
         } complete:^(NSDictionary *dict) {
             [ZCLocalStore addObject:_params[@"mobile"] forKey:KEY_LOGIN_USERNAME];
             [ZCLocalStore addObject:_params[@"passWord"] forKey:KEY_LOGIN_USERPWD];

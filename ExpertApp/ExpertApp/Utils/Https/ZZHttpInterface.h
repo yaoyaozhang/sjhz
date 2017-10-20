@@ -46,7 +46,8 @@
 #define API_UpdatePwd [NSString stringWithFormat:@"%@/file/findPassWord",API_HOST]
 
 
-#define API_UpdateUserInfo [NSString stringWithFormat:@"%@/user/updateUser",API_HOST]
+#define API_UpdateUserInfo [NSString stringWithFormat:@"%@/user/appUpdateUser",API_HOST]
+#define API_UpdateDoctorUserInfo [NSString stringWithFormat:@"%@/user/updateDoctorUser",API_HOST]
 
 
 #define API_SaveCase [NSString stringWithFormat:@"%@/comconCase/add",API_HOST]

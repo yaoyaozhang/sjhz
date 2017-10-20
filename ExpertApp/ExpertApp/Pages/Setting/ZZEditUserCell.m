@@ -36,10 +36,10 @@
         tf.origin.y = (80-44)/2;
         _labelName.frame = tf;
         
-        if(![loginUser.userImageUrl hasPrefix:@"http"]){
-            [_imgAvatar setImage:[UIImage imageWithContentsOfFile:loginUser.userImageUrl]];
+        if(![loginUser.imageUrl hasPrefix:@"http"]){
+            [_imgAvatar setImage:[UIImage imageWithContentsOfFile:loginUser.imageUrl]];
         }else{
-            [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:loginUser.userImageUrl]];
+            [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:loginUser.imageUrl]];
         }
     }
     if(code == 2){

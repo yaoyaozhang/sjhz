@@ -159,7 +159,7 @@
             model.userId = loginUser.userId;
             model.context = dict[@"context"];
             model.docName = loginUser.docName;
-            model.imgUrl = loginUser.userImageUrl;
+            model.imgUrl = loginUser.imageUrl;
             [_listArray addObject:model];
             [_listTable reloadData];
             [self scrollTableToBottom];

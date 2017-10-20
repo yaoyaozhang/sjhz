@@ -169,7 +169,11 @@
     
     ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
     NewsDetailC.model = newsModel;
-    [self.navigationController pushViewController:NewsDetailC animated:YES];
+    if(self.preVC){
+        [((UIViewController *)self.preVC).navigationController pushViewController:NewsDetailC animated:YES];
+    }else{
+        [self.navigationController pushViewController:NewsDetailC animated:YES];
+    }
 }
 
 #pragma mark -
@@ -188,7 +192,12 @@
         
         ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
         NewsDetailC.model = pmodel;
-        [self.navigationController pushViewController:NewsDetailC animated:YES];
+       
+        if(self.preVC){
+            [((UIViewController *)self.preVC).navigationController pushViewController:NewsDetailC animated:YES];
+        }else{
+            [self.navigationController pushViewController:NewsDetailC animated:YES];
+        }
     };
     
     
@@ -226,7 +235,12 @@
             ZZCommentController *vc = [[ZZCommentController alloc] init];
             vc.nid = newsModel.nid;
             vc.model = newsModel;
-            [self.navigationController pushViewController:vc animated:YES];
+           
+            if(self.preVC){
+                [((UIViewController *)self.preVC).navigationController pushViewController:vc animated:YES];
+            }else{
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
     };
 }

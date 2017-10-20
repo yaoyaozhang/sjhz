@@ -393,6 +393,7 @@
 		7B8A90661F18A72A00FC53D7 /* SVWebViewControllerActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A90561F18A72A00FC53D7 /* SVWebViewControllerActivitySafari.m */; };
 		7B8A90671F18A72A00FC53D7 /* SVWebViewControllerActivitySafari@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A90571F18A72A00FC53D7 /* SVWebViewControllerActivitySafari@2x.png */; };
 		7B8A90681F18A72A00FC53D7 /* SVWebViewControllerActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A90591F18A72A00FC53D7 /* SVWebViewControllerActivity.m */; };
+		7B8EBCEB1F987F2B0039E602 /* ZZNickController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8EBCEA1F987F2B0039E602 /* ZZNickController.m */; };
 		7BABAD3A1F67E958004C85FB /* Bounty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BABAD321F67E958004C85FB /* Bounty@2x.png */; };
 		7BABAD3B1F67E958004C85FB /* Bounty@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BABAD331F67E958004C85FB /* Bounty@3x.png */; };
 		7BABAD3C1F67E958004C85FB /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BABAD341F67E958004C85FB /* close@2x.png */; };
@@ -982,6 +983,8 @@
 		7B8A90591F18A72A00FC53D7 /* SVWebViewControllerActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebViewControllerActivity.m; sourceTree = "<group>"; };
 		7B8A905A1F18A72A00FC53D7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SVWebViewController.strings"; sourceTree = "<group>"; };
 		7B8A905B1F18A72A00FC53D7 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SVWebViewController.strings"; sourceTree = "<group>"; };
+		7B8EBCE91F987F2B0039E602 /* ZZNickController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNickController.h; sourceTree = "<group>"; };
+		7B8EBCEA1F987F2B0039E602 /* ZZNickController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNickController.m; sourceTree = "<group>"; };
 		7BABAD321F67E958004C85FB /* Bounty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bounty@2x.png"; sourceTree = "<group>"; };
 		7BABAD331F67E958004C85FB /* Bounty@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bounty@3x.png"; sourceTree = "<group>"; };
 		7BABAD341F67E958004C85FB /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
@@ -1479,6 +1482,8 @@
 				7B70002E1F3B14ED00C59281 /* ZZEditUserCell.h */,
 				7B70002F1F3B14ED00C59281 /* ZZEditUserCell.m */,
 				7B7000301F3B14ED00C59281 /* ZZEditUserCell.xib */,
+				7B8EBCE91F987F2B0039E602 /* ZZNickController.h */,
+				7B8EBCEA1F987F2B0039E602 /* ZZNickController.m */,
 			);
 			name = EditUser;
 			sourceTree = "<group>";
@@ -2844,6 +2849,7 @@
 				7BF1100C1F18678C00456E55 /* AppDelegate.m in Sources */,
 				7B5C1C871F1F53DF00DDDA78 /* ZZDoctorHomeController.m in Sources */,
 				7B7F3D511F31A89E00132669 /* ZZCommentController.m in Sources */,
+				7B8EBCEB1F987F2B0039E602 /* ZZNickController.m in Sources */,
 				7B5C1CE11F1F5B7B00DDDA78 /* XHViewState.m in Sources */,
 				7B7F3D3F1F31778200132669 /* TAPageControl.m in Sources */,
 				7B5C1CD91F1F5B7B00DDDA78 /* SVProgressHUD.m in Sources */,

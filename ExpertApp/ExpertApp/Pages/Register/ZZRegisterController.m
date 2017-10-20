@@ -41,6 +41,7 @@
     [_btnYJ setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
     [_btnLink setTitleColor:UIColorFromRGB(TextSizeNineColor) forState:UIControlStateNormal];
     [_btnRegister setBackgroundColor:UIColorFromRGB(BgTitleColor)];
+    [_btnSendCode setTitle:@"发送" forState:UIControlStateNormal];
     
     [_lblLable1 setTextColor:UIColorFromRGB(TextSizeNineColor)];
     [_lblLabel2 setTextColor:UIColorFromRGB(TextSizeNineColor)];
@@ -154,11 +155,11 @@
         } finish:^(id response, NSData *data) {
             [SVProgressHUD dismiss];
             
-            [_btnSendCode startWithTime:60 title:@"重新发送" countDownTitle:@"S" mainColor:UIColorFromRGB(BgTitleColor) countColor:UIColorFromRGB(TextPlaceHolderColor)];
             // {"retCode":"0","retData":"8426","retMsg":"suc"}
             NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
             
+            [_btnSendCode startWithTime:60 title:@"重新发送" countDownTitle:@"S" mainColor:UIColorFromRGB(BgTitleColor) countColor:UIColorFromRGB(TextPlaceHolderColor)];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             
         } progress:^(CGFloat progress) {
