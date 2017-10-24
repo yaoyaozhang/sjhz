@@ -30,7 +30,7 @@
     int         curCheckTag;
     int          pageNumber;
     
-    
+    ZZUserInfo *loginUser;
 }
 
 
@@ -161,6 +161,9 @@
     _listArray = [[NSMutableArray alloc] init];
     
     
+    loginUser = [[ZZDataCache getInstance] getLoginUser];
+    
+    
     [self beginNetRefreshData];
     
 }
@@ -173,9 +176,11 @@
 }
 
 -(void)endNetRefreshData{
-    [ZZRequsetInterface get:API_findUserHome start:^{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+    [ZZRequsetInterface post:API_findUserHome param:dict timeOut:HttpGetTimeOut start:^{
         
-    } finish:^(id response,NSData * data) {
+    } finish:^(id response, NSData *data) {
         [SVProgressHUD dismiss];
         NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         if(_listTable.footer && [_listTable.footer isRefreshing]){
@@ -184,20 +189,26 @@
         if(_listTable.header && [_listTable.header isRefreshing]){
             [_listTable.header endRefreshing];
         }
+        
+        
+        if(_listArray.count == 0){
+            [self createPlaceholderView:@"网络开小差了！" message:@"" image:nil withView:_listTable action:^(UIButton *button) {
+                [self endNetRefreshData];
+            }];
+        }else{
+            [self removePlaceholderView];
+        }
+        
     } complete:^(NSDictionary *dict) {
         NSArray *arr = dict[@"retData"];
         
         for (NSDictionary *item in arr) {
             [_listArray addObject:[[ZZUserHomeModel alloc] initWithMyDict:item]];
         }
-        if(_listArray.count == 0){
-            [self createPlaceholderView:@"重新加载" message:@"" image:nil withView:_listTable action:^(UIButton *button) {
-                
-            }];
-        }
+        
         [_listTable reloadData];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-        [_listTable reloadData];
+        
     } progress:^(CGFloat progress) {
         
     }];

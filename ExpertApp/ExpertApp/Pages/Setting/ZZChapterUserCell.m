@@ -65,6 +65,9 @@
     }else{
         [self.collectButton setImage:[UIImage imageNamed:@"btn_collect"] forState:UIControlStateNormal];
     }
+    if(newsModel.commentNum>0){
+        [self.commentButton setTitle:convertIntToString(newsModel.commentNum) forState:UIControlStateNormal];
+    }
     
     [self.titleLabel setFont:ListTitleFont];
     self.titleLabel.textColor = UIColorFromRGB(TextDarkColor);

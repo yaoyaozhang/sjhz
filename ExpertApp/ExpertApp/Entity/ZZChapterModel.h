@@ -40,6 +40,10 @@
 @property(nonatomic,assign) int showVideo;
 
 
+@property(nonatomic,assign) int commentNum;
+
+
+
 
 /**
  是否收藏

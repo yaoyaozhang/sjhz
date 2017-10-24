@@ -15,8 +15,8 @@
     if(self){
         if(_deptCid == 0 && dict[@"son"]){
             NSArray *arr = dict[@"son"];
+            _child = [[NSMutableArray alloc] init];
             if(arr && arr.count>0){
-                _child = [[NSMutableArray alloc] init];
                 for (NSDictionary *item in arr) {
                     if(item[@"cid"]==0){
                         continue;

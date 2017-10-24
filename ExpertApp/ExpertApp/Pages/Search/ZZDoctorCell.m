@@ -82,6 +82,7 @@
         CGRect f = _labelNameZhiWei.frame;
         f.origin.x = _labelName.frame.origin.x + ns.width + 10;
         f.size.width = ScreenWidth - f.origin.x - 15;
+        [_labelNameZhiWei setFrame:f];
         
         [_labelNameZhiWei setText:model.docInfo.departmentName];
         [_labelHosptial setText:model.docInfo.hospital];

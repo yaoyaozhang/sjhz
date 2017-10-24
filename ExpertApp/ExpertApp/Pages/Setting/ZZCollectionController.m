@@ -145,6 +145,8 @@
         if(tag == ZZChapterCellClickTagComment){
             // 评论
             ZZCommentController *vc = [[ZZCommentController alloc] init];
+            vc.nid = newsModel.nid;
+            vc.model = newsModel;
             [self.navigationController pushViewController:vc animated:YES];
         }
     }];

@@ -62,7 +62,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIP-MW-w3E">
-                        <rect key="frame" x="223" y="116" width="42" height="30"/>
+                        <rect key="frame" x="205" y="116" width="42" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <state key="normal" title="转发" image="btn_send.png"/>
                         <connections>
@@ -70,7 +70,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" tag="22" contentMode="scaleToFill" semanticContentAttribute="playback" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nyc-jp-628">
-                        <rect key="frame" x="274" y="116" width="42" height="30"/>
+                        <rect key="frame" x="265" y="115" width="42" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <state key="normal" title="评论" image="btn_comment.png"/>
                         <connections>

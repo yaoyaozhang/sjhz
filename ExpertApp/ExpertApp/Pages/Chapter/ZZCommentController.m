@@ -43,9 +43,10 @@
     }
     _keyboardView.nid =  convertIntToString(_nid);
     
+    __weak ZZCommentController *saveSelf = self;
     [_keyboardView setResultBlock:^(int code){
         if(code == 0){
-            [self loadMoreData];
+            [saveSelf loadMoreData];
         }
     }];
 }
@@ -73,6 +74,7 @@
     
     [self setTableSeparatorInset];
     
+    [SVProgressHUD show];
     [self loadMoreData];
 }
 
@@ -84,11 +86,20 @@
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:convertIntToString(_nid) forKey:@"nid"];
     [ZZRequsetInterface post:API_findChapterComment param:dict timeOut:HttpGetTimeOut start:^{
-        [SVProgressHUD show];
+        
     } finish:^(id response, NSData *data) {
         [SVProgressHUD dismiss];
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        
+        if(_listArray.count == 0){
+            [self createPlaceholderView:@"还没有评论哦！" message:@"" image:nil withView:_listTable action:^(UIButton *button) {
+                [self loadMoreData];
+            }];
+        }else{
+            [self removePlaceholderView];
+        }
     } complete:^(NSDictionary *dict) {
+        [_listArray removeAllObjects];
         NSArray *arr = dict[@"retData"];
         if(arr && arr.count>0){
             for (NSDictionary *item in arr) {

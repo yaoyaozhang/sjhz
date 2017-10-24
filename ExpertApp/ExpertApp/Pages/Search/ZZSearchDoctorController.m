@@ -29,6 +29,7 @@
     // 当前选择的标签
     
     int          pageNumber;
+    ZZUserInfo *loginUser;
     
     
 }
@@ -63,6 +64,8 @@
     
     [_listTable reloadData];
     
+    loginUser = [[ZZDataCache getInstance] getLoginUser];
+    
     [[ZZDataCache getInstance] getCacheConfigDict:^(NSMutableDictionary *dict, int status) {
         
     }];
@@ -89,12 +92,13 @@
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:convertToString(_searchTF.text) forKey:@"value"];
     [dict setObject:convertIntToString(_searchType) forKey:@"type"];
+    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
     if(btnDepartment && btnDepartment.objTag){
         ZZDictModel *model = btnDepartment.objTag;
         [dict setObject:convertIntToString(model.baseId) forKey:@"keshi"];
     }
     if(btnArea && btnArea.objTag){
-        ZZDictModel *model = btnDepartment.objTag;
+        ZZDictModel *model = btnArea.objTag;
         [dict setObject:convertIntToString(model.baseId) forKey:@"diqu"];
     }
     [ZZRequsetInterface post:API_searchDoctor param:dict timeOut:HttpGetTimeOut start:^{
