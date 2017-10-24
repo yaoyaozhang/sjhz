@@ -43,6 +43,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnCollect;
 
+@property (weak, nonatomic) IBOutlet UIImageView *imgVideoOrMp3;
+
+
 -(void)dataToCellView:(ZZUserHomeModel* )model;
 
 

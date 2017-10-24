@@ -406,9 +406,7 @@
     
     // 关注，取消关注
     if(type == ZZDoctorCellTypeStar){
-        if(model.isChecked){
-            
-        }
+       
     }
     
     [_listTable reloadData];

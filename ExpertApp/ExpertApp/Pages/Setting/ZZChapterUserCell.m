@@ -30,6 +30,11 @@
     [self.collectButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.commentButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     
+    self.iconImage.layer.borderColor = UIColorFromRGB(BgListSectionColor).CGColor;
+    self.iconImage.layer.borderWidth = 1.0f;
+    
+    [self.imgVideoOrMp3 setBackgroundColor:[UIColor clearColor]];
+    
     
     [self.sendButton.titleLabel setFont:ListDetailFont];
     [self.sendButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
@@ -43,20 +48,36 @@
     
     // 标题
     self.titleLabel.text = newsModel.title;
+    
     // 判断已读标记
     //    if ([[DDNewsCache sharedInstance] containsObject:self.titleLabel.text])
+    self.imgVideoOrMp3.hidden = NO;
+    if(newsModel.showVideo == 1){
+        [self.imgVideoOrMp3 setImage:[UIImage imageNamed:@"knowledge_sound"]];
+    }else if(newsModel.showVideo == 2){
+        [self.imgVideoOrMp3 setImage:[UIImage imageNamed:@"knowledge_video"]];
+    }else{
+        self.imgVideoOrMp3.hidden = YES;
+    }
+    
+    if(newsModel.collect){
+        [self.collectButton setImage:[UIImage imageNamed:@"btn_alreadycollected"] forState:UIControlStateNormal];
+    }else{
+        [self.collectButton setImage:[UIImage imageNamed:@"btn_collect"] forState:UIControlStateNormal];
+    }
+    
     [self.titleLabel setFont:ListTitleFont];
     self.titleLabel.textColor = UIColorFromRGB(TextDarkColor);
     
     // 标题
     [self.digestLabel setFont:ListDetailFont];
-    self.digestLabel.text = newsModel.content;
+    self.digestLabel.text = newsModel.author;
     self.digestLabel.textColor = UIColorFromRGB(TextPlaceHolderColor);
     
     // 时间
     [self.timeLabel setFont:ListDetailFont];
     self.timeLabel.textColor = UIColorFromRGB(TextPlaceHolderColor);
-    self.timeLabel.text = dateTransformString(FormateTime, [NSDate date]);
+    self.timeLabel.text = dateTransformDateString(@"yyyy.MM.dd", newsModel.createTime);
     
     // 单图、左图右字的第一张
     [self.iconImage sd_setImageWithURL:[NSURL URLWithString:newsModel.picture]

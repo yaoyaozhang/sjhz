@@ -70,8 +70,8 @@
 }
 
 -(void)setReloadData{
-    NSString *jsStr = [NSString stringWithFormat:@"doInitConfig('%@','%@','%@','%@',%d,%d)",nil,@"音频地址",@"作者",@"时间",123,1];
-    [_webView stringByEvaluatingJavaScriptFromString:jsStr];
+//    NSString *jsStr = [NSString stringWithFormat:@"doInitConfig('%@','%@','%@','%@',%d,%d)",@"视频地址",@"音频地址",_model.author,@"时间",123,1];
+//    [_webView stringByEvaluatingJavaScriptFromString:jsStr];
 
 }
 
@@ -164,20 +164,28 @@
     if(type == 3){
         // 收藏
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertToString(@"1") forKey:@"collectiontType"];
+        if(_model.collect){
+            [dict setObject:convertToString(@"0") forKey:@"collectiontType"];
+        }else{
+            [dict setObject:convertToString(@"1") forKey:@"collectiontType"];
+        }
         [dict setObject:convertIntToString(_model.nid) forKey:@"nid"];
         [dict setObject:convertIntToString([[ZZDataCache getInstance] getLoginUser].userId) forKey:@"uid"];
         [ZZRequsetInterface post:API_CollectChapter param:dict timeOut:HttpGetTimeOut start:^{
             
         } finish:^(id response, NSData *data) {
-            //            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-            //            _model.chickLikeNum = _model.chickLikeNum + 1;
-            //            [sender setTitle:convertIntToString(_model.chickLikeNum) forState:UIControlStateNormal];
+            
         } complete:^(NSDictionary *dict) {
-            _model.chickLikeNum = _model.chickLikeNum + 1;
+            if(_model.collect){
+                [self.view makeToast:@"取消收藏成功!"];
+            }else{
+                [self.view makeToast:@"收藏成功!"];
+            }
+            
+            _model.collect = !_model.collect;
             
             [self setReloadData];
-            [self.view makeToast:@"收藏成功!"];
+            
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             [self.view makeToast:errorMsg];
         } progress:^(CGFloat progress) {

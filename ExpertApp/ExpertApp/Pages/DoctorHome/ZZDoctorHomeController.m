@@ -35,7 +35,6 @@
 
 @interface ZZDoctorHomeController ()<ZZDoctorCaseDelegate>{
     ZZUserInfo *loginUser;
-    ZZUserHomeModel *headerModel;
     
     int   allgroup;
     int   waitgroup;
@@ -58,14 +57,6 @@
     
     loginUser = [[ZZDataCache getInstance] getLoginUser];
     
-    headerModel = [ZZUserHomeModel new];
-    headerModel.imageUrl = loginUser.imageUrl;
-    headerModel.docName = loginUser.docName;
-    headerModel.departmentName = loginUser.departmentName;
-    headerModel.hospital = loginUser.hospital;
-    headerModel.accomplished = loginUser.accomplished;
-    headerModel.titleNmae = loginUser.titleName;
-
     
     [self.menuRightButton setImage:[UIImage imageNamed:@"nav_share"] forState:UIControlStateNormal];
     [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@的个人诊所",loginUser.name] forState:UIControlStateNormal];
@@ -82,7 +73,7 @@
     if(sender.tag == RIGHT_BUTTON){
         // 分享
         ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeUser vc:self];
-        shareView.shareModel=headerModel;
+        shareView.shareModel=loginUser;
         [shareView show];
     }else if(sender.tag == 111){
         // 关注
@@ -266,7 +257,7 @@
             cell = [[ZZDoctorHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierHeader];
         }
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [cell dataToView:headerModel];
+        [cell dataToView:loginUser];
         return cell;
     }
     

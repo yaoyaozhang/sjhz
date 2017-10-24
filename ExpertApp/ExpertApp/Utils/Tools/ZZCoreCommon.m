@@ -302,6 +302,9 @@ NSDate * stringFormateDate(NSString * stringDate){
 
 
 NSString *intervalSinceNow(NSString *theDate){
+    if([@"" isEqual:convertToString(theDate)]){
+        return @"";
+    }
     NSArray *timeArray=[theDate componentsSeparatedByString:@"."];
     theDate=[timeArray objectAtIndex:0];
     

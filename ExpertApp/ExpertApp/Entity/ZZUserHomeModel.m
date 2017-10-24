@@ -10,6 +10,13 @@
 
 @implementation ZZUserHomeModel
 
-
+-(id)initWithMyDict:(NSDictionary *)dict{
+    self = [[ZZUserHomeModel alloc] init];
+    if(self){
+        _docInfo = [[ZZUserInfo alloc] initWithMyDict:dict];
+        _chpater = [[ZZChapterModel alloc] initWithMyDict:dict];
+    }
+    return self;
+}
 
 @end

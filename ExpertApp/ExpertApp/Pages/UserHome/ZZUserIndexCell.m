@@ -57,18 +57,36 @@
     if(model){
         _tempModel = model;
         
-        [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:convertToString(model.imageUrl)]];
-        [_labName setText:convertToString(model.docName)];
-        [_labKes setText:convertToString(model.departmentName)];
-        [_labHospital setText:convertToString(model.hospital)];
-        [_labChapter setText:convertToString(model.title)];
-        [_labTime setText:convertToString(model.createTime)];
-        
-        [_imgFace sd_setImageWithURL:[NSURL URLWithString:convertToString(model.picture)]];
+        [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:convertToString(model.docInfo.imageUrl)]];
+        [_labName setText:convertToString(model.docInfo.docName)];
+        [_labKes setText:convertToString(model.docInfo.departmentName)];
+        [_labHospital setText:convertToString(model.docInfo.hospital)];
         
         
-        [_btnComment setTitle:convertIntToString(model.chickedNum) forState:UIControlStateNormal];
-        [_btnCollect setTitle:convertIntToString(model.chickLikeNum) forState:UIControlStateNormal];
+            [_labChapter setText:convertToString(model.chpater.title)];
+            [_labTime setText:intervalSinceNow(model.chpater.createTime)];
+        
+        [_imgFace sd_setImageWithURL:[NSURL URLWithString:convertToString(model.chpater.picture)]];
+        
+        
+        [_btnComment setTitle:convertIntToString(model.chpater.chickNum) forState:UIControlStateNormal];
+        
+        
+        self.imgVideoOrMp3.hidden = NO;
+        if(model.chpater.showVideo == 1){
+            [self.imgVideoOrMp3 setImage:[UIImage imageNamed:@"knowledge_sound"]];
+        }else if(model.chpater.showVideo == 2){
+            [self.imgVideoOrMp3 setImage:[UIImage imageNamed:@"knowledge_video"]];
+        }else{
+            self.imgVideoOrMp3.hidden = YES;
+        }
+        
+        if(model.chpater.collect){
+            [self.btnCollect setImage:[UIImage imageNamed:@"btn_alreadycollected"] forState:UIControlStateNormal];
+        }else{
+            [self.btnCollect setImage:[UIImage imageNamed:@"btn_collect"] forState:UIControlStateNormal];
+        }
+
     }
 }
 

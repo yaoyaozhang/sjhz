@@ -70,11 +70,6 @@
         if(_cellType == ZZDoctorCellTypeCheck){
             [_btnControl setImage:[UIImage imageNamed:@"btn_cannotselected"] forState:UIControlStateNormal];
             [_btnControl setImage:[UIImage imageNamed:@"btn_selected"] forState:UIControlStateSelected];
-            if(model.isChecked){
-                _btnControl.selected = YES;
-            }else{
-                _btnControl.selected = NO;
-            }
         }
         
     }
@@ -82,21 +77,22 @@
     if(model){
         _tempModel = model;
         
-        [_labelName setText:model.docName];
+        [_labelName setText:model.docInfo.docName];
         CGSize ns = [self autoWidthOfLabel:_labelName with:22];
         CGRect f = _labelNameZhiWei.frame;
         f.origin.x = _labelName.frame.origin.x + ns.width + 10;
         f.size.width = ScreenWidth - f.origin.x - 15;
         
-        [_labelNameZhiWei setText:model.departmentName];
-        [_labelHosptial setText:model.hospital];
-        if(model.accomplished){
-            [_labelSC setText:[NSString stringWithFormat:@"擅长:%@",model.accomplished]];
+        [_labelNameZhiWei setText:model.docInfo.departmentName];
+        [_labelHosptial setText:model.docInfo.hospital];
+                
+        if(model.docInfo.accomplished){
+            [_labelSC setText:[NSString stringWithFormat:@"擅长:%@",model.docInfo.accomplished]];
         }else{
             [_labelSC setText:[NSString stringWithFormat:@"擅长:--"]];
         }
-        if(model.titleNmae){
-            NSArray *arr = [model.titleNmae componentsSeparatedByString:@","];
+        if(model.docInfo.titleName){
+            NSArray *arr = [model.docInfo.titleName componentsSeparatedByString:@","];
             CGFloat xx = 0;
             for(NSString *itemText in arr){
                 xx = [self createLabel:itemText x:xx];

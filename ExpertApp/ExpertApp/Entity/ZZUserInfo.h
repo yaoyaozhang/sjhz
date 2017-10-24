@@ -54,5 +54,9 @@
 @property(nonatomic,strong) NSString *certificateUrl1;//": "高级职称,第二高级"
 
 
+@property(nonatomic,assign) int     articleNum;//: 文章量
+@property(nonatomic,assign) int     fansNum;//: 粉丝数
+
+
 
 @end

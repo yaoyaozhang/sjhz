@@ -17,7 +17,7 @@
 //#define API_HOST @"http://47.94.131.85:8080/sjhz-yu"
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
 //#define API_HOST @"http://192.168.99.123:8080"
-#define API_HOST @"http://219.142.225.69:8123/sjhz-yu"
+#define API_HOST @"http://219.142.225.69:8123"
 
 /**
  *  发送验证码
@@ -35,7 +35,7 @@
 #define API_Login [NSString stringWithFormat:@"%@/user/appLogin",API_HOST]
 
 
-#define API_FindUserInfoByUserId [NSString stringWithFormat:@"%@/file/getUserInfoById",API_HOST]
+#define API_FindUserInfoByUserId [NSString stringWithFormat:@"%@/user/appGetUserInfoById",API_HOST]
 
 
 #define API_FindUserInfoByUserName [NSString stringWithFormat:@"%@/file/getUserInfoByUserName",API_HOST]
@@ -165,6 +165,7 @@
 
 
 
+#define API_findDoctorHomeChapter [NSString stringWithFormat:@"%@/news/appFindNewsDocId",API_HOST]
 #define API_getChapterList [NSString stringWithFormat:@"%@/news/appFindNewsByNewsType",API_HOST]
 //#define API_getChapterDetail(nid) [NSString stringWithFormat:@"%@/news/bronews.html?nid=%d",API_HOST,nid]
 #define API_getChapterDetail(nid) [NSString stringWithFormat:@"%@/news/wz/chapter.html?nid=%d",API_HOST,nid]

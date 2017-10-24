@@ -211,19 +211,28 @@
         if(tag == ZZChapterCellClickTagCollect){
             // 收藏
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-            [dict setObject:convertToString(@"1") forKey:@"collectiontType"];
+            if(newsModel.collect){
+                [dict setObject:convertToString(@"0") forKey:@"collectiontType"];
+            }else{
+                [dict setObject:convertToString(@"1") forKey:@"collectiontType"];
+            }
             [dict setObject:convertIntToString(newsModel.nid) forKey:@"nid"];
             [dict setObject:convertIntToString([[ZZDataCache getInstance] getLoginUser].userId) forKey:@"uid"];
             [ZZRequsetInterface post:API_CollectChapter param:dict timeOut:HttpGetTimeOut start:^{
                 
             } finish:^(id response, NSData *data) {
-                NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-                newsModel.chickLikeNum = newsModel.chickLikeNum + 1;
-                [self.tableView reloadData];
+                
             } complete:^(NSDictionary *dict) {
-                newsModel.chickLikeNum = newsModel.chickLikeNum + 1;
+                if(newsModel.collect){
+                    [self.view makeToast:@"取消收藏成功!"];
+                }else{
+                    [self.view makeToast:@"收藏成功!"];
+                }
+                
+                newsModel.collect = !newsModel.collect;
+                
                 [self.tableView reloadData];
-                [self.view makeToast:@"收藏成功!"];
+                
             } fail:^(id response, NSString *errorMsg, NSError *connectError) {
                 [self.view makeToast:errorMsg];
             } progress:^(CGFloat progress) {

@@ -47,6 +47,10 @@
     [self.menuRightButton setImage:[UIImage imageNamed:@"nav_share"] forState:UIControlStateNormal];
     [self.menuTitleButton setTitle:[NSString stringWithFormat:@"个人诊所"] forState:UIControlStateNormal];
     
+    [self loadDoctorInfo];
+    
+    [self loadDoctorChapters];
+    
 }
 
 -(void)buttonClick:(UIButton *)sender{
@@ -60,7 +64,7 @@
     }else if(sender.tag == 111){
         // 关注
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertIntToString(_model.userId) forKey:@"toUserId"];
+        [dict setObject:convertIntToString(_model.docInfo.userId) forKey:@"toUserId"];
         [dict setObject:convertIntToString(loginUser.userId) forKey:@"forUserId"];
         [ZZRequsetInterface post:API_followUserDoctor param:dict timeOut:HttpGetTimeOut start:^{
             
@@ -78,7 +82,7 @@
     }else if(sender.tag == 222){
         // 咨询
         ZZChooseController *chooseVC = [[ZZChooseController alloc] init];
-        chooseVC.doctorId = convertIntToString(_model.userId);
+        chooseVC.doctorId = convertIntToString(_model.docInfo.userId);
         [self openNav:chooseVC sound:nil];
         
     }else if(sender.tag == 333){
@@ -154,7 +158,52 @@
  加载更多
  */
 -(void)loadDoctorInfo{
-    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:convertIntToString(_model.docInfo.userId) forKey:@"userId"];
+    [ZZRequsetInterface post:API_FindUserInfoByUserId param:dict timeOut:HttpGetTimeOut start:^{
+        
+    } finish:^(id response, NSData *data) {
+        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    } complete:^(NSDictionary *dict) {
+        if(dict && dict[@"retData"]){
+            _model.docInfo = [[ZZUserInfo alloc] initWithMyDict:dict[@"retData"]];
+            
+            [_listTable reloadData];
+        }
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        
+    } progress:^(CGFloat progress) {
+        
+    }];
+}
+
+-(void)loadDoctorChapters{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:convertIntToString(_model.docInfo.userId) forKey:@"docId"];
+    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+    [ZZRequsetInterface post:API_findDoctorHomeChapter param:dict timeOut:HttpGetTimeOut start:^{
+        
+    } finish:^(id response, NSData *data) {
+        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    } complete:^(NSDictionary *dict) {
+        if(dict[@"retData"]){
+            
+        for (NSDictionary *item in dict[@"retData"]) {
+            [_listArray addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
+        }
+        
+            if(_listArray.count>0){
+                
+                [_listTable reloadData];
+                [self removePlaceholderView];
+            }
+            
+        }
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        
+    } progress:^(CGFloat progress) {
+        
+    }];
 }
 
 
@@ -162,7 +211,7 @@
 #pragma mark UITableView delegate Start
 // 返回section数
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _listArray.count == 0?1:3;
+    return _listArray.count == 0?1:(2+_listArray.count);
 }
 
 // 返回section高度
@@ -211,7 +260,7 @@
         return 0;
     }
     
-    return _listArray.count;
+    return 1;
 }
 
 // cell
@@ -222,21 +271,56 @@
             cell = [[ZZDoctorHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierHeader];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell dataToView:_model];
+        [cell dataToView:_model.docInfo];
 //        [cell setSelectedBackgroundView:[[UIView alloc] initWithFrame:cell.bounds]];
         return cell;
     }
     
-    ZZChapterModel *newsModel = _listArray[indexPath.section];
+    if(indexPath.section == 1){
+        return nil;
+    }
+    
+    ZZChapterModel *newsModel = _listArray[indexPath.section-2];
     ZZChapterUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.chapterModel = newsModel;
     
     [cell setOnItemClickBlock:^(ZZChapterCellClickTag tag){
         if(tag == ZZChapterCellClickTagSend){
-            // 转发
+            // 分享
+            ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeChapter vc:self];
+            shareView.shareModel = newsModel;
+            [shareView show];
         }
         if(tag == ZZChapterCellClickTagCollect){
             // 收藏
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+            if(newsModel.collect){
+                [dict setObject:convertToString(@"0") forKey:@"collectiontType"];
+            }else{
+                [dict setObject:convertToString(@"1") forKey:@"collectiontType"];
+            }
+            [dict setObject:convertIntToString(newsModel.nid) forKey:@"nid"];
+            [dict setObject:convertIntToString([[ZZDataCache getInstance] getLoginUser].userId) forKey:@"uid"];
+            [ZZRequsetInterface post:API_CollectChapter param:dict timeOut:HttpGetTimeOut start:^{
+                
+            } finish:^(id response, NSData *data) {
+                
+            } complete:^(NSDictionary *dict) {
+                if(newsModel.collect){
+                    [self.view makeToast:@"取消收藏成功!"];
+                }else{
+                    [self.view makeToast:@"收藏成功!"];
+                }
+                
+                newsModel.collect = !newsModel.collect;
+                
+                [self.listTable reloadData];
+                
+            } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+                [self.view makeToast:errorMsg];
+            } progress:^(CGFloat progress) {
+                
+            }];
         }
         if(tag == ZZChapterCellClickTagComment){
             // 评论
@@ -261,7 +345,7 @@
     
     
     //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
-    if(_listArray.count < indexPath.row){
+    if(_listArray.count < indexPath.section-2){
         return cell;
     }
     
@@ -288,9 +372,10 @@
 // table 行的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    return 70.0f;
-        UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-        return cell.frame.size.height;
+    if(indexPath.section == 0){        
+        return 245.0f;
+    }
+    return 120.0f;
 }
 
 // table 行的点击事件

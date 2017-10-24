@@ -128,9 +128,9 @@
     
     curCheckTag = ZZSearchDoctorTypeDefault;
     
-    MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingTarget:self refreshingAction:@selector(beginNetRefreshData)];
-    header.stateLabel.hidden = YES;
-    _listTable.header = header;
+//    MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingTarget:self refreshingAction:@selector(beginNetRefreshData)];
+//    header.stateLabel.hidden = YES;
+//    _listTable.header = header;
     // 占位图
 //    [self createPlaceholderView:@"搜素医生信息" message:@"" image:[UIImage imageNamed:@"icon_search"] withView:_listTable action:nil];
     
@@ -190,7 +190,11 @@
         for (NSDictionary *item in arr) {
             [_listArray addObject:[[ZZUserHomeModel alloc] initWithMyDict:item]];
         }
-        
+        if(_listArray.count == 0){
+            [self createPlaceholderView:@"重新加载" message:@"" image:nil withView:_listTable action:^(UIButton *button) {
+                
+            }];
+        }
         [_listTable reloadData];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         [_listTable reloadData];
@@ -276,7 +280,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     ZZUserHomeModel *model =  _listArray[indexPath.row];
     ZZDoctorDetailController  *listVC = [[ZZDoctorDetailController alloc]init];
-    listVC.docId = model.userId;
+    listVC.docId = model.docInfo.userId;
     listVC.model = model;
     [self openNav:listVC sound:nil];
 }
@@ -372,32 +376,33 @@
     }else if(tag == 22){
         // 评论
         ZZCommentController *comVC = [[ZZCommentController alloc] init];
-        comVC.nid = model.nid;
+        comVC.nid = model.chpater.nid;
         [self openNav:comVC sound:nil];
     }else if(tag == 33){
+        // 收藏
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertToString(@"1") forKey:@"collectiontType"];
-        if(model.isChecked){
-            [dict setObject:convertToString(@"2") forKey:@"collectiontType"];
+        if(model.chpater.collect){
+            [dict setObject:convertToString(@"0") forKey:@"collectiontType"];
+        }else{
+            [dict setObject:convertToString(@"1") forKey:@"collectiontType"];
         }
-        [dict setObject:convertIntToString(model.nid) forKey:@"nid"];
+        [dict setObject:convertIntToString(model.chpater.nid) forKey:@"nid"];
         [dict setObject:convertIntToString([[ZZDataCache getInstance] getLoginUser].userId) forKey:@"uid"];
         [ZZRequsetInterface post:API_CollectChapter param:dict timeOut:HttpGetTimeOut start:^{
             
         } finish:^(id response, NSData *data) {
-            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            
         } complete:^(NSDictionary *dict) {
-            if(model.isChecked){
-                model.isChecked = NO;
-                if(model.chickLikeNum>0){
-                    model.chickLikeNum = model.chickLikeNum - 1;
-                }
+            if(model.chpater.collect){
+                [self.view makeToast:@"取消收藏成功!"];
             }else{
-                model.isChecked = YES;
-                model.chickLikeNum = model.chickLikeNum + 1;
+                [self.view makeToast:@"收藏成功!"];
             }
+            
+            model.chpater.collect = !model.chpater.collect;
+            
             [_listTable reloadData];
-            [self.view makeToast:@"收藏成功!"];
+            
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             [self.view makeToast:errorMsg];
         } progress:^(CGFloat progress) {

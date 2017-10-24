@@ -85,6 +85,10 @@
                             <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="edJ-Lg-w1h"/>
                         </connections>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9AY-H6-Smd">
+                        <rect key="frame" x="68" y="115" width="20" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -93,6 +97,7 @@
                 <outlet property="btnSend" destination="lIP-MW-w3E" id="1uM-U6-Qs6"/>
                 <outlet property="imgAvatar" destination="xA7-cH-jpK" id="Hl2-56-82a"/>
                 <outlet property="imgFace" destination="UPA-li-zuz" id="Hca-uY-JDb"/>
+                <outlet property="imgVideoOrMp3" destination="9AY-H6-Smd" id="Cuw-3M-Mbp"/>
                 <outlet property="labChapter" destination="TXq-Vb-dqr" id="9g0-nx-2o6"/>
                 <outlet property="labHospital" destination="iNL-lW-ZIa" id="3v8-bL-THC"/>
                 <outlet property="labKes" destination="skm-PB-1nh" id="Q4B-qw-Fre"/>
@@ -103,7 +108,7 @@
     </objects>
     <resources>
         <image name="btn_collect.png" width="15" height="15"/>
-        <image name="btn_comment.png" width="15" height="15"/>
+        <image name="btn_comment.png" width="18" height="18"/>
         <image name="btn_send.png" width="15" height="15"/>
     </resources>
 </document>

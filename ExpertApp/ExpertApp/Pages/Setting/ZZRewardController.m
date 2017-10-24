@@ -43,7 +43,7 @@
     NSString *author = @"";
     if(_type == ZZRewardTypeDoctor){
         ZZUserHomeModel *model = _rewardModel;
-        author = model.docName;
+        author = model.docInfo.docName;
     }
     if(_type == ZZRewardTypeChapter){
         ZZChapterModel *model = _rewardModel;
@@ -121,8 +121,8 @@
         int receivedId = 0;
         if(_type == ZZRewardTypeDoctor){
             ZZUserHomeModel *model = _rewardModel;
-            desc = [NSString stringWithFormat:@"打赏%@医生",model.docName];
-            receivedId = model.userId;
+            desc = [NSString stringWithFormat:@"打赏%@医生",model.docInfo.docName];
+            receivedId = model.docInfo.userId;
         }
         if(_type == ZZRewardTypeChapter){
             ZZChapterModel *model = _rewardModel;

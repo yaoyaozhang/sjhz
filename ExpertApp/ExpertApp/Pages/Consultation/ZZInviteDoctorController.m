@@ -428,11 +428,7 @@
     cell.cellType = ZZDoctorCellTypeCheck;
     cell.delegate = self;
     ZZUserHomeModel *model=[_listArray objectAtIndex:indexPath.section];
-    if([checkDict objectForKey:convertIntToString(model.userId)]){
-        model.isChecked = YES;
-    }else{
-        model.isChecked = NO;
-    }
+    
     [cell dataToView:model];
     
     
@@ -440,13 +436,8 @@
 }
 
 -(void)onDoctorCellClick:(ZZDoctorCellType)type model:(ZZUserHomeModel *)model{
-    if(model.isChecked){
-        model.isChecked = NO;
-        [checkDict removeObjectForKey:convertIntToString(model.userId)];
-    }else{
-        model.isChecked = YES;
-        [checkDict setObject:model forKey:convertIntToString(model.userId)];
-    }
+    
+    
     [_listTable reloadData];
 }
 

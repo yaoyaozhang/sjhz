@@ -22,6 +22,8 @@
                     }else{
                         [self setValue:dict[key] forKey:key];
                     }
+                }else{
+                    [self setValue:convertToString(@"") forKey:key];
                 }
             }
         }

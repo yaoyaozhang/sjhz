@@ -35,6 +35,17 @@
 // 修改人
 @property(nonatomic,strong) NSString *updateUser;
 
+
+// 类别，0不显示，1语音，2视频，
+@property(nonatomic,assign) int showVideo;
+
+
+
+/**
+ 是否收藏
+ */
+@property(nonatomic,assign) BOOL collect;
+
 // 类别
 @property(nonatomic,assign) int newsType;
 

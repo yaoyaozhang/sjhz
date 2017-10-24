@@ -36,7 +36,7 @@
     
 }
 
--(void)dataToView:(ZZUserHomeModel *)model{
+-(void)dataToView:(ZZUserInfo *)model{
     [_viewZhic.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     if(model){
@@ -52,8 +52,8 @@
         f.origin.x = _labName.frame.origin.x + size.width + 5;
         [_viewZhic setFrame:f];
         
-        if(model.titleNmae){
-            NSArray *arr = [model.titleNmae componentsSeparatedByString:@","];
+        if(model.titleName){
+            NSArray *arr = [model.titleName componentsSeparatedByString:@","];
             CGFloat xx = 0;
             for(NSString *itemText in arr){
                 xx = [self createLabel:itemText x:xx];

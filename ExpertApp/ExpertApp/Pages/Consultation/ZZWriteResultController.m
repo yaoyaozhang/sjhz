@@ -82,7 +82,7 @@
         NSString *tjInUser = @"";
         if(_listArray && _listArray.count>0){
             for (ZZUserHomeModel *item in _listArray) {
-                tjInUser = [tjInUser stringByAppendingFormat:@",%d",item.userId];
+                tjInUser = [tjInUser stringByAppendingFormat:@",%d",item.docInfo.userId];
             }
             if(tjInUser.length>0){
                 tjInUser = [tjInUser substringFromIndex:1];

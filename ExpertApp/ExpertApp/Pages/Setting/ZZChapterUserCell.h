@@ -25,6 +25,9 @@ typedef NS_ENUM(NSInteger,ZZChapterCellClickTag) {
 
 /** 左图右字的单个图片，三图中的第一个图片 */
 @property (weak, nonatomic) IBOutlet UIImageView *iconImage;
+@property (weak, nonatomic) IBOutlet UIImageView *imgVideoOrMp3;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 

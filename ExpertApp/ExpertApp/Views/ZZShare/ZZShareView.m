@@ -99,11 +99,11 @@
     
     UMShareObject *shareObject;
     if(_type == ZZShareTypeUser){
-        ZZUserHomeModel *userModel = (ZZUserHomeModel *)_shareModel;
-        if([@"" isEqual:convertToString(userModel.title)]){
-            userModel.title = convertToString(userModel.accomplished);
+        ZZUserInfo *userModel = (ZZUserInfo *)_shareModel;
+        if([@"" isEqual:convertToString(userModel.docName)]){
+            userModel.docName = convertToString(userModel.accomplished);
         }
-        shareObject = [UMShareObject shareObjectWithTitle:userModel.docName descr:convertToString(userModel.title) thumImage:userModel.imageUrl];
+        shareObject = [UMShareObject shareObjectWithTitle:userModel.docName descr:convertToString(userModel.userName) thumImage:userModel.imageUrl];
         
         messageObject.text = shareObject.descr;
         messageObject.title = shareObject.title;

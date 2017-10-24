@@ -316,7 +316,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     ZZUserHomeModel *model =  _listArray[indexPath.section-1];
     ZZDoctorDetailController  *listVC = [[ZZDoctorDetailController alloc]init];
-    listVC.docId = model.userId;
+    listVC.docId = model.docInfo.userId;
     listVC.model = model;
     [self openNav:listVC sound:nil];
 //    [self.searchTF resignFirstResponder];

@@ -24,6 +24,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *labDesc;
 
 
--(void) dataToView:(ZZUserHomeModel *) model;
+-(void) dataToView:(ZZUserInfo *) model;
 
 @end
