@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *collectButton;
+@property (weak, nonatomic) IBOutlet UIImageView *imgVideoOrMp3;
+
 
 /** 左图右字的单个图片，三图中的第一个图片 */
 @property (weak, nonatomic) IBOutlet UIImageView *iconImage;
@@ -40,7 +42,9 @@
     _chapterModel = newsModel;
     
     // 图片轮播
-    [self setupCycleImageCell:newsModel];
+    if(!is_null(_chapterModel.pics)){
+        [self setupCycleImageCell:newsModel];
+    }
     
     self.sendButton.tag    = ZZChapterCellClickTagSend;
     self.collectButton.tag = ZZChapterCellClickTagCollect;
@@ -80,6 +84,28 @@
     
     self.iconImage.layer.borderColor = UIColorFromRGB(BgLineColor).CGColor;
     self.iconImage.layer.borderWidth = 0.75f;
+    
+    if(newsModel.commentNum>0){
+        [self.commentButton setTitle:convertIntToString(newsModel.commentNum) forState:UIControlStateNormal];
+    }
+    
+    self.imgVideoOrMp3.hidden = NO;
+    if(newsModel.showVideo == 1){
+        [self.imgVideoOrMp3 setImage:[UIImage imageNamed:@"knowledge_sound"]];
+    }else if(newsModel.showVideo == 2){
+        [self.imgVideoOrMp3 setImage:[UIImage imageNamed:@"knowledge_video"]];
+    }else{
+        self.imgVideoOrMp3.hidden = YES;
+    }
+    
+    if(newsModel.commentNum>0){
+        [_commentButton setTitle:convertIntToString(newsModel.commentNum) forState:UIControlStateNormal];
+    }
+    if(newsModel.collect){
+        [self.collectButton setImage:[UIImage imageNamed:@"btn_alreadycollected"] forState:UIControlStateNormal];
+    }else{
+        [self.collectButton setImage:[UIImage imageNamed:@"btn_collect"] forState:UIControlStateNormal];
+    }
     
     // 单图、左图右字的第一张
     [self.iconImage sd_setImageWithURL:[NSURL URLWithString:newsModel.picture]
@@ -156,7 +182,7 @@
 + (NSString *)cellReuseID:(ZZChapterModel *)newsModel
 {
     // 接口中，ads 和 imgextra 可能共同出现，所以有ads的就直接弄成轮播。
-    if (newsModel.pics) {
+    if (!is_null(newsModel.pics)) {
         return @"NewsCycleImageCell"; // 轮播
     } else {
         return @"News_L_img_R_text_Cell"; // 左图右字
@@ -165,7 +191,7 @@
 
 + (CGFloat)cellForHeight:(ZZChapterModel *)newsModel
 {
-    if (newsModel.pics) {
+    if (!is_null(newsModel.pics)) {
         return 210;
     } else {
         return 120;

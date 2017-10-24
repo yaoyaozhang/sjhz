@@ -31,7 +31,7 @@
     _newsTVC = [sb instantiateInitialViewController];
     _newsTVC.preVC = self;
     _newsTVC.view.frame = CGRectMake(0, NavBarHeight + 10, ScreenWidth, ScreenHeight - NavBarHeight - 10);
-    _newsTVC.urlString = @"";
+    _newsTVC.newsType = @"0";
     
     [self.view addSubview:_newsTVC.view];
 }

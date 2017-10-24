@@ -58,10 +58,9 @@
     _dataList = [NSMutableArray arrayWithCapacity:0];
 }
 
-- (void)setUrlString:(NSString *)urlString
+- (void)setNewsType:(NSString *)newsType
 {
-    _urlString = urlString;
-    
+    _newsType = newsType;
     [self.tableView.header beginRefreshing];
 }
 
@@ -78,7 +77,9 @@
 - (void)loadMoreData
 {
     // 获取tid来拼接urlString
-    [ZZRequsetInterface get:API_getChapterList start:^{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:convertToString(_newsType) forKey:@"newsType"];
+    [ZZRequsetInterface post:API_getChapterList param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
@@ -107,7 +108,6 @@
         }
         
         [self.tableView reloadData];
-        [self.tableView.header endRefreshing];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         
     } progress:^(CGFloat progress) {

@@ -59,11 +59,15 @@ static NSString * const reuseID  = @"ZZChannelCell";
  */
 -(void)getChannelListByNetWork{
     _channelList = [NSMutableArray arrayWithCapacity:5];
+//    <option value="0">请选择类别</option>
+//    <option value="1">运动</option>
+//    <option value="2">减肥</option>
+//    <option value="3">妇科</option>
     NSArray *localList = @[
-                             @{@"topicid":@"00040BGE",@"tname":@"全部",@"tid":@"T1370583240249",@"urlString":@"123"},
-                             @{@"topicid":@"00040BGE",@"tname":@"运动",@"tid":@"T1370583240249",@"urlString":@"123"},
-                             @{@"topicid":@"00040BGE",@"tname":@"减肥",@"tid":@"T1370583240249",@"urlString":@"123"},
-                             @{@"topicid":@"00040BGE",@"tname":@"妇科",@"tid":@"T1370583240249",@"urlString":@"123"}];
+                             @{@"topicid":@"0",@"tname":@"全部",@"tid":@"0",@"urlString":@"0"},
+                             @{@"topicid":@"1",@"tname":@"运动",@"tid":@"1",@"urlString":@"1"},
+                             @{@"topicid":@"2",@"tname":@"减肥",@"tid":@"2",@"urlString":@"2"},
+                             @{@"topicid":@"3",@"tname":@"妇科",@"tid":@"3",@"urlString":@"3"}];
     for(NSDictionary *dict in localList){
         [_channelList addObject:[[ZZChannelModel alloc] initWithMyDict:dict]];
     }

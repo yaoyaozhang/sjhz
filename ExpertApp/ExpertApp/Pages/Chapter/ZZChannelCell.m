@@ -26,7 +26,7 @@
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"ZZChapterTVC" bundle:nil];
     _newsTVC = [sb instantiateInitialViewController];
     _newsTVC.view.frame = self.bounds;
-    _newsTVC.urlString = urlString;
+    _newsTVC.newsType = urlString;
     [self addSubview:_newsTVC.view];
 }
 
