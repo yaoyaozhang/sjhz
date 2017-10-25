@@ -124,6 +124,9 @@
 #define API_SearchDocCase [NSString stringWithFormat:@"%@/doctor/serachDocCase",API_HOST]
 
 
+#define API_SearchDocCaseByState [NSString stringWithFormat:@"%@/doctor/serachDocCaseByState",API_HOST]
+
+
 /**
  查询病例
 

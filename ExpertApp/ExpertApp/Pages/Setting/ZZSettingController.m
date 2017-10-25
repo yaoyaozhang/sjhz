@@ -233,10 +233,11 @@
         ZZArchivesController *vc = [[ZZArchivesController alloc] init];
         [self openNav:vc sound:nil];
     }
-    if(code == 3 || code == 11){
+    if(code == 3 || code == 10){
         ZZFansController *vc = [[ZZFansController alloc] init];
         [self openNav:vc sound:nil];
     }
+    
     
     if(code == 4){
         ZZCollectionController *vc = [[ZZCollectionController alloc] init];
@@ -257,8 +258,8 @@
         vc.docInfo = loginUser;
         [self openNav:vc sound:nil];
     }
-    if(code == 10){
-        ZZFansController *vc = [[ZZFansController alloc] init];
+    if(code == 11){
+        ZZAttentionController *vc = [[ZZAttentionController alloc] init];
         
         [self openNav:vc sound:nil];
     }

@@ -36,9 +36,13 @@
 @interface ZZDoctorHomeController ()<ZZDoctorCaseDelegate>{
     ZZUserInfo *loginUser;
     
+    int checkIndex;
+    
     int   allgroup;
     int   waitgroup;
     int   dogroup;
+    
+    int pageNum;
 }
 @property(nonatomic,strong)UITableView      *listTable;
 @property(nonatomic,strong)NSMutableArray   *listArray;
@@ -63,7 +67,7 @@
     
     [self createTableView];
     
-    
+    checkIndex = 1;
     [self loadDoctorInfo];
 }
 
@@ -94,12 +98,19 @@
 }
 
 -(void)checkHeaderClick:(UIButton *) sender{
+    checkIndex = sender.tag;
     if(sender.tag==1){
         // 全部病例
+        [self loadDoctorInfo];
     }else if(sender.tag == 2){
+        //1、待處理、2、正在處理、3、已處理完成
         // 待处理病例
+        pageNum = 1;
+        [self loadCaseByState:1];
     }else if(sender.tag == 3){
         // 已处理病例
+        pageNum = 1;
+        [self loadCaseByState:3];
     }
 }
 
@@ -182,6 +193,47 @@
     }];
 }
 
+-(void)loadCaseByState:(int)state{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+    //0 用户1、医生
+    [dict setObject:@"1" forKey:@"type"];
+    [dict setObject:convertIntToString(state) forKey:@"state"];
+    [dict setObject:@"1" forKey:@"pageNum"];
+    [dict setObject:@"30" forKey:@"pageSize"];
+    [ZZRequsetInterface post:API_SearchDocCaseByState param:dict timeOut:HttpGetTimeOut start:^{
+        if(![_listTable.header isRefreshing]){
+            [SVProgressHUD show];
+        }
+    } finish:^(id response, NSData *data) {
+        [SVProgressHUD dismiss];
+        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        if([_listTable.header isRefreshing]){
+            [_listTable.header endRefreshing];
+        }
+    } complete:^(NSDictionary *dict) {
+        NSArray *values = dict[@"retData"];
+        if(pageNum==1){
+            [_listArray removeAllObjects];
+        }
+        if(!is_null(values) && values.count > 0){
+            if(values.count == 30){
+                pageNum = pageNum + 1;
+            }
+            
+            for (NSDictionary *item in values) {
+                [_listArray addObject:[[ZZHZEngity alloc] initWithMyDict:item]];
+            }
+            
+            [_listTable reloadData];
+        }
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        
+    } progress:^(CGFloat progress) {
+        
+    }];
+}
+
 
 
 #pragma mark UITableView delegate Start
@@ -216,9 +268,11 @@
         NSArray *titles = @[@"全部病例",@"待处理病例",@"已处理病例"];
         for(int i=0;i<titles.count;i++){
             UIButton *otherBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [otherBtn setTitleColor:UIColorFromRGB(TextSizeThreeColor) forState:UIControlStateNormal];
             if(i==0){
                 
                 [otherBtn setTitle:[NSString stringWithFormat:@"%@(%d个)",titles[i],allgroup] forState:UIControlStateNormal];
+                
             }else if(i==1){
                 
                 [otherBtn setTitle:[NSString stringWithFormat:@"%@(%d个)",titles[i],waitgroup] forState:UIControlStateNormal];
@@ -226,14 +280,18 @@
                 
                 [otherBtn setTitle:[NSString stringWithFormat:@"%@(%d个)",titles[i],dogroup] forState:UIControlStateNormal];
             }
+            if(checkIndex == (i+1)){
+                [otherBtn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
+            }
             [otherBtn setFrame:CGRectMake(x,37 + 15, (ScreenWidth-40)/3, 30)];
             [otherBtn setBackgroundColor:UIColorFromRGB(BgListSectionColor)];
-            [otherBtn setTitleColor:UIColorFromRGB(TextSizeThreeColor) forState:UIControlStateNormal];
             [otherBtn.titleLabel setFont:ListDetailFont];
             [otherBtn addTarget:self action:@selector(checkHeaderClick:) forControlEvents:UIControlEventTouchUpInside];
             otherBtn.tag = i+1;
             [view addSubview:otherBtn];
             x = x + (ScreenWidth-40)/3 + 10;
+            
+            
         }
         
         return view;

@@ -133,7 +133,7 @@
     [dict setObject:convertToString(item[@"type"]) forKey:@"type"];
     //
     [dict setObject:convertToString(@"1") forKey:@"firstDoc"];
-    [dict setObject:convertToString(@"0") forKey:@"state"];
+    [dict setObject:convertToString(@"1") forKey:@"state"];
     [dict setObject:convertToString(@"") forKey:@"caseDept"];
     [ZZRequsetInterface post:API_AddDiscussCase param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD show];

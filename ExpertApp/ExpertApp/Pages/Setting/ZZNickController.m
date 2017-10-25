@@ -24,6 +24,9 @@
     // Do any additional setup after loading the view.
     [self createTitleMenu];
     [self.menuTitleButton setTitle:@"修改昵称" forState:UIControlStateNormal];
+    if(_type == ZZUserEidtTypeSC){
+        [self.menuTitleButton setTitle:@"修改擅长" forState:UIControlStateNormal];
+    }
     
     loginUser = [[ZZDataCache getInstance] getLoginUser];
     
@@ -86,8 +89,14 @@
         } finish:^(id response, NSData *data) {
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
-            
-            loginUser.name = name;
+            if(_type == ZZUserEidtTypeSC){
+                
+                loginUser.accomplished = name;
+            }
+            if(_type == ZZUserEidtTypeNick){
+                
+                loginUser.name = name;
+            }
             
             [[ZZDataCache getInstance] changeUserInfo:loginUser];
             
