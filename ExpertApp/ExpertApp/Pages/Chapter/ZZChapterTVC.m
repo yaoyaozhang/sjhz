@@ -89,9 +89,14 @@
         [dict setObject:convertIntToString([[ZZDataCache getInstance] getLoginUser].userId) forKey:@"userId"];
         
         api = API_findDoctorChapterList;
+    }else if(_userId > 0){
+        [dict setObject:convertIntToString(_userId) forKey:@"userId"];
+        
+        api = API_findUserChapterList;
     }else{
         [dict setObject:convertToString(_newsType) forKey:@"newsType"];
     }
+    
     [dict setObject:@"30" forKey:@"pageSize"];
     [dict setObject:convertIntToString(pageNum) forKey:@"pageNum"];
     [ZZRequsetInterface post:api param:dict timeOut:HttpGetTimeOut start:^{
@@ -112,7 +117,7 @@
         
         
         
-        if(_docId>0){
+        if(_docId>0 || _userId>0){
             for (NSDictionary *item in dict[@"retData"]) {
                 [_dataList addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
             }

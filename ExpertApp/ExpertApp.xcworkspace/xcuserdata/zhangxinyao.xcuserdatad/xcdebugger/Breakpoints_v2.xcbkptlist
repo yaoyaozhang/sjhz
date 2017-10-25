@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ExpertApp/Pages/DoctorHome/ZZDoctorDetailController.m"
-            timestampString = "530593543.189012"
+            filePath = "ExpertApp/Pages/Case/ZZChooseController.m"
+            timestampString = "530613681.11379"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "-loadDoctorInfo"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
+            landmarkName = "-onCaseCellItemOnClick:index:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ExpertApp/Pages/Search/ZZFriendUserCell.m"
-            timestampString = "530607143.539001"
+            filePath = "ExpertApp/Pages/Case/ZZCaseCell.m"
+            timestampString = "530612453.476812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "-itemOnClick:"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "-delButton:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ExpertApp/Pages/Case/ZZCaseCell.m"
+            timestampString = "530612455.256927"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "-chooseButton:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ExpertApp/Pages/Case/ZZChooseController.m"
+            timestampString = "530613681.11379"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
+            landmarkName = "-onCaseCellItemOnClick:index:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

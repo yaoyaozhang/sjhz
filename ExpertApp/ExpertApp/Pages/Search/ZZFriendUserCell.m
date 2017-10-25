@@ -31,7 +31,7 @@
     _imgAvatar.layer.borderWidth = 1.0f;
     _imgAvatar.layer.borderColor = UIColorFromRGB(BgSystemColor).CGColor;
     
-    
+    [_btnControl.titleLabel setFont:ListDetailFont];
     [_btnControl setBackgroundColor:[UIColor clearColor]];
     [_btnControl addTarget:self action:@selector(itemOnClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -69,11 +69,13 @@
             bf.origin.y = (90-26)/2;
             [_btnControl setFrame:bf];
         }
+        
+        
         if(status == 2){
             _btnControl.layer.borderColor = [UIColor clearColor].CGColor;
-            [_btnControl setTitle:@"互相关注" forState:UIControlStateNormal];
-            [_btnControl setImage:[UIImage imageNamed:@"mydoctor_mutualfollow"] forState:UIControlStateNormal];
-            [_btnControl setImage:[UIImage imageNamed:@"mydoctor_mutualfollow"] forState:UIControlStateSelected];
+            [_btnControl setTitle:@"已关注" forState:UIControlStateNormal];
+            [_btnControl setImage:[UIImage imageNamed:@"mydoctor_havefollow"] forState:UIControlStateNormal];
+            [_btnControl setImage:[UIImage imageNamed:@"mydoctor_havefollow"] forState:UIControlStateSelected];
             bf.size.height = 50.0f;
             bf.origin.y = (90-50)/2;
             [_btnControl setFrame:bf];
@@ -81,9 +83,9 @@
         
         if(status == 3){
             _btnControl.layer.borderColor = [UIColor clearColor].CGColor;
-            [_btnControl setTitle:@"已关注" forState:UIControlStateNormal];
-            [_btnControl setImage:[UIImage imageNamed:@"mydoctor_havefollow"] forState:UIControlStateNormal];
-            [_btnControl setImage:[UIImage imageNamed:@"mydoctor_havefollow"] forState:UIControlStateSelected];
+            [_btnControl setTitle:@"互相关注" forState:UIControlStateNormal];
+            [_btnControl setImage:[UIImage imageNamed:@"mydoctor_mutualfollow"] forState:UIControlStateNormal];
+            [_btnControl setImage:[UIImage imageNamed:@"mydoctor_mutualfollow"] forState:UIControlStateSelected];
             bf.size.height = 50.0f;
             bf.origin.y = (90-50)/2;
             [_btnControl setFrame:bf];

@@ -17,4 +17,7 @@
 
 @property(nonatomic,strong) ZZSportCaseEntity *editModel;
 
+
+@property (nonatomic, strong)  void(^ZZCreateResultBlock) (int status);
+
 @end

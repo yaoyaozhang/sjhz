@@ -87,7 +87,12 @@
 -(void)loadMoreData{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
-    [ZZRequsetInterface post:API_findUserFriend param:dict timeOut:HttpGetTimeOut start:^{
+    NSString *api = API_findUserFriend;
+    if(!loginUser.isDoctor){
+        api = API_getMyDoctorList;
+    }
+    
+    [ZZRequsetInterface post:api param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
@@ -117,7 +122,7 @@
 #pragma mark UITableView delegate Start
 // 返回section数
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return _listArray.count;;
 }
 
 // 返回section高度
@@ -131,18 +136,7 @@
 
 // 返回section 的View
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if(section==1){
-        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 25)];
-        [view setBackgroundColor:UIColorFromRGB(BgSystemColor)];
-        
-        UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(12, 0, ScreenWidth-24, 25)];
-        [label setFont:ListDetailFont];
-        [label setText:@"gansha a"];
-        [label setTextAlignment:NSTextAlignmentLeft];
-        [label setTextColor:UIColorFromRGB(TextBlackColor)];
-        [view addSubview:label];
-        return view;
-    }
+   
     return nil;
 }
 
@@ -151,7 +145,7 @@
     if(_listArray==nil){
         return 0;
     }
-    return _listArray.count;
+    return 1;
 }
 
 // cell
@@ -177,9 +171,9 @@
     //    [cell setSelectedBackgroundView:[[UIView alloc] initWithFrame:cell.bounds]];
     //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
     
-    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
-    ZZUserInfo *model=[_listArray objectAtIndex:indexPath.row];
+    ZZUserInfo *model=[_listArray objectAtIndex:indexPath.section];
     cell.delegate = self;
     
     [cell dataToView:model];
@@ -205,17 +199,17 @@
 // table 行的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    return 70.0f;
-    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-    return cell.frame.size.height;
+    return 90.0f;
+//    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+//    return cell.frame.size.height;
 }
 
 // table 行的点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(_listArray==nil || _listArray.count<indexPath.row){
-        return;
-    }
+//    if(_listArray==nil || _listArray.count<indexPath.row){
+//        return;
+//    }
     
     
 }
@@ -238,8 +232,26 @@
     [self setTableSeparatorInset];
 }
 
--(void)onDoctorCellClick:(ZZUserFriendCellType)type model:(ZZUserHomeModel *)model{
-    
+-(void)onDoctorCellClick:(ZZUserFriendCellType)type model:(ZZUserInfo *)model{
+    if(model.state == 1 && loginUser.isDoctor){
+        // 关注
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:convertIntToString(model.userId) forKey:@"toUserId"];
+        [dict setObject:convertIntToString(loginUser.userId) forKey:@"forUserId"];
+//        [dict setObject:convertToString(@"") forKey:@"context"];
+        [ZZRequsetInterface post:API_followUserDoctor param:dict timeOut:HttpGetTimeOut start:^{
+            
+        } finish:^(id response, NSData *data) {
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            model.state = 3;
+            [_listTable reloadData];
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            
+        } progress:^(CGFloat progress) {
+            
+        }];
+    }
 }
 
 

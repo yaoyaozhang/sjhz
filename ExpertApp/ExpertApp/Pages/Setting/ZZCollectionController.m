@@ -15,13 +15,12 @@
 #define cellIdentifier @"ZZChapterUserCell"
 
 #import "SVWebViewController.h"
-#import "ZZCommentController.h"
+#import "ZZChapterTVC.h"
+
+@interface ZZCollectionController ()
 
 
-@interface ZZCollectionController ()<UITableViewDelegate,UITableViewDataSource>
-
-@property(nonatomic,strong)UITableView      *listTable;
-@property(nonatomic,strong)NSMutableArray   *listArray;
+@property (nonatomic, strong) ZZChapterTVC *newsTVC;
 
 
 @end
@@ -35,177 +34,17 @@
     [self.menuTitleButton setTitle:@"我的收藏" forState:UIControlStateNormal];
     
     
-    
-    _listArray = [[NSMutableArray alloc] init];
-    
-    _listTable=[self.view createTableView:self cell:cellIdentifier];
-    
-    [_listTable setBackgroundColor:UIColorFromRGB(BgSystemColor)];
-    __weak typeof(self) weakSelf = self;
-    _listTable.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [weakSelf loadMoreData];
-    }];
-    if (iOS7) {
-        _listTable.backgroundView = nil;
-    }
+    self.menuRightButton.hidden = YES;
     
     
-    [_listTable setSeparatorColor:UIColorFromRGB(BgLineColor)];
-    [_listTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"ZZChapterTVC" bundle:nil];
+    _newsTVC = [sb instantiateInitialViewController];
+    _newsTVC.preVC = self;
+    _newsTVC.view.frame = CGRectMake(0, NavBarHeight + 10, ScreenWidth, ScreenHeight - NavBarHeight - 10);
+    _newsTVC.userId = [[ZZDataCache getInstance] getLoginUser].userId;
+    _newsTVC.newsType = @"0";
     
-    
-    [self setTableSeparatorInset];
-    
-    _listArray = [NSMutableArray arrayWithCapacity:0];
-    
-    [self refreshData];
-}
-
-
-/** 下拉刷新 */
-- (void)refreshData
-{
-    // 获取tid来拼接urlString
-    [ZZRequsetInterface get:@"http://www.baidu.com" start:^{
-        
-    } finish:^(id response, NSData *data) {
-        NSArray *dicts = @[@{@"title":@"标题啊啊啊啊2",@"digest":@"描述嘻嘻嘻嘻嘻嘻想",@"url":@"http://www.baidu.com",@"imgsrc":@"http://imgsrc.baidu.com/image/c0%3Dshijue1%2C0%2C0%2C294%2C40/sign=99bd7ae7a551f3ded7bfb127fc879a6a/b58f8c5494eef01f3e82aae8eafe9925bc317d0c.jpg"},
-                           @{@"title":@"标题啊啊啊啊3",@"digest":@"描述嘻嘻嘻嘻嘻嘻想",@"url":@"http://www.baidu.com",@"imgsrc":@"http://imgsrc.baidu.com/image/c0%3Dshijue1%2C0%2C0%2C294%2C40/sign=99bd7ae7a551f3ded7bfb127fc879a6a/b58f8c5494eef01f3e82aae8eafe9925bc317d0c.jpg"},
-                           @{@"title":@"标题啊啊啊啊4",@"digest":@"描述嘻嘻嘻嘻嘻嘻想",@"url":@"http://www.baidu.com",@"imgsrc":@"http://imgsrc.baidu.com/image/c0%3Dshijue1%2C0%2C0%2C294%2C40/sign=99bd7ae7a551f3ded7bfb127fc879a6a/b58f8c5494eef01f3e82aae8eafe9925bc317d0c.jpg"},
-                           @{@"title":@"标题啊啊啊啊5",@"digest":@"描述嘻嘻嘻嘻嘻嘻想",@"url":@"http://www.baidu.com",@"imgsrc":@"http://imgsrc.baidu.com/image/c0%3Dshijue1%2C0%2C0%2C294%2C40/sign=99bd7ae7a551f3ded7bfb127fc879a6a/b58f8c5494eef01f3e82aae8eafe9925bc317d0c.jpg"}];
-        for (NSDictionary *item in dicts) {
-            
-            [_listArray addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
-        }
-        
-        [_listTable reloadData];
-        [_listTable.header endRefreshing];
-        if(_listArray.count < 20){
-            [_listTable.footer removeFromSuperview];
-        }
-    } complete:^(NSDictionary *dict) {
-        
-    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-        
-    } progress:^(CGFloat progress) {
-        
-    }];
-
-    [_listTable.header endRefreshing];
-}
-
-/** 上拉加载 */
-- (void)loadMoreData
-{
-    [ZZRequsetInterface get:@"http://www.baidu.com" start:^{
-        
-    } finish:^(id response, NSData *data) {
-        
-        [_listTable reloadData];
-        [_listTable.footer endRefreshing];
-    } complete:^(NSDictionary *dict) {
-        
-    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-        
-    } progress:^(CGFloat progress) {
-        
-    }];
-}
-
-#pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _listArray.count;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
-}
-
--(CGFloat ) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if(section>0){
-        return 10;
-    }
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    ZZChapterModel *newsModel = _listArray[indexPath.section];
-    ZZChapterUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.chapterModel = newsModel;
-    
-    [cell setOnItemClickBlock:^(ZZChapterCellClickTag tag){
-        if(tag == ZZChapterCellClickTagSend){
-            // 转发
-        }
-        if(tag == ZZChapterCellClickTagCollect){
-            // 收藏
-        }
-        if(tag == ZZChapterCellClickTagComment){
-            // 评论
-            ZZCommentController *vc = [[ZZCommentController alloc] init];
-            vc.nid = newsModel.nid;
-            vc.model = newsModel;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-    }];
-    return cell;
-}
-
-#pragma mark UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 120.0f;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //	NSLog(@"%s", __func__);
-    //	UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
-    //	cell.textLabel.textColor = [UIColor lightGrayColor];
-    ZZChapterUserCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.titleLabel.textColor = [UIColor lightGrayColor];
-    
-    if(indexPath.section== _listArray.count-1){
-        [self setTableSeparatorInset];
-    }
-    // 记录是否已读
-    // [[DDNewsCache sharedInstance] addObject:cell.titleLabel.text];
-    
-    ZZChapterModel *newsModel = _listArray[indexPath.section];
-    //    if (newsModel.photosetID) {
-    //        DDPhotoDetailController *photoVC = [[DDPhotoDetailController alloc] initWithPhotosetID:newsModel.photosetID];
-    //        photoVC.replyCount = newsModel.replyCount;
-    //        photoVC.wantsNavigationBarVisible = NO;
-    //        photoVC.hidesBottomBarWhenPushed = YES;
-    //        [self.navigationController pushViewController:photoVC animated:YES];
-    //    } else {
-    // NSLog(@"newsModel.url = %@", newsModel.url); // http://3g.163.com/ntes/16/0315/21/BI7TE54L00963VRO.html
-    // NSLog(@"newsModel.docid = %@", newsModel.docid); // BI7TE54L00963VRO
-    SVWebViewController *NewsDetailC = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:newsModel.picture]];
-    //        NewsDetailC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:NewsDetailC animated:YES];
-    //    }
-}
-
-
--(void)viewDidLayoutSubviews{
-    [self setTableSeparatorInset];
-}
-
-/**
- *  设置UITableView分割线空隙
- */
--(void)setTableSeparatorInset{
-    UIEdgeInsets inset = UIEdgeInsetsMake(0, 0, 0, 0);
-    if ([_listTable respondsToSelector:@selector(setSeparatorInset:)]) {
-        [_listTable setSeparatorInset:inset];
-    }
-    
-    if ([_listTable respondsToSelector:@selector(setLayoutMargins:)]) {
-        [_listTable setLayoutMargins:inset];
-    }
+    [self.view addSubview:_newsTVC.view];
 }
 
 - (void)didReceiveMemoryWarning {

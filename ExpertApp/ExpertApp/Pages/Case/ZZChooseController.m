@@ -102,12 +102,36 @@
     if(buttonIndex == 1){
         ZZCreateCaseController *addVC = [[ZZCreateCaseController alloc] init];
         addVC.docId = _doctorId;
+        [addVC setZZCreateResultBlock:^(int status){
+            if(status == 1){
+                [self loadMoreData];
+            }
+            if(status == 2){
+                [self loadMoreData];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
+                    [self openNav:vc sound:nil];
+                });
+            }
+        }];
         [self openNav:addVC sound:nil];
     }
     
     if(buttonIndex == 2){
         ZZCreateSportCaseController *addVC = [[ZZCreateSportCaseController alloc] init];
         addVC.docId = _doctorId;
+        [addVC setZZCreateResultBlock:^(int status){
+            if(status == 1){
+                [self loadMoreData];
+            }
+            if(status == 2){
+                [self loadMoreData];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
+                    [self openNav:vc sound:nil];
+                });
+            }
+        }];
         [self openNav:addVC sound:nil];
     }
     
@@ -364,12 +388,31 @@
     }
     
     if(type == 2){
-        // 删除
-        [_listArray removeObjectAtIndex:indexPath.row];
-        NSMutableDictionary *item = _listArray[indexPath.row];
-        NSString *caseId = item[@"caseId"];
-        [_listTable reloadData];
         
+        NSMutableDictionary *item = _listArray[indexPath.row];
+        
+        if(is_null(item)){
+            return;
+        }
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        
+        [dict setObject:convertToString(item[@"caseId"]) forKey:@"caseId"];
+        [dict setObject:convertToString(item[@"type"]) forKey:@"type"];
+        
+        [ZZRequsetInterface post:API_DelCase param:dict timeOut:HttpGetTimeOut start:^{
+            [SVProgressHUD show];
+        } finish:^(id response, NSData *data) {
+            [SVProgressHUD dismiss];
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            [_listArray removeObjectAtIndex:indexPath.row];
+            [_listTable reloadData];
+            
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            [SVProgressHUD showErrorWithStatus:errorMsg];
+        } progress:^(CGFloat progress) {
+            
+        }];
     }
 }
 

@@ -38,14 +38,12 @@
 #define API_FindUserInfoByUserId [NSString stringWithFormat:@"%@/user/appGetUserInfoById",API_HOST]
 
 
-#define API_FindUserInfoByUserName [NSString stringWithFormat:@"%@/file/getUserInfoByUserName",API_HOST]
-
 #define API_FindUserByThirdId [NSString stringWithFormat:@"%@/user/thirdLogin",API_HOST]
 
 #define API_findUserFriend [NSString stringWithFormat:@"%@/user/getUserToUser",API_HOST]
 
 
-#define API_UpdatePwd [NSString stringWithFormat:@"%@/file/findPassWord",API_HOST]
+#define API_UpdatePwd [NSString stringWithFormat:@"%@/user/appFindPassWord",API_HOST]
 
 
 #define API_UpdateUserInfo [NSString stringWithFormat:@"%@/user/appUpdateUser",API_HOST]
@@ -54,6 +52,8 @@
 
 #define API_SaveCase [NSString stringWithFormat:@"%@/comconCase/add",API_HOST]
 #define API_SaveSportCase [NSString stringWithFormat:@"%@/sportCase/add",API_HOST]
+
+#define API_DelCase [NSString stringWithFormat:@"%@/comconCase/delCase",API_HOST]
 
 
 /**
@@ -165,6 +165,14 @@
 #define API_CollectChapter [NSString stringWithFormat:@"%@/comment/opertionCollection",API_HOST]
 
 
+
+/**
+ 用户收藏列表
+
+ @param nid <#nid description#>
+ @return <#return value description#>
+ */
+#define API_findUserChapterList [NSString stringWithFormat:@"%@/news/appFindNewsByUserId",API_HOST]
 
 
 /**

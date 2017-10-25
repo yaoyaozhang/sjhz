@@ -17,4 +17,7 @@
 
 @property(nonatomic,strong) ZZCaseModel *editModel;
 
+
+@property (nonatomic, strong)  void(^ZZCreateResultBlock) (int status);
+
 @end

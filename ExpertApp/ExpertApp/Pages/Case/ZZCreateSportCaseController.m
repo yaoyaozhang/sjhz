@@ -199,7 +199,14 @@
             NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
             [SVProgressHUD showSuccessWithStatus:@"保存成功!"];
-            [self goBack:nil];
+            if(!_isEdit){
+                [self confirmHZByCaseId:dict[@"retData"]];
+            }else{
+                if(_ZZCreateResultBlock){
+                    _ZZCreateResultBlock(1);
+                }
+                [self goBack:nil];
+            }
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             [SVProgressHUD showErrorWithStatus:errorMsg];
         } progress:^(CGFloat progress) {
@@ -246,10 +253,10 @@
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         [self.view makeToast:@"提交完成，请等待诊断结果!"];
-        
-        ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
-        [self openNav:vc sound:nil];
-        
+        if(_ZZCreateResultBlock){
+            _ZZCreateResultBlock(2);
+        }
+        [self goBack:nil];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         [self.view makeToast:errorMsg];
     } progress:^(CGFloat progress) {

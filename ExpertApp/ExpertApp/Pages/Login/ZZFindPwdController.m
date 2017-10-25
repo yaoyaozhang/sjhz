@@ -32,6 +32,8 @@
     [_vLine4 setBackgroundColor:UIColorFromRGB(BgLineColor)];
     
     [_btnSendCode setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
+    [_btnSendCode setTitle:@"发送" forState:UIControlStateNormal];
+    
     [_btnCommit setBackgroundColor:UIColorFromRGB(BgTitleColor)];
     
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(downKeyBoard:)];
@@ -110,11 +112,8 @@
         }
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
         [dict setObject:tel forKey:@"mobile"];
-        [dict setObject:pwd forKey:@"passWord"];
+        [dict setObject:pwd forKey:@"newPwd"];
         [dict setObject:convertToString(_txtCode.text) forKey:@"verCode"];
-        [dict setObject:convertToString(@"") forKey:@"thirdId"];
-        [dict setObject:tel forKey:@"userName"];
-        
         
         [ZZRequsetInterface post:API_UpdatePwd param:dict timeOut:0 start:^{
             [SVProgressHUD show];
