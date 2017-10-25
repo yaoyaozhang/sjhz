@@ -19,6 +19,7 @@
 #import <Toast/UIView+Toast.h>
 #import "ZZFindPwdController.h"
 #import "ZZNickController.h"
+#import "ZZPerfectInfoController.h"
 
 
 
@@ -42,10 +43,11 @@
     [self.menuTitleButton setTitle:@"个人信息" forState:UIControlStateNormal];
     self.menuLeftButton.hidden = NO;
     
+    _loginUser = [[ZZDataCache getInstance] getLoginUser];
+    
     [self createTableView];
     [self loadMoreData];
     
-    _loginUser = [[ZZDataCache getInstance] getLoginUser];
     
 }
 
@@ -80,6 +82,11 @@
     _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"头像"},
                    @{@"code":@"2",@"icon":@"",@"text":@"昵称"},
                    @{@"code":@"3",@"icon":@"",@"text":@"手机号绑定"}];
+    if(_loginUser.isDoctor){
+        _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"头像"},
+                       @{@"code":@"4",@"icon":@"",@"text":@"基本资料"},
+                       @{@"code":@"5",@"icon":@"",@"text":@"擅长"}];
+    }
     
     [_listTable reloadData];
 }
@@ -190,10 +197,23 @@
     }
     if(code == 2){
         ZZNickController *vc = [[ZZNickController alloc] init];
+        vc.type = ZZUserEidtTypeNick;
+        [self openNav:vc sound:nil];
+    }
+    if(code == 5){
+        
+        ZZNickController *vc = [[ZZNickController alloc] init];
+        vc.type = ZZUserEidtTypeSC;
         [self openNav:vc sound:nil];
     }
     if(code == 3){
         ZZFindPwdController *vc = [[ZZFindPwdController alloc] init];
+        [self openNav:vc sound:nil];
+    }
+    if(code == 4){
+        ZZPerfectInfoController *vc = [[ZZPerfectInfoController alloc] init];
+        vc.params = [[NSMutableDictionary alloc] init];
+        vc.isEdit = YES;
         [self openNav:vc sound:nil];
     }
     

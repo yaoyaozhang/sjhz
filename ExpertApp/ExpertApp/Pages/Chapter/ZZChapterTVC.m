@@ -14,7 +14,9 @@
 #import "ZZChapterDetailController.h"
 #import "ZZShareView.h"
 
-@interface ZZChapterTVC ()
+@interface ZZChapterTVC (){
+    int pageNum;
+}
 
 @property (nonatomic, strong) NSMutableArray *dataList;
 
@@ -61,6 +63,7 @@
 - (void)setNewsType:(NSString *)newsType
 {
     _newsType = newsType;
+    pageNum = 1;
     [self.tableView.header beginRefreshing];
 }
 
@@ -70,6 +73,7 @@
 {
     
     // 获取tid来拼接urlString
+    pageNum = 1;
     [self loadMoreData];
 }
 
@@ -77,9 +81,20 @@
 - (void)loadMoreData
 {
     // 获取tid来拼接urlString
+    NSString *api = API_getChapterList;
+    
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertToString(_newsType) forKey:@"newsType"];
-    [ZZRequsetInterface post:API_getChapterList param:dict timeOut:HttpGetTimeOut start:^{
+    if(_docId>0){
+        [dict setObject:convertIntToString(_docId) forKey:@"docId"];
+        [dict setObject:convertIntToString([[ZZDataCache getInstance] getLoginUser].userId) forKey:@"userId"];
+        
+        api = API_findDoctorChapterList;
+    }else{
+        [dict setObject:convertToString(_newsType) forKey:@"newsType"];
+    }
+    [dict setObject:@"30" forKey:@"pageSize"];
+    [dict setObject:convertIntToString(pageNum) forKey:@"pageNum"];
+    [ZZRequsetInterface post:api param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
@@ -90,23 +105,37 @@
             [self.tableView.footer endRefreshing];
         }
     } complete:^(NSDictionary *dict) {
-        if([self.tableView.header isRefreshing]){
+        if(pageNum == 1){
             [[self dataList] removeAllObjects];
         }
         
-        if(dict[@"retData"][@"pic"]){
-            NSMutableArray *arr = [[NSMutableArray alloc] init];
-            for (NSDictionary *item in dict[@"retData"][@"pic"]) {
-                [arr addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
+        
+        
+        
+        if(_docId>0){
+            for (NSDictionary *item in dict[@"retData"]) {
+                [_dataList addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
             }
-            ZZChapterModel *topModel = [ZZChapterModel new];
-            topModel.pics = arr;
-            [_dataList addObject:topModel];
-        }
-        for (NSDictionary *item in dict[@"retData"][@"news"]) {
-            [_dataList addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
+        }else{
+            if(dict[@"retData"][@"pic"]){
+                NSMutableArray *arr = [[NSMutableArray alloc] init];
+                for (NSDictionary *item in dict[@"retData"][@"pic"]) {
+                    [arr addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
+                }
+                ZZChapterModel *topModel = [ZZChapterModel new];
+                topModel.pics = arr;
+                [_dataList addObject:topModel];
+            }
+            for (NSDictionary *item in dict[@"retData"][@"news"]) {
+                [_dataList addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
+            }
         }
         
+        if(_dataList.count > 30){
+            pageNum = pageNum + 1;
+        }else{
+            [self.tableView.footer removeFromSuperview];
+        }
         [self.tableView reloadData];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         

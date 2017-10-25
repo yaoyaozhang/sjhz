@@ -23,7 +23,7 @@
     // Do any additional setup after loading the view.
     
     [self createTitleMenu];
-    [self.menuTitleButton setTitle:@"文章列表" forState:UIControlStateNormal];
+    [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@的讲堂",_docInfo.docName] forState:UIControlStateNormal];
     self.menuRightButton.hidden = YES;
     
     
@@ -31,6 +31,7 @@
     _newsTVC = [sb instantiateInitialViewController];
     _newsTVC.preVC = self;
     _newsTVC.view.frame = CGRectMake(0, NavBarHeight + 10, ScreenWidth, ScreenHeight - NavBarHeight - 10);
+    _newsTVC.docId = _docInfo.userId;
     _newsTVC.newsType = @"0";
     
     [self.view addSubview:_newsTVC.view];

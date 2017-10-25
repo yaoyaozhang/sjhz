@@ -87,6 +87,7 @@
     }else if(sender.tag == 333){
         // 所有文章
         ZZDoctorChapterController *chatpterVC = [[ZZDoctorChapterController alloc] init];
+        chatpterVC.docInfo = loginUser;
         [self openNav:chatpterVC sound:nil];
     }
     

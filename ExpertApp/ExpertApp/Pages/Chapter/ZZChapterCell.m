@@ -107,6 +107,7 @@
         [self.collectButton setImage:[UIImage imageNamed:@"btn_collect"] forState:UIControlStateNormal];
     }
     
+    [self.iconImage setContentMode:UIViewContentModeScaleAspectFit];
     // 单图、左图右字的第一张
     [self.iconImage sd_setImageWithURL:[NSURL URLWithString:newsModel.picture]
                       placeholderImage:[UIImage imageNamed:@"placeholder_small"]

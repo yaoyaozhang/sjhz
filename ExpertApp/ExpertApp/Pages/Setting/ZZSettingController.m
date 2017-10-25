@@ -248,15 +248,13 @@
     }
     
     if(code == 8){
-        ZZPerfectInfoController *vc = [[ZZPerfectInfoController alloc] init];
-        vc.params = [[NSMutableDictionary alloc] init];
-        vc.isEdit = YES;
+        ZZEditUserController *vc = [[ZZEditUserController alloc] init];
         [self openNav:vc sound:nil];
     }
     
     if(code == 9){
         ZZDoctorChapterController *vc = [[ZZDoctorChapterController alloc] init];
-        
+        vc.docInfo = loginUser;
         [self openNav:vc sound:nil];
     }
     if(code == 10){

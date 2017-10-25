@@ -33,8 +33,18 @@
     [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:convertToString(dict[@"avatar"])] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         NSLog(@"%@",error);
     }];
-    [_labelUname setText:dict[@"uname"]];
-    [_labelQuestionNum setText:[NSString stringWithFormat:@"可免费提问次数:%@次",dict[@"num"]]];
+    
+    ZZUserInfo *loginUser = [[ZZDataCache getInstance] getLoginUser];
+    
+    [_labelUname setText:loginUser.userName];
+    if(loginUser.isDoctor){
+        [_labelQuestionNum setText:[NSString stringWithFormat:@"会诊 %d 个  文章%d个头",0,loginUser.articleNum]];
+    }else{
+        _labelQuestionNum.hidden = YES;
+        CGRect f = _labelUname.frame;
+        f.origin.y = (self.frame.size.height - f.size.height) / 2;
+        _labelUname.frame = f;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

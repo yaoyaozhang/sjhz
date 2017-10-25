@@ -165,8 +165,17 @@
 
 
 
+/**
+ 查询医生详情页的文章
+
+ @param nid
+ @return
+ */
+#define API_FindDoctorInfoByUserId [NSString stringWithFormat:@"%@/doctor/lookDoctor",API_HOST]
 #define API_findDoctorHomeChapter [NSString stringWithFormat:@"%@/news/appFindNewsDocId",API_HOST]
+#define API_findDoctorChapterList [NSString stringWithFormat:@"%@/news/appFindNewsAllDocId",API_HOST]
 #define API_getChapterList [NSString stringWithFormat:@"%@/news/appFindNewsByNewsType",API_HOST]
+
 //#define API_getChapterDetail(nid) [NSString stringWithFormat:@"%@/news/bronews.html?nid=%d",API_HOST,nid]
 #define API_getChapterDetail(nid) [NSString stringWithFormat:@"%@/news/wz/chapter.html?nid=%d",API_HOST,nid]
 

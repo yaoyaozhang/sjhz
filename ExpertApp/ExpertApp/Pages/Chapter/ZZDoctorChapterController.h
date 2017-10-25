@@ -8,4 +8,8 @@
 
 #import "BaseController.h"
 @interface ZZDoctorChapterController : BaseController
+
+
+@property(nonatomic,strong) ZZUserInfo *docInfo;
+
 @end

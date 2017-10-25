@@ -73,6 +73,9 @@
             [_labTime setText:intervalSinceNow(model.chpater.createTime)];
         
         [_imgFace sd_setImageWithURL:[NSURL URLWithString:convertToString(model.chpater.picture)]];
+        [_imgFace setContentMode:UIViewContentModeScaleAspectFit];
+        _imgFace.layer.masksToBounds = YES;
+        
         
         self.imgVideoOrMp3.hidden = NO;
         if(model.chpater.showVideo == 1){

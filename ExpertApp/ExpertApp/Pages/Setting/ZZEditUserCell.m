@@ -28,6 +28,7 @@
 -(void)initToDictView:(NSDictionary *)dict info:(ZZUserInfo *) loginUser{
     int code = [dict[@"code"] intValue];
     CGRect tf = _labelName.frame;
+    _imgInto.hidden =  YES;
     _labelName.text = dict[@"text"];
     if(code == 1){
         _imgAvatar.hidden = NO;
@@ -67,6 +68,23 @@
             _labelDesc.hidden = YES;
         }
         
+    }
+    
+    if(code > 3){
+        _imgAvatar.hidden = YES;
+        _labelDesc.hidden = YES;
+        _btnBD.hidden  = YES;
+        _imgInto.hidden = NO;
+        
+        tf.origin.y = 0;
+        _labelName.frame = tf;
+        
+        _labelDesc.text = loginUser.phone;
+        
+        if([@"" isEqual:convertToString(loginUser.phone)]){
+            _btnBD.hidden  = NO;
+            _labelDesc.hidden = YES;
+        }
     }
 }
 

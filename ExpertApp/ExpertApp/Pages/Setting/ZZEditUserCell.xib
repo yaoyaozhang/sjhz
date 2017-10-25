@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wN-eq-ikl">
@@ -41,14 +41,22 @@
                         <rect key="frame" x="260" y="15" width="50" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="btn_into.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pa3-q7-7P7">
+                        <rect key="frame" x="288" y="14" width="16" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="btnBD" destination="Dzi-wg-yEk" id="Lv3-ZB-eb0"/>
                 <outlet property="imgAvatar" destination="bIz-Ur-Xg4" id="iWN-d2-L3I"/>
+                <outlet property="imgInto" destination="Pa3-q7-7P7" id="6B3-ep-opn"/>
                 <outlet property="labelDesc" destination="akO-ak-eGh" id="r61-IU-XyO"/>
                 <outlet property="labelName" destination="9wN-eq-ikl" id="r6N-2Y-NK5"/>
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="btn_into.png" width="16" height="16"/>
+    </resources>
 </document>

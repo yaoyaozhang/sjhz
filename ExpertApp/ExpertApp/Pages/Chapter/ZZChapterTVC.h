@@ -10,6 +10,8 @@
 
 @interface ZZChapterTVC : UITableViewController
 
+@property(nonatomic,assign) int docId;
+
 @property (nonatomic, copy) NSString *newsType;
 
 @property(nonatomic,strong) id preVC;

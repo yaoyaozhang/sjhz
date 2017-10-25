@@ -81,6 +81,7 @@
     [self.timeLabel setFont:ListDetailFont];
     self.timeLabel.textColor = UIColorFromRGB(TextPlaceHolderColor);
     self.timeLabel.text = dateTransformDateString(@"yyyy.MM.dd", newsModel.createTime);
+    [self.iconImage setContentMode:UIViewContentModeScaleAspectFit];
     
     // 单图、左图右字的第一张
     [self.iconImage sd_setImageWithURL:[NSURL URLWithString:newsModel.picture]

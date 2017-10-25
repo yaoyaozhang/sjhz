@@ -26,9 +26,11 @@
 
 @interface ZZDoctorDetailController (){
     ZZUserInfo *loginUser;
+    int isLook;
 }
 @property(nonatomic,strong)UITableView      *listTable;
 @property(nonatomic,strong)NSMutableArray   *listArray;
+@property(nonatomic,strong)UIButton *colloctBtn;
 
 @end
 
@@ -80,6 +82,14 @@
             
         }];
     }else if(sender.tag == 222){
+        if(isLook == 0){
+            [self.view makeToast:@"互相关注后才可以咨询！"];
+            return;
+        }
+        if(isLook == 1){
+            [self.view makeToast:@"医生未关注您，暂时无法咨询，请耐心等待！"];
+            return;
+        }
         // 咨询
         ZZChooseController *chooseVC = [[ZZChooseController alloc] init];
         chooseVC.doctorId = convertIntToString(_model.docInfo.userId);
@@ -88,6 +98,7 @@
     }else if(sender.tag == 333){
         // 所有文章
         ZZDoctorChapterController *chatpterVC = [[ZZDoctorChapterController alloc] init];
+        chatpterVC.docInfo = _model.docInfo;
         [self openNav:chatpterVC sound:nil];
     }
     
@@ -121,16 +132,16 @@
     
     [self setTableSeparatorInset];
     
-    UIButton *colloctBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [colloctBtn setImage:[UIImage imageNamed:@"doctor_follow"] forState:UIControlStateNormal];
-    [colloctBtn setTitle:@"关注" forState:UIControlStateNormal];
-    [colloctBtn setFrame:CGRectMake(0, ScreenHeight-40, 105, 40)];
-    [colloctBtn setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
-    [colloctBtn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
-    [colloctBtn.titleLabel setFont:ListDetailFont];
-    colloctBtn.tag = 111;
-    [colloctBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:colloctBtn];
+    _colloctBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_colloctBtn setImage:[UIImage imageNamed:@"doctor_follow"] forState:UIControlStateNormal];
+    [_colloctBtn setTitle:@"关注" forState:UIControlStateNormal];
+    [_colloctBtn setFrame:CGRectMake(0, ScreenHeight-40, 105, 40)];
+    [_colloctBtn setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
+    [_colloctBtn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
+    [_colloctBtn.titleLabel setFont:ListDetailFont];
+    _colloctBtn.tag = 111;
+    [_colloctBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_colloctBtn];
     
     
     UIButton *otherBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -159,15 +170,20 @@
  */
 -(void)loadDoctorInfo{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(_model.docInfo.userId) forKey:@"userId"];
-    [ZZRequsetInterface post:API_FindUserInfoByUserId param:dict timeOut:HttpGetTimeOut start:^{
+    [dict setObject:convertIntToString(_model.docInfo.userId) forKey:@"docId"];
+    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+    [ZZRequsetInterface post:API_FindDoctorInfoByUserId param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
-        if(dict && dict[@"retData"]){
-            _model.docInfo = [[ZZUserInfo alloc] initWithMyDict:dict[@"retData"]];
-            
+        if(dict && dict[@"retData"][@"docInfo"]){
+            _model.docInfo = [[ZZUserInfo alloc] initWithMyDict:dict[@"retData"][@"docInfo"]];
+            isLook = [convertToString(dict[@"retData"][@"isLook"]) intValue];
+            if(isLook > 0){
+                [_colloctBtn setTitle:@"已关注" forState:UIControlStateNormal];
+                [_colloctBtn setEnabled:NO];
+            }
             [_listTable reloadData];
         }
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {

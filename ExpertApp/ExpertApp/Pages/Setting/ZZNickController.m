@@ -40,7 +40,13 @@
     textfield = [[UITextField alloc] initWithFrame:CGRectMake(15, 6, ScreenWidth-30, 32)];
     [textfield setFont:ListDetailFont];
     [textfield setTextColor:UIColorFromRGB(TextDarkColor)];
-    [textfield setText:convertToString(loginUser.name)];
+    if(_type == ZZUserEidtTypeNick){
+        
+        [textfield setText:convertToString(loginUser.name)];
+    }else if(_type == ZZUserEidtTypeSC){
+        
+        [textfield setText:convertToString(loginUser.accomplished)];
+    }
     [bgView addSubview:textfield];
     
 }
@@ -50,12 +56,26 @@
     if(sender.tag == RIGHT_BUTTON){
         NSString *name = convertToString(textfield.text);
         if([@"" isEqual:name]){
-            [self.view makeToast:@"昵称不能为空!"];
+            if(_type == ZZUserEidtTypeNick){
+                [self.view makeToast:@"昵称不能为空!"];
+            }
+            if(_type == ZZUserEidtTypeSC){
+                [self.view makeToast:@"您还没有填写擅长信息!"];
+            }
             return;
         }
         
+        
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertToString(name) forKey:@"name"];
+        if(_type == ZZUserEidtTypeNick){
+            [dict setObject:convertToString(name) forKey:@"name"];
+        }
+        
+        if(_type == ZZUserEidtTypeSC){
+            [dict setObject:convertToString(name) forKey:@"accomplished"];
+            [dict setObject:convertToString(loginUser.userName) forKey:@"name"];
+        }
+        
         [dict setObject:convertToString(loginUser.thirdId) forKey:@"thirdId"];
         [dict setObject:convertIntToString(loginUser.isYj) forKey:@"isYj"];
         [dict setObject:convertToString(loginUser.witness) forKey:@"witness"];
