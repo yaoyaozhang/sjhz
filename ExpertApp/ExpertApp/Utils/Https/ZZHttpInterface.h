@@ -42,6 +42,8 @@
 
 #define API_FindUserByThirdId [NSString stringWithFormat:@"%@/user/thirdLogin",API_HOST]
 
+#define API_findUserFriend [NSString stringWithFormat:@"%@/user/getUserToUser",API_HOST]
+
 
 #define API_UpdatePwd [NSString stringWithFormat:@"%@/file/findPassWord",API_HOST]
 

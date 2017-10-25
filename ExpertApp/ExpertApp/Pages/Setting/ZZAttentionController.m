@@ -81,7 +81,7 @@
     [super viewDidLoad];
     
     [self createTitleMenu];
-    [self.menuTitleButton setTitle:@"我的关注" forState:UIControlStateNormal];
+    [self.menuTitleButton setTitle:@"我的医生" forState:UIControlStateNormal];
     
     loginUser = [self getLoginUser];
     

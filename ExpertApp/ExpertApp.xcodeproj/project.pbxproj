@@ -299,8 +299,6 @@
 		7B74A7181F7B927E00FA2BF3 /* CoreTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B74A7131F7B927E00FA2BF3 /* CoreTextLabel.m */; };
 		7B74A7191F7B927E00FA2BF3 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B74A7161F7B927E00FA2BF3 /* NSString+HTML.m */; };
 		7B74A7211F7CE56A00FA2BF3 /* ZZFansController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B74A7201F7CE56A00FA2BF3 /* ZZFansController.m */; };
-		7B74A7251F7CE58000FA2BF3 /* ZZFansCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B74A7231F7CE58000FA2BF3 /* ZZFansCell.m */; };
-		7B74A7261F7CE58000FA2BF3 /* ZZFansCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B74A7241F7CE58000FA2BF3 /* ZZFansCell.xib */; };
 		7B74A72A1F7CF16800FA2BF3 /* ZZDrawMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B74A7291F7CF16800FA2BF3 /* ZZDrawMoneyController.m */; };
 		7B74A72D1F7F311500FA2BF3 /* ZZChapterCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B74A72C1F7F311500FA2BF3 /* ZZChapterCommentModel.m */; };
 		7B7F3D241F3173BE00132669 /* ZZChapterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7F3D231F3173BE00132669 /* ZZChapterTVC.m */; };
@@ -394,6 +392,9 @@
 		7B8A90671F18A72A00FC53D7 /* SVWebViewControllerActivitySafari@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A90571F18A72A00FC53D7 /* SVWebViewControllerActivitySafari@2x.png */; };
 		7B8A90681F18A72A00FC53D7 /* SVWebViewControllerActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A90591F18A72A00FC53D7 /* SVWebViewControllerActivity.m */; };
 		7B8EBCEB1F987F2B0039E602 /* ZZNickController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8EBCEA1F987F2B0039E602 /* ZZNickController.m */; };
+		7B8EBD391FA02E900039E602 /* ZZApplyFriendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8EBD381FA02E900039E602 /* ZZApplyFriendController.m */; };
+		7B8EBD3D1FA03A600039E602 /* ZZFriendUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8EBD3B1FA03A600039E602 /* ZZFriendUserCell.m */; };
+		7B8EBD3E1FA03A600039E602 /* ZZFriendUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B8EBD3C1FA03A600039E602 /* ZZFriendUserCell.xib */; };
 		7BABAD3A1F67E958004C85FB /* Bounty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BABAD321F67E958004C85FB /* Bounty@2x.png */; };
 		7BABAD3B1F67E958004C85FB /* Bounty@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BABAD331F67E958004C85FB /* Bounty@3x.png */; };
 		7BABAD3C1F67E958004C85FB /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BABAD341F67E958004C85FB /* close@2x.png */; };
@@ -847,9 +848,6 @@
 		7B74A7161F7B927E00FA2BF3 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		7B74A71F1F7CE56A00FA2BF3 /* ZZFansController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFansController.h; sourceTree = "<group>"; };
 		7B74A7201F7CE56A00FA2BF3 /* ZZFansController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFansController.m; sourceTree = "<group>"; };
-		7B74A7221F7CE58000FA2BF3 /* ZZFansCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFansCell.h; sourceTree = "<group>"; };
-		7B74A7231F7CE58000FA2BF3 /* ZZFansCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFansCell.m; sourceTree = "<group>"; };
-		7B74A7241F7CE58000FA2BF3 /* ZZFansCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZZFansCell.xib; sourceTree = "<group>"; };
 		7B74A7281F7CF16800FA2BF3 /* ZZDrawMoneyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDrawMoneyController.h; sourceTree = "<group>"; };
 		7B74A7291F7CF16800FA2BF3 /* ZZDrawMoneyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDrawMoneyController.m; sourceTree = "<group>"; };
 		7B74A72B1F7F311500FA2BF3 /* ZZChapterCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZChapterCommentModel.h; sourceTree = "<group>"; };
@@ -985,6 +983,11 @@
 		7B8A905B1F18A72A00FC53D7 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SVWebViewController.strings"; sourceTree = "<group>"; };
 		7B8EBCE91F987F2B0039E602 /* ZZNickController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNickController.h; sourceTree = "<group>"; };
 		7B8EBCEA1F987F2B0039E602 /* ZZNickController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNickController.m; sourceTree = "<group>"; };
+		7B8EBD371FA02E900039E602 /* ZZApplyFriendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZApplyFriendController.h; sourceTree = "<group>"; };
+		7B8EBD381FA02E900039E602 /* ZZApplyFriendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZApplyFriendController.m; sourceTree = "<group>"; };
+		7B8EBD3A1FA03A600039E602 /* ZZFriendUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFriendUserCell.h; sourceTree = "<group>"; };
+		7B8EBD3B1FA03A600039E602 /* ZZFriendUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFriendUserCell.m; sourceTree = "<group>"; };
+		7B8EBD3C1FA03A600039E602 /* ZZFriendUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZZFriendUserCell.xib; sourceTree = "<group>"; };
 		7BABAD321F67E958004C85FB /* Bounty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bounty@2x.png"; sourceTree = "<group>"; };
 		7BABAD331F67E958004C85FB /* Bounty@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bounty@3x.png"; sourceTree = "<group>"; };
 		7BABAD341F67E958004C85FB /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
@@ -1250,6 +1253,9 @@
 				7B5C1C8F1F1F547B00DDDA78 /* ZZDoctorCell.h */,
 				7B5C1C901F1F547B00DDDA78 /* ZZDoctorCell.m */,
 				7B5C1C911F1F547B00DDDA78 /* ZZDoctorCell.xib */,
+				7B8EBD3A1FA03A600039E602 /* ZZFriendUserCell.h */,
+				7B8EBD3B1FA03A600039E602 /* ZZFriendUserCell.m */,
+				7B8EBD3C1FA03A600039E602 /* ZZFriendUserCell.xib */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1813,9 +1819,6 @@
 			children = (
 				7B74A71F1F7CE56A00FA2BF3 /* ZZFansController.h */,
 				7B74A7201F7CE56A00FA2BF3 /* ZZFansController.m */,
-				7B74A7221F7CE58000FA2BF3 /* ZZFansCell.h */,
-				7B74A7231F7CE58000FA2BF3 /* ZZFansCell.m */,
-				7B74A7241F7CE58000FA2BF3 /* ZZFansCell.xib */,
 			);
 			name = Fans;
 			sourceTree = "<group>";
@@ -2194,6 +2197,8 @@
 				7B7001AA1F4596F700C59281 /* ZZPerfectInfoController.h */,
 				7B7001AB1F4596F700C59281 /* ZZPerfectInfoController.m */,
 				7B7001AC1F4596F700C59281 /* ZZPerfectInfoController.xib */,
+				7B8EBD371FA02E900039E602 /* ZZApplyFriendController.h */,
+				7B8EBD381FA02E900039E602 /* ZZApplyFriendController.m */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -2478,6 +2483,7 @@
 				7B70001D1F3B104A00C59281 /* ZZArchivesCell.xib in Resources */,
 				7B70010F1F45414100C59281 /* btn_alreadycollected@3x.png in Resources */,
 				7B7F3D5B1F31AA5D00132669 /* ZZNewsCell.xib in Resources */,
+				7B8EBD3E1FA03A600039E602 /* ZZFriendUserCell.xib in Resources */,
 				7B7001771F45414100C59281 /* service_satisfied@3x.png in Resources */,
 				7B20C14A1F70C9DA00FBFD9F /* ZZDoctorCaseCell.xib in Resources */,
 				7B7001561F45414100C59281 /* nav_dropdown@2x.png in Resources */,
@@ -2514,7 +2520,6 @@
 				7B70013C1F45414100C59281 /* knowledge_sound@2x.png in Resources */,
 				7B7001981F45414100C59281 /* treatment_healthcheck@2x.png in Resources */,
 				7B7001611F45414100C59281 /* pay_free@3x.png in Resources */,
-				7B74A7261F7CE58000FA2BF3 /* ZZFansCell.xib in Resources */,
 				7B00F8E11F30712E00E29561 /* ZZUserHomeCell.xib in Resources */,
 				7B70018A1F45414100C59281 /* tab_mine_selected@2x.png in Resources */,
 				7B7002621F5507FD00C59281 /* ZZCaseCell.xib in Resources */,
@@ -2753,6 +2758,7 @@
 				7B8A902E1F18A16D00FC53D7 /* UILabel+Additions.m in Sources */,
 				7B8A903B1F18A37A00FC53D7 /* UIDevice-Hardware.m in Sources */,
 				7B70027D1F556A4A00C59281 /* ZZUserIndexCell.m in Sources */,
+				7B8EBD391FA02E900039E602 /* ZZApplyFriendController.m in Sources */,
 				7B20C14E1F70FC6200FBFD9F /* ZZLeaderDoctorController.m in Sources */,
 				7B5C1CEB1F1F601200DDDA78 /* ZZImageTools.m in Sources */,
 				7B20C1561F7101C800FBFD9F /* ZZCaseDtailCell.m in Sources */,
@@ -2826,6 +2832,7 @@
 				7B7000201F3B105A00C59281 /* ZZArchivesController.m in Sources */,
 				7BF1106D1F1884F400456E55 /* ZCLogUtils.m in Sources */,
 				7BF1104C1F18807600456E55 /* ZZLoginController.m in Sources */,
+				7B8EBD3D1FA03A600039E602 /* ZZFriendUserCell.m in Sources */,
 				7B20C1721F72645600FBFD9F /* ZZMyHZListController.m in Sources */,
 				7B20C1491F70C9DA00FBFD9F /* ZZDoctorCaseCell.m in Sources */,
 				7B7002591F5506C700C59281 /* ZZCreateCaseController.m in Sources */,
@@ -2875,7 +2882,6 @@
 				7B7001B91F45AB3000C59281 /* NirKxMenu.m in Sources */,
 				7B5C1CDD1F1F5B7B00DDDA78 /* ZCAppUIImageView.m in Sources */,
 				7BF110471F18802200456E55 /* ZZSettingController.m in Sources */,
-				7B74A7251F7CE58000FA2BF3 /* ZZFansCell.m in Sources */,
 				7B5C1C7F1F1F532500DDDA78 /* ZZChapterListController.m in Sources */,
 				7B7002691F55117600C59281 /* ZZCaseModel.m in Sources */,
 				7B5C1CE71F1F5B7B00DDDA78 /* ZCTTMLEmojiLabel.m in Sources */,

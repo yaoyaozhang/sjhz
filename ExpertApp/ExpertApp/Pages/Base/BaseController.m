@@ -383,6 +383,7 @@
     UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 13, 12, 12)];
     [iconView setImage:[UIImage imageNamed:@"icon_tips"]];
     [iconView setBackgroundColor:[UIColor clearColor]];
+    iconView.tag = 1;
     [tipView addSubview:iconView];
     
     

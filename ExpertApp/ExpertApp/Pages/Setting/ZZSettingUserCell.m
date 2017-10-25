@@ -27,16 +27,14 @@
 
 
 -(void)dataToView:(NSDictionary *)dict{
-//    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
-    
-//    [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:dict[@"avatar"]]];
+    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
     [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:convertToString(dict[@"avatar"])] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         NSLog(@"%@",error);
     }];
     
     ZZUserInfo *loginUser = [[ZZDataCache getInstance] getLoginUser];
     
-    [_labelUname setText:loginUser.userName];
+    [_labelUname setText:convertToString(loginUser.userName)];
     if(loginUser.isDoctor){
         [_labelQuestionNum setText:[NSString stringWithFormat:@"会诊 %d 个  文章%d个头",0,loginUser.articleNum]];
     }else{

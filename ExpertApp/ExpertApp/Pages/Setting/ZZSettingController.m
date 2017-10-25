@@ -101,7 +101,7 @@
     if(loginUser.isDoctor != 1){
         NSArray *arr1 = @[@{@"code":@"1",@"icon":@"my_consultationresult",@"text":@"会诊结果"},
                           @{@"code":@"2",@"icon":@"my_healthrecords",@"text":@"健康档案"},
-                          @{@"code":@"3",@"icon":@"my_doctor",@"text":@"我的关注"},
+                          @{@"code":@"3",@"icon":@"my_doctor",@"text":@"我的医生"},
                           @{@"code":@"4",@"icon":@"my_collection",@"text":@"我的收藏"}];
         [_listArray addObject:arr1];
         
@@ -234,7 +234,7 @@
         [self openNav:vc sound:nil];
     }
     if(code == 3 || code == 11){
-        ZZAttentionController *vc = [[ZZAttentionController alloc] init];
+        ZZFansController *vc = [[ZZFansController alloc] init];
         [self openNav:vc sound:nil];
     }
     

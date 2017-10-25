@@ -39,6 +39,12 @@
 @property(nonatomic,assign) int isDoctor;
 
 
+// 0无关系，1from+to, 2 to+from,  3互相关注
+@property(nonatomic,assign) int state;
+@property(nonatomic,strong) NSString *context;
+
+
+
 
 @property(nonatomic,strong) NSString *docName;//": "李丹",
 @property(nonatomic,strong) NSString *departmentName;//": "全部科室",

@@ -21,6 +21,7 @@
 #import "ZZCommentController.h"
 #import "ZZChooseController.h"
 #import "ZZDoctorChapterController.h"
+#import "ZZApplyFriendController.h"
 
 #import "ZZShareView.h"
 
@@ -64,23 +65,16 @@
         shareView.shareModel = _model;
         [shareView show];
     }else if(sender.tag == 111){
-        // 关注
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertIntToString(_model.docInfo.userId) forKey:@"toUserId"];
-        [dict setObject:convertIntToString(loginUser.userId) forKey:@"forUserId"];
-        [ZZRequsetInterface post:API_followUserDoctor param:dict timeOut:HttpGetTimeOut start:^{
-            
-        } finish:^(id response, NSData *data) {
-            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        } complete:^(NSDictionary *dict) {
-            [self.view makeToast:@"关注成功!"];
-            [sender setTitle:@"已关注" forState:UIControlStateNormal];
-            [sender setEnabled:NO];
-        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-            
-        } progress:^(CGFloat progress) {
-            
+        
+        ZZApplyFriendController *vc = [[ZZApplyFriendController alloc] init];
+        vc.toUserId = _model.docInfo.userId;
+        [vc setZZApplyFriendResultBlock:^(int status){
+            if(status == 1){
+                [sender setTitle:@"已关注" forState:UIControlStateNormal];
+                [sender setEnabled:NO];
+            }
         }];
+        [self openWithPresent:vc animated:YES];
     }else if(sender.tag == 222){
         if(isLook == 0){
             [self.view makeToast:@"互相关注后才可以咨询！"];
@@ -90,6 +84,7 @@
             [self.view makeToast:@"医生未关注您，暂时无法咨询，请耐心等待！"];
             return;
         }
+        
         // 咨询
         ZZChooseController *chooseVC = [[ZZChooseController alloc] init];
         chooseVC.doctorId = convertIntToString(_model.docInfo.userId);

@@ -10,13 +10,15 @@
 
 #import "UIView+Extension.h"
 #import "MJRefresh.h"
-#import "ZZFansCell.h"
-#define cellIdentifier @"ZZFansCell"
+#import "ZZFriendUserCell.h"
+#define cellIdentifier @"ZZFriendUserCell"
 
 
 #import "ZZUserHomeModel.h"
 
-@interface ZZFansController ()<ZZFansCellDelegate>
+@interface ZZFansController ()<ZZUserFriendCellDelegate>{
+    ZZUserInfo *loginUser;
+}
 
 @property(nonatomic,strong)UITableView      *listTable;
 @property(nonatomic,strong)NSMutableArray   *listArray;
@@ -30,8 +32,17 @@
     // Do any additional setup after loading the view.
     
     [self createTitleMenu];
+    
     [self.menuTitleButton setTitle:@"我的粉丝" forState:UIControlStateNormal];
+    
+    loginUser = [[ZZDataCache getInstance] getLoginUser];
+    if(!loginUser.isDoctor){
+        [self.menuTitleButton setTitle:@"我的医生" forState:UIControlStateNormal];
+    }
+    
     [self createTableView];
+    
+    [_listTable.header beginRefreshing];
 }
 
 
@@ -48,6 +59,11 @@
         _listTable.backgroundView = nil;
     }
     
+    MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [self beginNetRefreshData];
+    }];
+    _listTable.header = header;
+    
     
     MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     footer.stateLabel.hidden=YES;
@@ -60,12 +76,40 @@
     [self setTableSeparatorInset];
 }
 
+-(void)beginNetRefreshData{
+    [_listArray removeAllObjects];
+    [self loadMoreData];
+}
 
 /**
  加载更多
  */
 -(void)loadMoreData{
-    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+    [ZZRequsetInterface post:API_findUserFriend param:dict timeOut:HttpGetTimeOut start:^{
+        
+    } finish:^(id response, NSData *data) {
+        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        if(_listTable.header && [_listTable.header isRefreshing]){
+            [_listTable.header endRefreshing];
+        }
+        
+        if(_listTable.footer && [_listTable.footer isRefreshing]){
+            [_listTable.footer endRefreshing];
+        }
+    } complete:^(NSDictionary *dict) {
+        if(dict[@"retData"]){
+            for (NSDictionary *item in dict[@"retData"]) {
+                [_listArray addObject:[[ZZUserInfo alloc] initWithMyDict:item]];
+            }
+            [_listTable reloadData];
+        }
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        
+    } progress:^(CGFloat progress) {
+        
+    }];
 }
 
 
@@ -112,9 +156,9 @@
 
 // cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    ZZFansCell *cell = (ZZFansCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    ZZFriendUserCell *cell = (ZZFriendUserCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[ZZFansCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[ZZFriendUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     if(indexPath.row==_listArray.count-1){
         if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
@@ -135,9 +179,10 @@
     
     
         
-//    ZCUserInfoModel *model=[_listArray objectAtIndex:indexPath.row];
-//    
-//    [cell InitDataToView:model row:indexPath.row];
+    ZZUserInfo *model=[_listArray objectAtIndex:indexPath.row];
+    cell.delegate = self;
+    
+    [cell dataToView:model];
     
     
     return cell;
@@ -193,10 +238,10 @@
     [self setTableSeparatorInset];
 }
 
-
--(void)onFansCellClick:(NSDictionary *)item{
+-(void)onDoctorCellClick:(ZZUserFriendCellType)type model:(ZZUserHomeModel *)model{
     
 }
+
 
 
 #pragma mark UITableView delegate end
