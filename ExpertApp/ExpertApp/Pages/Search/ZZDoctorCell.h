@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZZUserHomeModel.h"
 typedef NS_ENUM(NSInteger,ZZDoctorCellType) {
     ZZDoctorCellTypeDefault = 0,
     ZZDoctorCellTypeStar    = 1,
@@ -17,7 +16,7 @@ typedef NS_ENUM(NSInteger,ZZDoctorCellType) {
 
 @protocol ZZDoctorCellDelegate <NSObject>
 
--(void)onDoctorCellClick:(ZZDoctorCellType ) type model:(ZZUserHomeModel *) model;
+-(void)onDoctorCellClick:(ZZDoctorCellType ) type model:(ZZUserInfo *) model;
 
 @end
 
@@ -45,10 +44,10 @@ typedef NS_ENUM(NSInteger,ZZDoctorCellType) {
 @property (weak, nonatomic) IBOutlet UIButton *btnControl;
 
 @property(nonatomic,assign) ZZDoctorCellType cellType;
-@property(nonatomic,strong) ZZUserHomeModel *tempModel;
+@property(nonatomic,strong) ZZUserInfo *tempModel;
 @property(nonatomic,strong) id<ZZDoctorCellDelegate> delegate;
 
 
--(void)dataToView:(ZZUserHomeModel *)model;
+-(void)dataToView:(ZZUserInfo *)model;
 
 @end

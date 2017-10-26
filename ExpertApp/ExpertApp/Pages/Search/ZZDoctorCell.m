@@ -53,7 +53,7 @@
     }
 }
 
--(void)dataToView:(ZZUserHomeModel *)model{
+-(void)dataToView:(ZZUserInfo *)model{
     [_viewLabels.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     if(_cellType == 0){
         _btnControl.hidden = YES;
@@ -77,27 +77,49 @@
     if(model){
         _tempModel = model;
         
-        [_labelName setText:model.docInfo.docName];
+        [_labelName setText:model.userName];
         CGSize ns = [self autoWidthOfLabel:_labelName with:22];
         CGRect f = _labelNameZhiWei.frame;
         f.origin.x = _labelName.frame.origin.x + ns.width + 10;
         f.size.width = ScreenWidth - f.origin.x - 15;
         [_labelNameZhiWei setFrame:f];
         
-        [_labelNameZhiWei setText:model.docInfo.departmentName];
-        [_labelHosptial setText:model.docInfo.hospital];
+        [_labelNameZhiWei setText:model.departmentName];
+        [_labelHosptial setText:model.hospital];
+        
+        if(_cellType == ZZDoctorCellTypeStar){
+            
+            if(model.state >= 1){
+                _btnControl.selected = YES;
+            }else{
+                _btnControl.selected = NO;
+            }
+        }
+        if(_cellType == ZZDoctorCellTypeCheck){
+            if(model.isChecked == 1){
+                _btnControl.selected = YES;
+            }else{
+                _btnControl.selected = NO;
+            }
+        }
+        
+        
+        
                 
-        if(model.docInfo.accomplished){
-            [_labelSC setText:[NSString stringWithFormat:@"擅长:%@",model.docInfo.accomplished]];
+        if(model.accomplished){
+            [_labelSC setText:[NSString stringWithFormat:@"擅长:%@",model.accomplished]];
         }else{
             [_labelSC setText:[NSString stringWithFormat:@"擅长:--"]];
         }
-        if(model.docInfo.titleName){
-            NSArray *arr = [model.docInfo.titleName componentsSeparatedByString:@","];
+        if(model.titleName){
+            _viewLabels.hidden = NO;
+            NSArray *arr = [model.titleName componentsSeparatedByString:@","];
             CGFloat xx = 0;
             for(NSString *itemText in arr){
                 xx = [self createLabel:itemText x:xx];
             }
+        }else{
+            _viewLabels.hidden = YES;
         }
     }
 }

@@ -14,10 +14,10 @@
  */
 ////////////////////////////////////////////////////////////////
 
-//#define API_HOST @"http://47.94.131.85:8080/sjhz-yu"
+#define API_HOST @"http://47.94.131.85:8080/sjhz-yu"
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
 //#define API_HOST @"http://192.168.99.123:8080"
-#define API_HOST @"http://219.142.225.69:8123"
+//#define API_HOST @"http://219.142.225.69:8123"
 
 /**
  *  发送验证码
@@ -148,6 +148,16 @@
 
 // 关注的医生
 #define API_getMyDoctorList [NSString stringWithFormat:@"%@/doctor/getMyDoctorInfo",API_HOST]
+
+
+
+/**
+ 取消关注
+
+ @param 不可空 <#不可空 description#>
+ @return <#return value description#>
+ */
+#define API_delMyDoctorList [NSString stringWithFormat:@"%@/doctor/delUserToUser",API_HOST]
 
 
 /**

@@ -54,6 +54,13 @@
 }
 
 
+-(void)buttonClick:(UIButton *)sender{
+    if(sender.tag == BACK_BUTTON){
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
+
 
 
 -(void)createTableView{
@@ -151,7 +158,7 @@
                 btn.hidden = YES;
                 if(_model.firstDoc){
                     [self.view makeToast:@"您作为主诊大夫同意了会诊结果，会诊完成！"];
-                    [self goBack:nil];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
                 }
             }
             ZZCaseTalkModel *model = [ZZCaseTalkModel new];
@@ -161,6 +168,7 @@
             model.docName = loginUser.docName;
             model.imgUrl = loginUser.imageUrl;
             [_listArray addObject:model];
+            
             [_listTable reloadData];
             [self scrollTableToBottom];
             
@@ -271,7 +279,7 @@
 
 // 返回section下得行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(_listArray==nil){
+    if(section == 0){
         return 0;
     }
     return _listArray.count;

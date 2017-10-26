@@ -25,6 +25,7 @@
     
     [_labMessage setFont:ListDetailFont];
     [_labMessage setTextColor:UIColorFromRGB(TextSizeSixColor)];
+    _labMessage.numberOfLines = 0;
 }
 
 

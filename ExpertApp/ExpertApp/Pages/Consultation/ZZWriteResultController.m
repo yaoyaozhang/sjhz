@@ -81,8 +81,8 @@
 
         NSString *tjInUser = @"";
         if(_listArray && _listArray.count>0){
-            for (ZZUserHomeModel *item in _listArray) {
-                tjInUser = [tjInUser stringByAppendingFormat:@",%d",item.docInfo.userId];
+            for (ZZUserInfo *item in _listArray) {
+                tjInUser = [tjInUser stringByAppendingFormat:@",%d",item.userId];
             }
             if(tjInUser.length>0){
                 tjInUser = [tjInUser substringFromIndex:1];
@@ -259,7 +259,7 @@
         return cell;
     }
     
-    ZZUserHomeModel *model=[_listArray objectAtIndex:indexPath.row];
+    ZZUserInfo *model=[_listArray objectAtIndex:indexPath.row];
     cell.cellType = ZZDoctorCellTypeDel;
     cell.delegate = self;
     [cell dataToView:model];
@@ -322,7 +322,7 @@
     [self setTableSeparatorInset];
 }
 
--(void)onDoctorCellClick:(ZZDoctorCellType)type model:(ZZUserHomeModel *)model{
+-(void)onDoctorCellClick:(ZZDoctorCellType)type model:(ZZUserInfo *)model{
     if(type == ZZDoctorCellTypeDel){
         [_listArray removeObject:model];
         [_listTable reloadData];

@@ -72,9 +72,6 @@
     _listTable.tableHeaderView = [self createTableHeaderView];
     
     pageNumber = 1;
-    
-    [self refreshData];
-    
 }
 
 - (void)viewDidLoad {
@@ -94,6 +91,10 @@
     _listTable.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [weakSelf loadMoreData];
     }];
+    _listTable.header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [weakSelf refreshData];
+    }];
+    
     if (iOS7) {
         _listTable.backgroundView = nil;
     }
@@ -124,12 +125,14 @@
         case 0:
             if(selectIndex != 0){
                 selectIndex = 0;
+                [_listArray removeAllObjects];
                 [self refreshData];
             }
             break;
         case 1:
             if(selectIndex != 1){
                 selectIndex = 1;
+                [_listArray removeAllObjects];
                 [self refreshData];
             }
             break;
@@ -154,33 +157,43 @@
     // 获取tid来拼接urlString
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
+    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
     if(loginUser.isDoctor){
-        [dict setObject:convertIntToString(loginUser.userId) forKey:@"docId"];
-        
         if(selectIndex == 0){
             api = API_searchDoctor;
         }else{
             api = API_getMyDoctorList;
         }
         if(checkModel){
-            [dict setObject:convertIntToString(checkModel.baseId) forKey:@"departmentId"];
+            [dict setObject:convertIntToString(checkModel.baseId) forKey:@"keshi"];
         }else{
-            [dict setObject:@"0" forKey:@"departmentId"];
+            [dict setObject:@"0" forKey:@"keshi"];
         }
     }else{
         api = API_searchDoctor;
-        [dict setObject:convertIntToString(pageNumber) forKey:@"page"];
 //        [dict setObject:convertToString(model.name) forKey:@"department"];
     }
+    [dict setObject:convertIntToString(pageNumber) forKey:@"pageNum"];
+    [dict setObject:@"30" forKey:@"pageSize"];
     
     [ZZRequsetInterface post:api param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD show];
+        if(_listTable.footer){
+            if([_listTable.footer isRefreshing]){
+                [_listTable.footer endRefreshing];
+            }
+        }
+        if(_listTable.header){
+            if([_listTable.header isRefreshing]){
+                [_listTable.header endRefreshing];
+            }
+        }
     } finish:^(id response, NSData *data) {
         [SVProgressHUD dismiss];
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         
         
-        if(_listArray.count < 20){
+        if(_listArray.count < 30){
             if(_listTable.footer){
                 if([_listTable.footer isRefreshing]){
                     [_listTable.footer endRefreshing];
@@ -193,11 +206,14 @@
         NSArray *arr = dict[@"retData"];
         if(arr && arr.count>0){
             for (NSDictionary *item in arr) {
-                [_listArray addObject:[[ZZUserHomeModel alloc] initWithMyDict:item]];
+                [_listArray addObject:[[ZZUserInfo alloc] initWithMyDict:item]];
             }
             
-            [_listTable reloadData];
+            if(arr.count == 30){
+                pageNumber = pageNumber + 1;
+            }
         }
+        [_listTable reloadData];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         
     } progress:^(CGFloat progress) {
@@ -389,7 +405,7 @@
         cell.cellType =  ZZDoctorCellTypeDefault;
     }
     cell.delegate = self;
-    ZZUserHomeModel *model=[_listArray objectAtIndex:indexPath.section];
+    ZZUserInfo *model=[_listArray objectAtIndex:indexPath.section];
     
     
     [cell dataToView:model];
@@ -398,15 +414,45 @@
     return cell;
 }
 
--(void)onDoctorCellClick:(ZZDoctorCellType)type model:(ZZUserHomeModel *)model{
+-(void)onDoctorCellClick:(ZZDoctorCellType)type model:(ZZUserInfo *)model{
     if(type == ZZDoctorCellTypeDel){
-        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:convertIntToString(loginUser.userId) forKey:@"fromUserId"];
+        [dict setObject:convertIntToString(model.userId) forKey:@"toUserId"];
+        [ZZRequsetInterface post:API_delMyDoctorList param:dict timeOut:HttpGetTimeOut start:^{
+            
+        } finish:^(id response, NSData *data) {
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            [_listArray removeObject:model];
+            [_listTable reloadData];
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            
+        } progress:^(CGFloat progress) {
+            
+        }];
     }
     
     
     // 关注，取消关注
     if(type == ZZDoctorCellTypeStar){
-       
+        // 关注
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:convertIntToString(model.userId) forKey:@"toUserId"];
+        [dict setObject:convertIntToString(loginUser.userId) forKey:@"forUserId"];
+        //        [dict setObject:convertToString(@"") forKey:@"context"];
+        [ZZRequsetInterface post:API_followUserDoctor param:dict timeOut:HttpGetTimeOut start:^{
+            
+        } finish:^(id response, NSData *data) {
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            model.state = 3;
+            [_listTable reloadData];
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            
+        } progress:^(CGFloat progress) {
+            
+        }];
     }
     
     [_listTable reloadData];

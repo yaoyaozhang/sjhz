@@ -69,6 +69,8 @@
     
     checkIndex = 1;
     [self loadDoctorInfo];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(beginNetRefreshData) name:@"ZZNoticeInviteDoctorSucess" object:nil];
 }
 
 -(void)buttonClick:(UIButton *)sender{
@@ -98,16 +100,24 @@
 }
 
 -(void)checkHeaderClick:(UIButton *) sender{
-    checkIndex = sender.tag;
-    if(sender.tag==1){
+    checkIndex = (int)sender.tag;
+    
+    pageNum = 1;
+    
+    [self beginNetRefreshData];
+}
+
+-(void)beginNetRefreshData{
+    
+    if(checkIndex==1){
         // 全部病例
         [self loadDoctorInfo];
-    }else if(sender.tag == 2){
+    }else if(checkIndex == 2){
         //1、待處理、2、正在處理、3、已處理完成
         // 待处理病例
         pageNum = 1;
         [self loadCaseByState:1];
-    }else if(sender.tag == 3){
+    }else if(checkIndex == 3){
         // 已处理病例
         pageNum = 1;
         [self loadCaseByState:3];

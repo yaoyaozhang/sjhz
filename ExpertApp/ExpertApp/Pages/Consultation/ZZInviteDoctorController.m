@@ -191,6 +191,8 @@
             vc.model = _model;
             vc.checkDoctors = checkDict;
             [self openNav:vc sound:nil];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZZNoticeInviteDoctorSucess" object:convertIntToString(_model.caseId)];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             
         } progress:^(CGFloat progress) {
@@ -299,11 +301,11 @@
 {
     // 获取tid来拼接urlString
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(loginUser.userId) forKey:@"docId"];
+    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
     if(checkModel){
-        [dict setObject:convertIntToString(checkModel.baseId) forKey:@"departmentId"];
+        [dict setObject:convertIntToString(checkModel.baseId) forKey:@"keshi"];
     }else{
-        [dict setObject:@"0" forKey:@"departmentId"];
+        [dict setObject:@"0" forKey:@"keshi"];
     }
     
     [ZZRequsetInterface post:API_getMyDoctorList param:dict timeOut:HttpGetTimeOut start:^{
@@ -326,7 +328,7 @@
         NSArray *arr = dict[@"retData"];
         if(arr && arr.count>0){
             for (NSDictionary *item in arr) {
-                [_listArray addObject:[[ZZUserHomeModel alloc] initWithMyDict:item]];
+                [_listArray addObject:[[ZZUserInfo alloc] initWithMyDict:item]];
             }
             
             [_listTable reloadData];
@@ -427,7 +429,7 @@
     //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
     cell.cellType = ZZDoctorCellTypeCheck;
     cell.delegate = self;
-    ZZUserHomeModel *model=[_listArray objectAtIndex:indexPath.section];
+    ZZUserInfo *model=[_listArray objectAtIndex:indexPath.section];
     
     [cell dataToView:model];
     
@@ -435,10 +437,16 @@
     return cell;
 }
 
--(void)onDoctorCellClick:(ZZDoctorCellType)type model:(ZZUserHomeModel *)model{
-    
-    
-    [_listTable reloadData];
+-(void)onDoctorCellClick:(ZZDoctorCellType)type model:(ZZUserInfo *)model{
+    if(type == ZZDoctorCellTypeCheck){
+        model.isChecked = !model.isChecked;
+        if(!model.isChecked){
+            [checkDict removeObjectForKey:convertIntToString(model.userId)];
+        }else{
+            [checkDict setObject:model forKey:convertIntToString(model.userId)];
+        }
+        [_listTable reloadData];
+    }
 }
 
 #pragma mark UITableViewDelegate

@@ -42,20 +42,20 @@
     NSString *currentVersion = [ZZCoreTools getAppBuildVersion];
     
     // 版本号相同：这次打开和上次打开的是同一个版本
-    if ([currentVersion isEqualToString:lastVersion]) {
+//    if ([currentVersion isEqualToString:lastVersion]) {
         if(![[ZZDataCache getInstance] isLogin]){
             ZZLoginController * login = [[ZZLoginController alloc] initWithNibName:@"ZZLoginController" bundle:nil];
             UINavigationController *nav=[[UINavigationController alloc] initWithRootViewController:login];
             nav.navigationBarHidden=YES;
             self.window.rootViewController = nav;
         }
-    } else {
-        // 将当前的版本号存进沙盒
-        [ZZCoreTools syncNSUserDeafaultsByKey:key withValue:currentVersion];
-        
-        // 这次打开的版本和上一次不一样，显示新特性
-        self.window.rootViewController = [[ZZGuideController alloc] init];
-    }
+//    } else {
+//        // 将当前的版本号存进沙盒
+//        [ZZCoreTools syncNSUserDeafaultsByKey:key withValue:currentVersion];
+//        
+//        // 这次打开的版本和上一次不一样，显示新特性
+//        self.window.rootViewController = [[ZZGuideController alloc] init];
+//    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

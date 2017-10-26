@@ -44,6 +44,12 @@
 @property(nonatomic,strong) NSString *context;
 
 
+/**
+ 是否被选中
+ */
+@property(nonatomic,assign) BOOL isChecked;
+
+
 
 
 @property(nonatomic,strong) NSString *docName;//": "李丹",
