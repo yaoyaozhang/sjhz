@@ -56,6 +56,12 @@
     [self createTableView];
     [self loadMoreData];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChanged:) name:@"ZZNoticeUserInfoChanged" object:nil];
+}
+
+-(void)userInfoChanged:(NSNotification *) info{
+    [self loadMoreData];
 }
 
 #pragma mark getter

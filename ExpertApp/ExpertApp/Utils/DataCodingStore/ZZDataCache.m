@@ -68,6 +68,9 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
     if(_loginUserInfo){
         NSDictionary *changeDict = [ZCLocalStore getObjectData:_loginUserInfo];
         [ZCLocalStore addObject:changeDict forKey:KEY_LOGIN_USERINFO];
+        
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZZNoticeUserInfoChanged" object:nil];
     }
     
 }

@@ -71,6 +71,11 @@
     [self loadDoctorInfo];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(beginNetRefreshData) name:@"ZZNoticeInviteDoctorSucess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChanged:) name:@"ZZNoticeUserInfoChanged" object:nil];
+}
+
+-(void)userInfoChanged:(NSNotification *) info{
+    [_listTable reloadData];
 }
 
 -(void)buttonClick:(UIButton *)sender{
@@ -98,6 +103,7 @@
     }
     
 }
+
 
 -(void)checkHeaderClick:(UIButton *) sender{
     checkIndex = (int)sender.tag;

@@ -423,8 +423,9 @@
     } finish:^(id response, NSData *data) {
         
     } complete:^(NSDictionary *dict) {
+        NSLog(@"%@",dict);
         [SVProgressHUD showSuccessWithStatus:@"上传成功!"];
-        _loginUser.imageUrl = convertToString(dict[@"filepath"]);
+        _loginUser.imageUrl = convertToString(dict[@"retData"]);
         [[ZZDataCache getInstance] changeUserInfo:_loginUser];
         
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {

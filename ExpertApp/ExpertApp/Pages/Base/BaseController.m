@@ -154,6 +154,7 @@
 }
 
 -(IBAction)goBack:(id)sender{
+    [SVProgressHUD dismiss];
     
     if(self.navigationController!=nil){
         NSArray *viewcontrollers=self.navigationController.viewControllers;

@@ -50,6 +50,9 @@
     [self createTitleMenu];
     [self.menuTitleButton setTitle:@"会诊中" forState:UIControlStateNormal];
     
+    [self.menuRightButton setTitle:@"刷新" forState:UIControlStateNormal];
+    self.menuRightButton.hidden = NO;
+    
     [self createTableView];
 }
 
@@ -57,6 +60,10 @@
 -(void)buttonClick:(UIButton *)sender{
     if(sender.tag == BACK_BUTTON){
         [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    
+    if(sender.tag == RIGHT_BUTTON){
+        [self loadMoreData:YES];
     }
 }
 
@@ -92,7 +99,7 @@
     
     [self handleKeyboard];
     
-    [self loadMoreData];
+    [self loadMoreData:NO];
 }
 
 
@@ -185,7 +192,7 @@
 /**
  加载更多
  */
--(void)loadMoreData{
+-(void)loadMoreData:(BOOL) scrool{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:convertIntToString(_model.tid) forKey:@"id"];
     [ZZRequsetInterface post:API_GetCaseTalk param:dict timeOut:HttpGetTimeOut start:^{
@@ -194,14 +201,16 @@
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         NSArray *arr = dict[@"retData"];
+        [_listArray removeAllObjects];
         if(arr && arr.count>0){
             for (NSDictionary *item in arr) {
                 [_listArray addObject:[[ZZCaseTalkModel alloc] initWithMyDict:item]];
                 
             }
             [_listTable reloadData];
-            
-//            [self scrollTableToBottom];
+            if(scrool){
+                [self scrollTableToBottom];
+            }
         }
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         

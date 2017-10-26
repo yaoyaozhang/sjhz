@@ -20,15 +20,15 @@
     [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
     NSString *orderName = @"test";
     // 1，文章，2 会诊，3打赏
-//    if(type == 1){
-//       orderName = [NSString stringWithFormat:@"打赏文章--%@",desc];
-//    }else if(type == 2){
-//        orderName = [NSString stringWithFormat:@"会诊支付--%@",desc];
-//    }else{
-//        orderName = [NSString stringWithFormat:@"打赏医生--%@",desc];
-//    }
+    if(type == 1){
+       orderName = [NSString stringWithFormat:@"打赏文章--%@",desc];
+    }else if(type == 2){
+        orderName = [NSString stringWithFormat:@"会诊支付--%@",desc];
+    }else{
+        orderName = [NSString stringWithFormat:@"打赏医生--%@",desc];
+    }
     [dict setObject:orderName forKey:@"orderName"];
-    [dict setObject:[NSString stringWithFormat:@"%f",0.01] forKey:@"orderPrice"];
+    [dict setObject:[NSString stringWithFormat:@"%f",price] forKey:@"orderPrice"];
     
     [dict setObject:(payType == ZZPayTypeWX)?@"wx":@"zfb" forKey:@"payType"];
     

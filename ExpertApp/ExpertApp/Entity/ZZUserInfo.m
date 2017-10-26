@@ -10,4 +10,18 @@
 
 @implementation ZZUserInfo
 
+-(id)initWithMyDict:(NSDictionary *)dict{
+    self = [super initWithMyDict:dict];
+    if(self){
+        if([@"" isEqual:convertToString(_imageUrl)] || ![convertToString(_imageUrl) hasPrefix:@"http"]){
+            if(_isDoctor){
+                _imageUrl = [NSString stringWithFormat:@"%@/%@",API_HOST,@"upload/uhead/doctor.png"];
+            }else{
+                _imageUrl = [NSString stringWithFormat:@"%@/%@",API_HOST,@"upload/uhead/user.png"];
+            }
+        }
+    }
+    return self;
+}
+
 @end
