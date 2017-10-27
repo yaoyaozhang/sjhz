@@ -83,7 +83,6 @@
 
 #pragma mark -- 上拉加载
 - (void)beginNetRefreshData{
-    [_listArray removeAllObjects];
     pageNumber = 1;
     [self endNetRefreshData];
 }
@@ -110,10 +109,13 @@
             [_listTable.footer endRefreshing];
         }
     } complete:^(NSDictionary *dict) {
+        if(pageNumber == 1){
+            [_listArray removeAllObjects];
+        }
         NSArray *arr = dict[@"retData"];
         
         for (NSDictionary *item in arr) {
-            [_listArray addObject:[[ZZUserHomeModel alloc] initWithMyDict:item]];
+            [_listArray addObject:[[ZZUserInfo alloc] initWithMyDict:item]];
         }
         
         [_listTable reloadData];
@@ -318,10 +320,12 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    ZZUserHomeModel *model =  _listArray[indexPath.section-1];
+    ZZUserInfo *model =  _listArray[indexPath.section-1];
     ZZDoctorDetailController  *listVC = [[ZZDoctorDetailController alloc]init];
-    listVC.docId = model.docInfo.userId;
-    listVC.model = model;
+    listVC.docId = model.userId;
+    ZZUserHomeModel *home = [ZZUserHomeModel new];
+    home.docInfo = model;
+    listVC.model = home;
     [self openNav:listVC sound:nil];
 //    [self.searchTF resignFirstResponder];
 }

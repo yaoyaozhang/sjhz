@@ -23,7 +23,7 @@
 
 
 @interface ZZHZResultController (){
-    CGPoint        contentoffset;// 记录list的偏移量
+    CGSize        contentSize;// 记录list的偏移量
     
     UIButton *checkButton;
     
@@ -32,6 +32,8 @@
     NSString *desc1;
     NSString *desc2;
     ZZUserInfo *loginUser;
+    
+    CGFloat keyboardHeight;
     
     
 }
@@ -50,18 +52,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self createTitleMenu];
-    self.menuRightButton.hidden = YES;
-    
-    loginUser = [[ZZDataCache getInstance] getLoginUser];
-    
-    
-    
-    [self.menuTitleButton setTitle:@"会诊结果" forState:UIControlStateNormal];
     
     _mainScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight - NavBarHeight)];
     [_mainScroll setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:_mainScroll];
+    
+    [self createTitleMenu];
+    self.menuRightButton.hidden = YES;
+    
+    loginUser = [[ZZDataCache getInstance] getLoginUser];
+    _listArray = [[NSMutableArray alloc] init];
+    
+    
+    
+    [self.menuTitleButton setTitle:@"会诊结果" forState:UIControlStateNormal];
     
     [_mainScroll setContentSize:CGSizeMake(ScreenWidth, ScreenHeight - NavBarHeight)];
     _mainScroll.showsHorizontalScrollIndicator = NO;
@@ -72,12 +76,6 @@
     _mainScroll.bounces = NO;
     _mainScroll.scrollEnabled = NO;
     
-    if(!loginUser.isDoctor){
-        [self createInitView];
-        
-        
-        [self handleKeyboard];
-    }
     
     [self loadCaseResult];
 }
@@ -107,7 +105,7 @@
         [dict setObject:convertIntToString(score) forKey:@"satisfied"];
         
         [dict setObject:@"1" forKey:@"type"];
-        [dict setObject:convertIntToString(_model.caseId) forKey:@"caseid"];
+        [dict setObject:convertIntToString(_model.tid) forKey:@"id"];
         
         [ZZRequsetInterface post:API_getTalkAssess param:dict timeOut:HttpGetTimeOut start:^{
             
@@ -115,8 +113,22 @@
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
             _model.state = 4;
+            
+            CGFloat y = _headerView.frame.size.height;
+            
             [_contentView removeFromSuperview];
             [_bottomView removeFromSuperview];
+            NSString *s = @"满意的";
+            if(score == 2){
+                s=@"一般的";
+            }
+            if(score == 3){
+                s = @"不满意的";
+            }
+            
+            y = y + [self createWhiteText:convertToString([NSString stringWithFormat:@"%@给了%@评价\n嘻嘻嘻嘻嘻嘻嘻嘻嘻",loginUser.userName,s]) y:y arr:nil] +15;
+            
+            
             [self createBottomView];
             
             [self.view makeToast:@"评价成功!"];
@@ -154,15 +166,18 @@
 }
 
 
--(void)createInitView{
-    _listArray = [[NSMutableArray alloc] init];
+-(void)createInitView:(CGFloat ) pjY{
+    if(_model.state == 4){
+        return;
+    }
     
     
-    _contentView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 60)];
+    _contentView =[[UIView alloc] initWithFrame:CGRectMake(0, pjY, ScreenWidth, 60)];
     [_contentView setBackgroundColor:[UIColor clearColor]];
+    [_mainScroll addSubview:_contentView];
     
     CGFloat xh = 15;
-    xh = [self createLabel:@"您对此次的服务满意嘛？" y:xh pView:_contentView] + 10;
+    xh = [self createLabel:@"您对此次的服务满意嘛？" y:xh pView:_contentView] + 20;
     
     CGFloat px = 0;
     CGFloat pxw = (ScreenWidth - 4)/3;
@@ -180,9 +195,9 @@
         }
         [saleButton.imageView setFrame:CGRectMake(0, 0, 24, 26)];
         [saleButton setFrame:CGRectMake(px, xh, pxw, 76)];
+        [saleButton setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [saleButton setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
         [saleButton setBackgroundColor:[UIColor whiteColor]];
-        saleButton.tag = OTHER_BUTTON;
         [saleButton.titleLabel setFont:ListDetailFont];
         [saleButton addTarget:self action:@selector(checkHeaderClick:) forControlEvents:UIControlEventTouchUpInside];
         saleButton.tag = i+1;
@@ -205,14 +220,11 @@
     [_contentView addSubview:_textView];
     
     xh = xh + 60;
-    [_contentView setFrame:CGRectMake(0, 0, ScreenWidth, xh)];
+    [_contentView setFrame:CGRectMake(0, pjY, ScreenWidth, xh)];
+    [_mainScroll setContentSize:CGSizeMake(ScreenWidth, xh+pjY)];
 }
 
 -(void)createBottomView{
-    if(_model.state != 3 && _model.state != 4){
-        return;
-    }
-    
     CGFloat x = 0;
     int column = 3;
     if(_model.state == 4){
@@ -241,10 +253,8 @@
         [saleButton setFrame:CGRectMake(x, 0, xw, 40)];
         [saleButton setTitleColor:UIColorFromRGB(TextWhiteColor) forState:UIControlStateNormal];
         [saleButton setBackgroundColor:UIColorFromRGB(BgTitleColor)];
-        saleButton.tag = OTHER_BUTTON;
         [saleButton.titleLabel setFont:ListTitleFont];
         [saleButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-        saleButton.tag = i+1;
         [_bottomView addSubview:saleButton];
         x = x + xw + 1;
     }
@@ -270,16 +280,16 @@
 //键盘隐藏
 - (void)keyboardWillHide:(NSNotification *)notification {
     float animationDuration = [[[notification userInfo] valueForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
+    keyboardHeight = 0;
     [UIView beginAnimations:@"bottomBarDown" context:nil];
     [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     
     
-    if(contentoffset.x != 0 || contentoffset.y != 0){
-        // 隐藏键盘，还原偏移量
-        [_mainScroll setContentOffset:contentoffset];
-    }
+    
+    CGRect mf = _mainScroll.frame;
+    mf.origin.y = NavBarHeight;
+    _mainScroll.frame = mf;
     
     [UIView commitAnimations];
     
@@ -291,9 +301,10 @@
 
 //键盘显示
 - (void)keyboardWillShow:(NSNotification *)notification {
+    
     float animationDuration = [[[notification userInfo] valueForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
-//    CGFloat keyboardHeight = [[[notification userInfo] objectForKey:@"UIKeyboardBoundsUserInfoKey"] CGRectValue].size.height;
+    keyboardHeight = [[[notification userInfo] objectForKey:@"UIKeyboardBoundsUserInfoKey"] CGRectValue].size.height;
     
     NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
     [UIView beginAnimations:nil context:NULL];
@@ -304,16 +315,23 @@
     // get a rect for the view frame
     {
         
-        //获取当前cell在屏幕中的位置
-        CGRect rectinsuperview = _textView.frame;
+        CGRect mf = _mainScroll.frame;
         
-        contentoffset = _mainScroll.contentOffset;
-        
-        if ((rectinsuperview.origin.y+50 - _mainScroll.contentOffset.y)>200) {
-            
-            [_mainScroll setContentOffset:CGPointMake(_mainScroll.contentOffset.x,((_textView.origin.y-_mainScroll.contentOffset.y)-150)+  _mainScroll.contentOffset.y) animated:YES];
-            
+        CGFloat x = mf.size.height - _mainScroll.contentSize.height;
+        CGFloat SH = StatusBarHeight;
+        CGFloat bottomH = 0;
+        if (ZC_iPhoneX ) {
+            SH = 0;
+            bottomH = 34;
         }
+        if(x > 0){
+            if(x<keyboardHeight){
+                mf.origin.y = NavBarHeight - (keyboardHeight - x);
+            }
+        }else{
+            mf.origin.y   = NavBarHeight - keyboardHeight;
+        }
+        _mainScroll.frame = mf;
     }
     
     // commit animations
@@ -375,19 +393,42 @@
             if(tjDict[@"tjOutdoc"] || tjArr.count>0){
                 y = y + [self createWhiteText:convertToString(tjDict[@"tjOutdoc"]) y:y arr:tjArr] + 15;
             }
-            
-            //
-//            y = y + [self createWhiteText:convertToString(@"客户评价了你：嘻嘻嘻嘻嘻嘻嘻嘻嘻") y:y arr:nil] +15;
+            NSDictionary *pjDict = dict[@"retData"][@"pingjia"];
+            if(!is_null(pjDict) && pjDict.count>0){
+                
+                int score = [pjDict[@"satisfied"] intValue];
+                NSString *s = @"满意的";
+                if(score == 2){
+                    s=@"一般的";
+                }
+                if(score == 3){
+                    s = @"不满意的";
+                }
+                
+                y = y + [self createWhiteText:convertToString([NSString stringWithFormat:@"%@给了%@评价<br><br>%@",loginUser.userName,s,convertToString(pjDict[@"context"])]) y:y arr:nil] +15;
+            }
             
             [_headerView  setFrame:CGRectMake(0, 0, ScreenHeight, y)];
             [_mainScroll addSubview:_headerView];
+            
+            
+            if(!loginUser.isDoctor){
+                [self createInitView:y+20];
+                
+                [self createBottomView];
+                
+                [self handleKeyboard];
+            }
+            
             if(_contentView != nil){
                 
                 CGRect cf = _contentView.frame;
                 cf.origin.y = y;
                 _contentView.frame = cf;
-                
             }
+            
+            
+            contentSize = _mainScroll.contentSize;
         }
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         

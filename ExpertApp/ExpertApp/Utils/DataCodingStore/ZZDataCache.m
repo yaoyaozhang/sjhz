@@ -192,10 +192,12 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
 }
 
 -(void)setSearchKeyword:(NSString *)key{
-    NSMutableDictionary *dict = [ZCLocalStore getLocalDictionary:KEY_SEARCH_KEYWORD];
-    if(dict == nil){
-        dict = [NSMutableDictionary dictionaryWithCapacity:0];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
+    NSMutableDictionary *oldDict = [ZCLocalStore getLocalDictionary:KEY_SEARCH_KEYWORD];
+    if(!is_null(oldDict)){
+        dict = [NSMutableDictionary dictionaryWithDictionary:oldDict];
     }
+    
     [dict setObject:convertToString(key) forKey:convertToString(key)];
     [ZCLocalStore addObject:dict forKey:KEY_SEARCH_KEYWORD];
 }

@@ -197,6 +197,7 @@
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         [_curVC.view makeToast:@"评论成功!"];
+        tempModel = nil;
         if(_ResultBlock){
             _ResultBlock(0);
         }

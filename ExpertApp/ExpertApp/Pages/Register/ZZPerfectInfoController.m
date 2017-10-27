@@ -42,6 +42,8 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     NSString *zhengsuUrl;
     
     ZZUserInfo *loginUser;
+    CGFloat keyboardheight;
+    CGSize defSize;
 }
 @property(nonatomic,strong) UIImagePickerController *imagepicker;
 
@@ -108,7 +110,6 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     
     keshiMap = [NSMutableDictionary dictionaryWithCapacity:0];
     
-    [self findBaseInfo];
     
     if(_isEdit){
         loginUser = [[ZZDataCache getInstance] getLoginUser];
@@ -118,6 +119,52 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     }else{
         [_btnCommit setTitle:@"提交审核" forState:UIControlStateNormal];
     }
+    
+    [self findBaseInfo];
+    keyboardheight = 0.0f;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShown:)
+                                                 name:UIKeyboardWillChangeFrameNotification object:nil];
+    //使用NSNotificationCenter
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+    
+}
+
+#pragma mark --键盘处理
+- (void)keyboardWillShown:(NSNotification*)aNotification
+{
+    NSDictionary *info = [aNotification userInfo];
+    CGFloat duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    NSValue *value = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGSize keyboardSize = [value CGRectValue].size;
+    
+    keyboardheight = keyboardSize.height;
+    //输入框位置动画加载
+    [UIView animateWithDuration:duration animations:^{
+        //do something
+        [self setBootomLocation];
+    }];
+}
+//当键盘隐藏的时候
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification{
+    //do something
+    [UIView animateWithDuration:0.25
+                     animations:^{
+                         keyboardheight = 0;
+                         [self setBootomLocation];
+                     }completion:^(BOOL finished){
+                         
+                     }];
+}
+
+-(void)setBootomLocation{
+    CGSize contentSize = CGSizeMake(ScreenWidth, 0);
+    contentSize.height = defSize.height + keyboardheight;
+    [_contentScrollView setContentSize:contentSize];
 }
 
 
@@ -159,8 +206,10 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     y = y + space;
     y = y + [self createLabelValue:@"所在地区" type:4 tag:ZZControlTagArea holder:@"选择地区"];
     y = y + space;
-    y = y + [self createLabelValue:@"选择标签" type:6 tag:ZZControlTagLabel holder:@""];
-    y = y + space;
+    if(!_isEdit){
+        y = y + [self createLabelValue:@"选择标签" type:6 tag:ZZControlTagLabel holder:@""];
+        y = y + space;
+    }
     if(!_isEdit){
         y = y + [self createLabelValue:@"头像设置" type:3 tag:ZZControlTagHeader holder:@"选择文件"];
         y = y + space;
@@ -177,6 +226,8 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     [_btnCommit setBackgroundColor:UIColorFromRGB(BgTitleColor)];
     
     [_contentScrollView setContentSize:CGSizeMake(ScreenWidth, y + 75.0f)];
+    
+    defSize = _contentScrollView.contentSize;
 }
 
 
@@ -236,7 +287,8 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
         NSString *api = API_Register;
         if(_isEdit){
             [_params setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
-            api = API_UpdateDoctorUserInfo;
+            [_params setObject:convertIntToString(loginUser.isDoctor) forKey:@"isDoctor"];
+            api = API_UpdateUserInfo;
         }
         [ZZRequsetInterface post:api param:_params timeOut:0 start:^{
             [SVProgressHUD show];
@@ -383,6 +435,8 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     else if(type == 2){
         ZCTextPlaceholderView *field = [[ZCTextPlaceholderView alloc] initWithFrame:CGRectMake(xx, y, xw, 80)];
         [field setPlaceholder:convertToString(placeHolder)];
+        field.autocorrectionType = UITextAutocorrectionTypeNo; //⭐️必须添加⭐️
+        field.spellCheckingType = UITextSpellCheckingTypeNo;
         [self setViewBorder:field];
         field.tag = tag;
         [field setBackgroundColor:[UIColor clearColor]];

@@ -98,6 +98,25 @@
                          
                      }];
 }
+
+-(void)setBootomLocation{
+    _hideView.hidden = !_btnYJ.selected;
+    CGRect f = _bottomView.frame;
+    if(_btnYJ.selected){
+        f.origin.y = _hideView.frame.origin.y + _hideView.frame.size.height + 30;
+    }else{
+        f.origin.y = _btnYJ.frame.origin.y + _btnYJ.frame.size.height + 30;
+    }
+    _bottomView.frame = f;
+    CGSize contentSize = CGSizeMake(ScreenWidth, f.size.height + f.origin.y);
+    if(contentSize.height <= ScreenHeight){
+        contentSize.height = ScreenHeight;
+    }
+    
+    contentSize.height = contentSize.height + keyboardheight;
+    
+    [_contentScrollView setContentSize:contentSize];
+}
 // 隐藏键盘
 -(void)downKeyBoard:(id)sender{
     [_txtName resignFirstResponder];
@@ -237,24 +256,6 @@
 }
 
 
--(void)setBootomLocation{
-    _hideView.hidden = !_btnYJ.selected;
-    CGRect f = _bottomView.frame;
-    if(_btnYJ.selected){
-        f.origin.y = _hideView.frame.origin.y + _hideView.frame.size.height + 30;
-    }else{
-        f.origin.y = _btnYJ.frame.origin.y + _btnYJ.frame.size.height + 30;
-    }
-    _bottomView.frame = f;
-    CGSize contentSize = CGSizeMake(ScreenWidth, f.size.height + f.origin.y);
-    if(contentSize.height <= ScreenHeight){
-        contentSize.height = ScreenHeight;
-    }
-    
-    contentSize.height = contentSize.height + keyboardheight;
-    
-    [_contentScrollView setContentSize:contentSize];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -191,17 +191,17 @@
     [userInfo setObject:convertToString(@"") forKey:@"phone"];
     [userInfo setObject:convertToString(response.name) forKey:@"userName"];
     [userInfo setObject:@"123456" forKey:@"passWord"];
-    [userInfo setObject:convertToString(response.iconurl) forKey:@"userImageUrl"];
+    [userInfo setObject:convertToString(response.iconurl) forKey:@"imageUrl"];
     [userInfo setObject:convertToString(response.openid) forKey:@"thirdId"];
     [userInfo setObject:convertToString(@"0") forKey:@"isYj"];
     [userInfo setObject:convertToString(@"0") forKey:@"isDoctor"];
     
     
-    [self findUserByUserName:userInfo];
+    [self findUserByThirdId:userInfo];
 }
 
 // 根据用户名查询用户是否存在
--(void)findUserByUserName:(NSMutableDictionary *) userInfo{
+-(void)findUserByThirdId:(NSMutableDictionary *) userInfo{
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
     [dict setObject:convertToString(userInfo[@"thirdId"]) forKey:@"third"];
     

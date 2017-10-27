@@ -43,6 +43,8 @@
     
     [self createTitleMenu];
     [self.menuTitleButton setTitle:@"选择健康病例" forState:UIControlStateNormal];
+    self.menuRightButton.hidden = NO;
+    [self.menuRightButton setTitle:@"刷新" forState:UIControlStateNormal];
     
     [self createTableView];
     
@@ -53,7 +55,12 @@
     checkedRow = -1;
 }
 
-
+-(void)buttonClick:(UIButton *)sender{
+    [super buttonClick:sender];
+    if(sender.tag == RIGHT_BUTTON){
+        [self loadMoreData];
+    }
+}
 
 -(void)createTableView{
     _listArray = [[NSMutableArray alloc] init];
@@ -165,7 +172,7 @@
     [dict setObject:convertToString(item[@"type"]) forKey:@"type"];
     //
     [dict setObject:convertToString(@"1") forKey:@"firstDoc"];
-    [dict setObject:convertToString(@"1") forKey:@"state"];
+    [dict setObject:convertToString(@"0") forKey:@"state"];
     [dict setObject:convertToString(@"") forKey:@"caseDept"];
     [ZZRequsetInterface post:API_AddDiscussCase param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD show];
@@ -199,13 +206,14 @@
         [SVProgressHUD dismiss];
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
+        [_listArray removeAllObjects];
         NSArray *arr = dict[@"retData"];
         if(arr && arr.count>0){
             for (NSDictionary *item in arr) {
                 [_listArray addObject:item];
             }
-            [_listTable reloadData];
         }
+        [_listTable reloadData];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         
     } progress:^(CGFloat progress) {

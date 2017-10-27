@@ -288,7 +288,6 @@
     
     _placeholderView = [[UIView alloc]initWithFrame:superView.bounds];
     
-    NSLog(@"%@",NSStringFromCGRect(superView.bounds));
     
     [_placeholderView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin];
     [_placeholderView setAutoresizesSubviews:YES];

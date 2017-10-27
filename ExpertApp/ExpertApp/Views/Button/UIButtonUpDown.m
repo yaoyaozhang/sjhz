@@ -14,15 +14,17 @@
     [super layoutSubviews];
     
     // Center image
-    CGPoint center = self.imageView.center;
-    center.x = self.frame.size.width/2;
-    center.y = self.imageView.frame.size.height/2;
-    self.imageView.center = center;
+    CGRect imgf = self.imageView.frame;
     
     //Center text
     CGRect newFrame = [self titleLabel].frame;
+    
+    imgf.origin.x = (self.frame.size.width-imgf.size.width)/2;
+    imgf.origin.y = (self.frame.size.height - imgf.size.height - newFrame.size.height - 5)/2;
+    self.imageView.frame = imgf;
+    
     newFrame.origin.x = 0;
-    newFrame.origin.y = self.imageView.frame.size.height + 5;
+    newFrame.origin.y = imgf.origin.y + imgf.size.height + 5;
     newFrame.size.width = self.frame.size.width;
     
     self.titleLabel.frame = newFrame;

@@ -28,7 +28,7 @@
         orderName = [NSString stringWithFormat:@"打赏医生--%@",desc];
     }
     [dict setObject:orderName forKey:@"orderName"];
-    [dict setObject:[NSString stringWithFormat:@"%f",price] forKey:@"orderPrice"];
+    [dict setObject:[NSString stringWithFormat:@"%f",0.01] forKey:@"orderPrice"];
     
     [dict setObject:(payType == ZZPayTypeWX)?@"wx":@"zfb" forKey:@"payType"];
     

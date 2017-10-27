@@ -236,7 +236,7 @@
         [dict setObject:convertToString(@"0") forKey:@"firstDoc"];
         [dict setObject:convertToString(_pCaseId) forKey:@"caseDept"];
     }
-    [dict setObject:convertToString(@"1") forKey:@"state"];
+    [dict setObject:convertToString(@"0") forKey:@"state"];
     [ZZRequsetInterface post:API_AddDiscussCase param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD showWithStatus:@"发起会诊中...."];
     } finish:^(id response, NSData *data) {
