@@ -60,6 +60,14 @@
 		7B20C16F1F721D0D00FBFD9F /* ZZDiscussCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B20C16D1F721D0D00FBFD9F /* ZZDiscussCell.xib */; };
 		7B20C1721F72645600FBFD9F /* ZZMyHZListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C1711F72645600FBFD9F /* ZZMyHZListController.m */; };
 		7B20C1751F727F6A00FBFD9F /* ZZRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C1741F727F6A00FBFD9F /* ZZRewardController.m */; };
+		7B5365571FB04619000CD932 /* ZZRemarkUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5365561FB04619000CD932 /* ZZRemarkUserController.m */; };
+		7B53655B1FB046B7000CD932 /* ZZRemakBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B53655A1FB046B7000CD932 /* ZZRemakBaseCell.m */; };
+		7B53655F1FB0470D000CD932 /* ZZBasicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B53655D1FB0470D000CD932 /* ZZBasicCell.m */; };
+		7B5365601FB0470D000CD932 /* ZZBasicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B53655E1FB0470D000CD932 /* ZZBasicCell.xib */; };
+		7B5365641FB0474D000CD932 /* ZZRemarkLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5365621FB0474D000CD932 /* ZZRemarkLabelCell.m */; };
+		7B5365651FB0474D000CD932 /* ZZRemarkLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5365631FB0474D000CD932 /* ZZRemarkLabelCell.xib */; };
+		7B5365691FB04761000CD932 /* ZZRemarkCaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5365671FB04761000CD932 /* ZZRemarkCaseCell.m */; };
+		7B53656A1FB04761000CD932 /* ZZRemarkCaseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5365681FB04761000CD932 /* ZZRemarkCaseCell.xib */; };
 		7B5C1C7F1F1F532500DDDA78 /* ZZChapterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C1C7E1F1F532500DDDA78 /* ZZChapterListController.m */; };
 		7B5C1C831F1F534A00DDDA78 /* ZZChapterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C1C811F1F534A00DDDA78 /* ZZChapterCell.m */; };
 		7B5C1C871F1F53DF00DDDA78 /* ZZDoctorHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C1C861F1F53DF00DDDA78 /* ZZDoctorHomeController.m */; };
@@ -538,6 +546,19 @@
 		7B20C1711F72645600FBFD9F /* ZZMyHZListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMyHZListController.m; sourceTree = "<group>"; };
 		7B20C1731F727F6A00FBFD9F /* ZZRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRewardController.h; sourceTree = "<group>"; };
 		7B20C1741F727F6A00FBFD9F /* ZZRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRewardController.m; sourceTree = "<group>"; };
+		7B5365551FB04619000CD932 /* ZZRemarkUserController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZRemarkUserController.h; sourceTree = "<group>"; };
+		7B5365561FB04619000CD932 /* ZZRemarkUserController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZRemarkUserController.m; sourceTree = "<group>"; };
+		7B5365591FB046B7000CD932 /* ZZRemakBaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZRemakBaseCell.h; sourceTree = "<group>"; };
+		7B53655A1FB046B7000CD932 /* ZZRemakBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZRemakBaseCell.m; sourceTree = "<group>"; };
+		7B53655C1FB0470D000CD932 /* ZZBasicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZBasicCell.h; sourceTree = "<group>"; };
+		7B53655D1FB0470D000CD932 /* ZZBasicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZBasicCell.m; sourceTree = "<group>"; };
+		7B53655E1FB0470D000CD932 /* ZZBasicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZBasicCell.xib; sourceTree = "<group>"; };
+		7B5365611FB0474D000CD932 /* ZZRemarkLabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZRemarkLabelCell.h; sourceTree = "<group>"; };
+		7B5365621FB0474D000CD932 /* ZZRemarkLabelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZRemarkLabelCell.m; sourceTree = "<group>"; };
+		7B5365631FB0474D000CD932 /* ZZRemarkLabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZRemarkLabelCell.xib; sourceTree = "<group>"; };
+		7B5365661FB04761000CD932 /* ZZRemarkCaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZRemarkCaseCell.h; sourceTree = "<group>"; };
+		7B5365671FB04761000CD932 /* ZZRemarkCaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZRemarkCaseCell.m; sourceTree = "<group>"; };
+		7B5365681FB04761000CD932 /* ZZRemarkCaseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZRemarkCaseCell.xib; sourceTree = "<group>"; };
 		7B5C1C7D1F1F532500DDDA78 /* ZZChapterListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZChapterListController.h; sourceTree = "<group>"; };
 		7B5C1C7E1F1F532500DDDA78 /* ZZChapterListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZChapterListController.m; sourceTree = "<group>"; };
 		7B5C1C801F1F534A00DDDA78 /* ZZChapterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZChapterCell.h; sourceTree = "<group>"; };
@@ -1197,6 +1218,24 @@
 			name = CaseDetailCell;
 			sourceTree = "<group>";
 		};
+		7B5365581FB0468E000CD932 /* remarkcell */ = {
+			isa = PBXGroup;
+			children = (
+				7B5365591FB046B7000CD932 /* ZZRemakBaseCell.h */,
+				7B53655A1FB046B7000CD932 /* ZZRemakBaseCell.m */,
+				7B53655C1FB0470D000CD932 /* ZZBasicCell.h */,
+				7B53655D1FB0470D000CD932 /* ZZBasicCell.m */,
+				7B53655E1FB0470D000CD932 /* ZZBasicCell.xib */,
+				7B5365611FB0474D000CD932 /* ZZRemarkLabelCell.h */,
+				7B5365621FB0474D000CD932 /* ZZRemarkLabelCell.m */,
+				7B5365631FB0474D000CD932 /* ZZRemarkLabelCell.xib */,
+				7B5365661FB04761000CD932 /* ZZRemarkCaseCell.h */,
+				7B5365671FB04761000CD932 /* ZZRemarkCaseCell.m */,
+				7B5365681FB04761000CD932 /* ZZRemarkCaseCell.xib */,
+			);
+			path = remarkcell;
+			sourceTree = "<group>";
+		};
 		7B5C1C7A1F1F531000DDDA78 /* Chapter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1819,8 +1858,11 @@
 		7B74A71E1F7CE55700FA2BF3 /* Fans */ = {
 			isa = PBXGroup;
 			children = (
+				7B5365581FB0468E000CD932 /* remarkcell */,
 				7B74A71F1F7CE56A00FA2BF3 /* ZZFansController.h */,
 				7B74A7201F7CE56A00FA2BF3 /* ZZFansController.m */,
+				7B5365551FB04619000CD932 /* ZZRemarkUserController.h */,
+				7B5365561FB04619000CD932 /* ZZRemarkUserController.m */,
 			);
 			name = Fans;
 			sourceTree = "<group>";
@@ -2460,6 +2502,7 @@
 				7B06B9AE1F79198600C5EF83 /* add@3x.png in Resources */,
 				7B8A90631F18A72A00FC53D7 /* SVWebViewControllerActivityChrome@2x.png in Resources */,
 				7B06B9B81F79198600C5EF83 /* my_article@3x.png in Resources */,
+				7B5365651FB0474D000CD932 /* ZZRemarkLabelCell.xib in Resources */,
 				7BAE109A1F66977B0034AB76 /* treatment_4@2x.png in Resources */,
 				7BABAD3F1F67E958004C85FB /* nav_retract@3x.png in Resources */,
 				7B7001571F45414100C59281 /* nav_dropdown@3x.png in Resources */,
@@ -2635,6 +2678,7 @@
 				7B70014B1F45414100C59281 /* my_opinion@3x.png in Resources */,
 				7B5C1C9B1F1F552B00DDDA78 /* icon_search@3x.png in Resources */,
 				7B06B9CF1F7B389D00C5EF83 /* Startpage@3x.png in Resources */,
+				7B53656A1FB04761000CD932 /* ZZRemarkCaseCell.xib in Resources */,
 				7B70012A1F45414100C59281 /* doctor_follow@2x.png in Resources */,
 				7B5C1C9A1F1F552B00DDDA78 /* icon_search@2x.png in Resources */,
 				7B70016E1F45414100C59281 /* search_retract@2x.png in Resources */,
@@ -2692,6 +2736,7 @@
 				7B8A90181F189FA500FC53D7 /* titlebar_back_pressed@2x.png in Resources */,
 				7B7001991F45414100C59281 /* treatment_healthcheck@3x.png in Resources */,
 				7BABAD3D1F67E958004C85FB /* close@3x.png in Resources */,
+				7B5365601FB0470D000CD932 /* ZZBasicCell.xib in Resources */,
 				7BAE109E1F66977B0034AB76 /* treatment_6@2x.png in Resources */,
 				7BAE10921F66977B0034AB76 /* tab_knowledge@2x.png in Resources */,
 			);
@@ -2823,9 +2868,11 @@
 				7B20C15E1F71030F00FBFD9F /* ZZCaseDetailMulCell.m in Sources */,
 				7BAE106B1F6291510034AB76 /* ZZKeyboardView.m in Sources */,
 				7B7F3D411F31778200132669 /* SDCycleScrollView.m in Sources */,
+				7B5365641FB0474D000CD932 /* ZZRemarkLabelCell.m in Sources */,
 				7B5C1C831F1F534A00DDDA78 /* ZZChapterCell.m in Sources */,
 				7B7F3D4A1F318E9600132669 /* ZZChannelLabel.m in Sources */,
 				7B20C1751F727F6A00FBFD9F /* ZZRewardController.m in Sources */,
+				7B53655F1FB0470D000CD932 /* ZZBasicCell.m in Sources */,
 				7BAE10AC1F67BFA10034AB76 /* ZZChapterDetailController.m in Sources */,
 				7B8A90681F18A72A00FC53D7 /* SVWebViewControllerActivity.m in Sources */,
 				7B7F3D5A1F31AA5D00132669 /* ZZNewsCell.m in Sources */,
@@ -2881,6 +2928,7 @@
 				7B8A90301F18A16D00FC53D7 /* UIView+Extension.m in Sources */,
 				7B7002791F55648500C59281 /* UserIndexController.m in Sources */,
 				7B7002611F5507FD00C59281 /* ZZCaseCell.m in Sources */,
+				7B5365691FB04761000CD932 /* ZZRemarkCaseCell.m in Sources */,
 				7B74A72D1F7F311500FA2BF3 /* ZZChapterCommentModel.m in Sources */,
 				7B74A7191F7B927E00FA2BF3 /* NSString+HTML.m in Sources */,
 				7B7001B91F45AB3000C59281 /* NirKxMenu.m in Sources */,
@@ -2888,7 +2936,9 @@
 				7BF110471F18802200456E55 /* ZZSettingController.m in Sources */,
 				7B5C1C7F1F1F532500DDDA78 /* ZZChapterListController.m in Sources */,
 				7B7002691F55117600C59281 /* ZZCaseModel.m in Sources */,
+				7B5365571FB04619000CD932 /* ZZRemarkUserController.m in Sources */,
 				7B5C1CE71F1F5B7B00DDDA78 /* ZCTTMLEmojiLabel.m in Sources */,
+				7B53655B1FB046B7000CD932 /* ZZRemakBaseCell.m in Sources */,
 				7BF1106C1F1884F400456E55 /* ZCLibUncaughtExceptionHandler.m in Sources */,
 				7B73A2E01F905F3D004F89C0 /* ZZNewsListController.m in Sources */,
 				7BF1102E1F1874EC00456E55 /* RDVTabBarItem.m in Sources */,

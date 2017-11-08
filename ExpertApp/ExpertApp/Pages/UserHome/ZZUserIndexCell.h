@@ -24,6 +24,7 @@
 @property(nonatomic,strong) ZZUserHomeModel *tempModel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
+@property (weak, nonatomic) IBOutlet UIView *viewChapter;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *labName;

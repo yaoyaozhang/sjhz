@@ -17,6 +17,9 @@
 @property(nonatomic,strong) NSString *token;
 // 用户名
 @property(nonatomic,strong) NSString *userName;
+// 医生标签
+@property(nonatomic,strong) NSString *dclabel;
+
 // 密码
 @property(nonatomic,strong) NSString *passWord;
 // 第三方标志
@@ -63,11 +66,12 @@
 @property(nonatomic,strong) NSString *titleName;//": "高级职称,第二高级"
 
 
+
 @property(nonatomic,strong) NSString *certificateUrl1;//": "高级职称,第二高级"
 
 
 @property(nonatomic,assign) int     articleNum;//: 文章量
-@property(nonatomic,assign) int     fansNum;//: 粉丝数
+@property(nonatomic,assign) int     fansNumber;//: 粉丝数
 
 
 

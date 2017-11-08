@@ -192,7 +192,8 @@
     [userInfo setObject:convertToString(response.name) forKey:@"userName"];
     [userInfo setObject:@"123456" forKey:@"passWord"];
     [userInfo setObject:convertToString(response.iconurl) forKey:@"imageUrl"];
-    [userInfo setObject:convertToString(response.openid) forKey:@"thirdId"];
+    [userInfo setObject:convertToString(response.uid) forKey:@"thirdId"];
+    
     [userInfo setObject:convertToString(@"0") forKey:@"isYj"];
     [userInfo setObject:convertToString(@"0") forKey:@"isDoctor"];
     

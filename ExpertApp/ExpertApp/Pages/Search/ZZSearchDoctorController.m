@@ -274,7 +274,7 @@
             CGFloat y = 99.0f;
             for (NSString *keyword in arr) {
                 CGRect f = [self createKeywordButton:keyword view:headerView x:x y:y maxW:ScreenWidth - x];
-                x = x + f.size.width;
+                x = x + f.size.width + 10.0f;
                 y = f.origin.y;
             }
             
@@ -336,6 +336,10 @@
     return CGRectGetHeight(cell.frame);
 }
 
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self keyboardHidde];
+}
 
 -(void)cleanupKeyword:(UIButton *) sender{
     [ZCLocalStore removeObjectforKey:KEY_SEARCH_KEYWORD];
@@ -443,11 +447,20 @@
         btn.tag = 1;
         [btn setTitle:@"全部科室" forState:UIControlStateNormal];
         [btn setFrame:CGRectMake(10, 15, (ScreenWidth-30)/2, 30)];
+        if(btnDepartment!=nil){
+            btn.objTag = btnDepartment.objTag;
+            [btn setTitle:btnDepartment.titleLabel.text forState:UIControlStateNormal];
+        }
         btnDepartment = btn;
     }else{
         btn.tag = 2;
         [btn setTitle:@"全部地区" forState:UIControlStateNormal];
         [btn setFrame:CGRectMake(20 + (ScreenWidth-30)/2, 15, (ScreenWidth-30)/2, 30)];
+        
+        if(btnArea!=nil){
+            btn.objTag = btnArea.objTag;
+            [btn setTitle:btnArea.titleLabel.text forState:UIControlStateNormal];
+        }
         btnArea = btn;
     }
     // 箭头

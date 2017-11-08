@@ -172,8 +172,8 @@
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
-        if(dict && dict[@"retData"][@"docInfo"]){
-            _model.docInfo = [[ZZUserInfo alloc] initWithMyDict:dict[@"retData"][@"docInfo"]];
+        if(dict && dict[@"retData"]){
+            _model.docInfo = [[ZZUserInfo alloc] initWithMyDict:dict[@"retData"]];
             isLook = [convertToString(dict[@"retData"][@"isLook"]) intValue];
             if(isLook > 0){
                 [_colloctBtn setTitle:@"已关注" forState:UIControlStateNormal];

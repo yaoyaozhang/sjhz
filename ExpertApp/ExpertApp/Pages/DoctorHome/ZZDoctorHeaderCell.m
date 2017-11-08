@@ -18,6 +18,7 @@
     
     _imgHeader.layer.cornerRadius = 50.0f;
     _imgHeader.layer.masksToBounds = YES;
+    [_imgHeader setContentMode:UIViewContentModeScaleAspectFit];
     _imgHeader.layer.borderColor = UIColorFromRGB(BgListSectionColor).CGColor;
     _imgHeader.layer.borderWidth = 1.0f;
     
@@ -42,7 +43,7 @@
     if(model){
         [_imgHeader sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]];
         [_labName setText:convertToString(model.docName)];
-        [_labFansChapterS setText:[NSString stringWithFormat:@"粉丝:%d   文章:%d",model.fansNum,model.articleNum]];
+        [_labFansChapterS setText:[NSString stringWithFormat:@"粉丝:%d",model.fansNumber]];
         [_labKes setText:convertToString(model.departmentName)];
         [_labHospital setText:convertToString(model.hospital)];
         [_labDesc setText:convertToString(model.accomplished)];
@@ -52,8 +53,8 @@
         f.origin.x = _labName.frame.origin.x + size.width + 5;
         [_viewZhic setFrame:f];
         
-        if(model.titleName){
-            NSArray *arr = [model.titleName componentsSeparatedByString:@","];
+        if(model.dclabel && model.dclabel.length>0){
+            NSArray *arr = [model.dclabel componentsSeparatedByString:@","];
             CGFloat xx = 0;
             for(NSString *itemText in arr){
                 xx = [self createLabel:itemText x:xx];

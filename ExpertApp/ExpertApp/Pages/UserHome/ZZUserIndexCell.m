@@ -68,33 +68,39 @@
         [_labKes setText:convertToString(model.docInfo.departmentName)];
         [_labHospital setText:convertToString(model.docInfo.hospital)];
         
-        
+        _viewChapter.hidden = YES;
+        if(model.chpater && model.chpater.nid>0){
+            _viewChapter.hidden = NO;
             [_labChapter setText:convertToString(model.chpater.title)];
             [_labTime setText:intervalSinceNow(model.chpater.createTime)];
         
-        [_imgFace sd_setImageWithURL:[NSURL URLWithString:convertToString(model.chpater.picture)]];
-        [_imgFace setContentMode:UIViewContentModeScaleAspectFit];
-        _imgFace.layer.masksToBounds = YES;
-        
-        
-        self.imgVideoOrMp3.hidden = NO;
-        if(model.chpater.showVideo == 1){
-            [self.imgVideoOrMp3 setImage:[UIImage imageNamed:@"knowledge_sound"]];
-        }else if(model.chpater.showVideo == 2){
-            [self.imgVideoOrMp3 setImage:[UIImage imageNamed:@"knowledge_video"]];
+            [_imgFace sd_setImageWithURL:[NSURL URLWithString:convertToString(model.chpater.picture)]];
+            [_imgFace setContentMode:UIViewContentModeScaleAspectFit];
+            _imgFace.layer.masksToBounds = YES;
+            
+            
+            self.imgVideoOrMp3.hidden = NO;
+            if(model.chpater.showVideo == 1){
+                [self.imgVideoOrMp3 setImage:[UIImage imageNamed:@"knowledge_sound"]];
+            }else if(model.chpater.showVideo == 2){
+                [self.imgVideoOrMp3 setImage:[UIImage imageNamed:@"knowledge_video"]];
+            }else{
+                self.imgVideoOrMp3.hidden = YES;
+            }
+            
+            if(model.chpater.commentNum>0){
+                [_btnComment setTitle:convertIntToString(model.chpater.commentNum) forState:UIControlStateNormal];
+            }
+            if(model.chpater.collect){
+                [self.btnCollect setImage:[UIImage imageNamed:@"btn_alreadycollected"] forState:UIControlStateNormal];
+            }else{
+                [self.btnCollect setImage:[UIImage imageNamed:@"btn_collect"] forState:UIControlStateNormal];
+            }
+            
+            [self setFrame:CGRectMake(0, 0, ScreenWidth, 154)];
         }else{
-            self.imgVideoOrMp3.hidden = YES;
+            [self setFrame:CGRectMake(0, 0, ScreenWidth, 80)];
         }
-        
-        if(model.chpater.commentNum>0){
-            [_btnComment setTitle:convertIntToString(model.chpater.commentNum) forState:UIControlStateNormal];
-        }
-        if(model.chpater.collect){
-            [self.btnCollect setImage:[UIImage imageNamed:@"btn_alreadycollected"] forState:UIControlStateNormal];
-        }else{
-            [self.btnCollect setImage:[UIImage imageNamed:@"btn_collect"] forState:UIControlStateNormal];
-        }
-
     }
 }
 

@@ -206,10 +206,10 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     y = y + space;
     y = y + [self createLabelValue:@"所在地区" type:4 tag:ZZControlTagArea holder:@"选择地区"];
     y = y + space;
-    if(!_isEdit){
-        y = y + [self createLabelValue:@"选择标签" type:6 tag:ZZControlTagLabel holder:@""];
-        y = y + space;
-    }
+    
+    y = y + [self createLabelValue:@"选择标签" type:6 tag:ZZControlTagLabel holder:@""];
+    y = y + space;
+    
     if(!_isEdit){
         y = y + [self createLabelValue:@"头像设置" type:3 tag:ZZControlTagHeader holder:@"选择文件"];
         y = y + space;
@@ -585,13 +585,13 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
             }
             // 标签
             if(type == 6){
-//                if([convertToString(loginUser.departmentName) rangeOfString:model.name].location !=NSNotFound)
-//                {
-//                    [self setViewCheckedBorder:btn];
-//                    [btn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
-//                    
-//                    [keshiMap setObject:btn forKey:model.name];
-//                }
+                if([convertToString(loginUser.dclabel) rangeOfString:model.name].location !=NSNotFound)
+                {
+                    [self setViewCheckedBorder:btn];
+                    [btn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
+                    
+                    btnCheckBQ = btn;
+                }
             }
             
         }

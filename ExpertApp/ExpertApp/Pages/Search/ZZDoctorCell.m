@@ -16,7 +16,7 @@
     
     [_labelName setTextColor:UIColorFromRGB(TextBlackColor)];
     [_labelNameZhiWei setTextColor:UIColorFromRGB(TextLightDarkColor)];
-    [_labelHosptial setTextColor:UIColorFromRGB(TextPlaceHolderColor)];
+    [_labelHosptial setTextColor:UIColorFromRGB(TextLightDarkColor)];
     [_labelSC setTextColor:UIColorFromRGB(TextPlaceHolderColor)];
     
     [_labelName setTextAlignment:NSTextAlignmentLeft];
@@ -79,13 +79,20 @@
         
         [_labelName setText:model.userName];
         CGSize ns = [self autoWidthOfLabel:_labelName with:22];
-        CGRect f = _labelNameZhiWei.frame;
+        CGRect f = _viewLabels.frame;
         f.origin.x = _labelName.frame.origin.x + ns.width + 10;
         f.size.width = ScreenWidth - f.origin.x - 15;
-        [_labelNameZhiWei setFrame:f];
+        [_viewLabels setFrame:f];
+        
+        [_labelHosptial setText:model.hospital];
+        
+        CGSize ns1 = [self autoWidthOfLabel:_labelHosptial with:22];
+        CGRect hf = _labelNameZhiWei.frame;
+        hf.origin.x = _labelHosptial.frame.origin.x + ns1.width + 10;
+        hf.size.width = ScreenWidth - hf.origin.x - 15;
+        [_labelNameZhiWei setFrame:hf];
         
         [_labelNameZhiWei setText:model.departmentName];
-        [_labelHosptial setText:model.hospital];
         
         if(_cellType == ZZDoctorCellTypeStar){
             
@@ -111,9 +118,10 @@
         }else{
             [_labelSC setText:[NSString stringWithFormat:@"擅长:--"]];
         }
-        if(model.titleName){
+        if(model.dclabel && model.dclabel.length>0){
+            [_viewLabels.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
             _viewLabels.hidden = NO;
-            NSArray *arr = [model.titleName componentsSeparatedByString:@","];
+            NSArray *arr = [model.dclabel componentsSeparatedByString:@","];
             CGFloat xx = 0;
             for(NSString *itemText in arr){
                 xx = [self createLabel:itemText x:xx];

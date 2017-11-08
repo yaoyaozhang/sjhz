@@ -122,9 +122,9 @@
     [self setTableSeparatorInset];
     
     
-    MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(endNetRefreshData)];
-    footer.stateLabel.hidden=YES;
-    _listTable.footer=footer;
+//    MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(endNetRefreshData)];
+//    footer.stateLabel.hidden=YES;
+//    _listTable.footer=footer;
     
     curCheckTag = ZZSearchDoctorTypeDefault;
     

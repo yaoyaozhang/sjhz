@@ -13,6 +13,8 @@
 #import "ZZFriendUserCell.h"
 #define cellIdentifier @"ZZFriendUserCell"
 
+#import "ZZRemarkUserController.h"
+
 
 #import "ZZUserHomeModel.h"
 
@@ -30,7 +32,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self createTitleMenu];
     
     [self.menuTitleButton setTitle:@"我的粉丝" forState:UIControlStateNormal];
@@ -207,10 +208,11 @@
 // table 行的点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    if(_listArray==nil || _listArray.count<indexPath.row){
-//        return;
-//    }
     
+    ZZUserInfo *user = [_listArray objectAtIndex:indexPath.section];
+    ZZRemarkUserController *vc = [[ZZRemarkUserController alloc] init];
+    vc.myFriend = user;
+    [self openNav:vc sound:nil];
     
 }
 

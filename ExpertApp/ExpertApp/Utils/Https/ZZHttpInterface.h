@@ -14,10 +14,10 @@
  */
 ////////////////////////////////////////////////////////////////
 
-#define API_HOST @"http://47.94.131.85:8080"
+//#define API_HOST @"http://47.94.131.85:8080"
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
 //#define API_HOST @"http://192.168.99.123:8080"
-//#define API_HOST @"http://219.142.225.69:8123"
+#define API_HOST @"http://219.142.225.69:8123"
 
 /**
  *  发送验证码
@@ -225,4 +225,15 @@
 
 #define API_findNewsTops [NSString stringWithFormat:@"%@/comment/findMessageTop10",API_HOST]
 #define API_findNews [NSString stringWithFormat:@"%@/comment/findMessage",API_HOST]
+
+
+/**
+ 查询问卷
+
+ @return <#return value description#>
+ */
+#define API_serachWenJuan [NSString stringWithFormat:@"%@/question/serachWenJuan",API_HOST]
+
+
+#define API_saveRemarkName [NSString stringWithFormat:@"%@/user/saveUserRemark",API_HOST]
 
