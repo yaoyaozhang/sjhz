@@ -16,6 +16,7 @@
 #import "ZZBuyController.h"
 #import "ZZCreateCaseController.h"
 #import "ZZCreateSportCaseController.h"
+#import "ZZCaseDetailController.h"
 #import "ZCActionSheetView.h"
 
 #import "ZZMyHZListController.h"
@@ -100,6 +101,7 @@
 // 添加病例
 -(void) addCase:(UIButton *) btn{
     ZCActionSheetView *actionSheet = [[ZCActionSheetView alloc]initWithDelegate:self title:nil CancelTitle:@"取消" OtherTitles:@"普通病例",@"运动康复病例", nil];
+   
     [actionSheet show];
     
     
@@ -113,31 +115,36 @@
             if(status == 1){
                 [self loadMoreData];
             }
-            if(status == 2){
-                [self loadMoreData];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
-                    [self openNav:vc sound:nil];
-                });
-            }
+//            if(status == 2){
+//                [self loadMoreData];
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
+//                    [self openNav:vc sound:nil];
+//                });
+//            }
         }];
         [self openNav:addVC sound:nil];
     }
     
     if(buttonIndex == 2){
+        if(_doctInfo && ![convertToString(_doctInfo.departmentName) hasPrefix:@"运动康复"]){
+            [self.view makeToast:@"只有运动康复科室的医生才可接受此病例的咨询"];
+            return;
+        }
+        
         ZZCreateSportCaseController *addVC = [[ZZCreateSportCaseController alloc] init];
         addVC.docId = _doctorId;
         [addVC setZZCreateResultBlock:^(int status){
             if(status == 1){
                 [self loadMoreData];
             }
-            if(status == 2){
-                [self loadMoreData];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
-                    [self openNav:vc sound:nil];
-                });
-            }
+//            if(status == 2){
+//                [self loadMoreData];
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
+//                    [self openNav:vc sound:nil];
+//                });
+//            }
         }];
         [self openNav:addVC sound:nil];
     }
@@ -350,22 +357,10 @@
     
     NSDictionary *item = _listArray[indexPath.row];
     
-        // 选择
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertToString(item[@"caseId"]) forKey:@"caseId"];
-        [dict setObject:convertToString(item[@"type"]) forKey:@"type"];
-        [ZZRequsetInterface post:API_SearchCaseDetail param:dict timeOut:HttpGetTimeOut start:^{
-            
-        } finish:^(id response, NSData *data) {
-            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        } complete:^(NSDictionary *dict) {
-            
-        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-            
-        } progress:^(CGFloat progress) {
-            
-        }];
-    
+    ZZCaseDetailController *vc = [[ZZCaseDetailController alloc] init];
+    vc.caseId =  [item[@"caseId"] intValue];
+    vc.caseType = [item[@"type"] intValue];
+    [self openNav:vc sound:nil];
 }
 
 //设置分割线间距

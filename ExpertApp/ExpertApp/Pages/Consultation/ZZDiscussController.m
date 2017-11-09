@@ -125,6 +125,9 @@
         [vc setResultBlock:^(ZZHZEngity *reModel){
             _model = reModel;
             [_listTable reloadData];
+            if(_model.state > 2){
+                [self goBack:nil];
+            }
         }];
         [self openNav:vc sound:nil];
     }
@@ -253,7 +256,8 @@
             [label setTextColor:UIColorFromRGB(TextBlackColor)];
             CGFloat lh = [ZZCoreTools getHeightContain:label.text font:ListDetailFont Width:ScreenWidth - 30];
             [label setFrame:CGRectMake(15, 15, ScreenWidth-30, lh)];
-            
+            [label setBackgroundColor:[UIColor clearColor]];
+            label.numberOfLines = 0;
             [view addSubview:label];
             
             

@@ -42,7 +42,7 @@
 @property(nonatomic,assign) int isDoctor;
 
 
-// 0无关系，1from+to, 2 to+from,  3互相关注
+// 0无关系，1 fromUserId=自己?已关注:对方关注我 2 互相关注
 @property(nonatomic,assign) int state;
 @property(nonatomic,strong) NSString *context;
 

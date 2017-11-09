@@ -12,5 +12,7 @@
 
 @property(nonatomic,strong)NSString *doctorId;
 
+@property(nonatomic,strong)ZZUserInfo *doctInfo;
+
 
 @end

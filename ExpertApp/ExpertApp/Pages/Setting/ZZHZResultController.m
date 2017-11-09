@@ -126,7 +126,7 @@
                 s = @"不满意的";
             }
             
-            y = y + [self createWhiteText:convertToString([NSString stringWithFormat:@"%@给了%@评价\n嘻嘻嘻嘻嘻嘻嘻嘻嘻",loginUser.userName,s]) y:y arr:nil] +15;
+            y = y + [self createWhiteText:convertToString([NSString stringWithFormat:@"%@给了%@评价\n%@",loginUser.userName,s,convertToString(text)]) y:y arr:nil] +15;
             
             
             [self createBottomView];

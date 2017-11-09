@@ -134,24 +134,24 @@
 
 
 -(void)delClick:(UIButton *) sender{
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onDelegateDel:type:)]){
-        [self.delegate onDelegateDel:self.tempModel type:0];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onDelegateDel:type:index:)]){
+        [self.delegate onDelegateDel:self.tempModel type:0 index:_indexPath];
     }
 }
 
 -(void)onOtherClick:(UIButton *) btn{
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onDelegateDel:type:)]){
-        [self.delegate onDelegateDel:self.tempModel type:1];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onDelegateDel:type:index:)]){
+        [self.delegate onDelegateDel:self.tempModel type:1 index:_indexPath];
     }
 }
 -(void)onOtherClick1:(UIButton *) btn{
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onDelegateDel:type:)]){
-        [self.delegate onDelegateDel:self.tempModel type:2];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onDelegateDel:type:index:)]){
+        [self.delegate onDelegateDel:self.tempModel type:2 index:_indexPath];
     }
 }
 -(void)onOtherClick2:(UIButton *) btn{
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onDelegateDel:type:)]){
-        [self.delegate onDelegateDel:self.tempModel type:3];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onDelegateDel:type:index:)]){
+        [self.delegate onDelegateDel:self.tempModel type:3 index:_indexPath];
     }
 }
 

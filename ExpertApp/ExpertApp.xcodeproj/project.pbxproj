@@ -68,6 +68,12 @@
 		7B5365651FB0474D000CD932 /* ZZRemarkLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5365631FB0474D000CD932 /* ZZRemarkLabelCell.xib */; };
 		7B5365691FB04761000CD932 /* ZZRemarkCaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5365671FB04761000CD932 /* ZZRemarkCaseCell.m */; };
 		7B53656A1FB04761000CD932 /* ZZRemarkCaseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5365681FB04761000CD932 /* ZZRemarkCaseCell.xib */; };
+		7B53656F1FB2D645000CD932 /* ASQController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B53656E1FB2D645000CD932 /* ASQController.m */; };
+		7B5365731FB2DA60000CD932 /* ZZSQBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5365721FB2DA60000CD932 /* ZZSQBaseCell.m */; };
+		7B53657C1FB2DB1F000CD932 /* ZZChooseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B53657A1FB2DB1F000CD932 /* ZZChooseCell.m */; };
+		7B53657D1FB2DB1F000CD932 /* ZZChooseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B53657B1FB2DB1F000CD932 /* ZZChooseCell.xib */; };
+		7B5365811FB2DB34000CD932 /* ZZSQTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B53657F1FB2DB34000CD932 /* ZZSQTextCell.m */; };
+		7B5365821FB2DB34000CD932 /* ZZSQTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5365801FB2DB34000CD932 /* ZZSQTextCell.xib */; };
 		7B5C1C7F1F1F532500DDDA78 /* ZZChapterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C1C7E1F1F532500DDDA78 /* ZZChapterListController.m */; };
 		7B5C1C831F1F534A00DDDA78 /* ZZChapterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C1C811F1F534A00DDDA78 /* ZZChapterCell.m */; };
 		7B5C1C871F1F53DF00DDDA78 /* ZZDoctorHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C1C861F1F53DF00DDDA78 /* ZZDoctorHomeController.m */; };
@@ -559,6 +565,16 @@
 		7B5365661FB04761000CD932 /* ZZRemarkCaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZRemarkCaseCell.h; sourceTree = "<group>"; };
 		7B5365671FB04761000CD932 /* ZZRemarkCaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZRemarkCaseCell.m; sourceTree = "<group>"; };
 		7B5365681FB04761000CD932 /* ZZRemarkCaseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZRemarkCaseCell.xib; sourceTree = "<group>"; };
+		7B53656D1FB2D645000CD932 /* ASQController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASQController.h; sourceTree = "<group>"; };
+		7B53656E1FB2D645000CD932 /* ASQController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASQController.m; sourceTree = "<group>"; };
+		7B5365711FB2DA60000CD932 /* ZZSQBaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSQBaseCell.h; sourceTree = "<group>"; };
+		7B5365721FB2DA60000CD932 /* ZZSQBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSQBaseCell.m; sourceTree = "<group>"; };
+		7B5365791FB2DB1F000CD932 /* ZZChooseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZChooseCell.h; sourceTree = "<group>"; };
+		7B53657A1FB2DB1F000CD932 /* ZZChooseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZChooseCell.m; sourceTree = "<group>"; };
+		7B53657B1FB2DB1F000CD932 /* ZZChooseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZChooseCell.xib; sourceTree = "<group>"; };
+		7B53657E1FB2DB34000CD932 /* ZZSQTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSQTextCell.h; sourceTree = "<group>"; };
+		7B53657F1FB2DB34000CD932 /* ZZSQTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSQTextCell.m; sourceTree = "<group>"; };
+		7B5365801FB2DB34000CD932 /* ZZSQTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZSQTextCell.xib; sourceTree = "<group>"; };
 		7B5C1C7D1F1F532500DDDA78 /* ZZChapterListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZChapterListController.h; sourceTree = "<group>"; };
 		7B5C1C7E1F1F532500DDDA78 /* ZZChapterListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZChapterListController.m; sourceTree = "<group>"; };
 		7B5C1C801F1F534A00DDDA78 /* ZZChapterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZChapterCell.h; sourceTree = "<group>"; };
@@ -1236,6 +1252,31 @@
 			path = remarkcell;
 			sourceTree = "<group>";
 		};
+		7B53656C1FB2D628000CD932 /* ASQ */ = {
+			isa = PBXGroup;
+			children = (
+				7B5365701FB2DA3E000CD932 /* cell */,
+				7B53656D1FB2D645000CD932 /* ASQController.h */,
+				7B53656E1FB2D645000CD932 /* ASQController.m */,
+			);
+			path = ASQ;
+			sourceTree = "<group>";
+		};
+		7B5365701FB2DA3E000CD932 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				7B5365711FB2DA60000CD932 /* ZZSQBaseCell.h */,
+				7B5365721FB2DA60000CD932 /* ZZSQBaseCell.m */,
+				7B5365791FB2DB1F000CD932 /* ZZChooseCell.h */,
+				7B53657A1FB2DB1F000CD932 /* ZZChooseCell.m */,
+				7B53657B1FB2DB1F000CD932 /* ZZChooseCell.xib */,
+				7B53657E1FB2DB34000CD932 /* ZZSQTextCell.h */,
+				7B53657F1FB2DB34000CD932 /* ZZSQTextCell.m */,
+				7B5365801FB2DB34000CD932 /* ZZSQTextCell.xib */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		7B5C1C7A1F1F531000DDDA78 /* Chapter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1762,6 +1803,7 @@
 		7B7002561F55069600C59281 /* Case */ = {
 			isa = PBXGroup;
 			children = (
+				7B53656C1FB2D628000CD932 /* ASQ */,
 				7B20C1521F71019600FBFD9F /* CaseDetailCell */,
 				7B7002661F5510D900C59281 /* CreateCaseCell */,
 				7B70025D1F5507E200C59281 /* CaseCell */,
@@ -2570,6 +2612,7 @@
 				7B70018A1F45414100C59281 /* tab_mine_selected@2x.png in Resources */,
 				7B7002621F5507FD00C59281 /* ZZCaseCell.xib in Resources */,
 				7BABAD411F67E958004C85FB /* prompt@3x.png in Resources */,
+				7B53657D1FB2DB1F000CD932 /* ZZChooseCell.xib in Resources */,
 				7B06B9BB1F79198600C5EF83 /* my_fans@2x.png in Resources */,
 				7B8A90031F189FA500FC53D7 /* icon_email_nol@3x.png in Resources */,
 				7B20C15F1F71030F00FBFD9F /* ZZCaseDetailMulCell.xib in Resources */,
@@ -2715,6 +2758,7 @@
 				7B8A90071F189FA500FC53D7 /* icon_password_nol@2x.png in Resources */,
 				7B8EBD421FA1E9890039E602 /* docheader.png in Resources */,
 				7B7001451F45414100C59281 /* my_doctor@3x.png in Resources */,
+				7B5365821FB2DB34000CD932 /* ZZSQTextCell.xib in Resources */,
 				7BF110121F18678C00456E55 /* Main.storyboard in Resources */,
 				7B06B9BA1F79198600C5EF83 /* my_data@3x.png in Resources */,
 				7B8A90171F189FA500FC53D7 /* titlebar_back_normal@2x.png in Resources */,
@@ -2825,7 +2869,9 @@
 				7BF1106B1F1884F400456E55 /* ZCLocalStore.m in Sources */,
 				7B7000161F3B0E2000C59281 /* ZZDoctorUserCell.m in Sources */,
 				7BF110771F188AFA00456E55 /* ZZCoreCommon.m in Sources */,
+				7B5365731FB2DA60000CD932 /* ZZSQBaseCell.m in Sources */,
 				7B8A90621F18A72A00FC53D7 /* SVWebViewControllerActivityChrome.m in Sources */,
+				7B5365811FB2DB34000CD932 /* ZZSQTextCell.m in Sources */,
 				7B5C1CA01F1F563100DDDA78 /* MyButton.m in Sources */,
 				7B00F8E51F308E5E00E29561 /* ZZNewsController.m in Sources */,
 				7B7F3D551F31A8E600132669 /* ZZCommentCell.m in Sources */,
@@ -2844,6 +2890,7 @@
 				7BF110321F1875BC00456E55 /* BaseController.m in Sources */,
 				7B8A90381F18A34000FC53D7 /* SSKeychain.m in Sources */,
 				7B70025C1F5506F200C59281 /* ZZChooseController.m in Sources */,
+				7B53657C1FB2DB1F000CD932 /* ZZChooseCell.m in Sources */,
 				7B7F3D4D1F3190F300132669 /* ZZChannelModel.m in Sources */,
 				7B5C1CE31F1F5B7B00DDDA78 /* ZCActionMenu.m in Sources */,
 				7B70028B1F56639400C59281 /* ZZCommentEntity.m in Sources */,
@@ -2900,6 +2947,7 @@
 				7B20C1451F70BF6F00FBFD9F /* WXApiManager.m in Sources */,
 				7B20C0551F692D0300FBFD9F /* ZZPayHandler.m in Sources */,
 				7B7002911F5664D600C59281 /* ZZDoctorQualEntity.m in Sources */,
+				7B53656F1FB2D645000CD932 /* ASQController.m in Sources */,
 				7BF1102D1F1874EC00456E55 /* RDVTabBarController.m in Sources */,
 				7B7001B21F45970B00C59281 /* ZZFindPwdController.m in Sources */,
 				7B7F3D281F3176CF00132669 /* ZZBaseModel.m in Sources */,

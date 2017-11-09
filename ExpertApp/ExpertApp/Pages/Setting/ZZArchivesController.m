@@ -373,11 +373,26 @@
     
     if(type == 2){
         // 删除
-        [_listArray removeObjectAtIndex:indexPath.row];
         NSMutableDictionary *item = _listArray[indexPath.row];
-        NSString *caseId = item[@"caseId"];
-        [_listTable reloadData];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         
+        [dict setObject:convertToString(item[@"caseId"]) forKey:@"caseId"];
+        [dict setObject:convertToString(item[@"type"]) forKey:@"type"];
+        
+        [ZZRequsetInterface post:API_DelCase param:dict timeOut:HttpGetTimeOut start:^{
+            [SVProgressHUD show];
+        } finish:^(id response, NSData *data) {
+            [SVProgressHUD dismiss];
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            [_listArray removeObjectAtIndex:indexPath.row];
+            [_listTable reloadData];
+            [self.view makeToast:@"删除成功!"];
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            [SVProgressHUD showErrorWithStatus:errorMsg];
+        } progress:^(CGFloat progress) {
+            
+        }];
     }
 }
 

@@ -16,7 +16,6 @@
 #define cellIdentifierCase @"ZZDoctorCaseCell"
 
 #import "ZZCommentController.h"
-#import "ZZChooseController.h"
 #import "ZZDoctorChapterController.h"
 
 #import "ZZCaseDetailController.h"
@@ -79,7 +78,7 @@
     
     
     _listTable=[self.view createTableView:self cell:cellIdentifierCase];
-    [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight-NavBarHeight-48)];
+    [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth,self.view.frame.size.height - NavBarHeight)];
     _listTable.bounces = NO;
     [_listTable setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     
@@ -226,7 +225,7 @@
     }else{
         cell.cellType = ZZHZCellTypeUserHistory;
     }
-    
+    cell.indexPath = indexPath;
     ZZHZEngity *model = [_listArray objectAtIndex:indexPath.row];
     cell.delegate = self;
     [cell dataToView:model];
@@ -301,8 +300,26 @@
 }
 
 
--(void)onDelegateDel:(ZZHZEngity *)model type:(int)type{
+-(void)onDelegateDel:(ZZHZEngity *)model type:(int)type index:(NSIndexPath *)path{
     // 删除
+    if(type == 0){
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:convertIntToString(_model.tid) forKey:@"id"];
+        [ZZRequsetInterface post:API_delCaseById param:dict timeOut:HttpGetTimeOut start:^{
+            
+        } finish:^(id response, NSData *data) {
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            [_listArray removeObjectAtIndex:path.row];
+            [_listTable reloadData];
+            [self.view makeToast:@"删除成功!"];
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            
+        } progress:^(CGFloat progress) {
+            
+        }];
+    }
+    
     if(type == 2){
         // 病例详情
         ZZCaseDetailController *vc = [[ZZCaseDetailController alloc] init];

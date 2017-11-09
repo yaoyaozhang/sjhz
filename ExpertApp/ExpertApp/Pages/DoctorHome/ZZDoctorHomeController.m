@@ -74,6 +74,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChanged:) name:@"ZZNoticeUserInfoChanged" object:nil];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self beginNetRefreshData];
+}
+
 -(void)userInfoChanged:(NSNotification *) info{
     [_listTable reloadData];
 }
@@ -93,6 +98,7 @@
         // 咨询
         ZZChooseController *chooseVC = [[ZZChooseController alloc] init];
         chooseVC.doctorId = convertIntToString(loginUser.userId);
+        chooseVC.doctInfo = loginUser;
         [self openNav:chooseVC sound:nil];
         
     }else if(sender.tag == 333){
@@ -359,7 +365,7 @@
 //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
     cell.cellType = ZZHZCellTypeHome;
     cell.delegate = self;
-    
+    cell.indexPath = indexPath;
     ZZHZEngity *newsModel = _listArray[indexPath.row];
     [cell dataToView:newsModel];
     
@@ -431,7 +437,7 @@
     [self setTableSeparatorInset];
 }
 
--(void)onDelegateDel:(ZZHZEngity *)model type:(int)type{
+-(void)onDelegateDel:(ZZHZEngity *)model type:(int)type index:(NSIndexPath *)path{
     // 0删除
     
     

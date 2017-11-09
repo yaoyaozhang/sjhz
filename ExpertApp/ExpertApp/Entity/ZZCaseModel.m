@@ -7,12 +7,30 @@
 //
 
 #import "ZZCaseModel.h"
+#import <objc/runtime.h>
+
 
 @implementation ZZCaseModel
-
-
 -(NSString *)getSexName{
     return _sex==1?@"男":@"女";
+}
+
+
+- (NSArray *)getParentproperties
+{
+    unsigned int outCount = 0;
+    objc_property_t *properties = class_copyPropertyList([self class], &outCount);
+    
+    
+    NSMutableArray *arrayM = [NSMutableArray arrayWithCapacity:outCount];
+    for (int i = 0; i < outCount; i++) {
+        objc_property_t property = properties[i];
+        const char *name = property_getName(property);
+        [arrayM addObject:[NSString stringWithUTF8String:name]];
+    }
+    free(properties);
+    
+    return arrayM;
 }
 
 

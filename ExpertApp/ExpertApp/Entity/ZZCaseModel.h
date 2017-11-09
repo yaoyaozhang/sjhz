@@ -51,6 +51,8 @@ typedef NS_ENUM(NSInteger,ZZEditControlType) {
 @property(nonatomic,assign) int state;//病例狀態 0创建并支付、1、待處理、2、正在處理、3、已處理完成
 
 
+- (NSArray *)getParentproperties;
+
 -(NSMutableArray *) getArrlist;
 
 

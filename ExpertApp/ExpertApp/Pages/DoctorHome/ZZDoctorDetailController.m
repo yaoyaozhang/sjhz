@@ -88,6 +88,7 @@
         // 咨询
         ZZChooseController *chooseVC = [[ZZChooseController alloc] init];
         chooseVC.doctorId = convertIntToString(_model.docInfo.userId);
+        chooseVC.doctInfo = _model.docInfo;
         [self openNav:chooseVC sound:nil];
         
     }else if(sender.tag == 333){

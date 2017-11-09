@@ -18,7 +18,7 @@
  @param model
  @param type 0,删除，1状态点击,2病例，3结果
  */
--(void)onDelegateDel:(ZZHZEngity *) model type:(int) type;
+-(void)onDelegateDel:(ZZHZEngity *) model type:(int) type index:(NSIndexPath *) path;
 
 @end
 
@@ -54,6 +54,7 @@ typedef NS_ENUM(NSInteger,ZZHZCellType) {
 
 @property(nonatomic,strong) id<ZZDoctorCaseDelegate> delegate;
 @property(nonatomic,strong) ZZHZEngity *tempModel;
+@property(nonatomic,strong) NSIndexPath *indexPath;
 
 
 -(void)dataToView:(ZZHZEngity *) model;

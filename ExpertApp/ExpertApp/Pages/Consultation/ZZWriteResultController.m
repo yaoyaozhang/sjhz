@@ -150,7 +150,8 @@
     UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [addBtn setFrame:CGRectMake(0, ScreenHeight - 40, ScreenWidth, 40)];
     [addBtn setBackgroundColor:[UIColor whiteColor]];
-    [addBtn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
+    [addBtn setTitleColor:UIColorFromRGB(TextWhiteColor) forState:UIControlStateNormal];
+    [addBtn setBackgroundColor:UIColorFromRGB(BgTitleColor)];
     [addBtn setTitle:@"提交" forState:UIControlStateNormal];
     addBtn.tag = 2;
     [addBtn addTarget:self action:@selector(addOrCommitClick:) forControlEvents:UIControlEventTouchUpInside];

@@ -20,6 +20,10 @@
                 _imageUrl = [NSString stringWithFormat:@"%@/%@",API_HOST,@"upload/uhead/user.png"];
             }
         }
+        
+        if([@"" isEqual:convertToString(_name)]){
+            _userName = _name;
+        }
     }
     return self;
 }

@@ -131,7 +131,7 @@
     if(section==0){
         return 0;
     }else{
-        return 25;
+        return 10;
     }
 }
 

@@ -212,6 +212,7 @@
  @return toUserId
  */
 #define API_followUserDoctor [NSString stringWithFormat:@"%@/doctor/followDoctor",API_HOST]
+#define API_delCaseById [NSString stringWithFormat:@"%@/doctor/delCaseById",API_HOST]
 
 
 

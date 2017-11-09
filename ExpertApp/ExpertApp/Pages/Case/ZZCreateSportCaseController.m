@@ -199,7 +199,7 @@
             NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
             [SVProgressHUD showSuccessWithStatus:@"保存成功!"];
-            if(!_isEdit){
+            if(!_isEdit && ![@"" isEqual:convertToString(_pCaseId)]){
                 [self confirmHZByCaseId:dict[@"retData"]];
             }else{
                 if(_ZZCreateResultBlock){

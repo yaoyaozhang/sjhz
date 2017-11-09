@@ -61,6 +61,7 @@
             [_btnControl setImage:nil forState:UIControlStateNormal];
             [_btnControl setImage:nil forState:UIControlStateSelected];
             [_btnControl setBackgroundColor:[UIColor whiteColor]];
+            [_btnControl setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
             _btnControl.layer.borderColor = UIColorFromRGB(BgTitleColor).CGColor;
             _btnControl.layer.borderWidth = 1.0f;
             _btnControl.layer.cornerRadius = 4.0f;
