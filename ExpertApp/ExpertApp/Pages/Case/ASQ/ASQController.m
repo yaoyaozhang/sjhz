@@ -33,8 +33,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self createTitleMenu];
-    [self.menuTitleButton setTitle:@"问卷" forState:UIControlStateNormal];
-    [self.menuTitleButton setTitle:@"量表" forState:UIControlStateNormal];
+    if(_type == ASQTYPELB){
+        [self.menuTitleButton setTitle:@"量表" forState:UIControlStateNormal];
+    }else{
+        [self.menuTitleButton setTitle:@"问卷" forState:UIControlStateNormal];
+    }
     
 //    self.menuRightButton.hidden = NO;
 //    [self.menuRightButton setTitle:@"刷新" forState:UIControlStateNormal];

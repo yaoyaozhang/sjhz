@@ -8,6 +8,10 @@
 
 #import "ZZCreateCaseCell.h"
 
+#import <SDWebImage/UIImageView+WebCache.h>
+
+#import "XHImageViewer.h"
+
 @interface ZZCreateCaseCell()<UITextFieldDelegate>{
     
 }
@@ -64,6 +68,17 @@
     [_imgLine setBackgroundColor:UIColorFromRGB(BgLineColor)];
     
     [_btnControl addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    [_imgLook setBackgroundColor:[UIColor clearColor]];
+    _imgLook.layer.borderWidth = 1.0f;
+    _imgLook.layer.borderColor = UIColorFromRGB(BgLineColor).CGColor;
+    [_imgLook setContentMode:UIViewContentModeScaleAspectFit];
+    
+    //设置点击事件
+    UITapGestureRecognizer *tapGesturer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imgTouchUpInside:)];
+    _imgLook.userInteractionEnabled=YES;
+    [_imgLook addGestureRecognizer:tapGesturer];
 }
 
 -(void)dataToView:(NSDictionary *) item{
@@ -191,6 +206,15 @@
             [_imgDrop setFrame:f];
         }
     }
+    
+    if(type == ZZEditControlTypeButton && ![@"" isEqual:convertToString(item[@"dictValue"])]){
+        _imgLook.hidden = NO;
+        [self setFrame:CGRectMake(0, 0, ScreenWidth, 44+90)];
+        [_imgLook sd_setImageWithURL:[NSURL URLWithString:convertToString(item[@"dictValue"])]];
+    }else{
+        _imgLook.hidden = YES;
+        [self setFrame:CGRectMake(0, 0, ScreenWidth, 44)];
+    }
 }
 
 -(void)buttonSex:(UIButton *) sender{
@@ -275,6 +299,58 @@
     return expectedLabelSize;
 }
 
+
+
+
+/**
+ *  点击查看大图
+ *
+ *  @param recognizer
+ */
+-(void) imgTouchUpInside:(UITapGestureRecognizer *)recognizer{
+    
+    int type = [self.tempDict[@"dictType"] intValue];
+    NSString *value = convertToString(self.tempDict[@"dictValue"]);
+    
+    BOOL isImage = NO;
+    if([[value lowercaseString] hasSuffix:@".png"]
+       || [[value lowercaseString] hasSuffix:@".pneg"]
+       || [[value lowercaseString] hasSuffix:@".jpg"]
+       || [[value lowercaseString] hasSuffix:@".jpeg"]
+       || [[value lowercaseString] hasSuffix:@".bmp"]
+       || [[value lowercaseString] hasSuffix:@".gif"]){
+        isImage = YES;
+    }
+    
+    if(type != ZZEditControlTypeButton || !isImage){
+        return;
+    }
+    
+    NSLog(@"我怎么不处罚呢：");
+    UIImageView *_picView = (UIImageView*)recognizer.view;
+    
+    CALayer *calayer = _picView.layer.mask;
+    [_picView.layer.mask removeFromSuperlayer];
+    
+    
+    
+    XHImageViewer *xh = [[XHImageViewer alloc] initWithImageViewerWillDismissWithSelectedViewBlock:^(XHImageViewer *imageViewer, UIImageView *selectedView) {
+        
+    } didDismissWithSelectedViewBlock:^(XHImageViewer *imageViewer, UIImageView *selectedView) {
+        
+        selectedView.layer.mask = calayer;
+        [selectedView setNeedsDisplay];
+        
+    } didChangeToImageViewBlock:^(XHImageViewer *imageViewer, UIImageView *selectedView) {
+    }];
+    
+    NSMutableArray *photos = [[NSMutableArray alloc] init];
+    [photos addObject:_picView];
+    
+    //    xh.delegate = self;
+    xh.disableTouchDismiss = NO;
+    [xh showWithImageViews:photos selectedView:_picView];
+}
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

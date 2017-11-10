@@ -44,6 +44,9 @@
 
 // 0无关系，1 fromUserId=自己?已关注:对方关注我 2 互相关注
 @property(nonatomic,assign) int state;
+// 当state=1时，发起关注方
+@property(nonatomic,assign) int fromUserId;
+
 @property(nonatomic,strong) NSString *context;
 
 

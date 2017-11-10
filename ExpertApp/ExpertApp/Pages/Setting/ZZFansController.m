@@ -235,7 +235,7 @@
 }
 
 -(void)onDoctorCellClick:(ZZUserFriendCellType)type model:(ZZUserInfo *)model{
-    if(model.state == 1 && loginUser.isDoctor){
+    if(model.state == 1 && model.fromUserId != loginUser.userId){
         // 关注
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:convertIntToString(model.userId) forKey:@"toUserId"];

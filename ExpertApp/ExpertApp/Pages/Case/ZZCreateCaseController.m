@@ -766,7 +766,7 @@
         [SVProgressHUD showSuccessWithStatus:@"上传成功!"];
         NSLog(@"%@",dict);
         _editModel.inspectionDateUrl1 = convertToString(dict[@"retData"]);
-        [self refreshViewData:NO];
+        [self refreshViewData:YES];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         [SVProgressHUD showErrorWithStatus:errorMsg];
     } progress:^(CGFloat progress) {

@@ -51,38 +51,36 @@
     
     if(model){
         _tempModel = model;
+        ZZUserInfo *userInfo = [ZZDataCache getInstance].getLoginUser;
         
         _btnControl.hidden = NO;
         int status = model.state;
         CGRect bf = _btnControl.frame;
         if(status == 1){
-            
-            [_btnControl setTitle:@"接受" forState:UIControlStateNormal];
-            [_btnControl setImage:nil forState:UIControlStateNormal];
-            [_btnControl setImage:nil forState:UIControlStateSelected];
-            [_btnControl setBackgroundColor:[UIColor whiteColor]];
-            [_btnControl setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-            _btnControl.layer.borderColor = UIColorFromRGB(BgTitleColor).CGColor;
-            _btnControl.layer.borderWidth = 1.0f;
-            _btnControl.layer.cornerRadius = 4.0f;
-            _btnControl.layer.masksToBounds = YES;
-            bf.size.height = 26.0f;
-            bf.origin.y = (90-26)/2;
-            [_btnControl setFrame:bf];
+            if(model.fromUserId == userInfo.userId){
+                _btnControl.layer.borderColor = [UIColor clearColor].CGColor;
+                [_btnControl setTitle:@"已关注" forState:UIControlStateNormal];
+                [_btnControl setImage:[UIImage imageNamed:@"mydoctor_havefollow"] forState:UIControlStateNormal];
+                [_btnControl setImage:[UIImage imageNamed:@"mydoctor_havefollow"] forState:UIControlStateSelected];
+                bf.size.height = 50.0f;
+                bf.origin.y = (90-50)/2;
+                [_btnControl setFrame:bf];
+            }else{
+                [_btnControl setTitle:@"接受" forState:UIControlStateNormal];
+                [_btnControl setImage:nil forState:UIControlStateNormal];
+                [_btnControl setImage:nil forState:UIControlStateSelected];
+                [_btnControl setBackgroundColor:[UIColor whiteColor]];
+                [_btnControl setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+                _btnControl.layer.borderColor = UIColorFromRGB(BgTitleColor).CGColor;
+                _btnControl.layer.borderWidth = 1.0f;
+                _btnControl.layer.cornerRadius = 4.0f;
+                _btnControl.layer.masksToBounds = YES;
+                bf.size.height = 26.0f;
+                bf.origin.y = (90-26)/2;
+                [_btnControl setFrame:bf];
+            }
         }
-        
-        
         if(status == 2){
-            _btnControl.layer.borderColor = [UIColor clearColor].CGColor;
-            [_btnControl setTitle:@"已关注" forState:UIControlStateNormal];
-            [_btnControl setImage:[UIImage imageNamed:@"mydoctor_havefollow"] forState:UIControlStateNormal];
-            [_btnControl setImage:[UIImage imageNamed:@"mydoctor_havefollow"] forState:UIControlStateSelected];
-            bf.size.height = 50.0f;
-            bf.origin.y = (90-50)/2;
-            [_btnControl setFrame:bf];
-        }
-        
-        if(status == 3){
             _btnControl.layer.borderColor = [UIColor clearColor].CGColor;
             [_btnControl setTitle:@"互相关注" forState:UIControlStateNormal];
             [_btnControl setImage:[UIImage imageNamed:@"mydoctor_mutualfollow"] forState:UIControlStateNormal];
@@ -94,7 +92,11 @@
         
         _tempModel = model;
         
-        [_labelName setText:model.userName];
+        if([@"" isEqual:convertToString(model.name)]){
+            [_labelName setText:model.userName];
+        }else{
+            [_labelName setText:model.name];
+        }
         if([[ZZDataCache getInstance] getLoginUser].isDoctor){
             [_labelHosptial setText:model.context];
         }else{

@@ -22,6 +22,7 @@
     
     [_labDesc setFont:ListDetailFont];
     [_labDesc setTextColor:UIColorFromRGB(TextBlackColor)];
+    _labDesc.numberOfLines = 0;
     
     
     [_imgFile setBackgroundColor:[UIColor clearColor]];

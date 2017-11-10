@@ -29,8 +29,7 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     CGFloat y;
     
     NSMutableDictionary *keshiMap;
-    MyButton *btnCheckBQ;
-    
+    NSMutableDictionary *labMap;
     
     ZZDictModel *zhengchenModel;
     ZZDictModel *areaModel;
@@ -109,6 +108,7 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     
     
     keshiMap = [NSMutableDictionary dictionaryWithCapacity:0];
+    labMap   = [NSMutableDictionary dictionaryWithCapacity:0];
     
     
     if(_isEdit){
@@ -269,10 +269,23 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
             [_params setObject:convertToString(textView.text) forKey:@"accomplished"];
             
             
-            if(btnCheckBQ){
-                ZZDictModel *item  = btnCheckBQ.objTag;
-                [_params setObject:convertToString(item.name) forKey:@"dclabel"];
+            if(labMap){
+                NSString *ksIds = @"";
+                NSString *ksNames = @"";
+                for (NSString *key in keshiMap.allKeys) {
+                    MyButton *btnCheckKS = keshiMap[key];
+                    ZZDictModel *item = btnCheckKS.objTag;
+                    ksIds = [ksIds stringByAppendingFormat:@",%d",item.baseId];
+                    ksNames = [ksNames stringByAppendingFormat:@",%@",item.name];
+                }
+                if(ksIds.length>0){
+                    ksIds = [ksIds substringFromIndex:1];
+                    ksNames = [ksNames substringFromIndex:1];
+                }
+                
+                [_params setObject:convertToString(ksNames) forKey:@"dclabel"];
             }
+            
             if(zhengchenModel){
                 [_params setObject:convertIntToString(zhengchenModel.baseId) forKey:@"titleId"];
                 [_params setObject:convertToString(zhengchenModel.name) forKey:@"titleName"];
@@ -525,19 +538,20 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
         [keshiMap setObject:btn forKey:model.name];
         
     }else{
-        if(btnCheckBQ){
-            if(btnCheckBQ.tag == btn.tag){
-                return;
-            }
+        MyButton *btnCheckKS = [labMap objectForKey:model.name];
+        if(btnCheckKS){
+            [self setViewBorder:btnCheckKS];
+            [btnCheckKS setTitleColor:UIColorFromRGB(TextBlackColor) forState:UIControlStateNormal];
             
-            [self setViewBorder:btnCheckBQ];
-            [btnCheckBQ setTitleColor:UIColorFromRGB(TextBlackColor) forState:UIControlStateNormal];
+            [labMap removeObjectForKey:model.name];
+            return;
         }
         
         
         [self setViewCheckedBorder:btn];
         [btn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
-        btnCheckBQ = btn;
+        
+        [labMap setObject:btn forKey:model.name];
     }
     
 }
@@ -590,7 +604,8 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
                     [self setViewCheckedBorder:btn];
                     [btn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
                     
-                    btnCheckBQ = btn;
+                    
+                    [labMap setObject:btn forKey:model.name];
                 }
             }
             
