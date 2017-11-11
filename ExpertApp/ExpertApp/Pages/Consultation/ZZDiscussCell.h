@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labName;
 
 @property (weak, nonatomic) IBOutlet UILabel *labMessage;
+@property (weak, nonatomic) IBOutlet UILabel *labTime;
 
 
 -(void) dataToView:(ZZCaseTalkModel *) model;

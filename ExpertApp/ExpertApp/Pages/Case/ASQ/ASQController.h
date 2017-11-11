@@ -17,5 +17,8 @@ typedef NS_ENUM(NSInteger,ASQTYPE) {
 @interface ASQController : BaseController
 
 @property(nonatomic,assign) ASQTYPE type;
+@property(nonatomic,assign) int docId;
+
+@property (nonatomic, strong)  void(^ZZCreateResultBlock) (int status);
 
 @end

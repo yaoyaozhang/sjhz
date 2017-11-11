@@ -38,6 +38,8 @@
     }else{
         [self.menuTitleButton setTitle:@"问卷" forState:UIControlStateNormal];
     }
+    self.menuRightButton.hidden = NO;
+    [self.menuRightButton setTitle:@"提交" forState:UIControlStateNormal];
     
 //    self.menuRightButton.hidden = NO;
 //    [self.menuRightButton setTitle:@"刷新" forState:UIControlStateNormal];
@@ -50,6 +52,18 @@
     gestureRecognizer.cancelsTouchesInView = NO;
     [_listTable addGestureRecognizer:gestureRecognizer];
     
+    [self loadMoreData];
+    
+}
+
+-(void)buttonClick:(UIButton *)sender{
+    [super buttonClick:sender];
+    if(sender.tag == RIGHT_BUTTON){
+        if(_ZZCreateResultBlock){
+            _ZZCreateResultBlock(1);
+        }
+        [self goBack:nil];
+    }
 }
 
 
@@ -83,7 +97,21 @@
  加载更多
  */
 -(void)loadMoreData{
-    
+    if(_type == ASQTYPEWJ){
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:convertIntToString(_docId) forKey:@"userId"];
+        [ZZRequsetInterface post:API_serachWenJuan param:dict timeOut:HttpGetTimeOut start:^{
+            
+        } finish:^(id response, NSData *data) {
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            
+        } progress:^(CGFloat progress) {
+            
+        }];
+    }
 }
 
 

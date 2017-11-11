@@ -38,6 +38,8 @@
         [_labName setText:item.docName];
         [_labMessage setText:item.context];
         
+        [_labTime setText:intervalSinceNow(item.createTime)];
+        
         CGSize s = [self autoHeightOfLabel:_labMessage with:_labMessage.frame.size.width];
         if(s.height < 21){
             s.height = 21;

@@ -177,6 +177,7 @@
             model.context = dict[@"context"];
             model.docName = loginUser.docName;
             model.imgUrl = loginUser.imageUrl;
+            model.createTime = dateTransformString(FormateTime, [NSDate date]);
             [_listArray addObject:model];
             
             [_listTable reloadData];

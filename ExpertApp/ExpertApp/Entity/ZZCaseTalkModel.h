@@ -18,6 +18,8 @@
 @property(nonatomic,strong) NSString *context;//": "Hhhhhh",
 
 @property(nonatomic,strong) NSString * docName;//": "李丹",
+@property(nonatomic,strong) NSString * createTime;//": "李丹",
+
 
 @property(nonatomic,strong) NSString * imgUrl;//": "url:/upload/uhead/2017-09-06/demoUploadimage1001504693326.jpg"
 

@@ -69,7 +69,7 @@
 #pragma mark getter
 - (YWFeedbackKit *)feedbackKit {
     if (!_feedbackKit) {
-        _feedbackKit = [[YWFeedbackKit alloc] initWithAppKey:@"24571002" appSecret:@"15dce9f0e0ebb590542e165703c7687e"];
+        _feedbackKit = [[YWFeedbackKit alloc] initWithAppKey:@"24689285" appSecret:@"2884c41c3d401b1deca954000f680a41"];
     }
     return _feedbackKit;
 }
