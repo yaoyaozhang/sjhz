@@ -42,6 +42,9 @@
 @property(nonatomic,assign) int caseDept;//": 10,
 
 
+@property(nonatomic,assign) int userId;
+
+
 -(NSString *)getStateName;
 
 @end

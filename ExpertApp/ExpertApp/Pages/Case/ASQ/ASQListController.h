@@ -10,4 +10,6 @@
 
 @interface ASQListController : BaseController
 
+@property(nonatomic,assign) int userId;
+
 @end

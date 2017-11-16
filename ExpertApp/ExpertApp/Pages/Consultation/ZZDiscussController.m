@@ -18,6 +18,7 @@
 #import "ZZWriteResultController.h"
 #import "ZZCaseDetailController.h"
 #import "ZZMyHZListController.h"
+#import "ZZRemarkUserController.h"
 
 
 @interface ZZDiscussController ()<UITableViewDelegate,UITableViewDataSource>{
@@ -120,6 +121,15 @@
     }
     
     if(btn.tag == 3){
+        ZZRemarkUserController *vc = [[ZZRemarkUserController alloc] init];
+        vc.type = 1;
+        ZZUserInfo *info=[ZZUserInfo new];
+        info.userId = _model.userId;
+        vc.myFriend = info;
+        [self openNav:vc sound:nil];
+    }
+    
+    if(btn.tag == 4){
         ZZWriteResultController *vc = [[ZZWriteResultController alloc] init];
         vc.model = _model;
         [vc setResultBlock:^(ZZHZEngity *reModel){
@@ -134,7 +144,7 @@
     
    
     
-    if(btn.tag == 4 || btn.tag == 5){
+    if(btn.tag == 5 || btn.tag == 6){
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         if(btn.tag == 5){
             if([@"" isEqual:convertToString(_textView.text)]){
@@ -264,7 +274,7 @@
             
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn addTarget:self action:@selector(headerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            btn.tag = 4;
+            btn.tag = 6;
             [btn setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
             btn.layer.borderColor = UIColorFromRGB(BgTitleColor).CGColor;
             btn.layer.borderWidth = 1.0f;
@@ -457,6 +467,7 @@
     if(isReLook){
         [titles addObject:@"相关病例记录"];
     }
+    [titles addObject:@"个人资料"];
     // 有结果的
     if([@"" isEqual:convertToString(_model.caseResult)]){
         [titles addObject:@"填写结论"];
@@ -485,6 +496,9 @@
         btn.tag = i+1;
         if(i == 1 && !isReLook){
             btn.tag = 3;
+        }
+        if(i == 2 && !isReLook){
+            btn.tag = 4;
         }
         x = x + xw + 15;
         [_headerView addSubview:btn];

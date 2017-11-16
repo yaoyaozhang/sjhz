@@ -10,4 +10,6 @@
 
 @interface ZZArchivesController : BaseController
 
+@property(nonatomic,assign) int userId;
+
 @end

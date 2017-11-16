@@ -10,6 +10,8 @@
 
 @interface ZZRemarkUserController : BaseController
 
+@property(nonatomic,assign) int type;
+
 @property(nonatomic,strong) ZZUserInfo *myFriend;
 
 @end

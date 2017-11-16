@@ -23,6 +23,8 @@
 #import "ZZCreateCaseController.h"
 #import "ZZCreateSportCaseController.h"
 
+#import "ZZCaseDetailController.h"
+
 @interface ZZArchivesController ()<UITableViewDelegate,UITableViewDataSource,ZZCaseCellDelegate,ZCActionSheetViewDelegate>{
     
     ZZUserInfo *loginUser;
@@ -160,7 +162,13 @@
  */
 -(void)loadMoreData{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+    if(_userId>0){
+        
+        [dict setObject:convertIntToString(_userId) forKey:@"userId"];
+    }else{
+        
+        [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+    }
     [ZZRequsetInterface post:API_SearchAllCase param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD showWithStatus:@"病例加载中"];
     } finish:^(id response, NSData *data) {
@@ -186,16 +194,16 @@
 #pragma mark UITableView delegate Start
 // 返回section数
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if(_userId>0){
+        return 1;
+    }
     return 2;
 }
 
 // 返回section高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if(section==0){
-        if(is_null(_listArray) || _listArray.count == 0){
-            return 0;
-        }
-        return 40;
+        return 0;
     }else{
         return 70;
     }
@@ -203,30 +211,22 @@
 
 // 返回section 的View
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if(section==0){
-        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 40)];
+    if(section==1){
+        
+        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 70)];
         [view setBackgroundColor:UIColorFromRGB(BgSystemColor)];
         
-        UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(20, 0, ScreenWidth-40, 40)];
-        [label setFont:ListDetailFont];
-        [label setText:@"请选择为谁提问"];
-        [label setTextAlignment:NSTextAlignmentLeft];
-        [label setTextColor:UIColorFromRGB(TextDarkColor)];
-        [view addSubview:label];
+        UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [addBtn setFrame:CGRectMake(0, 20, ScreenWidth, 50)];
+        [addBtn setBackgroundColor:[UIColor whiteColor]];
+        [addBtn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
+        [addBtn setTitle:@"+ 添加病例" forState:UIControlStateNormal];
+        [addBtn addTarget:self action:@selector(addCase:) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:addBtn];
+        
         return view;
     }
-    
-    UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 70)];
-    [view setBackgroundColor:UIColorFromRGB(BgSystemColor)];
-    
-    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addBtn setFrame:CGRectMake(0, 20, ScreenWidth, 50)];
-    [addBtn setBackgroundColor:[UIColor whiteColor]];
-    [addBtn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
-    [addBtn setTitle:@"+ 添加病例" forState:UIControlStateNormal];
-    [addBtn addTarget:self action:@selector(addCase:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:addBtn];
-    return view;
+    return nil;
 }
 
 // 返回section下得行数
@@ -274,6 +274,9 @@
     cell.delegate = self;
     cell.curIndexPath = indexPath;
     cell.chooseBtn.hidden = YES;
+    if(_userId>0){
+        cell.delBtn.hidden = YES;
+    }
     [cell dataToView:_listArray[indexPath.row]];
     
     return cell;
@@ -309,9 +312,20 @@
     }
     
     
-    NSDictionary *item = _listArray[indexPath.row];
     
-    int caseType = [item[@"caseId"] intValue];
+    
+    NSDictionary *item = _listArray[indexPath.row];
+    int caseType = [item[@"type"] intValue];
+    
+    if(_userId>0){
+        ZZCaseDetailController *vc = [[ZZCaseDetailController alloc] init];
+        vc.caseId = [convertToString(item[@"caseId"]) intValue];
+        vc.caseType = caseType;
+        [self openNav:vc sound:nil];
+        return;
+    }
+    
+   
     // 选择
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:convertToString(item[@"caseId"]) forKey:@"caseId"];

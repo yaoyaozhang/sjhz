@@ -159,15 +159,6 @@
 }
 
 
-/**
- 加载更多
- */
--(void)loadMoreData{
-    
-}
-
-
-
 #pragma mark UITableView delegate Start
 -(UIView *)createTableHeaderView{
     if(_headerView){

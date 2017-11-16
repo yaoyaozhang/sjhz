@@ -22,14 +22,18 @@
 
 -(void)dataToView:(NSDictionary *)item{
     [super dataToView:item];
-    int type = [item[@"cid"] intValue];
-    if(type == 1){
-        [_nameField setText:convertToString(super.user.name)];
+    int cid = [item[@"cid"] intValue];
+    if(cid == 1){
+        if(convertToString(self.user.userRemark).length>0){
+            [_nameField setText:convertToString(self.user.userRemark)];
+        }else{
+            [_nameField setText:convertToString(self.user.name)];
+        }
         [_nameField setPlaceholder:@"备注"];
         _nameField.hidden = NO;
         _labMsg.hidden = YES;
     }
-    if(type == 3){
+    if(cid == 3){
         [_labMsg setText:convertToString(super.user.phone)];
         _nameField.hidden = YES;
         _labMsg.hidden = NO;

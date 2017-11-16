@@ -320,6 +320,8 @@
 		7B7C1C3B1FBC9D6A001F6DE4 /* ZZDoctorArchivesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C1C3A1FBC9D6A001F6DE4 /* ZZDoctorArchivesController.m */; };
 		7B7C1C3E1FBCA233001F6DE4 /* ASQDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C1C3D1FBCA233001F6DE4 /* ASQDetailController.m */; };
 		7B7C28061FBD84AF00C3A6D9 /* icon_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B7C28051FBD84AE00C3A6D9 /* icon_down@2x.png */; };
+		7B7C280A1FBD949200C3A6D9 /* ZZRemarkNextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7C28081FBD949200C3A6D9 /* ZZRemarkNextCell.m */; };
+		7B7C280B1FBD949200C3A6D9 /* ZZRemarkNextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B7C28091FBD949200C3A6D9 /* ZZRemarkNextCell.xib */; };
 		7B7F3D241F3173BE00132669 /* ZZChapterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7F3D231F3173BE00132669 /* ZZChapterTVC.m */; };
 		7B7F3D281F3176CF00132669 /* ZZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7F3D271F3176CF00132669 /* ZZBaseModel.m */; };
 		7B7F3D2B1F31770200132669 /* ZZChapterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7F3D2A1F31770200132669 /* ZZChapterModel.m */; };
@@ -906,6 +908,9 @@
 		7B7C1C3C1FBCA233001F6DE4 /* ASQDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASQDetailController.h; sourceTree = "<group>"; };
 		7B7C1C3D1FBCA233001F6DE4 /* ASQDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASQDetailController.m; sourceTree = "<group>"; };
 		7B7C28051FBD84AE00C3A6D9 /* icon_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_down@2x.png"; sourceTree = "<group>"; };
+		7B7C28071FBD949200C3A6D9 /* ZZRemarkNextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZRemarkNextCell.h; sourceTree = "<group>"; };
+		7B7C28081FBD949200C3A6D9 /* ZZRemarkNextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZRemarkNextCell.m; sourceTree = "<group>"; };
+		7B7C28091FBD949200C3A6D9 /* ZZRemarkNextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZRemarkNextCell.xib; sourceTree = "<group>"; };
 		7B7F3D221F3173BE00132669 /* ZZChapterTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZChapterTVC.h; sourceTree = "<group>"; };
 		7B7F3D231F3173BE00132669 /* ZZChapterTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZChapterTVC.m; sourceTree = "<group>"; };
 		7B7F3D261F3176CF00132669 /* ZZBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBaseModel.h; sourceTree = "<group>"; };
@@ -1267,6 +1272,9 @@
 				7B5365661FB04761000CD932 /* ZZRemarkCaseCell.h */,
 				7B5365671FB04761000CD932 /* ZZRemarkCaseCell.m */,
 				7B5365681FB04761000CD932 /* ZZRemarkCaseCell.xib */,
+				7B7C28071FBD949200C3A6D9 /* ZZRemarkNextCell.h */,
+				7B7C28081FBD949200C3A6D9 /* ZZRemarkNextCell.m */,
+				7B7C28091FBD949200C3A6D9 /* ZZRemarkNextCell.xib */,
 			);
 			path = remarkcell;
 			sourceTree = "<group>";
@@ -2783,6 +2791,7 @@
 				7B7001781F45414100C59281 /* share_close@2x.png in Resources */,
 				7B70019C1F45414100C59281 /* treatment_liver@2x.png in Resources */,
 				7B70016D1F45414100C59281 /* search_dropdown@3x.png in Resources */,
+				7B7C280B1FBD949200C3A6D9 /* ZZRemarkNextCell.xib in Resources */,
 				7B8A90011F189FA500FC53D7 /* icon_arrow@2x.png in Resources */,
 				7BABAD3C1F67E958004C85FB /* close@2x.png in Resources */,
 				7B70018B1F45414100C59281 /* tab_mine_selected@3x.png in Resources */,
@@ -2884,6 +2893,7 @@
 				7B8A90421F18A4A400FC53D7 /* ZZGuideView.m in Sources */,
 				7BD796511F740702006223A2 /* UIButton+countDown.m in Sources */,
 				7B8A902E1F18A16D00FC53D7 /* UILabel+Additions.m in Sources */,
+				7B7C280A1FBD949200C3A6D9 /* ZZRemarkNextCell.m in Sources */,
 				7B8A903B1F18A37A00FC53D7 /* UIDevice-Hardware.m in Sources */,
 				7B70027D1F556A4A00C59281 /* ZZUserIndexCell.m in Sources */,
 				7B8EBD391FA02E900039E602 /* ZZApplyFriendController.m in Sources */,

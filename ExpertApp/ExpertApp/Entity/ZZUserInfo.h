@@ -48,6 +48,8 @@
 @property(nonatomic,assign) int fromUserId;
 
 @property(nonatomic,strong) NSString *context;
+@property(nonatomic,strong) NSString *lableName;
+@property(nonatomic,strong) NSString *userRemark;
 
 
 /**

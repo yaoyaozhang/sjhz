@@ -13,6 +13,7 @@
 #import "ZZAttentionController.h"
 #import "ZZInviteDoctorController.h"
 #import "ZZMyHZListController.h"
+#import "ZZRemarkUserController.h"
 
 @interface ZZLeaderDoctorController (){
     CGFloat btnY;
@@ -41,7 +42,7 @@
     
     btnY = tipF.origin.y + tipF.size.height + 10;
     
-    NSArray *titles = @[@"请点击阅读病情",@"以往病例以及会诊结果",@"填写会诊结果",@"邀请医生会诊"];
+    NSArray *titles = @[@"请点击阅读病情",@"以往病例以及会诊结果",@"用户资料",@"填写会诊结果",@"邀请医生会诊"];
     for(int i=0;i<titles.count;i++)
     {
         if(_model.caseDept==0 && i == 1){
@@ -66,6 +67,14 @@
         [self openNav:reVC sound:nil];
     }
     if(btn.tag == 3){
+        ZZRemarkUserController *vc = [[ZZRemarkUserController alloc] init];
+        vc.type = 1;
+        ZZUserInfo *info=[ZZUserInfo new];
+        info.userId = _model.userId;
+        vc.myFriend = info;
+        [self openNav:vc sound:nil];
+    }
+    if(btn.tag == 4){
         // 结果
         ZZWriteResultController *hz = [[ZZWriteResultController alloc] init];
         hz.model = _model;
@@ -74,7 +83,7 @@
         }];
         [self openNav:hz sound:nil];
     }
-    if(btn.tag == 4){
+    if(btn.tag == 5){
         // 邀请
         ZZInviteDoctorController *zzDoctor = [[ZZInviteDoctorController alloc] init];
         zzDoctor.isInvited = YES;
@@ -90,7 +99,7 @@
     btn.layer.cornerRadius = 4.0f;
     btn.layer.masksToBounds = YES;
     btn.tag = tag;
-    if(tag>2){
+    if(tag>3){
         [btn setBackgroundColor:UIColorFromRGB(BgTitleColor)];
         [btn setTitleColor:UIColorFromRGB(TextWhiteColor) forState:UIControlStateNormal];
     }else{

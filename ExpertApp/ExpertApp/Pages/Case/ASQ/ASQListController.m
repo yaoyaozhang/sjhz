@@ -67,9 +67,13 @@
  加载更多
  */
 -(void)loadMoreData{
-    ZZUserInfo *user = [ZZDataCache getInstance].getLoginUser;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(user.userId) forKey:@"userId"];
+    if(_userId>0){
+        [dict setObject:convertIntToString(_userId) forKey:@"userId"];
+    }else{
+        ZZUserInfo *user = [ZZDataCache getInstance].getLoginUser;
+        [dict setObject:convertIntToString(user.userId) forKey:@"userId"];
+    }
     
     [ZZRequsetInterface post:API_findLiangBiaoList param:dict timeOut:HttpGetTimeOut start:^{
         

@@ -22,10 +22,15 @@
 #import "ZZRemarkCaseCell.h"
 #define cellIdentifierCase @"ZZRemarkCaseCell"
 
+#import "ZZRemarkNextCell.h"
+#define cellIdentifierNext @"ZZRemarkNextCell"
+
 #import "ZZCaseDetailController.h"
+#import "ZZArchivesController.h"
+
+#import "ASQListController.h"
 
 @interface ZZRemarkUserController ()<ZZRemarkCellDelegate>{
-    NSString *labelsName;
     NSMutableArray *cases;
 }
 
@@ -42,10 +47,14 @@
     [self createTitleMenu];
     // Do any additional setup after loading the view.
     [self.menuTitleButton setTitle:@"个人信息" forState:UIControlStateNormal];
-    
-    [self.menuRightButton setTitle:@"保存" forState:UIControlStateNormal];
-    self.menuRightButton.hidden = NO;
-    
+    if(_type>0){
+        
+    }else{
+        
+        [self.menuRightButton setTitle:@"保存" forState:UIControlStateNormal];
+        self.menuRightButton.hidden = NO;
+        
+    }
     [self createTableView];
 }
 
@@ -60,7 +69,7 @@
         [dict setObject:convertIntToString(login.userId) forKey:@"userId"];
         [dict setObject:convertIntToString(_myFriend.userId) forKey:@"touserId"];
         [dict setObject:convertToString(_myFriend.name) forKey:@"remarkName"];
-        [dict setObject:convertToString(labelsName) forKey:@"lableName"];
+        [dict setObject:convertToString(_myFriend.lableName) forKey:@"lableName"];
         
         [ZZRequsetInterface post:API_saveRemarkName param:dict timeOut:HttpGetTimeOut start:^{
             
@@ -82,6 +91,8 @@
     _listTable=[self.view createTableView:self cell:cellIdentifier];
     [_listTable registerNib:[UINib nibWithNibName:cellIdentifierLab bundle:nil] forCellReuseIdentifier:cellIdentifierLab];
     [_listTable registerNib:[UINib nibWithNibName:cellIdentifierCase bundle:nil] forCellReuseIdentifier:cellIdentifierCase];
+    [_listTable registerNib:[UINib nibWithNibName:cellIdentifierNext bundle:nil] forCellReuseIdentifier:cellIdentifierNext];
+    
     
     
     [_listTable setBackgroundColor:UIColorFromRGB(BgSystemColor)];
@@ -112,11 +123,21 @@
 -(void)loadMoreData{
     [_listArray removeAllObjects];
     
-    // 1 普通，2表情，3病例
-    [_listArray addObject:@{@"cid":@"1",@"name":@"备注名",@"value":@"",@"type":@"1"}];
-    [_listArray addObject:@{@"cid":@"2",@"name":@"标签",@"value": convertToString(labelsName),@"type":@"2"}];
-    [_listArray addObject:@{@"cid":@"3",@"name":@"电话号码",@"value":@"",@"type":@"1"}];
-    [_listArray addObject:@{@"cid":@"4",@"name":@"个人病例",@"value":cases,@"type":@"3"}];
+    
+    if(_type > 0){
+        [_listArray addObject:@{@"cid":@"4",@"name":@"个人病例",@"value":@"",@"type":@"0"}];
+        [_listArray addObject:@{@"cid":@"5",@"name":@"调查问卷",@"value":@"",@"type":@"0"}];
+        [_listArray addObject:@{@"cid":@"5",@"name":@"自测量表",@"value":@"",@"type":@"0"}];
+    }else{
+        // 1 普通，2表情，3病例
+        [_listArray addObject:@{@"cid":@"1",@"name":@"备注名",@"value":@"",@"type":@"1"}];
+        [_listArray addObject:@{@"cid":@"2",@"name":@"标签",@"value": convertToString(_myFriend.lableName),@"type":@"2"}];
+        [_listArray addObject:@{@"cid":@"3",@"name":@"电话号码",@"value":@"",@"type":@"1"}];
+        [_listArray addObject:@{@"cid":@"4",@"name":@"个人病例",@"value":@"",@"type":@"0"}];
+        [_listArray addObject:@{@"cid":@"5",@"name":@"调查问卷",@"value":@"",@"type":@"0"}];
+        [_listArray addObject:@{@"cid":@"5",@"name":@"自测量表",@"value":@"",@"type":@"0"}];
+        
+    }
     
     [_listTable reloadData];
     
@@ -182,27 +203,36 @@
 // cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ZZRemakBaseCell *cell = nil;
-    
-    if(indexPath.section == 0 || indexPath.section == 2){
+    NSDictionary *item = [_listArray objectAtIndex:indexPath.section];
+    int type = [item[@"type"] intValue];
+    if(type == 1){
         cell = (ZZBasicCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
             cell = [[ZZBasicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
-    if(indexPath.section == 1){
+    if(type == 2){
         cell = (ZZRemarkLabelCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifierLab];
         if (cell == nil) {
             cell = [[ZZRemarkLabelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
-        ((ZZRemarkLabelCell *)cell).labText = labelsName;
+        ((ZZRemarkLabelCell *)cell).labText = _myFriend.lableName;
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
-    if(indexPath.section == 3){
-        cell = (ZZRemarkCaseCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifierCase];
+    if(type == 0){
+        cell = (ZZRemarkNextCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifierNext];
         if (cell == nil) {
-            cell = [[ZZRemarkCaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierCase];
+            cell = [[ZZRemarkNextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierNext];
         }
-        ((ZZRemarkCaseCell *)cell).cases = cases;
     }
+//    if(type == 3){
+//        cell = (ZZRemarkCaseCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifierCase];
+//        if (cell == nil) {
+//            cell = [[ZZRemarkCaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierCase];
+//        }
+//        ((ZZRemarkCaseCell *)cell).cases = cases;
+//    }
     
     cell.user = _myFriend;
     cell.delegate =self;
@@ -225,8 +255,6 @@
     if(_listArray.count < indexPath.row){
         return cell;
     }
-    
-    NSDictionary *item=[_listArray objectAtIndex:indexPath.section];
     
     [cell dataToView:item];
     
@@ -257,10 +285,18 @@
 // table 行的点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(_listArray==nil || _listArray.count<indexPath.row){
-        return;
+    NSDictionary *item = _listArray[indexPath.section];
+    int cid = [item[@"cid"] intValue];
+    if(cid == 5){
+        ASQListController *vc = [[ASQListController alloc] init];
+        vc.userId = _myFriend.userId;
+        [self openNav:vc sound:nil];
     }
-    
+    if(cid == 4){
+        ZZArchivesController *vc = [[ZZArchivesController alloc] init];
+        vc.userId = _myFriend.userId;
+        [self openNav:vc sound:nil];
+    }
     
 }
 
@@ -285,8 +321,7 @@
 
 -(void)onCellClick:(id)obj type:(int)type{
     if(type == 1){
-        labelsName = convertToString(obj);
-        [self loadMoreData];
+        _myFriend.lableName = convertToString(obj);
     }
     
     if(type == 2){
