@@ -32,7 +32,7 @@
 #import "ZZFansController.h"
 #import "ZZDrawMoneyController.h"
 
-#import "ASQController.h"
+#import "ASQListController.h"
 
 
 @interface ZZSettingController ()<UITableViewDelegate,UITableViewDataSource>{
@@ -111,8 +111,7 @@
                           @{@"code":@"2",@"icon":@"my_healthrecords",@"text":@"健康档案"},
                           @{@"code":@"3",@"icon":@"my_doctor",@"text":@"我的医生"},
                           @{@"code":@"4",@"icon":@"my_collection",@"text":@"我的收藏"},
-                          @{@"code":@"14",@"icon":@"my_healthrecords",@"text":@"自测量表"},
-                          @{@"code":@"15",@"icon":@"my_healthrecords",@"text":@"自测问卷"}];
+                          @{@"code":@"14",@"icon":@"my_healthrecords",@"text":@"自测量表"}];
         [_listArray addObject:arr1];
         
         NSArray *arr2 = @[@{@"code":@"5",@"icon":@"my_set",@"text":@"设置与帮助"},
@@ -276,12 +275,7 @@
         [self openNav:vc sound:nil];
     }
     if(code == 14 || code == 15){
-        ASQController *vc = [[ASQController alloc] init];
-        if(code == 14){
-            vc.type = ASQTYPELB;
-        }else{
-            vc.type = ASQTYPEWJ;
-        }
+        ASQListController *vc = [[ASQListController alloc] init];
         [self openNav:vc sound:nil];
     }
     

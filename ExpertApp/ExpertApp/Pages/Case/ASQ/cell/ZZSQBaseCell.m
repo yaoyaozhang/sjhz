@@ -35,11 +35,20 @@
     return self;
 }
 
--(void)dataToView:(NSDictionary *)item{
-    if(item){
+-(void)dataToView:(ZZQSModel *)model{
+    if(model){
+        _tempModel = model;
         [_labTitle setFrame:CGRectMake(15, 8, ScreenWidth - 30, 0)];
-        [_labTitle setText:convertToString(item[@"name"])];
+        if(model.quesType == 1){
+         
+            [_labTitle setText:[NSString stringWithFormat:@"%@[单选]",convertToString(model.quesWt)]];
+        }else if(model.quesType == 2){
+            [_labTitle setText:[NSString stringWithFormat:@"%@[多选]",convertToString(model.quesWt)]];
+        }else{
+            [_labTitle setText:[NSString stringWithFormat:@"%@[数字]",convertToString(model.quesWt)]];
+        }
         [self autoHeightOfLabel:_labTitle with:ScreenWidth - 30];
+        
     }
 }
 

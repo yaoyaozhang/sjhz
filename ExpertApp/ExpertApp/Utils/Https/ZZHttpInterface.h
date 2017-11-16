@@ -14,10 +14,10 @@
  */
 ////////////////////////////////////////////////////////////////
 
-#define API_HOST @"http://47.94.131.85:8080"
+//#define API_HOST @"http://47.94.131.85:8080"
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
 //#define API_HOST @"http://192.168.99.123:8080"
-//#define API_HOST @"http://219.142.225.69:8123"
+#define API_HOST @"http://219.142.225.69:8123"
 
 /**
  *  发送验证码
@@ -231,10 +231,20 @@
 /**
  查询问卷
 
- @return <#return value description#>
+ @return quesId
  */
 #define API_serachWenJuan [NSString stringWithFormat:@"%@/question/serachWenJuan",API_HOST]
+#define API_saveWenJuan [NSString stringWithFormat:@"%@/question/saveAnswer",API_HOST]
+#define API_findWenjuanList [NSString stringWithFormat:@"%@/question/serachWenJuanList",API_HOST]
+
+#define API_findWenjuanDetail [NSString stringWithFormat:@"%@/question/serachWenJuanAnswer",API_HOST]
+
+
+
+
 
 
 #define API_saveRemarkName [NSString stringWithFormat:@"%@/user/saveUserRemark",API_HOST]
+
+
 

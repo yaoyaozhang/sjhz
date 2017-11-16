@@ -40,7 +40,7 @@
 -(void)dataToView:(ZZUserInfo *)model{
     [_viewZhic.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    if(model){
+    if(model && model.userId>0){
         [_imgHeader sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]];
         [_labName setText:convertToString(model.docName)];
         [_labFansChapterS setText:[NSString stringWithFormat:@"粉丝:%d",model.fansNumber]];

@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZZQSModel.h"
 
 @protocol ZZSQBaseCellDelegate
 
 // 1 单选 2多选 3文本
--(void)onCellClick:(id) obj type:(int) type;
+-(void)onCellClick:(id) obj type:(int) type with:(ZZQSModel *) questModel;
 
 
 -(void)didKeyboardWillShow:(NSIndexPath *)indexPath view:(UITextField *) textfield;
@@ -21,10 +22,16 @@
 
 @property(nonatomic,strong) id<ZZSQBaseCellDelegate> delegate;
 
+
+@property (assign, nonatomic) int showType;
+
+
+
 @property (strong, nonatomic) UILabel *labTitle;
 @property (strong, nonatomic) NSIndexPath *indexPath;
+@property (strong, nonatomic) ZZQSModel *tempModel;
 
--(void)dataToView:(NSDictionary *) item;
+-(void)dataToView:(ZZQSModel *) model;
 
 
 

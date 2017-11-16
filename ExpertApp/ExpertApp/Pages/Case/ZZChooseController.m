@@ -158,15 +158,6 @@
 
 // 选择病例,去支付
 -(void)confirmCase:(UIButton *) btn{
-//    ZZBuyController *addVC = [[ZZBuyController alloc] init];
-//    [self openNav:addVC sound:nil];
-    
-//    ASQController *vc = [[ASQController alloc] init];
-//    vc.type = ASQTYPEWJ;
-//    vc.docId = [_doctorId intValue];
-//    [self openNav:vc sound:nil];
-//    return;
-    
     if(checkedRow<0 || _listArray.count==0){
         [self.view makeToast:@"请选择一个病例"];
         return;
@@ -193,14 +184,14 @@
     [ZZRequsetInterface post:API_AddDiscussCase param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD show];
     } finish:^(id response, NSData *data) {
-        [SVProgressHUD dismiss];
+        
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         [self.view makeToast:@"提交完成，请等待诊断结果!"];
-        ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
-        [self openNav:vc sound:nil];
+       
         
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        [SVProgressHUD dismiss];
         [self.view makeToast:errorMsg];
     } progress:^(CGFloat progress) {
         
@@ -208,6 +199,40 @@
     
 }
 
+
+-(void)checkWenjuan:(int )hzId{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:convertToString(@"") forKey:@""];
+    [ZZRequsetInterface post:API_Register param:dict timeOut:HttpGetTimeOut start:^{
+        
+    } finish:^(id response, NSData *data) {
+        [SVProgressHUD dismiss];
+        
+        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    } complete:^(NSDictionary *dict) {
+        if(dict[@"retData"][@"name"]){
+            ASQController *avc = [[ASQController alloc] init];
+            avc.type = ASQTYPEWJ;
+            avc.docId = [_doctorId intValue];
+            [avc setZZCreateResultBlock:^(int status) {
+                if(status == 1){
+                    [self.view makeToast:@"提交完成，请等待诊断结果!"];
+                    ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
+                    [self openNav:vc sound:nil];
+                }
+            }];
+            [self openNav:avc sound:nil];
+        }else{
+            [self.view makeToast:@"提交完成，请等待诊断结果!"];
+            ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
+            [self openNav:vc sound:nil];
+        }
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        
+    } progress:^(CGFloat progress) {
+        
+    }];
+}
 
 /**
  加载更多

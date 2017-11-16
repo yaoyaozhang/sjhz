@@ -1,15 +1,13 @@
 //
-//  ASQController.m
+//  ASQDetailController.m
 //  ExpertApp
 //
-//  Created by zhangxy on 2017/11/8.
+//  Created by zhangxy on 2017/11/16.
 //  Copyright © 2017年 sjhz. All rights reserved.
 //
 
-#import "ASQController.h"
-
+#import "ASQDetailController.h"
 #import "UIView+Extension.h"
-
 #import "ZZSQBaseCell.h"
 
 #import "ZZSQTextCell.h"
@@ -17,7 +15,7 @@
 #define cellIdentifier @"ZZSQTextCell"
 #define cellIdentifierChoose @"ZZChooseCell"
 
-@interface ASQController ()<ZZSQBaseCellDelegate>{
+@interface ASQDetailController ()<ZZSQBaseCellDelegate>{
     UITextField *tempField;
     CGPoint contentOffset;
     NSString * wenTiId;
@@ -31,22 +29,17 @@
 
 @end
 
-@implementation ASQController
+@implementation ASQDetailController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self createTitleMenu];
-    if(_type == ASQTYPELB){
-        [self.menuTitleButton setTitle:@"量表" forState:UIControlStateNormal];
-    }else{
-        [self.menuTitleButton setTitle:@"问卷" forState:UIControlStateNormal];
-    }
-    self.menuRightButton.hidden = NO;
-    [self.menuRightButton setTitle:@"提交" forState:UIControlStateNormal];
     
-//    self.menuRightButton.hidden = NO;
-//    [self.menuRightButton setTitle:@"刷新" forState:UIControlStateNormal];
+    if(_model){
+        [self.menuTitleButton setTitle:_model.quesName forState:UIControlStateNormal];
+    }
+    
     
     [self createTableView];
     
@@ -63,48 +56,6 @@
 -(void)buttonClick:(UIButton *)sender{
     [super buttonClick:sender];
     if(sender.tag == RIGHT_BUTTON){
-        if(values.count  < _listArray.count){
-            [self.view makeToast:@"请填写完整结果！"];
-            return;
-        }
-        NSMutableArray *ans = [NSMutableArray arrayWithCapacity:0];
-        for (NSString *key in values.allKeys) {
-            NSDictionary *item = values[key];
-            NSMutableArray *arr = [NSMutableArray arrayWithCapacity:0];
-            for(NSString *ikey in item.allKeys){
-                
-                if([ikey hasPrefix:@"value"]){
-                    [arr addObject:@{@"id":key,@"v":convertToString(item[ikey])}];
-                }else{
-                    ZZQSAnswerModel *model = item[ikey];
-                    
-                    [arr addObject:@{@"id":ikey,@"v":convertToString(model.context)}];
-                }
-            }
-            [ans addObject:@{@"qid":key,@"answer":arr}];
-        }
-        NSString *text = [ZCLocalStore DataTOjsonString:ans];
-        
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:text forKey:@"values"];
-        [dict setObject:wenTiId forKey:@"wenjuanId"];
-        ZZUserInfo *login = [ZZDataCache getInstance].getLoginUser;
-        [dict setObject:convertIntToString(login.userId) forKey:@"userId"];
-        [ZZRequsetInterface post:API_saveWenJuan param:dict timeOut:HttpGetTimeOut start:^{
-            
-        } finish:^(id response, NSData *data) {
-            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        } complete:^(NSDictionary *dict) {
-            if(_ZZCreateResultBlock){
-                _ZZCreateResultBlock(1);
-            }
-            [self goBack:nil];
-        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-            [self.view makeToast:errorMsg];
-        } progress:^(CGFloat progress) {
-            
-        }];
-        
         
         
     }
@@ -125,10 +76,10 @@
         _listTable.backgroundView = nil;
     }
     
-//    
-//    MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-//    footer.stateLabel.hidden=YES;
-//    _listTable.footer=footer;
+    //
+    //    MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    //    footer.stateLabel.hidden=YES;
+    //    _listTable.footer=footer;
     
     [_listTable setSeparatorColor:UIColorFromRGB(BgLineColor)];
     [_listTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
@@ -142,28 +93,47 @@
  加载更多
  */
 -(void)loadMoreData{
-    if(_type == ASQTYPEWJ){
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertIntToString(_docId) forKey:@"userId"];
-        [ZZRequsetInterface post:API_serachWenJuan param:dict timeOut:HttpGetTimeOut start:^{
-            
-        } finish:^(id response, NSData *data) {
-            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        } complete:^(NSDictionary *dict) {
-            wenTiId = convertToString(dict[@"retData"][@"wenTiId"]);
-            [self.menuTitleButton setTitle:convertToString(dict[@"retData"][@"wenTiName"]) forState:UIControlStateNormal];
-            
-            NSArray *arr = dict[@"retData"][@"wenTiContext"];
-            for (NSDictionary *item in arr) {
-                [_listArray addObject:[[ZZQSModel alloc] initWithMyDict:item]];
+    ZZUserInfo *user = [ZZDataCache getInstance].getLoginUser;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:convertIntToString(user.userId) forKey:@"userId"];
+    [dict setObject:convertIntToString(_model.wenjuanId) forKey:@"quesId"];
+    [ZZRequsetInterface post:API_findWenjuanDetail param:dict timeOut:HttpGetTimeOut start:^{
+        
+    } finish:^(id response, NSData *data) {
+        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    } complete:^(NSDictionary *dict) {
+        wenTiId = convertToString(dict[@"retData"][@"wenTiId"]);
+        [self.menuTitleButton setTitle:convertToString(dict[@"retData"][@"wenTiName"]) forState:UIControlStateNormal];
+        
+        NSArray *arr = dict[@"retData"][@"wenTiContext"];
+        for (NSDictionary *item in arr) {
+            ZZQSModel *m =[[ZZQSModel alloc] initWithMyDict:item];
+            if(m.quesType == 3){
+                [values setObject:convertToString(m.answerValue) forKey:@"value"];
+                m.values = values;
+            }else{
+                NSArray *alist = [m.answerId componentsSeparatedByString:@","];
+                NSArray *vlist = [m.answerValue componentsSeparatedByString:@","];
+                NSMutableDictionary *values = [NSMutableDictionary dictionaryWithCapacity:1];
+                if(alist && alist.count>0){
+                    for (int i=0; i<alist.count; i++) {
+                        if(vlist.count < i){
+                            [values setObject:@"" forKey:convertToString(alist[i])];
+                        }else{
+                            [values setObject:convertToString(vlist[i]) forKey:convertToString(alist[i])];
+                        }
+                    }
+                    m.values = values;
+                }
             }
-            [_listTable reloadData];
-        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-            
-        } progress:^(CGFloat progress) {
-            
-        }];
-    }
+            [_listArray addObject:m];
+        }
+        [_listTable reloadData];
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        
+    } progress:^(CGFloat progress) {
+        
+    }];
 }
 
 
@@ -176,7 +146,7 @@
 
 // 返回section高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 10.0f;
+    return 10;
 }
 
 // 返回section 的View
@@ -205,17 +175,29 @@
             cell = [[ZZSQTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
     }
-   
     
-    cell.showType = 0;
+    if(indexPath.row==_listArray.count-1){
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            [cell setSeparatorInset:UIEdgeInsetsZero];
+        }
+        
+        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+            [cell setLayoutMargins:UIEdgeInsetsZero];
+        }
+        
+        if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]){
+            [cell setPreservesSuperviewLayoutMargins:NO];
+        }
+    }
+    cell.showType = 1;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-//    [cell setSelectedBackgroundView:[[UIView alloc] initWithFrame:cell.bounds]];
-//    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
+    //    [cell setSelectedBackgroundView:[[UIView alloc] initWithFrame:cell.bounds]];
+    //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
     cell.delegate = self;
     cell.indexPath = indexPath;
     
     
-
+    
     [cell dataToView:model];
     
     
@@ -246,12 +228,25 @@
 // table 行的点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(_listArray==nil || _listArray.count<indexPath.row){
+        return;
+    }
+    
     
 }
 
 //设置分割线间距
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if((indexPath.row+1) < _listArray.count){
+        UIEdgeInsets inset = UIEdgeInsetsMake(0, 10, 0, 0);
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            [cell setSeparatorInset:inset];
+        }
+        
+        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+            [cell setLayoutMargins:inset];
+        }
+    }
 }
 
 -(void)viewDidLayoutSubviews{
@@ -289,7 +284,7 @@
     questModel.values = dict;
     [values setObject:dict forKey:convertIntToString(questModel.quesId)];
     if(type != 3){
-     
+        
         [_listTable reloadData];
     }
 }
@@ -298,19 +293,19 @@
 
 -(void)didKeyboardWillShow:(NSIndexPath *)indexPath view:(UITextField *)textfield{
     tempField = textfield;
-
+    
     //获取当前cell在tableview中的位置
     CGRect rectintableview=[_listTable rectForRowAtIndexPath:indexPath];
-
+    
     //获取当前cell在屏幕中的位置
     CGRect rectinsuperview = [_listTable convertRect:rectintableview fromView:[_listTable superview]];
-
+    
     contentOffset = _listTable.contentOffset;
-
+    
     if ((rectinsuperview.origin.y+50 - _listTable.contentOffset.y)>200) {
-
+        
         [_listTable setContentOffset:CGPointMake(_listTable.contentOffset.x,((rectintableview.origin.y-_listTable.contentOffset.y)-150)+  _listTable.contentOffset.y) animated:YES];
-
+        
     }
 }
 #pragma mark UITableView delegate end
