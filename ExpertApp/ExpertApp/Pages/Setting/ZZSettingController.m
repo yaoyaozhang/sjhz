@@ -32,6 +32,8 @@
 #import "ZZFansController.h"
 #import "ZZDrawMoneyController.h"
 
+#import "ZZDoctorArchivesController.h"
+
 #import "ASQListController.h"
 
 
@@ -121,6 +123,7 @@
     }else{
         NSArray *arr1 = @[@{@"code":@"8",@"icon":@"my_data",@"text":@"我的资料"},
                           @{@"code":@"9",@"icon":@"my_article",@"text":@"文章管理"},
+                          @{@"code":@"15",@"icon":@"my_fans",@"text":@"我的档案"},
                           @{@"code":@"10",@"icon":@"my_fans",@"text":@"我的粉丝"},
                           @{@"code":@"11",@"icon":@"Doctor_friend",@"text":@"我的医生朋友"}];
         [_listArray addObject:arr1];
@@ -274,8 +277,12 @@
         ZZDrawMoneyController *vc = [[ZZDrawMoneyController alloc] init];
         [self openNav:vc sound:nil];
     }
-    if(code == 14 || code == 15){
+    if(code == 14){
         ASQListController *vc = [[ASQListController alloc] init];
+        [self openNav:vc sound:nil];
+    }
+    if(code == 15){
+        ZZDoctorArchivesController *vc = [[ZZDoctorArchivesController alloc] init];
         [self openNav:vc sound:nil];
     }
     

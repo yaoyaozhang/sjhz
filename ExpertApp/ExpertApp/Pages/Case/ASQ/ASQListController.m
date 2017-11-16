@@ -70,7 +70,8 @@
     ZZUserInfo *user = [ZZDataCache getInstance].getLoginUser;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:convertIntToString(user.userId) forKey:@"userId"];
-    [ZZRequsetInterface post:API_findWenjuanList param:dict timeOut:HttpGetTimeOut start:^{
+    
+    [ZZRequsetInterface post:API_findLiangBiaoList param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);

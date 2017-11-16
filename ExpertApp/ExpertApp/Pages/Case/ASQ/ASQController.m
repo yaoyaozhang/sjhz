@@ -24,6 +24,7 @@
     NSString *wenTiName;
     
     NSMutableDictionary *values;
+    UIView *bottomView;
 }
 @property(nonatomic,strong)UITableView      *listTable;
 @property(nonatomic,strong)NSMutableArray   *listArray;
@@ -55,13 +56,45 @@
     gestureRecognizer.numberOfTapsRequired = 1;
     gestureRecognizer.cancelsTouchesInView = NO;
     [_listTable addGestureRecognizer:gestureRecognizer];
+    _listTable.tableFooterView = [self createBottomView];
     
+    if(_model && _model.wenjuanId>0){
+        wenTiId = convertIntToString(_model.wenjuanId);
+        [self.menuTitleButton setTitle:convertToString(_model.quesName) forState:UIControlStateNormal];
+        
+    }
     [self loadMoreData];
+}
+
+
+
+-(UIView *)createBottomView{
+    bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 55)];
+    [bottomView setBackgroundColor:UIColor.clearColor];
+    
+    UIButton  *saleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    saleButton.tag = 111;
+    [saleButton setTitle:@"跳过" forState:UIControlStateNormal];
+    
+    
+    [saleButton setFrame:CGRectMake(30, 10, ScreenWidth - 60, 35)];
+    [saleButton setTitleColor:UIColorFromRGB(TextWhiteColor) forState:UIControlStateNormal];
+    [saleButton setBackgroundColor:UIColorFromRGB(BgTitleColor)];
+    [saleButton.titleLabel setFont:ListTitleFont];
+    [saleButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:saleButton];
+    return bottomView;
     
 }
 
 -(void)buttonClick:(UIButton *)sender{
     [super buttonClick:sender];
+    if(sender.tag == 111){
+        if(_ZZCreateResultBlock){
+            _ZZCreateResultBlock(1);
+        }
+        [self goBack:nil];
+    }
     if(sender.tag == RIGHT_BUTTON){
         if(values.count  < _listArray.count){
             [self.view makeToast:@"请填写完整结果！"];
@@ -111,6 +144,7 @@
 }
 
 
+
 -(void)createTableView{
     _listArray = [[NSMutableArray alloc] init];
     values = [[NSMutableDictionary alloc] init];
@@ -142,28 +176,30 @@
  加载更多
  */
 -(void)loadMoreData{
-    if(_type == ASQTYPEWJ){
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertIntToString(_docId) forKey:@"userId"];
-        [ZZRequsetInterface post:API_serachWenJuan param:dict timeOut:HttpGetTimeOut start:^{
-            
-        } finish:^(id response, NSData *data) {
-            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        } complete:^(NSDictionary *dict) {
-            wenTiId = convertToString(dict[@"retData"][@"wenTiId"]);
-            [self.menuTitleButton setTitle:convertToString(dict[@"retData"][@"wenTiName"]) forState:UIControlStateNormal];
-            
-            NSArray *arr = dict[@"retData"][@"wenTiContext"];
-            for (NSDictionary *item in arr) {
-                [_listArray addObject:[[ZZQSModel alloc] initWithMyDict:item]];
-            }
-            [_listTable reloadData];
-        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-            
-        } progress:^(CGFloat progress) {
-            
-        }];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    if(_model && _model.wenjuanId>0){
+        [dict setObject:convertIntToString(_model.wenjuanId) forKey:@"id"];
     }
+    [dict setObject:convertIntToString(_docId) forKey:@"userId"];
+    
+    [ZZRequsetInterface post:API_serachWenJuan param:dict timeOut:HttpGetTimeOut start:^{
+        
+    } finish:^(id response, NSData *data) {
+        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    } complete:^(NSDictionary *dict) {
+        wenTiId = convertToString(dict[@"retData"][@"wenTiId"]);
+        [self.menuTitleButton setTitle:convertToString(dict[@"retData"][@"wenTiName"]) forState:UIControlStateNormal];
+        
+        NSArray *arr = dict[@"retData"][@"wenTiContext"];
+        for (NSDictionary *item in arr) {
+            [_listArray addObject:[[ZZQSModel alloc] initWithMyDict:item]];
+        }
+        [_listTable reloadData];
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        
+    } progress:^(CGFloat progress) {
+        
+    }];
 }
 
 

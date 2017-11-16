@@ -68,6 +68,14 @@
 @property(nonatomic,strong) NSString *orderNumber;//": 0,
 @property(nonatomic,strong) NSString *titleName;//": "高级职称,第二高级"
 
+// 背景
+@property(nonatomic,strong) NSString *medicalBackground;
+// 擅长
+@property(nonatomic,strong) NSString *academicResearch;
+// 寄语
+@property(nonatomic,strong) NSString *doctorWrote;
+
+
 
 
 @property(nonatomic,strong) NSString *certificateUrl1;//": "高级职称,第二高级"

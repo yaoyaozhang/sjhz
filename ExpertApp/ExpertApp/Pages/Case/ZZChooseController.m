@@ -187,8 +187,8 @@
         
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
-        [self.view makeToast:@"提交完成，请等待诊断结果!"];
-       
+        int hzId = [dict[@"retData"] intValue];
+        [self checkWenjuan:hzId];
         
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         [SVProgressHUD dismiss];
@@ -202,23 +202,26 @@
 
 -(void)checkWenjuan:(int )hzId{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertToString(@"") forKey:@""];
-    [ZZRequsetInterface post:API_Register param:dict timeOut:HttpGetTimeOut start:^{
+    [dict setObject:convertToString(_doctorId) forKey:@"userId"];
+    [dict setObject:@"2" forKey:@"type"];
+    [ZZRequsetInterface post:API_checkWenjuanByUserId param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
         [SVProgressHUD dismiss];
         
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
-        if(dict[@"retData"][@"name"]){
+        if([dict[@"retData"] intValue]>0){
             ASQController *avc = [[ASQController alloc] init];
             avc.type = ASQTYPEWJ;
             avc.docId = [_doctorId intValue];
             [avc setZZCreateResultBlock:^(int status) {
                 if(status == 1){
                     [self.view makeToast:@"提交完成，请等待诊断结果!"];
-                    ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
-                    [self openNav:vc sound:nil];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
+                        [self openNav:vc sound:nil];
+                    });
                 }
             }];
             [self openNav:avc sound:nil];

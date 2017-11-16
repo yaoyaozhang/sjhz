@@ -8,7 +8,7 @@
 
 #import "ZZDoctorDetailController.h"
 
-
+#import "UIView+Border.h"
 #import "UIView+Extension.h"
 #import "MJRefresh.h"
 
@@ -18,6 +18,10 @@
 #import "ZZDoctorHeaderCell.h"
 #define cellIdentifierHeader @"ZZDoctorHeaderCell"
 
+#import "ZZQSListCell.h"
+#define cellIdentifierQS @"ZZQSListCell"
+
+
 #import "ZZCommentController.h"
 #import "ZZChooseController.h"
 #import "ZZDoctorChapterController.h"
@@ -25,12 +29,20 @@
 
 #import "ZZShareView.h"
 
+#import "ZZQSModel.h"
+#import "ASQController.h"
+
 @interface ZZDoctorDetailController (){
     ZZUserInfo *loginUser;
     int isLook;
+    
+    BOOL showDesc;
+    BOOL showWenjuan;
 }
 @property(nonatomic,strong)UITableView      *listTable;
 @property(nonatomic,strong)NSMutableArray   *listArray;
+@property(nonatomic,strong)NSMutableArray   *questions;
+@property(nonatomic,strong)UIView   *descView;
 @property(nonatomic,strong)UIButton *colloctBtn;
 
 @end
@@ -50,10 +62,10 @@
     [self.menuRightButton setImage:[UIImage imageNamed:@"nav_share"] forState:UIControlStateNormal];
     [self.menuTitleButton setTitle:[NSString stringWithFormat:@"个人诊所"] forState:UIControlStateNormal];
     
+    showDesc = NO;
+    showWenjuan = NO;
+    // 加载医生信息
     [self loadDoctorInfo];
-    
-    [self loadDoctorChapters];
-    
 }
 
 -(void)buttonClick:(UIButton *)sender{
@@ -97,6 +109,13 @@
         chatpterVC.docInfo = _model.docInfo;
         [self openNav:chatpterVC sound:nil];
     }
+    else if(sender.tag == 444){
+        showDesc = !showDesc;
+        [_listTable reloadData];
+    }else if(sender.tag == 555){
+        showWenjuan = !showWenjuan;
+        [_listTable reloadData];
+    }
     
 }
 
@@ -105,11 +124,13 @@
 -(void)createTableView{
     _listArray = [[NSMutableArray alloc] init];
     
-    
+    _questions = [[NSMutableArray alloc] init];
     
     _listTable=[self.view createTableView:self cell:cellIdentifier];
     [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight-NavBarHeight-48)];
     [_listTable registerNib:[UINib nibWithNibName:cellIdentifierHeader bundle:nil] forCellReuseIdentifier:cellIdentifierHeader];
+    [_listTable registerNib:[UINib nibWithNibName:cellIdentifierQS bundle:nil] forCellReuseIdentifier:cellIdentifierQS];
+    
     _listTable.bounces = NO;
     [_listTable setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     
@@ -169,8 +190,9 @@
     [dict setObject:convertIntToString(_model.docInfo.userId) forKey:@"docId"];
     [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
     [ZZRequsetInterface post:API_FindDoctorInfoByUserId param:dict timeOut:HttpGetTimeOut start:^{
-        
+        [SVProgressHUD show];
     } finish:^(id response, NSData *data) {
+        [SVProgressHUD dismiss];
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         if(dict && dict[@"retData"]){
@@ -180,7 +202,26 @@
                 [_colloctBtn setTitle:@"已关注" forState:UIControlStateNormal];
                 [_colloctBtn setEnabled:NO];
             }
+            [self createJianjie];
+            
+            [_listArray removeAllObjects];
+            [_questions removeAllObjects];
+            NSArray *arr = dict[@"retData"][@"news"];
+            if(arr && arr.count>0){
+                for (NSDictionary *item in arr) {
+                    [_listArray addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
+                }
+                
+                [self removePlaceholderView];
+            }
+            NSArray *qs = dict[@"retData"][@"wenjuan"];
+            if(qs && qs.count){
+                for (NSDictionary *item in qs) {
+                    [_questions addObject:[[ZZQSListModel alloc] initWithMyDict:item]];
+                }
+            }
             [_listTable reloadData];
+            [self removePlaceholderView];
         }
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         
@@ -189,48 +230,28 @@
     }];
 }
 
--(void)loadDoctorChapters{
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(_model.docInfo.userId) forKey:@"docId"];
-    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
-    [ZZRequsetInterface post:API_findDoctorHomeChapter param:dict timeOut:HttpGetTimeOut start:^{
-        
-    } finish:^(id response, NSData *data) {
-        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    } complete:^(NSDictionary *dict) {
-        if(dict[@"retData"]){
-            
-        for (NSDictionary *item in dict[@"retData"]) {
-            [_listArray addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
-        }
-        
-            if(_listArray.count>0){
-                
-                [_listTable reloadData];
-                [self removePlaceholderView];
-            }
-            
-        }
-    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-        
-    } progress:^(CGFloat progress) {
-        
-    }];
-}
 
 
 
 #pragma mark UITableView delegate Start
 // 返回section数
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _listArray.count == 0?1:(2+_listArray.count);
+    return 4 + _listArray.count;
 }
 
 // 返回section高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if(section==0){
+    if(section==0){// 头部信息
         return 0;
-    }else if(section == 1){
+    }else if(section == 1){// 简介
+        if(showDesc){
+         
+            return 50 + _descView.frame.size.height;
+        }
+        return 50;
+    }else if(section == 2){// 问卷
+        return 50;
+    }else if(section == 3){// 文章
         return 50;
     }else{
         return 10;
@@ -240,6 +261,67 @@
 // 返回section 的View
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if(section==1){
+        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
+        [view setBackgroundColor:UIColorFromRGB(BgSystemColor)];
+        
+        UIButton *otherBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [otherBtn setTitle:@"专家简介" forState:UIControlStateNormal];
+        [otherBtn setFrame:CGRectMake(0,10, ScreenWidth, 40)];
+        [otherBtn setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
+        [otherBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
+        [otherBtn setTitleColor:UIColorFromRGB(TextBlackColor) forState:UIControlStateNormal];
+        [otherBtn.titleLabel setFont:ListDetailFont];
+        [otherBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [otherBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        otherBtn.tag = 444;
+        [view addSubview:otherBtn];
+        
+        
+        UIImageView *imgview = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth-30, 10, 20, 20)];
+        [imgview setContentMode:UIViewContentModeScaleAspectFit];
+        [otherBtn addSubview:imgview];
+        if(showDesc){
+            [imgview setImage:[UIImage imageNamed:@"icon_down"]];
+            [view addSubview:_descView];
+            [view setFrame:CGRectMake(0, 0, ScreenWidth, 50 + _descView.frame.size.height)];
+        }else{
+            [imgview setImage:[UIImage imageNamed:@"icon_arrow"]];
+            [view setFrame:CGRectMake(0, 0, ScreenWidth, 50)];
+        }
+        return view;
+    }
+    if(section==2){
+        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
+        [view setBackgroundColor:UIColorFromRGB(BgSystemColor)];
+        
+        UIButton *otherBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [otherBtn setTitle:@"医生问卷" forState:UIControlStateNormal];
+        [otherBtn setFrame:CGRectMake(0,10, ScreenWidth, 40)];
+        [otherBtn setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
+        [otherBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
+        [otherBtn setTitleColor:UIColorFromRGB(TextBlackColor) forState:UIControlStateNormal];
+        [otherBtn.titleLabel setFont:ListDetailFont];
+        [otherBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [otherBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        otherBtn.tag = 555;
+        [otherBtn addBottomBorderWithColor:UIColorFromRGB(BgLineColor) andWidth:0.75f];
+        [view addSubview:otherBtn];
+        
+        
+        
+        UIImageView *imgview = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth-30, 10, 20, 20)];
+        [imgview setImage:[UIImage imageNamed:@"btn_more"]];
+        [imgview setContentMode:UIViewContentModeScaleAspectFit];
+        [otherBtn addSubview:imgview];
+        if(showWenjuan){
+            [imgview setImage:[UIImage imageNamed:@"icon_down"]];
+        }else{
+            [imgview setImage:[UIImage imageNamed:@"icon_arrow"]];
+        }
+        
+        return view;
+    }
+    if(section==3){
         UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
         [view setBackgroundColor:UIColorFromRGB(BgSystemColor)];
         
@@ -271,7 +353,16 @@
     if(section == 1){
         return 0;
     }
-    
+    if(section == 2){
+        if(showWenjuan){
+            return _questions.count;
+        }
+        return 0;
+    }
+    if(section == 3){
+        return 0;
+    }
+   
     return 1;
 }
 
@@ -288,11 +379,22 @@
         return cell;
     }
     
-    if(indexPath.section == 1){
-        return nil;
+    if(indexPath.section == 2){
+        ZZQSListCell *cell = (ZZQSListCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifierQS];
+        if (cell == nil) {
+            cell = [[ZZQSListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierQS];
+        }
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        ZZQSListModel *m = [_questions objectAtIndex:indexPath.row];
+        [cell.labTitle setText:m.quesName];
+        [cell.labTitle setTextColor:UIColorFromRGB(TextSizeNineColor)];
+        [cell.labTitle setFont:ListDetailFont];
+        //        [cell setSelectedBackgroundView:[[UIView alloc] initWithFrame:cell.bounds]];
+        return cell;
     }
     
-    ZZChapterModel *newsModel = _listArray[indexPath.section-2];
+    
+    ZZChapterModel *newsModel = _listArray[indexPath.section-4];
     ZZChapterUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.chapterModel = newsModel;
     
@@ -341,28 +443,8 @@
             vc.model = newsModel;
             [self.navigationController pushViewController:vc animated:YES];
         }
+        
     }];
-    
-    if(indexPath.row==_listArray.count-1){
-        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-            [cell setSeparatorInset:UIEdgeInsetsZero];
-        }
-        
-        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-            [cell setLayoutMargins:UIEdgeInsetsZero];
-        }
-        
-        if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]){
-            [cell setPreservesSuperviewLayoutMargins:NO];
-        }
-    }
-    
-    
-    //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
-    if(_listArray.count < indexPath.section-2){
-        return cell;
-    }
-    
    
     
     
@@ -389,23 +471,29 @@
     if(indexPath.section == 0){        
         return 245.0f;
     }
+    if(indexPath.section == 2){
+        return 44.0f;
+    }
     return 120.0f;
 }
 
 // table 行的点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(_listArray==nil || _listArray.count<indexPath.row){
-        return;
+    if(indexPath.section == 2){
+        ZZQSListModel *m = [_questions objectAtIndex:indexPath.row];
+        ASQController *detail = [[ASQController alloc] init];
+        detail.model = m;
+        detail.docId = _model.docInfo.userId;
+        [self openNav:detail sound:@""];
     }
-    
     
 }
 
 //设置分割线间距
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     if((indexPath.row+1) < _listArray.count){
-        UIEdgeInsets inset = UIEdgeInsetsMake(0, 10, 0, 0);
+        UIEdgeInsets inset = UIEdgeInsetsMake(0, 0, 0, 0);
         if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
             [cell setSeparatorInset:inset];
         }
@@ -426,7 +514,7 @@
  *  设置UITableView分割线空隙
  */
 -(void)setTableSeparatorInset{
-    UIEdgeInsets inset = UIEdgeInsetsMake(0, 10, 0, 0);
+    UIEdgeInsets inset = UIEdgeInsetsMake(0, 0, 0, 0);
     if ([_listTable respondsToSelector:@selector(setSeparatorInset:)]) {
         [_listTable setSeparatorInset:inset];
     }
@@ -436,6 +524,48 @@
     }
 }
 
+
+-(void) createJianjie{
+    _descView = [[UIView alloc] initWithFrame:CGRectMake(0, 50, ScreenWidth,0)];
+    [_descView addTopBorderWithColor:UIColorFromRGB(BgLineColor) andWidth:0.75f];
+    [_descView setBackgroundColor:UIColor.whiteColor];
+    CGFloat y = 10;
+    y = y + [self createTextLabel:@"医学教育背景" type:1 y:y] + 10;
+    y = y + [self createTextLabel:_model.docInfo.medicalBackground type:2 y:y] + 10;
+    [self createLineView:y pv:_descView];
+    y = y + 10;
+    
+    y = y + [self createTextLabel:@"学术研究成果" type:1 y:y] + 10;
+    y = y + [self createTextLabel:_model.docInfo.academicResearch type:2 y:y] + 10;
+    [self createLineView:y pv:_descView];
+    y = y + 10;
+    y = y + [self createTextLabel:@"医生寄语" type:1 y:y] + 10;
+    y = y + [self createTextLabel:_model.docInfo.doctorWrote type:2 y:y] + 10;
+    [self createLineView:y pv:_descView];
+    y = y + 1;
+    [_descView setFrame:CGRectMake(0, 50, ScreenWidth, y)];
+}
+
+-(CGFloat ) createTextLabel:(NSString *) text type:(int) type y:(CGFloat ) y{
+    
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(16, y, ScreenWidth-32, 0)];
+    [lab setText:text];
+    lab.numberOfLines = 0;
+    [lab setTextColor:UIColorFromRGB(TextDarkColor)];
+    if(type == 2){
+        [lab setTextColor:UIColorFromRGB(TextPlaceHolderColor)];
+    }
+    [lab setFont:ListDetailFont];
+    CGSize s = [ZZCoreTools autoHeightOfLabel:lab with:ScreenWidth - 30];
+    [_descView addSubview:lab];
+    return s.height;
+}
+
+-(void)createLineView:(CGFloat )y pv:(UIView *) v{
+    UIImageView *linev = [[UIImageView alloc] initWithFrame:CGRectMake(0, y, ScreenWidth, .75f)];
+    [linev setBackgroundColor:UIColorFromRGB(BgLineColor)];
+    [v addSubview:linev];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

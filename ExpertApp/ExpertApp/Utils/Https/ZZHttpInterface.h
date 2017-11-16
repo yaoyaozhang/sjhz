@@ -25,6 +25,9 @@
 #define API_SendSms [NSString stringWithFormat:@"%@/user/appSendSms",API_HOST]
 
 
+#define API_updateDoctorDn [NSString stringWithFormat:@"%@/doctor/updateDoctorDn",API_HOST]
+
+
 #define API_Register [NSString stringWithFormat:@"%@/user/appRegUser",API_HOST]
 
 
@@ -236,8 +239,10 @@
 #define API_serachWenJuan [NSString stringWithFormat:@"%@/question/serachWenJuan",API_HOST]
 #define API_saveWenJuan [NSString stringWithFormat:@"%@/question/saveAnswer",API_HOST]
 #define API_findWenjuanList [NSString stringWithFormat:@"%@/question/serachWenJuanList",API_HOST]
+#define API_findLiangBiaoList [NSString stringWithFormat:@"%@/question/serachLiangbiaoList",API_HOST]
 
 #define API_findWenjuanDetail [NSString stringWithFormat:@"%@/question/serachWenJuanAnswer",API_HOST]
+#define API_checkWenjuanByUserId [NSString stringWithFormat:@"%@/question/serachWenJuanByUserId",API_HOST]
 
 
 

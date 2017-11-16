@@ -28,8 +28,7 @@
 @property(nonatomic,strong)UIView           *headerView;
 @property(nonatomic,strong)UIView           *bottomView;
 
-@property(nonatomic,strong)UIView           *contentView;
-@property(nonatomic,strong)NSMutableArray   *listArray;
+@property(nonatomic,strong)NSArray   *listArray;
 @property(nonatomic,strong)ZCTextPlaceholderView   *textView1;
 @property(nonatomic,strong)ZCTextPlaceholderView   *textView2;
 @property(nonatomic,strong)ZCTextPlaceholderView   *textView3;
@@ -50,13 +49,13 @@
     
     loginUser = [[ZZDataCache getInstance] getLoginUser];
     _listArray = [[NSMutableArray alloc] init];
-    [_listArray addObjectsFromArray:@[@"医学背景介绍",@"学术研究成果",@"医生寄语"]];
+    _listArray = @[@"医学背景介绍",@"学术研究成果",@"医生寄语"];
     
     
     
     [self.menuTitleButton setTitle:@"我的档案" forState:UIControlStateNormal];
     
-    [_mainScroll setContentSize:CGSizeMake(ScreenWidth, ScreenHeight - NavBarHeight)];
+    [_mainScroll setContentSize:CGSizeMake(ScreenWidth, ScreenHeight - NavBarHeight - 60)];
     _mainScroll.showsHorizontalScrollIndicator = NO;
     _mainScroll.showsVerticalScrollIndicator = NO;
     _mainScroll.alwaysBounceHorizontal = NO;
@@ -69,7 +68,9 @@
     [self createInitView:2];
     [self createInitView:3];
     
+    
     [_mainScroll setContentSize:CGSizeMake(ScreenWidth, 390)];
+    [self createBottomView];
 }
 
 -(void)buttonClick:(UIButton *)sender{
@@ -82,15 +83,19 @@
         
         // 提交
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertToString(v1) forKey:@"v1"];
-        [dict setObject:convertToString(v2) forKey:@"v1"];
-        [dict setObject:convertToString(v3) forKey:@"v1"];
-        [ZZRequsetInterface post:API_Register param:dict timeOut:HttpGetTimeOut start:^{
+        [dict setObject:convertToString(v1) forKey:@"medicalBackground"];
+        [dict setObject:convertToString(v2) forKey:@"academicResearch"];
+        [dict setObject:convertToString(v3) forKey:@"doctorWrote"];
+        [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+        
+        [ZZRequsetInterface post:API_updateDoctorDn param:dict timeOut:HttpGetTimeOut start:^{
             
         } finish:^(id response, NSData *data) {
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
             
+            [[ZZDataCache getInstance] changeUserInfo:loginUser];
+            [self.view makeToast:@"保存成功!"];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             
         } progress:^(CGFloat progress) {
@@ -109,19 +114,23 @@
     }else if(tag == 3){
         y = 260;
     }
-    UILabel *labText = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, ScreenWidth -30, 30 )];
+    UILabel *labText = [[UILabel alloc] initWithFrame:CGRectMake(15, y + 10, ScreenWidth -30, 30 )];
     [labText setText:_listArray[tag - 1]];
+    [labText setFont:ListTitleFont];
+    [labText setTextColor:UIColorFromRGB(TextBlackColor)];
+    [_mainScroll addSubview:labText];
     
-    UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40,ScreenWidth, 90)];
+    UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,y +  40,ScreenWidth, 90)];
     [bgView setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
-    [_contentView addSubview:bgView];
+    [_mainScroll addSubview:bgView];
     
     
     ZCTextPlaceholderView *_textView = [[ZCTextPlaceholderView alloc] initWithFrame:CGRectMake(15, y + 55, ScreenWidth - 30, 60)];
     [_textView setBackgroundColor:[UIColor clearColor]];
     [_textView setTextColor:UIColorFromRGB(TextBlackColor)];
+    [_textView setPlaceholder:[NSString stringWithFormat:@"请输入%@",_listArray[tag-1]]];
     [_textView setFont:ListTitleFont];
-    [_contentView addSubview:_textView];
+    [_mainScroll addSubview:_textView];
     if(tag == 1){
         _textView1 = _textView;
     }else if(tag == 2){
