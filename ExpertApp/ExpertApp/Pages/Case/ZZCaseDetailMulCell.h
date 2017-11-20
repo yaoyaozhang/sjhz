@@ -15,6 +15,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labDesc;
 
-@property (weak, nonatomic) IBOutlet UIImageView *imgFile;
+@property (weak, nonatomic) IBOutlet UIScrollView *imgsScroll;
 
 @end

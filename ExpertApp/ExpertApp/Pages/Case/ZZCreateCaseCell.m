@@ -11,6 +11,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 
 #import "XHImageViewer.h"
+#import "MyButton.h"
 
 @interface ZZCreateCaseCell()<UITextFieldDelegate>{
     
@@ -70,15 +71,50 @@
     [_btnControl addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
+    [_imgsScroll setBackgroundColor:UIColor.clearColor];
+    _imgsScroll.scrollEnabled = YES;
+    _imgsScroll.showsVerticalScrollIndicator = NO;
+    _imgsScroll.showsHorizontalScrollIndicator = YES;
+}
+
+-(void)createImageWith:(NSString *)imgurl tag:(int) tag{
+    CGRect f = CGRectMake(150*tag + 10*tag, 0, 150, 80);
+    UIImageView *_imgLook = [[UIImageView alloc] initWithFrame:f];
     [_imgLook setBackgroundColor:[UIColor clearColor]];
     _imgLook.layer.borderWidth = 1.0f;
     _imgLook.layer.borderColor = UIColorFromRGB(BgLineColor).CGColor;
+    [_imgLook sd_setImageWithURL:[NSURL URLWithString:convertToString(imgurl)]];
     [_imgLook setContentMode:UIViewContentModeScaleAspectFit];
+    [_imgsScroll addSubview:_imgLook];
     
     //设置点击事件
     UITapGestureRecognizer *tapGesturer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imgTouchUpInside:)];
     _imgLook.userInteractionEnabled=YES;
     [_imgLook addGestureRecognizer:tapGesturer];
+    
+    
+    MyButton *btnDel = [MyButton buttonWithType:UIButtonTypeCustom];
+    [btnDel setFrame:CGRectMake(f.origin.x + f.size.width - 10,f.origin.y,15,15)];
+    [btnDel setBackgroundColor:UIColorFromRGB(BgRedColor)];
+    [btnDel setTitle:@"X" forState:UIControlStateNormal];
+    [btnDel setContentEdgeInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    [btnDel.titleLabel setFont:ListTimeFont];
+    btnDel.layer.cornerRadius = 7.5f;
+    btnDel.objTag = imgurl;
+    btnDel.layer.masksToBounds = YES;
+    [btnDel addTarget:self action:@selector(btnDelClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_imgsScroll addSubview:btnDel];
+}
+
+-(void)btnDelClick:(MyButton *) btn{
+    NSString *url = btn.objTag;
+    NSString *vavlue = convertToString(self.tempDict[@"dictValue"]);
+    vavlue = [vavlue stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@,",url] withString:@""];
+    vavlue = [vavlue stringByReplacingOccurrencesOfString:url withString:@""];
+    [self.tempModel setValue:vavlue forKey:self.tempDict[@"dictName"]];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onCaseValueChanged:type:dict:obj:)]) {
+        [self.delegate onCaseValueChanged:self.tempModel type:ZZEditControlTypeDelImag dict:self.tempDict obj:nil];
+    }
 }
 
 -(void)dataToView:(NSDictionary *) item{
@@ -207,12 +243,18 @@
         }
     }
     
-    if(type == ZZEditControlTypeButton && ![@"" isEqual:convertToString(item[@"dictValue"])]){
-        _imgLook.hidden = NO;
+    if(type == ZZEditControlTypeButton && !is_null(item[@"dictValue"])){
+        _imgsScroll.hidden = NO;
         [self setFrame:CGRectMake(0, 0, ScreenWidth, 44+90)];
-        [_imgLook sd_setImageWithURL:[NSURL URLWithString:convertToString(item[@"dictValue"])]];
+        NSString *imageString = item[@"dictValue"];
+        NSArray *arr = [imageString componentsSeparatedByString:@","];
+        [_imgsScroll.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        for (int i=0;i<arr.count;i++) {
+            [self createImageWith:arr[i] tag:i];
+        }
+        [_imgsScroll setContentSize:CGSizeMake(150*arr.count + 10*arr.count, 80)];
     }else{
-        _imgLook.hidden = YES;
+        _imgsScroll.hidden = YES;
         [self setFrame:CGRectMake(0, 0, ScreenWidth, 44)];
     }
 }

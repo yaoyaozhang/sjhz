@@ -26,6 +26,10 @@
     [_labMessage setFont:ListDetailFont];
     [_labMessage setTextColor:UIColorFromRGB(TextSizeSixColor)];
     _labMessage.numberOfLines = 0;
+    
+    UILongPressGestureRecognizer *ltap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(doLongPress:)];
+    [self.contentView addGestureRecognizer:ltap];
+    self.contentView.userInteractionEnabled = YES;
 }
 
 
@@ -78,6 +82,61 @@
     
     return expectedLabelSize;
 }
+
+
+#pragma mark -- 长按复制
+- (void)doLongPress:(UIGestureRecognizer *)recognizer{
+    if (recognizer.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
+    
+    [self becomeFirstResponder];
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    UIMenuItem *copyItem = [[UIMenuItem alloc]initWithTitle:@"复制" action:@selector(doCopy)];
+    [menuController setMenuItems:@[copyItem]];
+    [menuController setArrowDirection:(UIMenuControllerArrowDefault)];
+    // 设置frame cell的位置
+    CGRect tf     = _labMessage.frame;
+    CGRect rect = CGRectMake(tf.origin.x, tf.origin.y, tf.size.width, 1);
+    
+    [menuController setTargetRect:rect inView:self];
+    
+    [menuController setMenuVisible:YES animated:YES];
+}
+
+- (void)willHideEditMenu:(id)sender{
+    //    [self didChangeBgColorWithsIsSelect:NO];
+}
+
+
+
+//复制
+-(void)doCopy{
+    
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    [pasteboard setString:_labMessage.text];
+    
+    [self.superview.superview makeToast:@" 复制成功 "];
+    
+}
+
+
+#pragma mark - UIMenuController 必须实现的两个方法
+- (BOOL)canBecomeFirstResponder{
+    return YES;
+}
+
+/*
+ *  根据action,判断UIMenuController是否显示对应aciton的title
+ */
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender{
+    if (action == @selector(doCopy) ) {
+        
+        return YES;
+    }
+    return NO;
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

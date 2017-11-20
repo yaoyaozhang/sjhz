@@ -14,4 +14,6 @@
 
 @property(nonatomic,strong) ZZUserInfo *myFriend;
 
+@property (nonatomic, strong)  void(^ZZCreateResultBlock) (int status);
+
 @end

@@ -77,6 +77,11 @@
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
             [self.view makeToast:@"备注成功!"];
+            
+            if(_ZZCreateResultBlock){
+                _ZZCreateResultBlock(1);
+            }
+            [self goBack:nil];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             
         } progress:^(CGFloat progress) {

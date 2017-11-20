@@ -15,8 +15,8 @@
 @property(nonatomic,strong) NSString *maxHeartRate;//最大实测极限心率
 @property(nonatomic,strong) NSString *lungTime;//运动心肺监测时间
 @property(nonatomic,strong) NSString *caseQuestion;//会诊问题
-@property(nonatomic,strong) NSString *cardiogram;//普通心电图
-@property(nonatomic,strong) NSString *sportExercise;//运动心肺
-@property(nonatomic,strong) NSString *backStand;//站立照片
+@property(nonatomic,strong) NSMutableArray *cardiogram;//普通心电图
+@property(nonatomic,strong) NSMutableArray *sportExercise;//运动心肺
+@property(nonatomic,strong) NSMutableArray *backStand;//站立照片
 
 @end

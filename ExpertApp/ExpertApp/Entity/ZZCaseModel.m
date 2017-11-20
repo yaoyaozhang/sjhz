@@ -111,10 +111,10 @@
                       }];
     
     [arr1 addObject:@{@"code":@"9",
-                      @"dictName":@"postMedicalHistory",
+                      @"dictName":@"pastMedicalHistory",
                       @"dictDesc":@"既往病史",
                       @"placeholder":@"点击输入",
-                      @"dictValue":convertToString(_postMedicalHistory),
+                      @"dictValue":convertToString(_pastMedicalHistory),
                       @"dictType":convertIntToString(ZZEditControlTypeTextView),
                       @"valueType":@"1",
                       @"isOption":@"0",
@@ -170,12 +170,11 @@
                       @"isOption":@"0",
                       }];
     
-    
     [arr1 addObject:@{@"code":@"15",
-                      @"dictName":@"inspectionDateUrl1",
+                      @"dictName":@"inspectionDateUrl",
                       @"dictDesc":@"检查资料",
                       @"placeholder":@"选择文件",
-                      @"dictValue":convertToString(_inspectionDateUrl1),
+                      @"dictValue":convertToString(_inspectionDateUrl),
                       @"dictType":convertIntToString(ZZEditControlTypeButton),
                       @"valueType":@"1",
                       @"isOption":@"1",

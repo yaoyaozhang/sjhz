@@ -35,7 +35,7 @@
     
     UIButton *addBtn;
     
-    NSString *inspectionDateUrl1;
+    NSString *inspectionDateUrl;
     
     UIButton *btnHSLevel;
 }
@@ -193,12 +193,12 @@
                     [param setObject:@"0" forKey:@"sbp"];
                     [param setObject:@"0" forKey:@"dbp"];
                 }
+            }else if(dictType == ZZEditControlTypeButton){
+                [param setObject:item[@"dictValue"] forKey:dictName];
             }else{
                 [param setObject:convertToString(item[@"dictValue"]) forKey:dictName];
-                
             }
         }
-        
         
         //
         NSString *api = API_SaveCase;
@@ -467,7 +467,7 @@
     }
     
     NSString *dictName = itemDict[@"dictName"];
-    if([@"inspectionDateUrl1" isEqual:dictName]){
+    if([@"inspectionDateUrl" isEqual:dictName]){
         [self didAddImage];
     }
     
@@ -561,6 +561,10 @@
             }];
         }
         [self refreshViewData:NO];
+    }
+    if(type == ZZEditControlTypeDelImag){
+        _editModel = (ZZCaseModel *)changeModel;
+        [self refreshViewData:YES];
     }
 }
 
@@ -788,7 +792,15 @@
     } complete:^(NSDictionary *dict) {
         [SVProgressHUD showSuccessWithStatus:@"上传成功!"];
         NSLog(@"%@",dict);
-        _editModel.inspectionDateUrl1 = convertToString(dict[@"retData"]);
+        
+        _editModel.inspectionDateUrl = [_editModel.inspectionDateUrl stringByAppendingFormat:@",%@",convertToString(dict[@"retData"])];
+        if([_editModel.inspectionDateUrl hasSuffix:@","]){
+           _editModel.inspectionDateUrl = [_editModel.inspectionDateUrl substringToIndex:_editModel.inspectionDateUrl.length - 1];
+            
+        }
+        if([_editModel.inspectionDateUrl hasPrefix:@","]){
+            _editModel.inspectionDateUrl = [_editModel.inspectionDateUrl substringFromIndex:1];
+        }
         [self refreshViewData:YES];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         [SVProgressHUD showErrorWithStatus:errorMsg];

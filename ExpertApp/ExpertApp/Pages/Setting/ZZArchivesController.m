@@ -71,9 +71,9 @@
     }
     
     
-    //    MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-    //    footer.stateLabel.hidden=YES;
-    //    _listTable.footer=footer;
+    MJRefreshStateHeader *footer=[MJRefreshStateHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    footer.stateLabel.hidden=YES;
+    _listTable.header=footer;
     
     [_listTable setSeparatorColor:UIColorFromRGB(BgLineColor)];
     [_listTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
@@ -170,8 +170,13 @@
         [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
     }
     [ZZRequsetInterface post:API_SearchAllCase param:dict timeOut:HttpGetTimeOut start:^{
-        [SVProgressHUD showWithStatus:@"病例加载中"];
+        if(![_listTable.header isRefreshing]){
+            [SVProgressHUD showWithStatus:@"病例加载中"];
+        }
     } finish:^(id response, NSData *data) {
+        if(_listTable.header && [_listTable.header isRefreshing]){
+            [_listTable.header endRefreshing];
+        }
         [SVProgressHUD dismiss];
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
@@ -342,12 +347,22 @@
             
             ZZCreateCaseController *vc = [[ZZCreateCaseController alloc] init];
             vc.editModel = editModel;
+            [vc setZZCreateResultBlock:^(int status) {
+                if(status == 1){
+                    [self loadMoreData];
+                }
+            }];
             [self openNav:vc sound:nil];
         }else{
             ZZSportCaseEntity *sportModel = [[ZZSportCaseEntity alloc] initWithMyDict:dict[@"retData"]];
             
             ZZCreateSportCaseController *vc = [[ZZCreateSportCaseController alloc] init];
             vc.editModel = sportModel;
+            [vc setZZCreateResultBlock:^(int status) {
+                if(status == 1){
+                    [self loadMoreData];
+                }
+            }];
             [self openNav:vc sound:nil];
         }
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {

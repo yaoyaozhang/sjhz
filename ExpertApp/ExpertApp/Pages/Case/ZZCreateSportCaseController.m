@@ -542,6 +542,10 @@
         upDictKey = dict[@"dictName"];
         
         [self didAddImage];
+    }
+    else if(type == ZZEditControlTypeDelImag){
+        _editModel = (ZZSportCaseEntity *)changeModel;
+        [self refreshViewData:YES];
     }else{
         //        int index = [dict[@"code"] intValue];
         
@@ -791,7 +795,16 @@
     } complete:^(NSDictionary *dict) {
         [SVProgressHUD showSuccessWithStatus:@"上传成功!"];
         NSLog(@"%@",dict);
-        [_editModel setValue:convertToString(dict[@"retData"]) forKey:upDictKey];
+        NSString *images = convertToString([_editModel valueForKey:upDictKey]);
+        images = [images stringByAppendingFormat:@",%@",convertToString(dict[@"retData"])];
+        if([images hasSuffix:@","]){
+            images = [images substringToIndex:images.length - 1];
+            
+        }
+        if([images hasPrefix:@","]){
+            images = [images substringFromIndex:1];
+        }
+        [_editModel setValue:convertToString(images) forKey:upDictKey];
         [self refreshViewData:YES];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         [SVProgressHUD showErrorWithStatus:errorMsg];

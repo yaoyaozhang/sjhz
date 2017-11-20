@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -83,14 +83,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="8" height="8"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbB-Gp-E1D">
-                        <rect key="frame" x="15" y="44" width="120" height="80"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hHh-0I-3PJ">
                         <rect key="frame" x="174" y="21" width="40" height="1"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBX-6Q-Kib">
+                        <rect key="frame" x="15" y="44" width="297" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    </scrollView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -101,8 +101,8 @@
                 <outlet property="field2" destination="Ffv-Fx-2xg" id="2rd-fv-eUx"/>
                 <outlet property="imgDrop" destination="Aaw-Tt-r1Y" id="OY6-Np-PIx"/>
                 <outlet property="imgLine" destination="hHh-0I-3PJ" id="bvg-K4-ODq"/>
-                <outlet property="imgLook" destination="sbB-Gp-E1D" id="93O-8n-w6b"/>
                 <outlet property="imgRequired" destination="M5A-xX-N2F" id="xee-Hi-aoe"/>
+                <outlet property="imgsScroll" destination="gBX-6Q-Kib" id="VGU-Lp-Voc"/>
                 <outlet property="labMan" destination="nWf-kx-c9l" id="Ddm-Z9-7Ig"/>
                 <outlet property="labTagName" destination="joi-ar-Kgs" id="AIK-Hj-dPJ"/>
                 <outlet property="labUnit" destination="Zt0-HO-JqR" id="9qx-xe-Ejn"/>

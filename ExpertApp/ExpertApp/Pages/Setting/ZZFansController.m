@@ -212,6 +212,11 @@
     ZZUserInfo *user = [_listArray objectAtIndex:indexPath.section];
     ZZRemarkUserController *vc = [[ZZRemarkUserController alloc] init];
     vc.myFriend = user;
+    [vc setZZCreateResultBlock:^(int status) {
+        if(status == 1){
+            [self beginNetRefreshData];
+        }
+    }];
     [self openNav:vc sound:nil];
     
 }

@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger,ZZEditControlType) {
     ZZEditControlTypeButton          = 4,
     ZZEditControlTypeChoose          = 5,
     ZZEditControlTypeSex             = 6,
+    ZZEditControlTypeDelImag         = 7,
 };
 
 @interface ZZCaseModel : ZZBaseModel
@@ -32,15 +33,13 @@ typedef NS_ENUM(NSInteger,ZZEditControlType) {
 @property(nonatomic,strong) NSString *sbp;//收缩压
 @property(nonatomic,strong) NSString *dbp;//舒张压
 
-@property(nonatomic,strong) NSString *postMedicalHistory;//既往病史
+@property(nonatomic,strong) NSString *pastMedicalHistory;//既往病史
 @property(nonatomic,strong) NSString *parentMedicalHistory;//父母病史
 @property(nonatomic,strong) NSString * hospitalLevel;//曾诊治医院级别
 @property(nonatomic,strong) NSString * sysptionDescription;//症状描述
 @property(nonatomic,strong) NSString * concomitantSysptiomDescription;//伴随症状描述
 @property(nonatomic,strong) NSString * usedDrugs;//使用过药物
-@property(nonatomic,strong) NSString * inspectionDateUrl1;//检查资料1
-@property(nonatomic,strong) NSString * inspectionDateUrl2;//检查资料2
-@property(nonatomic,strong) NSString * inspectionDateUrl3;//检查资料3
+@property(nonatomic,strong) NSString * inspectionDateUrl;//检查资料,多个用逗号隔开
 @property(nonatomic,strong) NSString * graceQuestion;//慧诊问题
 @property(nonatomic,strong) NSString * remark;//备注
 @property(nonatomic,assign) int userId;//

@@ -25,15 +25,26 @@
     _labDesc.numberOfLines = 0;
     
     
-    [_imgFile setBackgroundColor:[UIColor clearColor]];
-    _imgFile.layer.borderWidth = 1.0f;
-    _imgFile.layer.borderColor = UIColorFromRGB(BgLineColor).CGColor;
-    [_imgFile setContentMode:UIViewContentModeScaleAspectFit];
+   
+    [_imgsScroll setBackgroundColor:UIColor.clearColor];
+    _imgsScroll.scrollEnabled = YES;
+    _imgsScroll.showsVerticalScrollIndicator = NO;
+    _imgsScroll.showsHorizontalScrollIndicator = YES;
+}
+
+-(void)createImageWith:(NSString *)imgurl tag:(int) tag{
+    UIImageView *_imgLook = [[UIImageView alloc] initWithFrame:CGRectMake(120*tag + 10*tag, 0, 120, 80)];
+    [_imgLook setBackgroundColor:[UIColor clearColor]];
+    _imgLook.layer.borderWidth = 1.0f;
+    _imgLook.layer.borderColor = UIColorFromRGB(BgLineColor).CGColor;
+    [_imgLook sd_setImageWithURL:[NSURL URLWithString:convertToString(imgurl)]];
+    [_imgLook setContentMode:UIViewContentModeScaleAspectFit];
+    [_imgsScroll addSubview:_imgLook];
     
     //设置点击事件
     UITapGestureRecognizer *tapGesturer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imgTouchUpInside:)];
-    _imgFile.userInteractionEnabled=YES;
-    [_imgFile addGestureRecognizer:tapGesturer];
+    _imgLook.userInteractionEnabled=YES;
+    [_imgLook addGestureRecognizer:tapGesturer];
 }
 
 
@@ -42,7 +53,7 @@
     
     [_labTag setText:@""];
     _labDesc.hidden = YES;
-    _imgFile.hidden = YES;
+    _imgsScroll.hidden = YES;
     CGFloat height = _labDesc.frame.origin.y;
     if(item){
         [_labTag setText:item[@"dictDesc"]];
@@ -52,8 +63,15 @@
         
         if(type == ZZEditControlTypeButton){
             _labDesc.hidden = YES;
-            _imgFile.hidden = NO;
-            [_imgFile sd_setImageWithURL:[NSURL URLWithString:convertToString(value)]];
+            _imgsScroll.hidden = NO;
+            [self setFrame:CGRectMake(0, 0, ScreenWidth, 44+90)];
+            NSString *imageString = item[@"dictValue"];
+            NSArray *arr = [imageString componentsSeparatedByString:@","];
+            [_imgsScroll.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            for (int i=0;i<arr.count;i++) {
+                [self createImageWith:arr[i] tag:i];
+            }
+            [_imgsScroll setContentSize:CGSizeMake(120*arr.count + 10*arr.count, 60)];
             height = height + 60 + 15;
         }else{
             _labDesc.hidden = NO;

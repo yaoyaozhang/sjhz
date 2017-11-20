@@ -14,7 +14,9 @@
 #define cellIdentifier @"ZZSettingCell"
 
 
-@interface ZZPushSettingController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ZZPushSettingController ()<UITableViewDelegate,UITableViewDataSource>{
+    ZZUserInfo *user;
+}
 
 @property(nonatomic,strong)UITableView      *listTable;
 @property(nonatomic,strong)NSArray          *listArray;
@@ -31,6 +33,7 @@
     [self.menuTitleButton setTitle:@"消息通知" forState:UIControlStateNormal];
     self.menuLeftButton.hidden = NO;
     
+    user = [[ZZDataCache getInstance] getLoginUser];
     [self createTableView];
     [self loadMoreData];
     
@@ -63,10 +66,15 @@
  加载更多
  */
 -(void)loadMoreData{
-    
-    _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"医生回复提醒"},
-                   @{@"code":@"2",@"icon":@"",@"text":@"健康新闻推送"}];
-    
+    if(user.isDoctor){
+        _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"问诊咨询提醒"},
+                       @{@"code":@"2",@"icon":@"",@"text":@"文章动态推送"}];
+        
+    }else{
+        _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"医生回复提醒"},
+                       @{@"code":@"2",@"icon":@"",@"text":@"健康新闻推送"}];
+        
+    }
     [_listTable reloadData];
 }
 

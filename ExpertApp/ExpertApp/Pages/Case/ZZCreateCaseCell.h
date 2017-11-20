@@ -32,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgLine;
 
 
-@property (weak, nonatomic) IBOutlet UIImageView *imgLook;
+@property (weak, nonatomic) IBOutlet UIScrollView *imgsScroll;
 
 
 @end
