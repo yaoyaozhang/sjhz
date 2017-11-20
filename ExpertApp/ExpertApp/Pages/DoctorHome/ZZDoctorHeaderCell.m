@@ -34,6 +34,7 @@
     [_labKes setTextColor:UIColorFromRGB(TextWhiteColor)];
     [_labHospital setTextColor:UIColorFromRGB(TextWhiteColor)];
     [_labDesc setTextColor:UIColorFromRGB(TextWhiteColor)];
+    _labKes.numberOfLines = 0;
     
 }
 

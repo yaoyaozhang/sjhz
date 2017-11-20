@@ -382,7 +382,7 @@
 -(void)onUserIndexCellClick:(NSInteger)tag model:(ZZUserHomeModel *)model{
     if(tag == 11){
         ZZShareView *view = [[ZZShareView alloc] initWithShareType:ZZShareTypeUser vc:self];
-        view.shareModel = model;
+        view.shareModel = model.docInfo;
         [view show];
     }else if(tag == 22){
         // 评论

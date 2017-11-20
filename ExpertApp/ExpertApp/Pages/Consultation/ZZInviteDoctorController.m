@@ -18,6 +18,8 @@
 
 #import "ZZDiscussController.h"
 
+#import "ZZDoctorDetailController.h"
+
 @interface ZZInviteDoctorController ()<UITableViewDelegate,UITableViewDataSource,ZZDoctorCellDelegate>{
     ZZUserInfo *loginUser;
     NSMutableDictionary *checkDict;
@@ -40,6 +42,10 @@
 - (void)initSegmentedControl
 {
     self.menuTitleButton.hidden = YES;
+    if(_isRecommend){
+        self.menuRightButton.hidden = NO;
+        [self.menuRightButton setTitle:@"提交" forState:UIControlStateNormal];
+    }
     
     NSArray *segmentedData = [[NSArray alloc]initWithObjects:@"所有医生",@"我的朋友",nil];
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc]initWithItems:segmentedData];
@@ -157,12 +163,15 @@
 
 -(void)buttonClick:(UIButton *)sender{
     if(sender.tag == BACK_BUTTON){
+        [self goBack:nil];
+    }
+    
+    if(sender.tag == RIGHT_BUTTON){
         if(_ResultBlock){
             _ResultBlock(checkDict);
         }
         [self goBack:nil];
     }
-    
     if(sender.tag == OTHER_BUTTON){
         if(checkDict == nil || checkDict.allKeys.count==0){
             [self.view makeToast:@"你还没有选择医生哦！"];
@@ -458,10 +467,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //	NSLog(@"%s", __func__);
-    //	UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
-    //	cell.textLabel.textColor = [UIColor lightGrayColor];
-    //    ZZDoctorUserCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
+    ZZUserInfo *model = [_listArray objectAtIndex:indexPath.section];
+    ZZDoctorDetailController *listVC = [[ZZDoctorDetailController alloc] init];
+    listVC.docId = model.userId;
+    ZZUserHomeModel *home = [ZZUserHomeModel new];
+    home.docInfo = model;
+    listVC.model = home;
+    [self openNav:listVC sound:nil];
     
 }
 

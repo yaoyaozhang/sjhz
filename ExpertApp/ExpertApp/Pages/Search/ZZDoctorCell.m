@@ -89,7 +89,7 @@
         CGSize ns1 = [self autoWidthOfLabel:_labelHosptial with:22];
         CGRect hf = _labelNameZhiWei.frame;
         hf.origin.x = _labelHosptial.frame.origin.x + ns1.width + 10;
-        hf.size.width = ScreenWidth - hf.origin.x - 15;
+        hf.size.width = ScreenWidth - hf.origin.x - 45;
         [_labelNameZhiWei setFrame:hf];
         
         [_labelNameZhiWei setText:model.departmentName];

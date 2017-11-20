@@ -95,7 +95,7 @@
             [SVProgressHUD dismiss];
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
-            if((_model.state == 0 || _model.state==1) && _model.firstDoc){
+            if((_model.state == 0 || _model.state==1 || _model.state==2) && _model.firstDoc){
                 _model.state = 3;
             }
             _model.caseResult = _resultView.text;

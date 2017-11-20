@@ -20,6 +20,7 @@
 #import "ZZFindPwdController.h"
 #import "ZZNickController.h"
 #import "ZZPerfectInfoController.h"
+#import "ZZDoctorArchivesController.h"
 
 
 
@@ -85,7 +86,8 @@
     if(_loginUser.isDoctor){
         _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"头像"},
                        @{@"code":@"4",@"icon":@"",@"text":@"基本资料"},
-                       @{@"code":@"5",@"icon":@"",@"text":@"擅长"}];
+                       @{@"code":@"5",@"icon":@"",@"text":@"擅长"},
+                       @{@"code":@"6",@"icon":@"",@"text":@"背景资料"}];
     }
     
     [_listTable reloadData];
@@ -214,6 +216,11 @@
         ZZPerfectInfoController *vc = [[ZZPerfectInfoController alloc] init];
         vc.params = [[NSMutableDictionary alloc] init];
         vc.isEdit = YES;
+        [self openNav:vc sound:nil];
+    }
+    
+    if(code == 6){
+        ZZDoctorArchivesController *vc = [[ZZDoctorArchivesController alloc] init];
         [self openNav:vc sound:nil];
     }
     

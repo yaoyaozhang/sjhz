@@ -53,7 +53,7 @@
     
     
     
-    [self.menuTitleButton setTitle:@"我的档案" forState:UIControlStateNormal];
+    [self.menuTitleButton setTitle:@"背景资料" forState:UIControlStateNormal];
     
     [_mainScroll setContentSize:CGSizeMake(ScreenWidth, ScreenHeight - NavBarHeight - 60)];
     _mainScroll.showsHorizontalScrollIndicator = NO;

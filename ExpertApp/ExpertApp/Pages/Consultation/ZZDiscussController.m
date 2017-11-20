@@ -260,6 +260,7 @@
             UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 25)];
             [view setBackgroundColor:UIColorFromRGB(BgSystemColor)];
             
+            CGFloat y = 0;
             UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(15, 0, ScreenWidth-30, 0)];
             [label setFont:ListDetailFont];
             [label setText:convertToString(_model.caseResult)];
@@ -271,25 +272,25 @@
             label.numberOfLines = 0;
             [view addSubview:label];
             
-            
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [btn addTarget:self action:@selector(headerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            btn.tag = 6;
-            [btn setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
-            btn.layer.borderColor = UIColorFromRGB(BgTitleColor).CGColor;
-            btn.layer.borderWidth = 1.0f;
-            btn.layer.cornerRadius = 4.0f;
-            btn.layer.masksToBounds = YES;
-            [btn.titleLabel setFont:ListDetailFont];
-            [btn setTitle:@"同意" forState:UIControlStateNormal];
-            [btn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
-            [btn setFrame:CGRectMake(ScreenWidth - 75, CGRectGetMaxY(label.frame)+10, 60, 30)];
-            [view addSubview:btn];
-            
-            CGFloat y = CGRectGetMaxY(btn.frame);
-            
-            
-            [view setFrame:CGRectMake(0, 0, ScreenWidth, y + 10)];
+            y = CGRectGetMaxY(label.frame) + 10;
+//            if(_model.writeDoc != loginUser.userId){
+//                UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//                [btn addTarget:self action:@selector(headerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//                btn.tag = 6;
+//                [btn setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
+//                btn.layer.borderColor = UIColorFromRGB(BgTitleColor).CGColor;
+//                btn.layer.borderWidth = 1.0f;
+//                btn.layer.cornerRadius = 4.0f;
+//                btn.layer.masksToBounds = YES;
+//                [btn.titleLabel setFont:ListDetailFont];
+//                [btn setTitle:@"同意" forState:UIControlStateNormal];
+//                [btn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
+//                [btn setFrame:CGRectMake(ScreenWidth - 75, CGRectGetMaxY(label.frame)+10, 60, 30)];
+//                [view addSubview:btn];
+//
+//                y = y + 40;
+//            }
+            [view setFrame:CGRectMake(0, 0, ScreenWidth, y)];
             
             
             return view;
@@ -469,7 +470,7 @@
     }
     [titles addObject:@"个人资料"];
     // 有结果的
-    if([@"" isEqual:convertToString(_model.caseResult)]){
+    if([@"" isEqual:convertToString(_model.caseResult)] && _model.firstDoc){
         [titles addObject:@"填写结论"];
     }
     CGFloat y = CGRectGetMaxY(tipView.frame);

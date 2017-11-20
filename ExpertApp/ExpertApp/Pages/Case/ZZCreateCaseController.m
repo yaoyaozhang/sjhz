@@ -126,8 +126,31 @@
     [self createTableView];
     
     [self refreshViewData:YES];
+    
+    [self getDetail];
 }
 
+-(void)getDetail{
+    if(convertToString(_pCaseId).length>0){
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:convertToString(_pCaseId) forKey:@"caseId"];
+        [dict setObject:convertIntToString(1) forKey:@"type"];
+        [ZZRequsetInterface post:API_SearchCaseDetail param:dict timeOut:HttpGetTimeOut start:^{
+            [SVProgressHUD show];
+        } finish:^(id response, NSData *data) {
+            [SVProgressHUD dismiss];
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            _editModel = [[ZZCaseModel alloc] initWithMyDict:dict[@"retData"]];
+            
+            [self refreshViewData:YES];
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            
+        } progress:^(CGFloat progress) {
+            
+        }];
+    }
+}
 
 
 -(void)buttonClick:(UIButton *)sender{

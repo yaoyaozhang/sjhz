@@ -66,9 +66,9 @@
     _listTable.header = header;
     
     
-    MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-    footer.stateLabel.hidden=YES;
-    _listTable.footer=footer;
+//    MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+//    footer.stateLabel.hidden=YES;
+//    _listTable.footer=footer;
     
     [_listTable setSeparatorColor:UIColorFromRGB(BgSelectedColor)];
     [_listTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];

@@ -26,6 +26,7 @@
 #import "ZZChooseController.h"
 #import "ZZDoctorChapterController.h"
 #import "ZZApplyFriendController.h"
+#import "ZZChapterDetailController.h"
 
 #import "ZZShareView.h"
 
@@ -74,7 +75,7 @@
     if(sender.tag == RIGHT_BUTTON){
         // 分享
         ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeUser vc:self];
-        shareView.shareModel = _model;
+        shareView.shareModel = _model.docInfo;
         [shareView show];
     }else if(sender.tag == 111){
         
@@ -486,6 +487,14 @@
         detail.model = m;
         detail.docId = _model.docInfo.userId;
         [self openNav:detail sound:@""];
+    }
+    
+    if(indexPath.section >= 4){
+        ZZChapterModel *newsModel = [_listArray objectAtIndex:indexPath.section-4];
+        
+        ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
+        NewsDetailC.model = newsModel;
+        [self.navigationController pushViewController:NewsDetailC animated:YES];
     }
     
 }

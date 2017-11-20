@@ -16,6 +16,7 @@
 #define cellIdentifier @"ZZDoctorCell"
 
 #import "NirKxMenu.h"
+#import "ZZDoctorDetailController.h"
 
 @interface ZZAttentionController ()<UITableViewDelegate,UITableViewDataSource,ZZDoctorCellDelegate>{
     ZZUserInfo *loginUser;
@@ -466,12 +467,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //	NSLog(@"%s", __func__);
-    //	UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
-    //	cell.textLabel.textColor = [UIColor lightGrayColor];
-    //    ZZDoctorUserCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    
+    ZZUserInfo *model = [_listArray objectAtIndex:indexPath.section];
+    ZZDoctorDetailController *listVC = [[ZZDoctorDetailController alloc] init];
+    listVC.docId = model.userId;
+    ZZUserHomeModel *home = [ZZUserHomeModel new];
+    home.docInfo = model;
+    listVC.model = home;
+    [self openNav:listVC sound:nil];
 }
 
 -(void)viewDidLayoutSubviews{

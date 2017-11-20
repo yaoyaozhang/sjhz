@@ -92,10 +92,12 @@
         
         _tempModel = model;
         
-        if([@"" isEqual:convertToString(model.name)]){
-            [_labelName setText:model.userName];
-        }else{
+        if(convertToString(model.userRemark).length>0){
+            [_labelName setText:model.userRemark];
+        }else if(convertToString(model.name).length){
             [_labelName setText:model.name];
+        }else{
+            [_labelName setText:model.userName];
         }
         if([[ZZDataCache getInstance] getLoginUser].isDoctor){
             [_labelHosptial setText:model.context];

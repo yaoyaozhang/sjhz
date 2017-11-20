@@ -104,10 +104,13 @@
             userModel.docName = convertToString(userModel.accomplished);
         }
         shareObject = [UMShareObject shareObjectWithTitle:userModel.docName descr:convertToString(userModel.userName) thumImage:userModel.imageUrl];
+        shareObject.thumbImage = convertToString(@"https://static.pgyer.com/static-20171115/images/newHome/header_marker.png");
         
         messageObject.text = shareObject.descr;
         messageObject.title = shareObject.title;
-        messageObject.shareObject = shareObject;
+        
+        // 必须为视频
+//        messageObject.shareObject = shareObject;
     }else if(_type == ZZShareTypeChapter){
         ZZChapterModel *model = (ZZChapterModel *)_shareModel;
         shareObject = [UMShareObject shareObjectWithTitle:model.author descr:model.title thumImage:model.picture];
@@ -131,7 +134,7 @@
         messageObject.text = shareObject.descr;
         messageObject.title = shareObject.title;
         
-        messageObject.shareObject = shareObject;
+//        messageObject.shareObject = shareObject;
     }
     
     
@@ -143,6 +146,7 @@
     [[UMSocialManager defaultManager] shareToPlatform:shareType messageObject:messageObject currentViewController:_curVC completion:^(id data, NSError *error) {
         if (error) {
             NSLog(@"************Share fail with error %@*********",error);
+            [_curVC.view makeToast:@"分享失败！"];
         }else{
             NSLog(@"response data is %@",data);
             [_curVC.view makeToast:@"分享成功！"];
