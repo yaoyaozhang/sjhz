@@ -14,7 +14,8 @@
 #import "ZZQSListCell.h"
 #define cellIdentifier @"ZZQSListCell"
 
-#import "ASQDetailController.h"
+//#import "ASQDetailController.h"
+#import "ASQController.h"
 
 @interface ASQListController ()
 
@@ -30,7 +31,11 @@
     // Do any additional setup after loading the view.
     [self createTitleMenu];
     
-    [self.menuTitleButton setTitle:@"量表" forState:UIControlStateNormal];
+    if(_type == ASQPageTypeLiangBiao){
+        [self.menuTitleButton setTitle:@"量表" forState:UIControlStateNormal];
+    }else{
+        [self.menuTitleButton setTitle:@"问卷" forState:UIControlStateNormal];
+    }
     
     [self createTableView];
     
@@ -74,8 +79,11 @@
         ZZUserInfo *user = [ZZDataCache getInstance].getLoginUser;
         [dict setObject:convertIntToString(user.userId) forKey:@"userId"];
     }
-    
-    [ZZRequsetInterface post:API_findLiangBiaoList param:dict timeOut:HttpGetTimeOut start:^{
+    NSString *api = API_findWenjuanList;
+    if(_type == ASQPageTypeLiangBiao){
+        api = API_findLiangBiaoList;
+    }
+    [ZZRequsetInterface post:api param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
@@ -187,8 +195,9 @@
     }
     
     ZZQSListModel *m=[_listArray objectAtIndex:indexPath.row];
-    ASQDetailController *detail = [[ASQDetailController alloc] init];
+    ASQController *detail = [[ASQController alloc] init];
     detail.model = m;
+    detail.type = _type;
     [self openNav:detail sound:nil];
     
 }

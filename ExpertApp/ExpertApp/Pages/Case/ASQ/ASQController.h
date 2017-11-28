@@ -10,8 +10,8 @@
 #import "ZZQSModel.h"
 
 typedef NS_ENUM(NSInteger,ASQTYPE) {
-    ASQTYPEWJ = 1, // 问卷
-    ASQTYPELB = 2, // 量表
+    ASQTYPELB = 1, // 量表
+    ASQTYPEWJ = 2, // 问卷
     
 };
 

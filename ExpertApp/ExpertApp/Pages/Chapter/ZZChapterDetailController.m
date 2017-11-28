@@ -21,6 +21,7 @@
 @interface ZZChapterDetailController ()<UIWebViewDelegate>
 
 @property(nonatomic,strong) UIWebView *webView;
+//@property(nonatomic,strong) UIWebView *tmpWebview;
 @property(nonatomic,strong) ZZKeyboardView *keyboardView;
 
 @end
@@ -42,6 +43,8 @@
     
     _keyboardView = [[ZZKeyboardView alloc] initWithDelegate:self changeView:self.webView.scrollView show:NO];
     _keyboardView.chatpterModel = _model;
+    
+    [self btnFontSizeChange];
 }
 
 -(void)buttonClick:(UIButton *)sender{
@@ -59,8 +62,8 @@
     _webView.delegate = self;
     _webView.scrollView.bounces = NO;
     _webView.opaque = NO;
-    _webView.backgroundColor = [UIColor clearColor];
-//    _webView.scalesPageToFit = YES;
+    _webView.backgroundColor = [UIColor whiteColor];
+    _webView.scalesPageToFit = YES;
     [self.view addSubview:_webView];
     
     
@@ -68,6 +71,18 @@
     [self loadURL];
     
 }
+
+//-(UIWebView *)tmpWebview{
+//    if(!_tmpWebview){
+//        _tmpWebview = [[UIWebView alloc] initWithFrame:CGRectMake(0,NavBarHeight,ScreenWidth,ScreenHeight-NavBarHeight - ZZCommentKeyboardHeight)];
+//        _tmpWebview.delegate = self;
+//        _tmpWebview.scrollView.bounces = NO;
+//        _tmpWebview.opaque = NO;
+//        _tmpWebview.backgroundColor = [UIColor whiteColor];
+//        _tmpWebview.scalesPageToFit = YES;
+//    }
+//    return _tmpWebview;
+//}
 
 -(void)setReloadData{
 //    NSString *jsStr = [NSString stringWithFormat:@"doInitConfig('%@','%@','%@','%@',%d,%d)",@"视频地址",@"音频地址",_model.author,@"时间",123,1];
@@ -78,7 +93,11 @@
 
 -(void)loadURL{
     //2.创建URL
-    NSURL *URL = [NSURL URLWithString:API_getChapterDetail(_model.nid)];
+//    NSURL *URL = [NSURL URLWithString:API_getChapterDetail(_model.nid)];
+    NSURL *URL = [NSURL URLWithString:API_getChapterDetail(65)];
+//    NSURL *URL = [NSURL URLWithString:@"http://172.16.4.38:8080/chapter.html"];
+//        NSURL *URL = [NSURL URLWithString:@"http://219.142.225.69:8123/news/wz/chapter_template.html"];
+    
     
     //3.创建Request
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
@@ -125,8 +144,11 @@
 //    [self setBarButtonStatus];
     if([@"" isEqual:convertToString(_model.title)]){
         [self.menuTitleButton setTitle:[self.webView stringByEvaluatingJavaScriptFromString:@"document.title"] forState:UIControlStateNormal];
+        
     }
+    [self btnFontSizeChange];
 }
+
 //网页加载错误
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"系统提示"
@@ -195,6 +217,16 @@
 }
 
 
+
+//字体大小改变
+-(void) btnFontSizeChange{
+//    NSString *strFontSize = [NSString stringWithFormat:@"document.body.style.fontSize = '%dpx';",20];
+//    [self.webView stringByEvaluatingJavaScriptFromString:strFontSize];
+    
+//    NSString *str = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '200%'";
+//    [self.webView stringByEvaluatingJavaScriptFromString:str];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

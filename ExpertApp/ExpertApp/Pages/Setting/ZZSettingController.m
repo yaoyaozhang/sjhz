@@ -113,7 +113,8 @@
                           @{@"code":@"2",@"icon":@"my_healthrecords",@"text":@"健康档案"},
                           @{@"code":@"3",@"icon":@"my_doctor",@"text":@"我的医生"},
                           @{@"code":@"4",@"icon":@"my_collection",@"text":@"我的收藏"},
-                          @{@"code":@"14",@"icon":@"my_healthrecords",@"text":@"自测量表"}];
+                          @{@"code":@"14",@"icon":@"my_healthrecords",@"text":@"自测量表"},
+                          @{@"code":@"15",@"icon":@"my_healthrecords",@"text":@"我的问卷"}];
         [_listArray addObject:arr1];
         
         NSArray *arr2 = @[@{@"code":@"5",@"icon":@"my_set",@"text":@"设置与帮助"},
@@ -276,8 +277,12 @@
         ZZDrawMoneyController *vc = [[ZZDrawMoneyController alloc] init];
         [self openNav:vc sound:nil];
     }
-    if(code == 14){
+    if(code == 14 || code == 15){
         ASQListController *vc = [[ASQListController alloc] init];
+        vc.type = ASQPageTypeLiangBiao;
+        if(code == 15){
+            vc.type = ASQPageTypeWenJuan;
+        }
         [self openNav:vc sound:nil];
     }
     

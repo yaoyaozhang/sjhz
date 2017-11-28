@@ -44,7 +44,7 @@
         [self.menuTitleButton setTitle:@"问卷" forState:UIControlStateNormal];
     }
     self.menuRightButton.hidden = NO;
-    [self.menuRightButton setTitle:@"提交" forState:UIControlStateNormal];
+    [self.menuRightButton setTitle:@"跳过" forState:UIControlStateNormal];
     
 //    self.menuRightButton.hidden = NO;
 //    [self.menuRightButton setTitle:@"刷新" forState:UIControlStateNormal];
@@ -56,7 +56,6 @@
     gestureRecognizer.numberOfTapsRequired = 1;
     gestureRecognizer.cancelsTouchesInView = NO;
     [_listTable addGestureRecognizer:gestureRecognizer];
-    _listTable.tableFooterView = [self createBottomView];
     
     if(_model && _model.wenjuanId>0){
         wenTiId = convertIntToString(_model.wenjuanId);
@@ -74,7 +73,7 @@
     
     UIButton  *saleButton = [UIButton buttonWithType:UIButtonTypeCustom];
     saleButton.tag = 111;
-    [saleButton setTitle:@"跳过" forState:UIControlStateNormal];
+    [saleButton setTitle:@"提交" forState:UIControlStateNormal];
     
     
     [saleButton setFrame:CGRectMake(30, 10, ScreenWidth - 60, 35)];
@@ -89,13 +88,13 @@
 
 -(void)buttonClick:(UIButton *)sender{
     [super buttonClick:sender];
-    if(sender.tag == 111){
+    if(sender.tag == RIGHT_BUTTON){
         if(_ZZCreateResultBlock){
             _ZZCreateResultBlock(1);
         }
         [self goBack:nil];
     }
-    if(sender.tag == RIGHT_BUTTON){
+    if(sender.tag == 111){
         if(values.count  < _listArray.count){
             [self.view makeToast:@"请填写完整结果！"];
             return;
@@ -105,13 +104,13 @@
             NSDictionary *item = values[key];
             NSMutableArray *arr = [NSMutableArray arrayWithCapacity:0];
             for(NSString *ikey in item.allKeys){
-                
                 if([ikey hasPrefix:@"value"]){
-                    [arr addObject:@{@"id":key,@"v":convertToString(item[ikey])}];
+                    // 输入框内容
+                    [arr addObject:@{@"id":key,@"v":convertToString(item[ikey]),@"s":@""}];
                 }else{
+                    // 选项内容
                     ZZQSAnswerModel *model = item[ikey];
-                    
-                    [arr addObject:@{@"id":ikey,@"v":convertToString(model.context)}];
+                    [arr addObject:@{@"id":ikey,@"v":convertToString(model.context),@"s":convertToString(model.tag)}];
                 }
             }
             [ans addObject:@{@"qid":key,@"answer":arr}];
@@ -121,6 +120,7 @@
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:text forKey:@"values"];
         [dict setObject:wenTiId forKey:@"wenjuanId"];
+        [dict setObject:convertIntToString(_type) forKey:@"type"];
         ZZUserInfo *login = [ZZDataCache getInstance].getLoginUser;
         [dict setObject:convertIntToString(login.userId) forKey:@"userId"];
         [ZZRequsetInterface post:API_saveWenJuan param:dict timeOut:HttpGetTimeOut start:^{
@@ -175,14 +175,46 @@
 /**
  加载更多
  */
+//-(void)loadMoreData{
+//    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+//    if(_model && _model.wenjuanId>0){
+//        [dict setObject:convertIntToString(_model.wenjuanId) forKey:@"id"];
+//    }
+//    [dict setObject:convertIntToString(_docId) forKey:@"userId"];
+//
+//    [dict setObject:convertToString(_type) forKey:@"type"];
+//
+//    [ZZRequsetInterface post:API_serachWenJuan param:dict timeOut:HttpGetTimeOut start:^{
+//
+//    } finish:^(id response, NSData *data) {
+//        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//    } complete:^(NSDictionary *dict) {
+//        wenTiId = convertToString(dict[@"retData"][@"wenTiId"]);
+//        [self.menuTitleButton setTitle:convertToString(dict[@"retData"][@"wenTiName"]) forState:UIControlStateNormal];
+//
+//        NSArray *arr = dict[@"retData"][@"wenTiContext"];
+//        for (NSDictionary *item in arr) {
+//            [_listArray addObject:[[ZZQSModel alloc] initWithMyDict:item]];
+//        }
+//        [_listTable reloadData];
+//    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+//
+//    } progress:^(CGFloat progress) {
+//
+//    }];
+//}
+
+
+/**
+ 加载更多
+ */
 -(void)loadMoreData{
+    ZZUserInfo *user = [ZZDataCache getInstance].getLoginUser;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    if(_model && _model.wenjuanId>0){
-        [dict setObject:convertIntToString(_model.wenjuanId) forKey:@"id"];
-    }
-    [dict setObject:convertIntToString(_docId) forKey:@"userId"];
-    
-    [ZZRequsetInterface post:API_serachWenJuan param:dict timeOut:HttpGetTimeOut start:^{
+    [dict setObject:convertIntToString(user.userId) forKey:@"userId"];
+    [dict setObject:convertIntToString(_model.wenjuanId) forKey:@"quesId"];
+    [dict setObject:convertIntToString((int)_type) forKey:@"type"];
+    [ZZRequsetInterface post:API_findWenjuanDetail param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
@@ -192,8 +224,22 @@
         
         NSArray *arr = dict[@"retData"][@"wenTiContext"];
         for (NSDictionary *item in arr) {
-            [_listArray addObject:[[ZZQSModel alloc] initWithMyDict:item]];
+            ZZQSModel *m =[[ZZQSModel alloc] initWithMyDict:item];
+            NSMutableDictionary *temp = [NSMutableDictionary dictionaryWithCapacity:4];
+            for(ZZQSAnswerModel *item in m.quesAnswer){
+                [temp setObject:item forKey:convertIntToString(item.aid)];
+            }
+            NSArray *alist = [m.answerId componentsSeparatedByString:@","];
+            if(alist && alist.count>0){
+                for (int i=0; i<alist.count; i++) {
+                    [self onCellClick:[temp objectForKey:convertToString(alist[i])] type:m.quesType with:m];
+                }
+            }
+            [_listArray addObject:m];
         }
+        
+        _listTable.tableFooterView = [self createBottomView];
+        
         [_listTable reloadData];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         
@@ -201,6 +247,7 @@
         
     }];
 }
+
 
 
 
@@ -243,7 +290,7 @@
     }
    
     
-    cell.showType = 0;
+//    cell.showType = 0;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 //    [cell setSelectedBackgroundView:[[UIView alloc] initWithFrame:cell.bounds]];
 //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
@@ -326,9 +373,10 @@
     [values setObject:dict forKey:convertIntToString(questModel.quesId)];
     if(type != 3){
      
-        [_listTable reloadData];
+//        [_listTable reloadData];
     }
 }
+
 
 #pragma mark UITableViewCell 行点击事件处理
 

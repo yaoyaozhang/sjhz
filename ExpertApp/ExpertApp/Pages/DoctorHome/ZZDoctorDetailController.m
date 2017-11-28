@@ -486,6 +486,7 @@
         ASQController *detail = [[ASQController alloc] init];
         detail.model = m;
         detail.docId = _model.docInfo.userId;
+        detail.type = ASQTYPEWJ;
         [self openNav:detail sound:@""];
     }
     

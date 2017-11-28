@@ -189,7 +189,7 @@
             [cell setPreservesSuperviewLayoutMargins:NO];
         }
     }
-    cell.showType = 1;
+    cell.showType = 0;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     //    [cell setSelectedBackgroundView:[[UIView alloc] initWithFrame:cell.bounds]];
     //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];

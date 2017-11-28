@@ -53,7 +53,7 @@
     UILabel *lab = [UILabel new];
     [lab setFrame:CGRectMake(20, 10, ScreenWidth - 110, 24)];
     [lab setTextColor:UIColorFromRGB(TextListColor)];
-    [lab setText:model.context];
+    [lab setText:[NSString stringWithFormat:@"%@、%@",model.tag,model.context]];
     [lab setNumberOfLines:0];
     CGSize s = [self autoHeightOfLabel:lab with:ScreenWidth - 110];
     if(s.height<24){

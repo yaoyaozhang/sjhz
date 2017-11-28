@@ -35,6 +35,7 @@
 
 @property(nonatomic,assign) int aid;
 @property(nonatomic,strong) NSString *context;
+@property(nonatomic,strong) NSString *tag;
 
 @property(nonatomic,assign) int wentiId;
 

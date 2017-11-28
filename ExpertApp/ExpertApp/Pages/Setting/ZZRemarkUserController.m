@@ -132,7 +132,7 @@
     if(_type > 0){
         [_listArray addObject:@{@"cid":@"4",@"name":@"个人病例",@"value":@"",@"type":@"0"}];
         [_listArray addObject:@{@"cid":@"5",@"name":@"调查问卷",@"value":@"",@"type":@"0"}];
-        [_listArray addObject:@{@"cid":@"5",@"name":@"自测量表",@"value":@"",@"type":@"0"}];
+        [_listArray addObject:@{@"cid":@"6",@"name":@"自测量表",@"value":@"",@"type":@"0"}];
     }else{
         // 1 普通，2表情，3病例
         [_listArray addObject:@{@"cid":@"1",@"name":@"备注名",@"value":@"",@"type":@"1"}];
@@ -140,7 +140,7 @@
         [_listArray addObject:@{@"cid":@"3",@"name":@"电话号码",@"value":@"",@"type":@"1"}];
         [_listArray addObject:@{@"cid":@"4",@"name":@"个人病例",@"value":@"",@"type":@"0"}];
         [_listArray addObject:@{@"cid":@"5",@"name":@"调查问卷",@"value":@"",@"type":@"0"}];
-        [_listArray addObject:@{@"cid":@"5",@"name":@"自测量表",@"value":@"",@"type":@"0"}];
+        [_listArray addObject:@{@"cid":@"6",@"name":@"自测量表",@"value":@"",@"type":@"0"}];
         
     }
     
@@ -292,9 +292,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *item = _listArray[indexPath.section];
     int cid = [item[@"cid"] intValue];
-    if(cid == 5){
+    if(cid == 5 || cid == 6){
         ASQListController *vc = [[ASQListController alloc] init];
         vc.userId = _myFriend.userId;
+        vc.type = ASQPageTypeWenJuan;
+        if(cid == 6){
+            vc.type = ASQPageTypeLiangBiao;
+        }
         [self openNav:vc sound:nil];
     }
     if(cid == 4){
@@ -302,6 +306,7 @@
         vc.userId = _myFriend.userId;
         [self openNav:vc sound:nil];
     }
+    
     
 }
 
