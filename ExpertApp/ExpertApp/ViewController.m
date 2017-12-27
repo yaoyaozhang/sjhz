@@ -15,6 +15,8 @@
 #import "ZZUserHomeController.h"
 #import "ZZNewsController.h"
 #import "ZZRequsetInterface.h"
+
+#import "ZZUserHomeController.h"
 #import "UserIndexController.h"
 
 #import "ZZDoctorHomeController.h"
@@ -45,7 +47,8 @@
     
     ZZUserInfo *loginUser = [[ZZDataCache getInstance] getLoginUser];
     // Do any additional setup after loading the view, typically from a nib.
-    UserIndexController *homeView=[[UserIndexController alloc]init];
+//    UserIndexController *homeView=[[UserIndexController alloc]init];
+    ZZUserHomeController *homeView = [[ZZUserHomeController alloc] init];
     
     ZZDoctorHomeController *docView = [[ZZDoctorHomeController alloc] init];
     
@@ -71,13 +74,13 @@
         
         tabberItem.title = tabBarItemTitles[index];
         
+        tabberItem.tag = 100+index;
         
         //修改tabberItem的title颜色
         [tabberItem setSelectedTitleAttributes:@{NSFontAttributeName: ListTimeFont,
                                            NSForegroundColorAttributeName:UIColorFromRGB(BgTitleColor)}];
         [tabberItem setUnselectedTitleAttributes:@{NSFontAttributeName:ListTimeFont,NSForegroundColorAttributeName: UIColorFromRGB(TextPlaceHolderColor)}];
         
-        tabberItem.tag = 100+index;
         UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
                                                       [tabBarItemImages objectAtIndex:index]]];
         UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@",
@@ -97,7 +100,6 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     
     if(selectedTabBarIiemTag == viewController.rdv_tabBarItem.tag){
-        
         return NO;
         
     }else {

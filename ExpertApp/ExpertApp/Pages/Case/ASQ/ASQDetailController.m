@@ -108,22 +108,23 @@
         NSArray *arr = dict[@"retData"][@"wenTiContext"];
         for (NSDictionary *item in arr) {
             ZZQSModel *m =[[ZZQSModel alloc] initWithMyDict:item];
+            
+            NSMutableDictionary *cutDict = [NSMutableDictionary dictionaryWithCapacity:1];
             if(m.quesType == 3){
-                [values setObject:convertToString(m.answerValue) forKey:@"value"];
-                m.values = values;
+                [cutDict setObject:convertToString(m.answerValue) forKey:@"value"];
+                m.values = cutDict;
             }else{
                 NSArray *alist = [m.answerId componentsSeparatedByString:@","];
                 NSArray *vlist = [m.answerValue componentsSeparatedByString:@","];
-                NSMutableDictionary *values = [NSMutableDictionary dictionaryWithCapacity:1];
                 if(alist && alist.count>0){
                     for (int i=0; i<alist.count; i++) {
                         if(vlist.count < i){
-                            [values setObject:@"" forKey:convertToString(alist[i])];
+                            [cutDict setObject:@"" forKey:convertToString(alist[i])];
                         }else{
-                            [values setObject:convertToString(vlist[i]) forKey:convertToString(alist[i])];
+                            [cutDict setObject:convertToString(vlist[i]) forKey:convertToString(alist[i])];
                         }
                     }
-                    m.values = values;
+                    m.values = cutDict;
                 }
             }
             [_listArray addObject:m];
@@ -255,7 +256,7 @@
 
 
 
--(void)onCellClick:(id)obj type:(int)type with:(ZZQSModel *)questModel{
+-(ZZQSModel *)onCellClick:(id)obj type:(int)type with:(ZZQSModel *)questModel{
     NSMutableDictionary *dict = [values objectForKey:convertIntToString(questModel.quesId)];
     if(is_null(dict)){
         dict = [NSMutableDictionary dictionaryWithCapacity:1];
@@ -287,6 +288,7 @@
         
         [_listTable reloadData];
     }
+    return questModel;
 }
 
 #pragma mark UITableViewCell 行点击事件处理

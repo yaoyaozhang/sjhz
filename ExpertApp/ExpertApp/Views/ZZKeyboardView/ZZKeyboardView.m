@@ -182,6 +182,7 @@
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:convertToString(_nid) forKey:@"nid"];
+    [dict setObject:convertIntToString(_chatpterModel.userId) forKey:@"authorId"];
     [dict setObject:convertIntToString([ZZDataCache getInstance].getLoginUser.userId) forKey:@"uid"];
     [dict setObject:convertToString(textField.text) forKey:@"content"];
     if(tempModel!=nil){

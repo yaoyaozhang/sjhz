@@ -15,7 +15,6 @@
 #define cellIdentifier @"ZZQSListCell"
 
 //#import "ASQDetailController.h"
-#import "ASQController.h"
 
 @interface ASQListController ()
 
@@ -31,7 +30,7 @@
     // Do any additional setup after loading the view.
     [self createTitleMenu];
     
-    if(_type == ASQPageTypeLiangBiao){
+    if(_type == ASQTYPELB){
         [self.menuTitleButton setTitle:@"量表" forState:UIControlStateNormal];
     }else{
         [self.menuTitleButton setTitle:@"问卷" forState:UIControlStateNormal];
@@ -80,7 +79,7 @@
         [dict setObject:convertIntToString(user.userId) forKey:@"userId"];
     }
     NSString *api = API_findWenjuanList;
-    if(_type == ASQPageTypeLiangBiao){
+    if(_type == ASQTYPELB){
         api = API_findLiangBiaoList;
     }
     [ZZRequsetInterface post:api param:dict timeOut:HttpGetTimeOut start:^{

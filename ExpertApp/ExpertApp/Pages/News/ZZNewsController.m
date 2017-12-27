@@ -95,7 +95,7 @@
  */
 -(void)loadMoreData{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(7) forKey:@"userId"];
+    [dict setObject:@([ZZDataCache getInstance].getLoginUser.userId) forKey:@"userId"];
     [ZZRequsetInterface post:API_findNewsTops param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {

@@ -147,17 +147,18 @@
 // NOTE: 9.0以后使用新API接口
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
 {
-    [[UMSocialManager defaultManager] handleOpenURL:url options:options];
     if ([url.host isEqualToString:@"safepay"]) {
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"result = %@",resultDic);
         }];
     }else{
-        if([url.absoluteString hasPrefix:@"wx759030b1505761bf://pay/"]){
+        if([url.absoluteString hasPrefix:@"wx759030b1505761bf"]){
             return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
         }
     }
+    [[UMSocialManager defaultManager] handleOpenURL:url options:options];
+    
     return YES;
 }
 
@@ -219,6 +220,19 @@
         [JPUSHService handleRemoteNotification:userInfo];
     }
     
+    /**
+     {
+    "_j_business" = 1;
+    "_j_msgid" = 2038183454;
+    "_j_uid" = 11875969077;
+    aps =     {
+        alert = "\U6709\U4eba\U5173\U6ce8\U4f60\U5566";
+        badge = 3;
+        sound = "sound.caf";
+    };
+    "iosNotification extras key" = "{\"action\":\"17\",\"type\":\"2\"}";
+}
+*/
     completionHandler();  // 系统要求执行这个方法
 }
 

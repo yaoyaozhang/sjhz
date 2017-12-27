@@ -295,9 +295,9 @@
     if(cid == 5 || cid == 6){
         ASQListController *vc = [[ASQListController alloc] init];
         vc.userId = _myFriend.userId;
-        vc.type = ASQPageTypeWenJuan;
+        vc.type = ASQTYPEWJ;
         if(cid == 6){
-            vc.type = ASQPageTypeLiangBiao;
+            vc.type = ASQTYPELB;
         }
         [self openNav:vc sound:nil];
     }

@@ -94,45 +94,45 @@
 -(void)shareWithButton:(UIButtonUpDown *) shareButton{
     UMSocialPlatformType shareType = shareButton.tag;
     
+    if(shareType == UMSocialPlatformType_WechatSession || shareType == UMSocialPlatformType_WechatTimeLine){
+        [self shareButtonClick:shareButton];
+        return;
+    }
+    
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
-    UMShareObject *shareObject;
     if(_type == ZZShareTypeUser){
         ZZUserInfo *userModel = (ZZUserInfo *)_shareModel;
         if([@"" isEqual:convertToString(userModel.docName)]){
             userModel.docName = convertToString(userModel.accomplished);
         }
-        shareObject = [UMShareObject shareObjectWithTitle:userModel.docName descr:convertToString(userModel.userName) thumImage:userModel.imageUrl];
-        shareObject.thumbImage = convertToString(@"https://static.pgyer.com/static-20171115/images/newHome/header_marker.png");
         
-        messageObject.text = shareObject.descr;
-        messageObject.title = shareObject.title;
+        
+//        shareObject = [UMShareVideoObject shareObjectWithTitle:userModel.docName descr:convertToString(userModel.departmentName) thumImage:[UIImage imageNamed:@"Icon120"]];
+//        shareObject.thumbImage = [UIImage imageNamed:@"Icon120"];
+//        shareObject.thumbImage = convertToString(@"https://static.pgyer.com/static-20171115/images/newHome/header_marker.png");
+        
+        messageObject.text = userModel.docName;
+        messageObject.title = convertToString(userModel.departmentName);
         
         // 必须为视频
 //        messageObject.shareObject = shareObject;
     }else if(_type == ZZShareTypeChapter){
         ZZChapterModel *model = (ZZChapterModel *)_shareModel;
-        shareObject = [UMShareObject shareObjectWithTitle:model.author descr:model.title thumImage:model.picture];
-        shareObject.thumbImage = @"http://www.w3school.com.cn/example/html5/mov_bbb.mp4";
+//        shareObject = [UMShareObject shareObjectWithTitle:model.author descr:model.title thumImage:model.picture];
+//        shareObject.thumbImage = @"http://www.w3school.com.cn/example/html5/mov_bbb.mp4";
         
-        messageObject.text = shareObject.descr;
-        messageObject.title = shareObject.title;
+        messageObject.text = model.title;
+        messageObject.title =convertToString(model.content);
         
-        //分享消息对象设置分享内容对象
-        UMShareVideoObject *shareObject1 =[UMShareVideoObject shareObjectWithTitle:convertToString(shareObject.title) descr:convertToString(shareObject.descr) thumImage:convertToString(shareObject.thumbImage)];
-        //        shareObject1.videoUrl = @"http://www.w3school.com.cn/example/html5/mov_bbb.mp4";
-        
-        //    UMShareImageObject *share1 = [UMShareImageObject shareObjectWithTitle:convertToString(shareObject.title) descr:convertToString(shareObject.descr) thumImage:convertToString(shareObject.thumbImage)];
-        shareObject1.videoUrl = shareObject.thumbImage;
-        
-        messageObject.shareObject = shareObject1;
+//        messageObject.shareObject = shareObject1;
     }else if(_type == ZZShareTypeHZResult){
         ZZHZEngity *model = (ZZHZEngity *)_shareModel;
-        shareObject = [UMShareObject shareObjectWithTitle:model.caseName descr:model.caseResult thumImage:nil];
+//        shareObject = [UMShareObject shareObjectWithTitle:model.caseName descr:model.caseResult thumImage:nil];
         
-        messageObject.text = shareObject.descr;
-        messageObject.title = shareObject.title;
+        messageObject.text = model.caseName;
+        messageObject.title = model.caseResult;
         
 //        messageObject.shareObject = shareObject;
     }
@@ -157,7 +157,6 @@
         [self dissmisMenu];
     }
 }
-
 
 
 - (void)dissmisMenu{
@@ -185,4 +184,82 @@
     }];
 }
 
+
+
+
+-(void)shareButtonClick:(UIButtonUpDown *) shareButton{
+    UMSocialPlatformType shareType = shareButton.tag;
+    Byte* pBuffer = (Byte *)malloc(1024*100);
+    memset(pBuffer, 0, 1024*100);
+    NSData* data = [NSData dataWithBytes:pBuffer length:1024*100];
+    free(pBuffer);
+    
+    UIImage *thumbImage = [UIImage imageNamed:@"icon_news_top"];
+    
+    static NSString *kAppMessageAction = @"<action>sjhz</action>";
+    WXAppExtendObject *ext = [WXAppExtendObject object];
+    ext.extInfo = @"<xml>extend info</xml>";
+    ext.url = @"http://weixin.qq.com";
+    ext.fileData = data;
+    
+    //分享网页给好友
+    WXMediaMessage *message = [WXMediaMessage message];
+    if(_type == ZZShareTypeUser){
+        ZZUserInfo *userModel = (ZZUserInfo *)_shareModel;
+        if([@"" isEqual:convertToString(userModel.docName)]){
+            userModel.docName = convertToString(userModel.accomplished);
+        }
+        
+        message.title = userModel.docName;
+        message.description = convertToString(userModel.departmentName).length>100?[userModel.departmentName substringToIndex:100]:userModel.departmentName;
+        message.messageExt = [NSString stringWithFormat:@"userId=%d",userModel.userId];
+        message.messageAction = kAppMessageAction;
+        message.mediaTagName = nil;
+        [message setThumbImage:thumbImage];
+        
+    }else if(_type == ZZShareTypeChapter){
+        ZZChapterModel *model = (ZZChapterModel *)_shareModel;
+        
+        message.title = model.author;
+        message.description = convertToString(model.title).length>100?[model.title substringToIndex:100]:model.title;
+        message.messageExt = [NSString stringWithFormat:@"chapterId=%d",model.nid];
+        message.messageAction = kAppMessageAction;
+        message.mediaTagName = nil;
+        [message setThumbImage:thumbImage];
+    }else if(_type == ZZShareTypeHZResult){
+        ZZHZEngity *model = (ZZHZEngity *)_shareModel;
+        
+        message.title = model.caseName;
+        message.description = convertToString(model.caseResult).length>100?[model.caseResult substringToIndex:100]:model.caseResult;
+        message.messageExt = [NSString stringWithFormat:@"hzId=%d",model.tid];
+        message.messageAction = kAppMessageAction;
+        message.mediaTagName = nil;
+        [message setThumbImage:thumbImage];
+    }
+    ext.extInfo = message.messageExt;
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+    req.message = message;
+    
+    req.scene = WXSceneSession;
+    if(shareType == UMSocialPlatformType_WechatTimeLine){
+        //分享网页到朋友圈
+        req.scene = WXSceneTimeline;
+    }
+    
+    BOOL isOK = [WXApi sendReq:req];
+    
+    if (!isOK) {
+        [_curVC.view makeToast:@"分享失败！"];
+    }else{
+        NSLog(@"response data is %@",data);
+        [_curVC.view makeToast:@"分享成功！"];
+    }
+    
+    [self dissmisMenu];
+    
+}
+
+    
 @end

@@ -279,9 +279,9 @@
     }
     if(code == 14 || code == 15){
         ASQListController *vc = [[ASQListController alloc] init];
-        vc.type = ASQPageTypeLiangBiao;
+        vc.type = ASQTYPELB;
         if(code == 15){
-            vc.type = ASQPageTypeWenJuan;
+            vc.type = ASQTYPEWJ;
         }
         [self openNav:vc sound:nil];
     }

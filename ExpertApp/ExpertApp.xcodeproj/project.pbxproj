@@ -60,6 +60,7 @@
 		7B20C16F1F721D0D00FBFD9F /* ZZDiscussCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B20C16D1F721D0D00FBFD9F /* ZZDiscussCell.xib */; };
 		7B20C1721F72645600FBFD9F /* ZZMyHZListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C1711F72645600FBFD9F /* ZZMyHZListController.m */; };
 		7B20C1751F727F6A00FBFD9F /* ZZRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C1741F727F6A00FBFD9F /* ZZRewardController.m */; };
+		7B250E251FCE994C00C2D72A /* AlertUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B250E231FCE994B00C2D72A /* AlertUtil.m */; };
 		7B3DFDD31FBAD98800AD39AE /* ZZQSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DFDD21FBAD98800AD39AE /* ZZQSModel.m */; };
 		7B3DFE351FBC3E3100AD39AE /* ASQListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DFE341FBC3E3000AD39AE /* ASQListController.m */; };
 		7B5365571FB04619000CD932 /* ZZRemarkUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5365561FB04619000CD932 /* ZZRemarkUserController.m */; };
@@ -561,6 +562,8 @@
 		7B20C1711F72645600FBFD9F /* ZZMyHZListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMyHZListController.m; sourceTree = "<group>"; };
 		7B20C1731F727F6A00FBFD9F /* ZZRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRewardController.h; sourceTree = "<group>"; };
 		7B20C1741F727F6A00FBFD9F /* ZZRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRewardController.m; sourceTree = "<group>"; };
+		7B250E231FCE994B00C2D72A /* AlertUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertUtil.m; sourceTree = "<group>"; };
+		7B250E241FCE994B00C2D72A /* AlertUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertUtil.h; sourceTree = "<group>"; };
 		7B3DFDD11FBAD98800AD39AE /* ZZQSModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZQSModel.h; sourceTree = "<group>"; };
 		7B3DFDD21FBAD98800AD39AE /* ZZQSModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZQSModel.m; sourceTree = "<group>"; };
 		7B3DFE331FBC3E3000AD39AE /* ASQListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASQListController.h; sourceTree = "<group>"; };
@@ -1256,6 +1259,15 @@
 				7B20C15D1F71030F00FBFD9F /* ZZCaseDetailMulCell.xib */,
 			);
 			name = CaseDetailCell;
+			sourceTree = "<group>";
+		};
+		7B250E221FCE994B00C2D72A /* alert util */ = {
+			isa = PBXGroup;
+			children = (
+				7B250E231FCE994B00C2D72A /* AlertUtil.m */,
+				7B250E241FCE994B00C2D72A /* AlertUtil.h */,
+			);
+			path = "alert util";
 			sourceTree = "<group>";
 		};
 		7B5365581FB0468E000CD932 /* remarkcell */ = {
@@ -2363,6 +2375,7 @@
 		7BF110341F18766200456E55 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				7B250E221FCE994B00C2D72A /* alert util */,
 				7B20C0521F692CF200FBFD9F /* Pay */,
 				7B8A90191F18A16D00FC53D7 /* Categories */,
 				7BF110631F1884F400456E55 /* DataCodingStore */,
@@ -2981,6 +2994,7 @@
 				7B20C1491F70C9DA00FBFD9F /* ZZDoctorCaseCell.m in Sources */,
 				7B7002591F5506C700C59281 /* ZZCreateCaseController.m in Sources */,
 				7B06B9911F78AB2100C5EF83 /* ZZInviteDoctorController.m in Sources */,
+				7B250E251FCE994C00C2D72A /* AlertUtil.m in Sources */,
 				7B8A902F1F18A16D00FC53D7 /* UIView+Border.m in Sources */,
 				7B8A902D1F18A16D00FC53D7 /* UIImage+ImageWithColor.m in Sources */,
 				7B5C1C8E1F1F544D00DDDA78 /* ZZSearchDoctorController.m in Sources */,

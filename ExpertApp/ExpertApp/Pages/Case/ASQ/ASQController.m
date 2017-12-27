@@ -16,6 +16,7 @@
 #import "ZZChooseCell.h"
 #define cellIdentifier @"ZZSQTextCell"
 #define cellIdentifierChoose @"ZZChooseCell"
+#import "AlertUtil.h"
 
 @interface ASQController ()<ZZSQBaseCellDelegate>{
     UITextField *tempField;
@@ -100,17 +101,19 @@
             return;
         }
         NSMutableArray *ans = [NSMutableArray arrayWithCapacity:0];
-        for (NSString *key in values.allKeys) {
+        for(int i=0;i<_listArray.count;i++){
+            ZZQSModel *pm = [_listArray objectAtIndex:i];
+            NSString *key = convertIntToString(pm.quesId);
             NSDictionary *item = values[key];
             NSMutableArray *arr = [NSMutableArray arrayWithCapacity:0];
             for(NSString *ikey in item.allKeys){
                 if([ikey hasPrefix:@"value"]){
                     // 输入框内容
-                    [arr addObject:@{@"id":key,@"v":convertToString(item[ikey]),@"s":@""}];
+                    [arr addObject:@{@"n":pm.quesNum,@"id":key,@"v":convertToString(item[ikey]),@"s":@""}];
                 }else{
                     // 选项内容
                     ZZQSAnswerModel *model = item[ikey];
-                    [arr addObject:@{@"id":ikey,@"v":convertToString(model.context),@"s":convertToString(model.tag)}];
+                    [arr addObject:@{@"n":pm.quesNum,@"id":ikey,@"v":convertToString(model.context),@"s":convertToString(model.tag)}];
                 }
             }
             [ans addObject:@{@"qid":key,@"answer":arr}];
@@ -124,14 +127,22 @@
         ZZUserInfo *login = [ZZDataCache getInstance].getLoginUser;
         [dict setObject:convertIntToString(login.userId) forKey:@"userId"];
         [ZZRequsetInterface post:API_saveWenJuan param:dict timeOut:HttpGetTimeOut start:^{
-            
+            [SVProgressHUD showWithStatus:@"正在计算结果"];
         } finish:^(id response, NSData *data) {
+            [SVProgressHUD dismiss];
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
-            if(_ZZCreateResultBlock){
-                _ZZCreateResultBlock(1);
-            }
-            [self goBack:nil];
+            
+            NSString *restult = [NSString stringWithFormat:@"总分%@\n%@\n%@",dict[@"retData"][@"total"],dict[@"retData"][@"result"],dict[@"retData"][@"coreSouce"]] ;
+            [[AlertUtil shareInstance] showAlert:@"提交成功" message:restult cancelTitle:@"再来一次" titleArray:@[@"确定"] viewController:self confirm:^(NSInteger buttonTag) {
+                if(buttonTag == 0){
+                    if(_ZZCreateResultBlock){
+                        _ZZCreateResultBlock(1);
+                    }
+                    [self goBack:nil];
+                }
+            }];
+            
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             [self.view makeToast:errorMsg];
         } progress:^(CGFloat progress) {
@@ -215,8 +226,9 @@
     [dict setObject:convertIntToString(_model.wenjuanId) forKey:@"quesId"];
     [dict setObject:convertIntToString((int)_type) forKey:@"type"];
     [ZZRequsetInterface post:API_findWenjuanDetail param:dict timeOut:HttpGetTimeOut start:^{
-        
+        [SVProgressHUD show];
     } finish:^(id response, NSData *data) {
+        [SVProgressHUD dismiss];
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         wenTiId = convertToString(dict[@"retData"][@"wenTiId"]);
@@ -225,14 +237,26 @@
         NSArray *arr = dict[@"retData"][@"wenTiContext"];
         for (NSDictionary *item in arr) {
             ZZQSModel *m =[[ZZQSModel alloc] initWithMyDict:item];
-            NSMutableDictionary *temp = [NSMutableDictionary dictionaryWithCapacity:4];
-            for(ZZQSAnswerModel *item in m.quesAnswer){
-                [temp setObject:item forKey:convertIntToString(item.aid)];
-            }
-            NSArray *alist = [m.answerId componentsSeparatedByString:@","];
-            if(alist && alist.count>0){
-                for (int i=0; i<alist.count; i++) {
-                    [self onCellClick:[temp objectForKey:convertToString(alist[i])] type:m.quesType with:m];
+            if(convertToString(m.answerId).length>0){
+                NSMutableDictionary *temp = [NSMutableDictionary dictionaryWithCapacity:4];
+                
+                for(ZZQSAnswerModel *item in m.quesAnswer){
+                    [temp setObject:item forKey:convertIntToString(item.aid)];
+                }
+                NSArray *alist = [m.answerId componentsSeparatedByString:@","];
+                if(alist && alist.count>0){
+                    for (int i=0; i<alist.count; i++) {
+                        
+                        if(m.quesType==3){
+                            
+                            [self onCellClick:m.answerValue type:m.quesType with:m];
+                        }else{
+                            ZZQSAnswerModel *obj = [temp objectForKey:convertToString(alist[i])];
+                            obj.isSelected = YES;
+                            [self onCellClick:obj type:m.quesType with:m];
+                        }
+                        
+                    }
                 }
             }
             [_listArray addObject:m];
@@ -343,7 +367,7 @@
 
 
 
--(void)onCellClick:(id)obj type:(int)type with:(ZZQSModel *)questModel{
+-(ZZQSModel *)onCellClick:(id)obj type:(int)type with:(ZZQSModel *)questModel{
     NSMutableDictionary *dict = [values objectForKey:convertIntToString(questModel.quesId)];
     if(is_null(dict)){
         dict = [NSMutableDictionary dictionaryWithCapacity:1];
@@ -375,6 +399,8 @@
      
 //        [_listTable reloadData];
     }
+    
+    return questModel;
 }
 
 

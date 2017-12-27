@@ -305,8 +305,13 @@
 
 - (RDVTabBarItem *)rdv_tabBarItem {
     RDVTabBarController *tabBarController = [self rdv_tabBarController];
-    NSInteger index = [tabBarController indexForViewController:self];
-    return [[[tabBarController tabBar] items] objectAtIndex:index];
+    
+    if(tabBarController.viewControllers && tabBarController.viewControllers.count>0){
+        NSInteger index = [tabBarController.viewControllers indexOfObject:self];
+        return [[[tabBarController tabBar] items] objectAtIndex:index];
+    }else{
+        return nil;
+    }
 }
 
 - (void)rdv_setTabBarItem:(RDVTabBarItem *)tabBarItem {

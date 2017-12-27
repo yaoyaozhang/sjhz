@@ -12,7 +12,7 @@
 @protocol ZZSQBaseCellDelegate
 
 // 1 单选 2多选 3文本
--(void)onCellClick:(id) obj type:(int) type with:(ZZQSModel *) questModel;
+-(ZZQSModel *)onCellClick:(id) obj type:(int) type with:(ZZQSModel *) questModel;
 
 
 -(void)didKeyboardWillShow:(NSIndexPath *)indexPath view:(UITextField *) textfield;

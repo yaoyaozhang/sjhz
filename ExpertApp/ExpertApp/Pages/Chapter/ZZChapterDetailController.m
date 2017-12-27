@@ -93,8 +93,8 @@
 
 -(void)loadURL{
     //2.创建URL
-//    NSURL *URL = [NSURL URLWithString:API_getChapterDetail(_model.nid)];
-    NSURL *URL = [NSURL URLWithString:API_getChapterDetail(65)];
+    NSURL *URL = [NSURL URLWithString:API_getChapterDetail(_model.nid)];
+//    NSURL *URL = [NSURL URLWithString:API_getChapterDetail(65)];
 //    NSURL *URL = [NSURL URLWithString:@"http://172.16.4.38:8080/chapter.html"];
 //        NSURL *URL = [NSURL URLWithString:@"http://219.142.225.69:8123/news/wz/chapter_template.html"];
     

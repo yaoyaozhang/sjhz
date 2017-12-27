@@ -71,8 +71,8 @@
             for (int i=0;i<arr.count;i++) {
                 [self createImageWith:arr[i] tag:i];
             }
-            [_imgsScroll setContentSize:CGSizeMake(120*arr.count + 10*arr.count, 60)];
-            height = height + 60 + 15;
+            [_imgsScroll setContentSize:CGSizeMake(120*arr.count + 10*arr.count, 80)];
+            height = height + 80 + 15;
         }else{
             _labDesc.hidden = NO;
             [_labDesc setText:value];

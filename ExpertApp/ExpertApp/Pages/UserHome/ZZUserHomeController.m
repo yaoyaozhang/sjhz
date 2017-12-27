@@ -11,7 +11,11 @@
 #import "EasyTableView.h"
 #import "ZZUserHomeCell.h"
 
+#import "SDCycleScrollView.h"
 #define cellIdentifier  @"ZZUserHomeCell"
+
+#define ZZHomeTopHeight 220
+#define ZZHomeMiddleHeight 175
 
 
 typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
@@ -20,7 +24,8 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     ZZHomeButtonTagsMore    = 3,
 };
 
-@interface ZZUserHomeController ()<EasyTableViewDelegate>{
+@interface ZZUserHomeController ()<EasyTableViewDelegate,SDCycleScrollViewDelegate>{
+    CGFloat contentSizeHeight;
 }
 
 @property(nonatomic,strong)UIScrollView *mainScrollView;
@@ -62,7 +67,6 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
 -(void) cretateScrollView{
     _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, NavBarHeight, ScreenWidth, self.view.frame.size.height - NavBarHeight - 50)];
     [_mainScrollView setBackgroundColor:UIColorFromRGB(BgSystemColor)];
-    [_mainScrollView setContentSize:CGSizeMake(ScreenWidth, 745.f)];
     [self.view addSubview:_mainScrollView];
     
     // 顶部功能按钮
@@ -72,7 +76,10 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     [self createEasyTable];
     
     // 底部科室
-    [self createKeShiItem];
+    [self createKeShi];
+    
+    
+    [_mainScrollView setContentSize:CGSizeMake(ScreenWidth, contentSizeHeight)];
 }
 
 -(void)createFirstMenu{
@@ -80,28 +87,43 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     [menuView setBackgroundColor:[UIColor whiteColor]];
     [_mainScrollView addSubview:menuView];
     
-    [menuView addSubview:[self createItemButton:CGRectMake(10, 20, (ScreenWidth-29)/2, 100) image:@"Get Help" text:@"" tag:ZZHomeButtonTags1]];
-    [menuView addSubview:[self createItemButton:CGRectMake((ScreenWidth-29)/2+19, 20, (ScreenWidth-29)/2, 100) image:@"Voicemail" text:@"" tag:ZZHomeButtonTags1]];
+    SDCycleScrollView *cycleView = [self setupCycleImageCell];
+    [menuView addSubview:cycleView];
+    [menuView setFrame:cycleView.bounds];
     [_mainScrollView addSubview:menuView];
+    
+    
 }
 
--(UIButton *)createItemButton:(CGRect )f image:(NSString *) imageName text:(NSString *)titleText tag:(ZZHomeButtonTags) tag{
-    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn1 setFrame:f];
-    [btn1 setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    [btn1 setBackgroundColor:[UIColor clearColor]];
-    [btn1 setTitle:titleText forState:UIControlStateNormal];
-    btn1.tag = tag;
-    [btn1 addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    return btn1;
+#pragma mark - 图片轮播
+/** 设置轮播图 */
+- (SDCycleScrollView  *)setupCycleImageCell
+{
+    // 网络加载 --- 创建带标题的图片轮播器
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth, ZZHomeTopHeight) delegate:nil placeholderImage:[UIImage imageNamed:@"placeholder_big"]];
+    cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    cycleScrollView.currentPageDotColor = [UIColor whiteColor];
+    cycleScrollView.titlesGroup = @[@"在线帮助在线帮助在线帮助在线帮助在线帮助在线帮助在线帮助在线帮助在线帮助",@"康复方案"];
+    
+    cycleScrollView.imageURLStringsGroup = @[@"Get Help",@"Voicemail"];
+    
+    cycleScrollView.delegate = self;
+    
+    return cycleScrollView;
+}
+
+/** SDCycleScrollView轮播点击事件代理 */
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
+    
+//    NSAssert(self.cycleImageClickBlock, @"必须传入self.cycleImageClickBlock");
+//    self.cycleImageClickBlock(index);
 }
 
 
 
-
-
--(void)createKeShiItem{
-    CGFloat y = 150 + 185;
+-(void)createKeShi{
+    CGFloat y = ZZHomeTopHeight + 10 + ZZHomeMiddleHeight + 10;
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, y, ScreenWidth, 50)];
     titleView.layer.contents = (id)[UIImage imageNamed:@"classificationbgl"].CGImage;
@@ -110,13 +132,13 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     _headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
     [_headerLabel setBackgroundColor:[UIColor clearColor]];
     [_headerLabel setFont:ListTitleFont];
-    [_headerLabel setText:@"按科室找医生"];
+    [_headerLabel setText:@"按分类找量表"];
     [_headerLabel setTextAlignment:NSTextAlignmentCenter];
     [_headerLabel setTextColor:UIColorFromRGB(TextBlackColor)];
     [titleView addSubview:_headerLabel];
     
     y = y + 50;
-    UIView *keShiView = [[UIView alloc] initWithFrame:CGRectMake(0, y, ScreenWidth, 360)];
+    UIView *keShiView = [[UIView alloc] initWithFrame:CGRectMake(0, y, ScreenWidth, 0)];
     [keShiView setBackgroundColor:[UIColor clearColor]];
     [_mainScrollView addSubview:keShiView];
     
@@ -125,9 +147,10 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     CGFloat itemX = 0;
     CGFloat itemY = 0;
     CGFloat w = (ScreenWidth-2)/3;
-    for(int i=1;i<=12;i++){
+    int count = 12;
+    for(int i=1;i<=count;i++){
         CGRect itemF = CGRectMake(itemX, itemY + 1, w, 89);
-        [keShiView addSubview:[self createKeshiItem:itemF image:@"" text:@"科室名称" tag:i]];
+        [keShiView addSubview:[self createKeshiItem:itemF image:@"" text:[NSString stringWithFormat:@"量表分类%d",i] tag:i]];
         
         itemX = itemX + 1 + w;
         if(i%3==0){
@@ -135,15 +158,20 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
             itemY = itemY + 90;
         }
     }
+    if(count%3!=0){
+        itemY = itemY + 90;
+    }
+    
+    [keShiView setFrame:CGRectMake(0, y, ScreenWidth, itemY)];
+    
+    contentSizeHeight = itemY + y;
 }
 
 
 -(UIView *) createKeshiItem:(CGRect )f image:(NSString *) imageName text:(NSString *)titleText tag:(ZZHomeButtonTags) tag{
     UIView *itemView = [[UIView alloc] initWithFrame:f];
     [itemView setBackgroundColor:[UIColor whiteColor]];
-    if((int)tag > 10){
-        return itemView;
-    }
+    
     
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 25, 25, 25)];
     [imgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"treatment_%zd",tag]]];
@@ -166,7 +194,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
 
 
 -(void)createEasyTable{
-    CGFloat y = 150;
+    CGFloat y = ZZHomeTopHeight + 10;
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, y, ScreenWidth, 50)];
     titleView.layer.contents = (id)[UIImage imageNamed:@"classificationbg"].CGImage;
@@ -212,9 +240,9 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     if (cell == nil) {
         // Create a new table view cell
         cell = [[ZZUserHomeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
     }
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     //    [cell setSelectedBackgroundView:[[UIView alloc] initWithFrame:cell.bounds]];
     //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
     

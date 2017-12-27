@@ -10,15 +10,17 @@
 #import "MyButton.h"
 #import "UIView+Border.h"
 
-@implementation ZZChooseCell
+@implementation ZZChooseCell{
+    UIButton *btnSel;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
 
--(void)dataToView:(ZZQSModel *)model{
-    [super dataToView:model];
+-(void)dataToView:(ZZQSModel *)itemModel{
+    [super dataToView:itemModel];
     
     CGRect topF = self.labTitle.frame;
     CGFloat y =  topF.origin.y + topF.size.height + 10;
@@ -32,15 +34,15 @@
     [_chooseViews addTopBorderWithColor:UIColorFromRGB(BgLineColor) andWidth:1.0f];
     
     CGFloat h = 0;
-    for (int i=0; i<model.quesAnswer.count; i++) {
-        ZZQSAnswerModel *item = model.quesAnswer[i];
+    for (int i=0; i<self.tempModel.quesAnswer.count; i++) {
+        ZZQSAnswerModel *item = self.tempModel.quesAnswer[i];
         BOOL isSelected = NO;
-        if(!is_null(model.values) && [model.values isKindOfClass:[NSDictionary class]]){
-            if([model.values objectForKey:convertIntToString(item.aid)]){
+        if(!is_null(self.tempModel.values) && [self.tempModel.values isKindOfClass:[NSDictionary class]]){
+            if([self.tempModel.values objectForKey:convertIntToString(item.aid)]){
                 isSelected = YES;
             }
         }
-        h = h + [self createItemButton:model.quesAnswer[i] tag:i y:h sel:isSelected];
+        h = h + [self createItemButton:self.tempModel.quesAnswer[i] tag:i y:h sel:isSelected];
     }
     [_chooseViews setFrame:CGRectMake(0, y, ScreenWidth, h)];
     
@@ -74,6 +76,9 @@
     }
     [view addSubview:btn];
     btn.selected = isSelected;
+    if(isSelected && self.tempModel.quesType == 1){
+        btnSel = btn;
+    }
     [view setFrame:CGRectMake(0, y, ScreenWidth, s.height + 20)];
     [_chooseViews addSubview:view];
     return s.height + 20;
@@ -83,11 +88,20 @@
 -(void)btnOnClick:(MyButton *) btn{
     if(self.delegate){
         btn.selected = !btn.selected;
+        if(self.tempModel.quesType  == 1){
+            
+            if(btnSel){
+                btnSel.selected = NO;
+            }
+            if(btn.selected){
+                btnSel = btn;
+            }
+        }
         
         ZZQSAnswerModel *model = btn.objTag;
         model.isSelected = btn.selected;
         
-        [self.delegate onCellClick:model type:self.tempModel.quesType with:self.tempModel];
+        self.tempModel = [self.delegate onCellClick:model type:self.tempModel.quesType with:self.tempModel];
     }
 }
 
