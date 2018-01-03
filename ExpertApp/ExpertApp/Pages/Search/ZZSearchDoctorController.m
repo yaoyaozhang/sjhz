@@ -323,9 +323,9 @@
     ZZUserInfo *model =  _listArray[indexPath.section-1];
     ZZDoctorDetailController  *listVC = [[ZZDoctorDetailController alloc]init];
     listVC.docId = model.userId;
-    ZZUserHomeModel *home = [ZZUserHomeModel new];
-    home.docInfo = model;
-    listVC.model = home;
+//    ZZUserHomeModel *home = [ZZUserHomeModel new];
+//    home.docInfo = model;
+//    listVC.model = home;
     [self openNav:listVC sound:nil];
 //    [self.searchTF resignFirstResponder];
 }

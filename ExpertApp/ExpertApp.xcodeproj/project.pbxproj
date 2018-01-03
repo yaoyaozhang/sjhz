@@ -461,6 +461,38 @@
 		7BC585481FBC921000570F93 /* ZZQSListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC585461FBC921000570F93 /* ZZQSListCell.m */; };
 		7BC585491FBC921000570F93 /* ZZQSListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BC585471FBC921000570F93 /* ZZQSListCell.xib */; };
 		7BD796511F740702006223A2 /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD796501F740702006223A2 /* UIButton+countDown.m */; };
+		7BD950651FFB625C0016C3D6 /* ZZCreatePatientController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950641FFB625C0016C3D6 /* ZZCreatePatientController.m */; };
+		7BD950691FFB696F0016C3D6 /* ZZSportInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950681FFB696F0016C3D6 /* ZZSportInfoController.m */; };
+		7BD9506C1FFB718E0016C3D6 /* ZZPatientModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD9506B1FFB718E0016C3D6 /* ZZPatientModel.m */; };
+		7BD950881FFB833F0016C3D6 /* PGPickerColumnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD9506F1FFB833E0016C3D6 /* PGPickerColumnCell.m */; };
+		7BD950891FFB833F0016C3D6 /* PGPickerColumnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950701FFB833E0016C3D6 /* PGPickerColumnView.m */; };
+		7BD9508A1FFB833F0016C3D6 /* PGPickerViewConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950751FFB833E0016C3D6 /* PGPickerViewConfig.m */; };
+		7BD9508B1FFB833F0016C3D6 /* PGPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950771FFB833E0016C3D6 /* PGPickerView.m */; };
+		7BD9508C1FFB833F0016C3D6 /* PGPickerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950781FFB833E0016C3D6 /* PGPickerTableView.m */; };
+		7BD9508D1FFB833F0016C3D6 /* PGDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD9507A1FFB833F0016C3D6 /* PGDatePicker.m */; };
+		7BD9508E1FFB833F0016C3D6 /* UIColor+PGHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD9507B1FFB833F0016C3D6 /* UIColor+PGHex.m */; };
+		7BD9508F1FFB833F0016C3D6 /* ZZPickerTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD9507C1FFB833F0016C3D6 /* ZZPickerTimeView.m */; };
+		7BD950901FFB833F0016C3D6 /* PGDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD9507D1FFB833F0016C3D6 /* PGDatePickerView.m */; };
+		7BD950911FFB833F0016C3D6 /* NSCalendar+PGCurrent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950801FFB833F0016C3D6 /* NSCalendar+PGCurrent.m */; };
+		7BD950921FFB833F0016C3D6 /* NSDate+PGCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950841FFB833F0016C3D6 /* NSDate+PGCategory.m */; };
+		7BD9509F1FFB910E0016C3D6 /* Upload_photos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD950951FFB910D0016C3D6 /* Upload_photos@2x.png */; };
+		7BD950A01FFB910E0016C3D6 /* Upload_photos@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD950961FFB910D0016C3D6 /* Upload_photos@3x.png */; };
+		7BD950A11FFB910E0016C3D6 /* Add_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD950971FFB910D0016C3D6 /* Add_more@2x.png */; };
+		7BD950A21FFB910E0016C3D6 /* Selected_state@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD950981FFB910D0016C3D6 /* Selected_state@2x.png */; };
+		7BD950A31FFB910E0016C3D6 /* Unselected_state@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD950991FFB910D0016C3D6 /* Unselected_state@3x.png */; };
+		7BD950A41FFB910E0016C3D6 /* Unselected_state@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD9509A1FFB910D0016C3D6 /* Unselected_state@2x.png */; };
+		7BD950A51FFB910E0016C3D6 /* Selected_state@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD9509B1FFB910D0016C3D6 /* Selected_state@3x.png */; };
+		7BD950A61FFB910E0016C3D6 /* Add_more@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD9509C1FFB910D0016C3D6 /* Add_more@3x.png */; };
+		7BD950A71FFB910E0016C3D6 /* close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD9509D1FFB910D0016C3D6 /* close@3x.png */; };
+		7BD950A81FFB910E0016C3D6 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD9509E1FFB910D0016C3D6 /* close@2x.png */; };
+		7BD950AC1FFB91670016C3D6 /* ZZAddSymptomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950AB1FFB91670016C3D6 /* ZZAddSymptomController.m */; };
+		7BD950B01FFB93770016C3D6 /* ZZSymptomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950AE1FFB93770016C3D6 /* ZZSymptomCell.m */; };
+		7BD950B11FFB93770016C3D6 /* ZZSymptomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD950AF1FFB93770016C3D6 /* ZZSymptomCell.xib */; };
+		7BD950B41FFB93D60016C3D6 /* ZZSymptomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950B31FFB93D60016C3D6 /* ZZSymptomView.m */; };
+		7BD950B71FFC80A00016C3D6 /* ZZSymptomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950B61FFC80A00016C3D6 /* ZZSymptomModel.m */; };
+		7BD950BB1FFCB58F0016C3D6 /* ZZPatientListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950BA1FFCB58F0016C3D6 /* ZZPatientListController.m */; };
+		7BD950C31FFCC0170016C3D6 /* ZZPatientDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950C21FFCC0170016C3D6 /* ZZPatientDetailController.m */; };
+		7BD950C71FFCD7C50016C3D6 /* ZZChoosePatientController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950C61FFCD7C50016C3D6 /* ZZChoosePatientController.m */; };
 		7BF110091F18678C00456E55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF110081F18678C00456E55 /* main.m */; };
 		7BF1100C1F18678C00456E55 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1100B1F18678C00456E55 /* AppDelegate.m */; };
 		7BF1100F1F18678C00456E55 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1100E1F18678C00456E55 /* ViewController.m */; };
@@ -1098,6 +1130,60 @@
 		7BC585471FBC921000570F93 /* ZZQSListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZQSListCell.xib; sourceTree = "<group>"; };
 		7BD7964F1F740702006223A2 /* UIButton+countDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+countDown.h"; sourceTree = "<group>"; };
 		7BD796501F740702006223A2 /* UIButton+countDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+countDown.m"; sourceTree = "<group>"; };
+		7BD950631FFB625C0016C3D6 /* ZZCreatePatientController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZCreatePatientController.h; sourceTree = "<group>"; };
+		7BD950641FFB625C0016C3D6 /* ZZCreatePatientController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZCreatePatientController.m; sourceTree = "<group>"; };
+		7BD950671FFB696F0016C3D6 /* ZZSportInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSportInfoController.h; sourceTree = "<group>"; };
+		7BD950681FFB696F0016C3D6 /* ZZSportInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSportInfoController.m; sourceTree = "<group>"; };
+		7BD9506A1FFB718E0016C3D6 /* ZZPatientModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZPatientModel.h; sourceTree = "<group>"; };
+		7BD9506B1FFB718E0016C3D6 /* ZZPatientModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZPatientModel.m; sourceTree = "<group>"; };
+		7BD9506E1FFB833E0016C3D6 /* PGPickerViewConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGPickerViewConfig.h; sourceTree = "<group>"; };
+		7BD9506F1FFB833E0016C3D6 /* PGPickerColumnCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGPickerColumnCell.m; sourceTree = "<group>"; };
+		7BD950701FFB833E0016C3D6 /* PGPickerColumnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGPickerColumnView.m; sourceTree = "<group>"; };
+		7BD950711FFB833E0016C3D6 /* PGPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGPickerView.h; sourceTree = "<group>"; };
+		7BD950721FFB833E0016C3D6 /* PGPickerTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGPickerTableView.h; sourceTree = "<group>"; };
+		7BD950731FFB833E0016C3D6 /* PGPickerColumnCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGPickerColumnCell.h; sourceTree = "<group>"; };
+		7BD950741FFB833E0016C3D6 /* PGPickerViewMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGPickerViewMacros.h; sourceTree = "<group>"; };
+		7BD950751FFB833E0016C3D6 /* PGPickerViewConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGPickerViewConfig.m; sourceTree = "<group>"; };
+		7BD950761FFB833E0016C3D6 /* PGPickerColumnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGPickerColumnView.h; sourceTree = "<group>"; };
+		7BD950771FFB833E0016C3D6 /* PGPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGPickerView.m; sourceTree = "<group>"; };
+		7BD950781FFB833E0016C3D6 /* PGPickerTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGPickerTableView.m; sourceTree = "<group>"; };
+		7BD9507A1FFB833F0016C3D6 /* PGDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDatePicker.m; sourceTree = "<group>"; };
+		7BD9507B1FFB833F0016C3D6 /* UIColor+PGHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PGHex.m"; sourceTree = "<group>"; };
+		7BD9507C1FFB833F0016C3D6 /* ZZPickerTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPickerTimeView.m; sourceTree = "<group>"; };
+		7BD9507D1FFB833F0016C3D6 /* PGDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDatePickerView.m; sourceTree = "<group>"; };
+		7BD9507E1FFB833F0016C3D6 /* NSDate+PGCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PGCategory.h"; sourceTree = "<group>"; };
+		7BD950801FFB833F0016C3D6 /* NSCalendar+PGCurrent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+PGCurrent.m"; sourceTree = "<group>"; };
+		7BD950811FFB833F0016C3D6 /* ZZPickerTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPickerTimeView.h; sourceTree = "<group>"; };
+		7BD950821FFB833F0016C3D6 /* UIColor+PGHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PGHex.h"; sourceTree = "<group>"; };
+		7BD950831FFB833F0016C3D6 /* PGDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDatePicker.h; sourceTree = "<group>"; };
+		7BD950841FFB833F0016C3D6 /* NSDate+PGCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PGCategory.m"; sourceTree = "<group>"; };
+		7BD950851FFB833F0016C3D6 /* PGDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDatePickerView.h; sourceTree = "<group>"; };
+		7BD950861FFB833F0016C3D6 /* NSCalendar+PGCurrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+PGCurrent.h"; sourceTree = "<group>"; };
+		7BD950951FFB910D0016C3D6 /* Upload_photos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Upload_photos@2x.png"; sourceTree = "<group>"; };
+		7BD950961FFB910D0016C3D6 /* Upload_photos@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Upload_photos@3x.png"; sourceTree = "<group>"; };
+		7BD950971FFB910D0016C3D6 /* Add_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add_more@2x.png"; sourceTree = "<group>"; };
+		7BD950981FFB910D0016C3D6 /* Selected_state@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Selected_state@2x.png"; sourceTree = "<group>"; };
+		7BD950991FFB910D0016C3D6 /* Unselected_state@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unselected_state@3x.png"; sourceTree = "<group>"; };
+		7BD9509A1FFB910D0016C3D6 /* Unselected_state@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unselected_state@2x.png"; sourceTree = "<group>"; };
+		7BD9509B1FFB910D0016C3D6 /* Selected_state@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Selected_state@3x.png"; sourceTree = "<group>"; };
+		7BD9509C1FFB910D0016C3D6 /* Add_more@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add_more@3x.png"; sourceTree = "<group>"; };
+		7BD9509D1FFB910D0016C3D6 /* close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@3x.png"; sourceTree = "<group>"; };
+		7BD9509E1FFB910D0016C3D6 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
+		7BD950AA1FFB91670016C3D6 /* ZZAddSymptomController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZAddSymptomController.h; sourceTree = "<group>"; };
+		7BD950AB1FFB91670016C3D6 /* ZZAddSymptomController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZAddSymptomController.m; sourceTree = "<group>"; };
+		7BD950AD1FFB93770016C3D6 /* ZZSymptomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomCell.h; sourceTree = "<group>"; };
+		7BD950AE1FFB93770016C3D6 /* ZZSymptomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomCell.m; sourceTree = "<group>"; };
+		7BD950AF1FFB93770016C3D6 /* ZZSymptomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZSymptomCell.xib; sourceTree = "<group>"; };
+		7BD950B21FFB93D60016C3D6 /* ZZSymptomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomView.h; sourceTree = "<group>"; };
+		7BD950B31FFB93D60016C3D6 /* ZZSymptomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomView.m; sourceTree = "<group>"; };
+		7BD950B51FFC80A00016C3D6 /* ZZSymptomModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomModel.h; sourceTree = "<group>"; };
+		7BD950B61FFC80A00016C3D6 /* ZZSymptomModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomModel.m; sourceTree = "<group>"; };
+		7BD950B91FFCB58F0016C3D6 /* ZZPatientListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZPatientListController.h; sourceTree = "<group>"; };
+		7BD950BA1FFCB58F0016C3D6 /* ZZPatientListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZPatientListController.m; sourceTree = "<group>"; };
+		7BD950C11FFCC0170016C3D6 /* ZZPatientDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZPatientDetailController.h; sourceTree = "<group>"; };
+		7BD950C21FFCC0170016C3D6 /* ZZPatientDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZPatientDetailController.m; sourceTree = "<group>"; };
+		7BD950C51FFCD7C50016C3D6 /* ZZChoosePatientController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZChoosePatientController.h; sourceTree = "<group>"; };
+		7BD950C61FFCD7C50016C3D6 /* ZZChoosePatientController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZChoosePatientController.m; sourceTree = "<group>"; };
 		7BF110041F18678C00456E55 /* ExpertApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpertApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF110081F18678C00456E55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7BF1100A1F18678C00456E55 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -2009,6 +2095,10 @@
 				7B73A2DC1F905E65004F89C0 /* ZZNewsModel.m */,
 				7B3DFDD11FBAD98800AD39AE /* ZZQSModel.h */,
 				7B3DFDD21FBAD98800AD39AE /* ZZQSModel.m */,
+				7BD9506A1FFB718E0016C3D6 /* ZZPatientModel.h */,
+				7BD9506B1FFB718E0016C3D6 /* ZZPatientModel.m */,
+				7BD950B51FFC80A00016C3D6 /* ZZSymptomModel.h */,
+				7BD950B61FFC80A00016C3D6 /* ZZSymptomModel.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2081,6 +2171,7 @@
 		7B8A8FE11F189FA500FC53D7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7BD950941FFB910D0016C3D6 /* 20180102 */,
 				7B8EBD411FA1E9890039E602 /* docheader.png */,
 				7B06B9CC1F7B389D00C5EF83 /* Startpage@2x.png */,
 				7B06B9CD1F7B389D00C5EF83 /* Startpage@3x.png */,
@@ -2230,6 +2321,98 @@
 			path = ZZKeyboardView;
 			sourceTree = "<group>";
 		};
+		7BD950621FFB61B20016C3D6 /* Patient */ = {
+			isa = PBXGroup;
+			children = (
+				7BD950631FFB625C0016C3D6 /* ZZCreatePatientController.h */,
+				7BD950641FFB625C0016C3D6 /* ZZCreatePatientController.m */,
+				7BD950B91FFCB58F0016C3D6 /* ZZPatientListController.h */,
+				7BD950BA1FFCB58F0016C3D6 /* ZZPatientListController.m */,
+				7BD950C11FFCC0170016C3D6 /* ZZPatientDetailController.h */,
+				7BD950C21FFCC0170016C3D6 /* ZZPatientDetailController.m */,
+				7BD950C51FFCD7C50016C3D6 /* ZZChoosePatientController.h */,
+				7BD950C61FFCD7C50016C3D6 /* ZZChoosePatientController.m */,
+			);
+			path = Patient;
+			sourceTree = "<group>";
+		};
+		7BD950661FFB695E0016C3D6 /* SportInfo */ = {
+			isa = PBXGroup;
+			children = (
+				7BD950671FFB696F0016C3D6 /* ZZSportInfoController.h */,
+				7BD950681FFB696F0016C3D6 /* ZZSportInfoController.m */,
+			);
+			path = SportInfo;
+			sourceTree = "<group>";
+		};
+		7BD9506D1FFB833E0016C3D6 /* PGPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				7BD9506E1FFB833E0016C3D6 /* PGPickerViewConfig.h */,
+				7BD9506F1FFB833E0016C3D6 /* PGPickerColumnCell.m */,
+				7BD950701FFB833E0016C3D6 /* PGPickerColumnView.m */,
+				7BD950711FFB833E0016C3D6 /* PGPickerView.h */,
+				7BD950721FFB833E0016C3D6 /* PGPickerTableView.h */,
+				7BD950731FFB833E0016C3D6 /* PGPickerColumnCell.h */,
+				7BD950741FFB833E0016C3D6 /* PGPickerViewMacros.h */,
+				7BD950751FFB833E0016C3D6 /* PGPickerViewConfig.m */,
+				7BD950761FFB833E0016C3D6 /* PGPickerColumnView.h */,
+				7BD950771FFB833E0016C3D6 /* PGPickerView.m */,
+				7BD950781FFB833E0016C3D6 /* PGPickerTableView.m */,
+			);
+			path = PGPickerView;
+			sourceTree = "<group>";
+		};
+		7BD950791FFB833F0016C3D6 /* PGDatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				7BD9507A1FFB833F0016C3D6 /* PGDatePicker.m */,
+				7BD9507B1FFB833F0016C3D6 /* UIColor+PGHex.m */,
+				7BD950811FFB833F0016C3D6 /* ZZPickerTimeView.h */,
+				7BD9507C1FFB833F0016C3D6 /* ZZPickerTimeView.m */,
+				7BD9507D1FFB833F0016C3D6 /* PGDatePickerView.m */,
+				7BD9507E1FFB833F0016C3D6 /* NSDate+PGCategory.h */,
+				7BD950801FFB833F0016C3D6 /* NSCalendar+PGCurrent.m */,
+				7BD950821FFB833F0016C3D6 /* UIColor+PGHex.h */,
+				7BD950831FFB833F0016C3D6 /* PGDatePicker.h */,
+				7BD950841FFB833F0016C3D6 /* NSDate+PGCategory.m */,
+				7BD950861FFB833F0016C3D6 /* NSCalendar+PGCurrent.h */,
+				7BD950851FFB833F0016C3D6 /* PGDatePickerView.h */,
+			);
+			path = PGDatePicker;
+			sourceTree = "<group>";
+		};
+		7BD950941FFB910D0016C3D6 /* 20180102 */ = {
+			isa = PBXGroup;
+			children = (
+				7BD950951FFB910D0016C3D6 /* Upload_photos@2x.png */,
+				7BD950961FFB910D0016C3D6 /* Upload_photos@3x.png */,
+				7BD950971FFB910D0016C3D6 /* Add_more@2x.png */,
+				7BD950981FFB910D0016C3D6 /* Selected_state@2x.png */,
+				7BD950991FFB910D0016C3D6 /* Unselected_state@3x.png */,
+				7BD9509A1FFB910D0016C3D6 /* Unselected_state@2x.png */,
+				7BD9509B1FFB910D0016C3D6 /* Selected_state@3x.png */,
+				7BD9509C1FFB910D0016C3D6 /* Add_more@3x.png */,
+				7BD9509D1FFB910D0016C3D6 /* close@3x.png */,
+				7BD9509E1FFB910D0016C3D6 /* close@2x.png */,
+			);
+			path = 20180102;
+			sourceTree = "<group>";
+		};
+		7BD950A91FFB914D0016C3D6 /* Symptom */ = {
+			isa = PBXGroup;
+			children = (
+				7BD950AA1FFB91670016C3D6 /* ZZAddSymptomController.h */,
+				7BD950AB1FFB91670016C3D6 /* ZZAddSymptomController.m */,
+				7BD950AD1FFB93770016C3D6 /* ZZSymptomCell.h */,
+				7BD950AE1FFB93770016C3D6 /* ZZSymptomCell.m */,
+				7BD950AF1FFB93770016C3D6 /* ZZSymptomCell.xib */,
+				7BD950B21FFB93D60016C3D6 /* ZZSymptomView.h */,
+				7BD950B31FFB93D60016C3D6 /* ZZSymptomView.m */,
+			);
+			path = Symptom;
+			sourceTree = "<group>";
+		};
 		7BF10FFB1F18678C00456E55 = {
 			isa = PBXGroup;
 			children = (
@@ -2284,6 +2467,8 @@
 		7BF1101E1F186E5200456E55 /* ExFramework */ = {
 			isa = PBXGroup;
 			children = (
+				7BD950791FFB833F0016C3D6 /* PGDatePicker */,
+				7BD9506D1FFB833E0016C3D6 /* PGPickerView */,
 				7B20C1351F693FD400FBFD9F /* Alipay */,
 				7B7F3DA21F32BB6900132669 /* jPushLib */,
 				7B7F3D8E1F31DD5700132669 /* BCFeedback */,
@@ -2295,6 +2480,9 @@
 		7BF110221F18728C00456E55 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				7BD950A91FFB914D0016C3D6 /* Symptom */,
+				7BD950661FFB695E0016C3D6 /* SportInfo */,
+				7BD950621FFB61B20016C3D6 /* Patient */,
 				7B20C14B1F70FC0000FBFD9F /* Consultation */,
 				7B7002561F55069600C59281 /* Case */,
 				7B00F8E21F308E4100E29561 /* News */,
@@ -2583,11 +2771,13 @@
 				7B7001241F45414100C59281 /* choosedoctor_pay@2x.png in Resources */,
 				7B7001311F45414100C59281 /* icon_new@3x.png in Resources */,
 				7B70011A1F45414100C59281 /* btn_selected@2x.png in Resources */,
+				7BD950A81FFB910E0016C3D6 /* close@2x.png in Resources */,
 				7B7001431F45414100C59281 /* my_consultationresult@3x.png in Resources */,
 				7B7001341F45414100C59281 /* icon_phone@2x.png in Resources */,
 				7B8A90121F189FA500FC53D7 /* root_menu2_nor@3x.png in Resources */,
 				7B20C1571F7101C800FBFD9F /* ZZCaseDtailCell.xib in Resources */,
 				7B8A900A1F189FA500FC53D7 /* robot_default@2x.png in Resources */,
+				7BD9509F1FFB910E0016C3D6 /* Upload_photos@2x.png in Resources */,
 				7BAE10A71F66977B0034AB76 /* treatment_10@3x.png in Resources */,
 				7B8A90081F189FA500FC53D7 /* icon_password_nol@3x.png in Resources */,
 				7B8A90001F189FA500FC53D7 /* Icon120.png in Resources */,
@@ -2605,6 +2795,7 @@
 				7B70016C1F45414100C59281 /* search_dropdown@2x.png in Resources */,
 				7B7001231F45414100C59281 /* choosecase_delete@3x.png in Resources */,
 				7B7001A51F45414100C59281 /* treatment_tumour@3x.png in Resources */,
+				7BD950A61FFB910E0016C3D6 /* Add_more@3x.png in Resources */,
 				7B8A900D1F189FA500FC53D7 /* root_menu1_nor@2x.png in Resources */,
 				7B7001A41F45414100C59281 /* treatment_tumour@2x.png in Resources */,
 				7BAE108E1F66977B0034AB76 /* knowledge_video@2x.png in Resources */,
@@ -2634,8 +2825,10 @@
 				7B06B9B71F79198600C5EF83 /* my_article@2x.png in Resources */,
 				7B70011C1F45414100C59281 /* btn_send@2x.png in Resources */,
 				7B70011D1F45414100C59281 /* btn_send@3x.png in Resources */,
+				7BD950A01FFB910E0016C3D6 /* Upload_photos@3x.png in Resources */,
 				7B7001A11F45414100C59281 /* treatment_skin@3x.png in Resources */,
 				7B7001671F45414100C59281 /* pop_album@3x.png in Resources */,
+				7BD950A71FFB910E0016C3D6 /* close@3x.png in Resources */,
 				7B8A8FFF1F189FA500FC53D7 /* avatar_default@3x.png in Resources */,
 				7B7001361F45414100C59281 /* icon_required@2x.png in Resources */,
 				7BAE10971F66977B0034AB76 /* treatment_2@3x.png in Resources */,
@@ -2661,6 +2854,7 @@
 				7B7001981F45414100C59281 /* treatment_healthcheck@2x.png in Resources */,
 				7B7001611F45414100C59281 /* pay_free@3x.png in Resources */,
 				7B00F8E11F30712E00E29561 /* ZZUserHomeCell.xib in Resources */,
+				7BD950A11FFB910E0016C3D6 /* Add_more@2x.png in Resources */,
 				7B70018A1F45414100C59281 /* tab_mine_selected@2x.png in Resources */,
 				7B7002621F5507FD00C59281 /* ZZCaseCell.xib in Resources */,
 				7BABAD411F67E958004C85FB /* prompt@3x.png in Resources */,
@@ -2682,6 +2876,7 @@
 				7B7001831F45414100C59281 /* signin_bg@3x.png in Resources */,
 				7B7002871F55748100C59281 /* ZZDoctorHeaderCell.xib in Resources */,
 				7B7001471F45414100C59281 /* my_edit@3x.png in Resources */,
+				7BD950A21FFB910E0016C3D6 /* Selected_state@2x.png in Resources */,
 				7B8A90141F189FA500FC53D7 /* root_menu3@2x.png in Resources */,
 				7B8A90131F189FA500FC53D7 /* root_menu3@3x.png in Resources */,
 				7B7001591F45414100C59281 /* nav_register_back@3x.png in Resources */,
@@ -2744,6 +2939,7 @@
 				7BAE10A51F66977B0034AB76 /* treatment_9@3x.png in Resources */,
 				7B5C1C991F1F552B00DDDA78 /* expend_grey_normal@3x.png in Resources */,
 				7B7001181F45414100C59281 /* btn_more@2x.png in Resources */,
+				7BD950A31FFB910E0016C3D6 /* Unselected_state@3x.png in Resources */,
 				7B7001381F45414100C59281 /* icon_tips@2x.png in Resources */,
 				7B70012C1F45414100C59281 /* Get Help@2x.png in Resources */,
 				7B7001291F45414100C59281 /* classificationbg@3x.png in Resources */,
@@ -2789,12 +2985,14 @@
 				7B70017F1F45414100C59281 /* share_wechat@3x.png in Resources */,
 				7B8A90671F18A72A00FC53D7 /* SVWebViewControllerActivitySafari@2x.png in Resources */,
 				7B20C16F1F721D0D00FBFD9F /* ZZDiscussCell.xib in Resources */,
+				7BD950A41FFB910E0016C3D6 /* Unselected_state@2x.png in Resources */,
 				7B7F3D611F31B6C500132669 /* ZZSettingUserCell.xib in Resources */,
 				7B7001391F45414100C59281 /* icon_tips@3x.png in Resources */,
 				7B8A900E1F189FA500FC53D7 /* root_menu1_nor@3x.png in Resources */,
 				7B70015E1F45414100C59281 /* pay_alipay@2x.png in Resources */,
 				7BAE10981F66977B0034AB76 /* treatment_3@2x.png in Resources */,
 				7B7000171F3B0E2000C59281 /* ZZDoctorUserCell.xib in Resources */,
+				7BD950A51FFB910E0016C3D6 /* Selected_state@3x.png in Resources */,
 				7BAE108C1F66977B0034AB76 /* classificationbg2@2x.png in Resources */,
 				7B7001331F45414100C59281 /* icon_password@3x.png in Resources */,
 				7BAE10A81F66977B0034AB76 /* Voicemail@2x.png in Resources */,
@@ -2831,6 +3029,7 @@
 				7B7001901F45414100C59281 /* tab_treatment@2x.png in Resources */,
 				7B5C1C981F1F552B00DDDA78 /* expend_grey_normal@2x.png in Resources */,
 				7BAE10A31F66977B0034AB76 /* treatment_8@3x.png in Resources */,
+				7BD950B11FFB93770016C3D6 /* ZZSymptomCell.xib in Resources */,
 				7B7001951F45414100C59281 /* treatment_child@3x.png in Resources */,
 				7B8A90181F189FA500FC53D7 /* titlebar_back_pressed@2x.png in Resources */,
 				7B7001991F45414100C59281 /* treatment_healthcheck@3x.png in Resources */,
@@ -2897,6 +3096,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B7000281F3B112C00C59281 /* ZZHZResultCell.m in Sources */,
+				7BD9506C1FFB718E0016C3D6 /* ZZPatientModel.m in Sources */,
 				7BF110411F187FE300456E55 /* ZZRegisterController.m in Sources */,
 				7B7F3D3C1F31778200132669 /* TAAbstractDotView.m in Sources */,
 				7B3DFE351FBC3E3100AD39AE /* ASQListController.m in Sources */,
@@ -2913,8 +3113,10 @@
 				7B20C14E1F70FC6200FBFD9F /* ZZLeaderDoctorController.m in Sources */,
 				7B5C1CEB1F1F601200DDDA78 /* ZZImageTools.m in Sources */,
 				7B20C1561F7101C800FBFD9F /* ZZCaseDtailCell.m in Sources */,
+				7BD9508A1FFB833F0016C3D6 /* PGPickerViewConfig.m in Sources */,
 				7B20C16E1F721D0D00FBFD9F /* ZZDiscussCell.m in Sources */,
 				7B8A90341F18A1F400FC53D7 /* ZZCoreTools.m in Sources */,
+				7BD950651FFB625C0016C3D6 /* ZZCreatePatientController.m in Sources */,
 				7B7F3D3D1F31778200132669 /* TAAnimatedDotView.m in Sources */,
 				7B70006E1F42E8AD00C59281 /* ZCActionSheetView.m in Sources */,
 				7B00F8E01F30712E00E29561 /* ZZUserHomeCell.m in Sources */,
@@ -2929,6 +3131,7 @@
 				7BF110771F188AFA00456E55 /* ZZCoreCommon.m in Sources */,
 				7B5365731FB2DA60000CD932 /* ZZSQBaseCell.m in Sources */,
 				7B3DFDD31FBAD98800AD39AE /* ZZQSModel.m in Sources */,
+				7BD950C71FFCD7C50016C3D6 /* ZZChoosePatientController.m in Sources */,
 				7B8A90621F18A72A00FC53D7 /* SVWebViewControllerActivityChrome.m in Sources */,
 				7B5365811FB2DB34000CD932 /* ZZSQTextCell.m in Sources */,
 				7B5C1CA01F1F563100DDDA78 /* MyButton.m in Sources */,
@@ -2956,18 +3159,24 @@
 				7B74A7171F7B927E00FA2BF3 /* AFMacros.m in Sources */,
 				7B7F3D3E1F31778200132669 /* TADotView.m in Sources */,
 				7B7000241F3B111400C59281 /* ZZHZResultController.m in Sources */,
+				7BD9508C1FFB833F0016C3D6 /* PGPickerTableView.m in Sources */,
 				7B20C15A1F7102D600FBFD9F /* ZZCaseDetailBaseCell.m in Sources */,
 				7B5C1CE01F1F5B7B00DDDA78 /* XHImageViewer.m in Sources */,
 				7B7002B91F5FA78900C59281 /* ZZDictModel.m in Sources */,
 				7B5C1CE51F1F5B7B00DDDA78 /* ZCMenuItem.m in Sources */,
+				7BD950881FFB833F0016C3D6 /* PGPickerColumnCell.m in Sources */,
 				7B5C1CD61F1F5B7B00DDDA78 /* RegexKitLite.m in Sources */,
 				7B7000311F3B14ED00C59281 /* ZZEditUserCell.m in Sources */,
 				7B7002701F551B1F00C59281 /* ZZCreateCaseCell.m in Sources */,
 				7B7002D01F612C5A00C59281 /* UIButtonUpDown.m in Sources */,
+				7BD950BB1FFCB58F0016C3D6 /* ZZPatientListController.m in Sources */,
 				7B8A902A1F18A16D00FC53D7 /* NSString+Extenison.m in Sources */,
 				7B7000031F3AF90A00C59281 /* ZZAlertview.m in Sources */,
+				7BD950921FFB833F0016C3D6 /* NSDate+PGCategory.m in Sources */,
 				7B70FFFC1F3AEA2F00C59281 /* ZZDataCache.m in Sources */,
+				7BD950B71FFC80A00016C3D6 /* ZZSymptomModel.m in Sources */,
 				7B70000D1F3B06F600C59281 /* ZZCollectionController.m in Sources */,
+				7BD950911FFB833F0016C3D6 /* NSCalendar+PGCurrent.m in Sources */,
 				7B7F3D401F31778200132669 /* SDCollectionViewCell.m in Sources */,
 				7BF110711F1887D700456E55 /* ZZNSSessionRequestImpl.m in Sources */,
 				7B74A7211F7CE56A00FA2BF3 /* ZZFansController.m in Sources */,
@@ -2979,7 +3188,9 @@
 				7B7F3D4A1F318E9600132669 /* ZZChannelLabel.m in Sources */,
 				7B20C1751F727F6A00FBFD9F /* ZZRewardController.m in Sources */,
 				7B53655F1FB0470D000CD932 /* ZZBasicCell.m in Sources */,
+				7BD950B41FFB93D60016C3D6 /* ZZSymptomView.m in Sources */,
 				7BAE10AC1F67BFA10034AB76 /* ZZChapterDetailController.m in Sources */,
+				7BD950901FFB833F0016C3D6 /* PGDatePickerView.m in Sources */,
 				7B8A90681F18A72A00FC53D7 /* SVWebViewControllerActivity.m in Sources */,
 				7B7F3D5A1F31AA5D00132669 /* ZZNewsCell.m in Sources */,
 				7B7002651F550EC300C59281 /* ZZBuyController.m in Sources */,
@@ -3002,6 +3213,7 @@
 				7BF110621F18846900456E55 /* ZZASIRequestImpl.m in Sources */,
 				7B5C1C921F1F547B00DDDA78 /* ZZDoctorCell.m in Sources */,
 				7B5C1CDA1F1F5B7B00DDDA78 /* SVRadialGradientLayer.m in Sources */,
+				7BD950891FFB833F0016C3D6 /* PGPickerColumnView.m in Sources */,
 				7B7002BD1F60F12400C59281 /* ZZUserHomeModel.m in Sources */,
 				7B7F3D651F31B6D800132669 /* ZZSettingCell.m in Sources */,
 				7B20C1451F70BF6F00FBFD9F /* WXApiManager.m in Sources */,
@@ -3012,9 +3224,12 @@
 				7B7001B21F45970B00C59281 /* ZZFindPwdController.m in Sources */,
 				7B7F3D281F3176CF00132669 /* ZZBaseModel.m in Sources */,
 				7B8A90661F18A72A00FC53D7 /* SVWebViewControllerActivitySafari.m in Sources */,
+				7BD950AC1FFB91670016C3D6 /* ZZAddSymptomController.m in Sources */,
+				7BD9508B1FFB833F0016C3D6 /* PGPickerView.m in Sources */,
 				7BF1100C1F18678C00456E55 /* AppDelegate.m in Sources */,
 				7B5C1C871F1F53DF00DDDA78 /* ZZDoctorHomeController.m in Sources */,
 				7B7F3D511F31A89E00132669 /* ZZCommentController.m in Sources */,
+				7BD9508E1FFB833F0016C3D6 /* UIColor+PGHex.m in Sources */,
 				7B8EBCEB1F987F2B0039E602 /* ZZNickController.m in Sources */,
 				7B5C1CE11F1F5B7B00DDDA78 /* XHViewState.m in Sources */,
 				7B7F3D3F1F31778200132669 /* TAPageControl.m in Sources */,
@@ -3034,10 +3249,13 @@
 				7BF1102C1F1874EC00456E55 /* RDVTabBar.m in Sources */,
 				7B7002C11F6126D300C59281 /* ZZShareView.m in Sources */,
 				7BF110091F18678C00456E55 /* main.m in Sources */,
+				7BD950B01FFB93770016C3D6 /* ZZSymptomCell.m in Sources */,
 				7B8A90301F18A16D00FC53D7 /* UIView+Extension.m in Sources */,
 				7BC585481FBC921000570F93 /* ZZQSListCell.m in Sources */,
 				7B7002791F55648500C59281 /* UserIndexController.m in Sources */,
+				7BD950691FFB696F0016C3D6 /* ZZSportInfoController.m in Sources */,
 				7B7002611F5507FD00C59281 /* ZZCaseCell.m in Sources */,
+				7BD9508D1FFB833F0016C3D6 /* PGDatePicker.m in Sources */,
 				7B5365691FB04761000CD932 /* ZZRemarkCaseCell.m in Sources */,
 				7B74A72D1F7F311500FA2BF3 /* ZZChapterCommentModel.m in Sources */,
 				7B74A7191F7B927E00FA2BF3 /* NSString+HTML.m in Sources */,
@@ -3045,6 +3263,7 @@
 				7B5C1CDD1F1F5B7B00DDDA78 /* ZCAppUIImageView.m in Sources */,
 				7BF110471F18802200456E55 /* ZZSettingController.m in Sources */,
 				7B5C1C7F1F1F532500DDDA78 /* ZZChapterListController.m in Sources */,
+				7BD950C31FFCC0170016C3D6 /* ZZPatientDetailController.m in Sources */,
 				7B7002691F55117600C59281 /* ZZCaseModel.m in Sources */,
 				7B5365571FB04619000CD932 /* ZZRemarkUserController.m in Sources */,
 				7B5C1CE71F1F5B7B00DDDA78 /* ZCTTMLEmojiLabel.m in Sources */,
@@ -3059,6 +3278,7 @@
 				7B70002D1F3B124600C59281 /* ZZEditUserController.m in Sources */,
 				7B20C1621F71113900FBFD9F /* ZZWriteResultController.m in Sources */,
 				7B06B9CB1F7A5D2F00C5EF83 /* ZZCaseTalkModel.m in Sources */,
+				7BD9508F1FFB833F0016C3D6 /* ZZPickerTimeView.m in Sources */,
 				7BF110741F1888D300456E55 /* ZZURLConnectionRequestImpl.m in Sources */,
 				7B06B9961F78E93900C5EF83 /* ZZHZEngity.m in Sources */,
 				7B7F3D421F31778200132669 /* UIView+SDExtension.m in Sources */,

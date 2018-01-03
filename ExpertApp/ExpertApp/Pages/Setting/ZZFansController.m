@@ -15,6 +15,8 @@
 
 #import "ZZRemarkUserController.h"
 
+#import "ZZDoctorDetailController.h"
+
 
 #import "ZZUserHomeModel.h"
 
@@ -210,14 +212,21 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     ZZUserInfo *user = [_listArray objectAtIndex:indexPath.section];
-    ZZRemarkUserController *vc = [[ZZRemarkUserController alloc] init];
-    vc.myFriend = user;
-    [vc setZZCreateResultBlock:^(int status) {
-        if(status == 1){
-            [self beginNetRefreshData];
-        }
-    }];
-    [self openNav:vc sound:nil];
+    
+    if(!loginUser.isDoctor){
+        ZZDoctorDetailController *vc = [[ZZDoctorDetailController alloc] init];
+        vc.docId = user.userId;
+        [self openNav:vc sound:nil];
+    }else{
+        ZZRemarkUserController *vc = [[ZZRemarkUserController alloc] init];
+        vc.myFriend = user;
+        [vc setZZCreateResultBlock:^(int status) {
+            if(status == 1){
+                [self beginNetRefreshData];
+            }
+        }];
+        [self openNav:vc sound:nil];
+    }
     
 }
 

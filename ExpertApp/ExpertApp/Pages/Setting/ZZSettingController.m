@@ -36,6 +36,8 @@
 
 #import "ASQListController.h"
 
+#import "ZZPatientListController.h"
+
 
 @interface ZZSettingController ()<UITableViewDelegate,UITableViewDataSource>{
     ZZUserInfo *loginUser;
@@ -239,7 +241,7 @@
         [self openNav:vc sound:nil];
     }
     if(code == 2){
-        ZZArchivesController *vc = [[ZZArchivesController alloc] init];
+        ZZPatientListController *vc = [[ZZPatientListController alloc] init];
         [self openNav:vc sound:nil];
     }
     if(code == 3 || code == 10){

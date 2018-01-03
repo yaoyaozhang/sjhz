@@ -23,10 +23,10 @@
     [_nameLabel setFont:ListTitleFont];
     [_nameLabel setTextColor:UIColorFromRGB(TextBlackColor)];
     
-    [_ageLabel setFont:ListTitleFont];
+    [_ageLabel setFont:ListDetailFont];
     [_ageLabel setTextColor:UIColorFromRGB(TextBlackColor)];
     
-    [_caseLabel setFont:ListTitleFont];
+    [_caseLabel setFont:ListDetailFont];
     [_caseLabel setTextColor:UIColorFromRGB(TextBlackColor)];
 }
 
@@ -58,6 +58,51 @@
     }
 }
 
+
+-(void)patientToView:(ZZPatientModel *) model{
+    if(model){
+        
+        [_nameLabel setText:convertToString(model.name)];
+        [_ageLabel setText:[NSString stringWithFormat:@"%@ %@",model.sexName,model.birth]];
+        [_caseLabel setText:@""];
+        _caseLabel.hidden = YES;
+        
+        [self autoWidthOfLabel:_nameLabel with:21];
+        CGRect nf = _nameLabel.frame;
+        CGRect af = _ageLabel.frame;
+        af.origin.x = nf.origin.x + nf.size.width + 5;
+        _ageLabel.frame = af;
+        
+        if(_isChecked){
+            _chooseBtn.selected = YES;
+        }else{
+            _chooseBtn.selected = NO;
+        }
+    }
+}
+
+/**
+ 计算Label高度
+ 
+ @param label 要计算的label，设置了值
+ @param width label的最大宽度
+ @param type 是否从新设置宽，1设置，0不设置
+ */
+- (CGSize )autoWidthOfLabel:(UILabel *)label with:(CGFloat )height{
+    //Calculate the expected size based on the font and linebreak mode of your label
+    // FLT_MAX here simply means no constraint in height
+    CGSize maximumLabelSize = CGSizeMake(FLT_MAX, height);
+    
+    CGSize expectedLabelSize = [label sizeThatFits:maximumLabelSize];
+    
+    //adjust the label the the new height.
+    CGRect newFrame = label.frame;
+    newFrame.size.width = expectedLabelSize.width;
+    label.frame = newFrame;
+    [label updateConstraintsIfNeeded];
+    
+    return expectedLabelSize;
+}
 
 -(void)delButton:(UIButton *) btn{
     if(self.delegate && [self.delegate respondsToSelector:@selector(onCaseCellItemOnClick:index:)]){

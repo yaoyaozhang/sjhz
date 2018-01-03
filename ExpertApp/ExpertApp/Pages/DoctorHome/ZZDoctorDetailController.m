@@ -23,7 +23,7 @@
 
 
 #import "ZZCommentController.h"
-#import "ZZChooseController.h"
+#import "ZZChoosePatientController.h"
 #import "ZZDoctorChapterController.h"
 #import "ZZApplyFriendController.h"
 #import "ZZChapterDetailController.h"
@@ -45,6 +45,7 @@
 @property(nonatomic,strong)NSMutableArray   *questions;
 @property(nonatomic,strong)UIView   *descView;
 @property(nonatomic,strong)UIButton *colloctBtn;
+
 
 @end
 
@@ -99,7 +100,7 @@
         }
         
         // 咨询
-        ZZChooseController *chooseVC = [[ZZChooseController alloc] init];
+        ZZChoosePatientController *chooseVC = [[ZZChoosePatientController alloc] init];
         chooseVC.doctorId = convertIntToString(_model.docInfo.userId);
         chooseVC.doctInfo = _model.docInfo;
         [self openNav:chooseVC sound:nil];
@@ -188,7 +189,7 @@
  */
 -(void)loadDoctorInfo{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(_model.docInfo.userId) forKey:@"docId"];
+    [dict setObject:convertIntToString(_docId) forKey:@"docId"];
     [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
     [ZZRequsetInterface post:API_FindDoctorInfoByUserId param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD show];
@@ -197,6 +198,9 @@
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         if(dict && dict[@"retData"]){
+            if(is_null(_model)){
+                _model = [ZZUserHomeModel new];
+            }
             _model.docInfo = [[ZZUserInfo alloc] initWithMyDict:dict[@"retData"]];
             isLook = [convertToString(dict[@"retData"][@"isLook"]) intValue];
             if(isLook > 0){
@@ -485,7 +489,7 @@
         ZZQSListModel *m = [_questions objectAtIndex:indexPath.row];
         ASQController *detail = [[ASQController alloc] init];
         detail.model = m;
-        detail.docId = _model.docInfo.userId;
+        detail.docId = _docId;
         detail.type = ASQTYPEWJ;
         [self openNav:detail sound:@""];
     }

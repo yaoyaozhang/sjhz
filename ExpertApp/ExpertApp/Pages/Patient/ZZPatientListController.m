@@ -1,12 +1,12 @@
 //
-//  ZZArchivesController.m
+//  ZZPatientListController.m
 //  ExpertApp
 //
-//  Created by zhangxy on 2017/8/9.
-//  Copyright © 2017年 sjhz. All rights reserved.
+//  Created by zhangxy on 2018/1/3.
+//  Copyright © 2018年 sjhz. All rights reserved.
 //
 
-#import "ZZArchivesController.h"
+#import "ZZPatientListController.h"
 #import "UIView+Extension.h"
 #import "MJRefresh.h"
 
@@ -23,8 +23,9 @@
 #import "ZZCreatePatientController.h"
 
 #import "ZZCaseDetailController.h"
+#import "ZZPatientDetailController.h"
 
-@interface ZZArchivesController ()<UITableViewDelegate,UITableViewDataSource,ZZCaseCellDelegate,ZCActionSheetViewDelegate>{
+@interface ZZPatientListController ()<UITableViewDelegate,UITableViewDataSource,ZZCaseCellDelegate,ZCActionSheetViewDelegate>{
     
     ZZUserInfo *loginUser;
     
@@ -37,7 +38,7 @@
 
 @end
 
-@implementation ZZArchivesController
+@implementation ZZPatientListController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -71,7 +72,7 @@
     
     
     MJRefreshStateHeader *footer=[MJRefreshStateHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-    footer.stateLabel.hidden=YES;
+//    footer.stateLabel.hidden=YES;
     _listTable.header=footer;
     
     [_listTable setSeparatorColor:UIColorFromRGB(BgLineColor)];
@@ -86,10 +87,13 @@
 // 添加病例
 -(void) addCase:(UIButton *) btn{
     ZZCreatePatientController *addVC = [[ZZCreatePatientController alloc] init];
+    [addVC setZZCreateResultBlock:^(int status) {
+        [_listTable.header beginRefreshing];
+    }];
     [self openNav:addVC sound:nil];
     
-//    ZCActionSheetView *actionSheet = [[ZCActionSheetView alloc]initWithDelegate:self title:nil CancelTitle:@"取消" OtherTitles:@"普通病例",@"运动康复病例", nil];
-//    [actionSheet show];
+    //    ZCActionSheetView *actionSheet = [[ZCActionSheetView alloc]initWithDelegate:self title:nil CancelTitle:@"取消" OtherTitles:@"普通病例",@"运动康复病例", nil];
+    //    [actionSheet show];
     
     
 }
@@ -121,16 +125,16 @@
         return;
     }
     
-//    if([@"" isEqual:convertToString(_doctorId)]){
-//        [self.view makeToast:@"请先选择一个医生"];
-//        return;
-//    }
-//    
+    //    if([@"" isEqual:convertToString(_doctorId)]){
+    //        [self.view makeToast:@"请先选择一个医生"];
+    //        return;
+    //    }
+    //
     NSDictionary *item = _listArray[checkedRow];
     // 直接发起会诊
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     // 医生ID
-//    [dict setObject:convertToString(_doctorId) forKey:@"forUserId"];
+    //    [dict setObject:convertToString(_doctorId) forKey:@"forUserId"];
     // 病例ID
     [dict setObject:convertToString(item[@"caseId"]) forKey:@"caseId"];
     // 问卷类型 1普通 2运动
@@ -165,15 +169,13 @@
 -(void)loadMoreData{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     if(_userId>0){
-        
         [dict setObject:convertIntToString(_userId) forKey:@"userId"];
     }else{
-        
         [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
     }
     [ZZRequsetInterface post:API_serHealthList param:dict timeOut:HttpGetTimeOut start:^{
         if(![_listTable.header isRefreshing]){
-            [SVProgressHUD showWithStatus:@"病例加载中"];
+            [SVProgressHUD showWithStatus:@"加载中"];
         }
     } finish:^(id response, NSData *data) {
         if(_listTable.header && [_listTable.header isRefreshing]){
@@ -183,9 +185,12 @@
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         NSArray *arr = dict[@"retData"];
+        if(_listTable.header && [_listTable.header isRefreshing]){
+            [_listArray removeAllObjects];
+        }
         if(arr && arr.count>0){
             for (NSDictionary *item in arr) {
-                [_listArray addObject:item];
+                [_listArray addObject:[[ZZPatientModel alloc] initWithMyDict:item]];
             }
             [_listTable reloadData];
         }
@@ -284,7 +289,7 @@
     if(_userId>0){
         cell.delBtn.hidden = YES;
     }
-    [cell dataToView:_listArray[indexPath.row]];
+    [cell patientToView:_listArray[indexPath.row]];
     
     return cell;
 }
@@ -321,58 +326,18 @@
     
     
     
-    NSDictionary *item = _listArray[indexPath.row];
-    int caseType = [item[@"type"] intValue];
-    
+    ZZPatientModel *item = _listArray[indexPath.row];
     if(_userId>0){
-        ZZCaseDetailController *vc = [[ZZCaseDetailController alloc] init];
-        vc.caseId = [convertToString(item[@"caseId"]) intValue];
-        vc.caseType = caseType;
+        // 查看详情
+        ZZPatientDetailController *vc = [[ZZPatientDetailController alloc] init];
+        vc.patientId = item.patientId;
         [self openNav:vc sound:nil];
         return;
+    }else{
+        ZZCreatePatientController *vc = [[ZZCreatePatientController alloc] init];
+        vc.patientId = item.patientId;
+        [self openNav:vc sound:nil];
     }
-    
-   
-    // 选择
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertToString(item[@"caseId"]) forKey:@"caseId"];
-    [dict setObject:convertIntToString(caseType) forKey:@"type"];
-    [ZZRequsetInterface post:API_SearchCaseDetail param:dict timeOut:HttpGetTimeOut start:^{
-        [SVProgressHUD show];
-    } finish:^(id response, NSData *data) {
-        [SVProgressHUD dismiss];
-        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    } complete:^(NSDictionary *dict) {
-        
-        if(caseType == 1){
-             ZZCaseModel *editModel = [[ZZCaseModel alloc] initWithMyDict:dict[@"retData"]];
-            
-            ZZCreateCaseController *vc = [[ZZCreateCaseController alloc] init];
-            vc.editModel = editModel;
-            [vc setZZCreateResultBlock:^(int status) {
-                if(status == 1){
-                    [self loadMoreData];
-                }
-            }];
-            [self openNav:vc sound:nil];
-        }else{
-            ZZSportCaseEntity *sportModel = [[ZZSportCaseEntity alloc] initWithMyDict:dict[@"retData"]];
-            
-            ZZCreateSportCaseController *vc = [[ZZCreateSportCaseController alloc] init];
-            vc.editModel = sportModel;
-            [vc setZZCreateResultBlock:^(int status) {
-                if(status == 1){
-                    [self loadMoreData];
-                }
-            }];
-            [self openNav:vc sound:nil];
-        }
-    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-        
-    } progress:^(CGFloat progress) {
-        
-    }];
-    
 }
 
 //设置分割线间距
@@ -404,13 +369,12 @@
     
     if(type == 2){
         // 删除
-        NSMutableDictionary *item = _listArray[indexPath.row];
+        ZZPatientModel *model = _listArray[indexPath.row];
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         
-        [dict setObject:convertToString(item[@"caseId"]) forKey:@"caseId"];
-        [dict setObject:convertToString(item[@"type"]) forKey:@"type"];
+        [dict setObject:convertIntToString(model.patientId) forKey:@"id"];
         
-        [ZZRequsetInterface post:API_DelCase param:dict timeOut:HttpGetTimeOut start:^{
+        [ZZRequsetInterface post:API_delHealth param:dict timeOut:HttpGetTimeOut start:^{
             [SVProgressHUD show];
         } finish:^(id response, NSData *data) {
             [SVProgressHUD dismiss];
@@ -449,13 +413,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

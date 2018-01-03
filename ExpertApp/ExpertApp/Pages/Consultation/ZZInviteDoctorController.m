@@ -470,9 +470,6 @@
     ZZUserInfo *model = [_listArray objectAtIndex:indexPath.section];
     ZZDoctorDetailController *listVC = [[ZZDoctorDetailController alloc] init];
     listVC.docId = model.userId;
-    ZZUserHomeModel *home = [ZZUserHomeModel new];
-    home.docInfo = model;
-    listVC.model = home;
     [self openNav:listVC sound:nil];
     
 }

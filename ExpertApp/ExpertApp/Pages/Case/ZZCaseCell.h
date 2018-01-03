@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZZPatientModel.h"
 
 @protocol ZZCaseCellDelegate <NSObject>
 
@@ -34,5 +35,8 @@
 
 
 -(void)dataToView:(NSDictionary *) item;
+
+
+-(void)patientToView:(ZZPatientModel *) model;
 
 @end

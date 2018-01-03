@@ -21,7 +21,7 @@
 #define cellIdentifierCase @"ZZDoctorCaseCell"
 
 #import "ZZCommentController.h"
-#import "ZZChooseController.h"
+#import "ZZChoosePatientController.h"
 #import "ZZDoctorChapterController.h"
 
 #import "ZZLeaderDoctorController.h"
@@ -96,7 +96,7 @@
         
     }else if(sender.tag == 222){
         // 咨询
-        ZZChooseController *chooseVC = [[ZZChooseController alloc] init];
+        ZZChoosePatientController *chooseVC = [[ZZChoosePatientController alloc] init];
         chooseVC.doctorId = convertIntToString(loginUser.userId);
         chooseVC.doctInfo = loginUser;
         [self openNav:chooseVC sound:nil];

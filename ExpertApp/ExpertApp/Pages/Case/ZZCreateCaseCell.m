@@ -169,9 +169,12 @@
         if([item[@"dictValue"] intValue]== 1){
             _btnMan.selected = YES;
             _btnWoman.selected = NO;
-        }else{
+        }else if([item[@"dictValue"] intValue]== 2){
             _btnMan.selected = NO;
             _btnWoman.selected = YES;
+        }else{
+            _btnMan.selected = NO;
+            _btnWoman.selected = NO;
         }
     }
     
@@ -199,12 +202,6 @@
         }else{
             [_btnControl setTitle:item[@"dictValue"] forState:UIControlStateNormal];
         }
-        CGFloat bw = [ZZCoreTools getWidthContain:_btnControl.titleLabel.text font:_btnControl.titleLabel.font Height:24];
-        
-        CGRect f = _imgDrop.frame;
-        f.origin.x = _btnControl.center.x + bw/2 + 10;
-        f.origin.y = _btnControl.center.y - 4;
-        [_imgDrop setFrame:f];
     }
     
     if(type == ZZEditControlTypeButton){
@@ -237,7 +234,7 @@
             CGFloat bw = [ZZCoreTools getWidthContain:_btnControl.titleLabel.text font:_btnControl.titleLabel.font Height:24];
             
             CGRect f = _imgDrop.frame;
-            f.origin.x = _btnControl.center.x + bw/2 + 10;
+            f.origin.x = _btnControl.center.x + bw/2 + 20;
             f.origin.y = _btnControl.center.y - 4;
             [_imgDrop setFrame:f];
         }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -56,29 +56,19 @@
                         <state key="normal" title="Button"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkK-O3-91r">
-                        <rect key="frame" x="127" y="6" width="30" height="30"/>
+                        <rect key="frame" x="104" y="6" width="53" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" title="Button" image="btn_unselected.png"/>
+                        <state key="normal" title="男" image="btn_unselected.png">
+                            <color key="titleColor" red="0.077966370559999998" green="0.077966370559999998" blue="0.077966370559999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xKV-mn-tQf">
-                        <rect key="frame" x="198" y="7" width="30" height="30"/>
+                        <rect key="frame" x="182" y="7" width="46" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" title="Button" image="btn_unselected.png"/>
+                        <state key="normal" title="女" image="btn_unselected.png">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="男" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWf-kx-c9l">
-                        <rect key="frame" x="104" y="11" width="18" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="女" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mnQ-8R-fSK">
-                        <rect key="frame" x="172" y="12" width="18" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search_dropdown.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aaw-Tt-r1Y">
                         <rect key="frame" x="0.0" y="0.0" width="8" height="8"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -103,10 +93,8 @@
                 <outlet property="imgLine" destination="hHh-0I-3PJ" id="bvg-K4-ODq"/>
                 <outlet property="imgRequired" destination="M5A-xX-N2F" id="xee-Hi-aoe"/>
                 <outlet property="imgsScroll" destination="gBX-6Q-Kib" id="VGU-Lp-Voc"/>
-                <outlet property="labMan" destination="nWf-kx-c9l" id="Ddm-Z9-7Ig"/>
                 <outlet property="labTagName" destination="joi-ar-Kgs" id="AIK-Hj-dPJ"/>
                 <outlet property="labUnit" destination="Zt0-HO-JqR" id="9qx-xe-Ejn"/>
-                <outlet property="labWoman" destination="mnQ-8R-fSK" id="6C7-tR-WFh"/>
             </connections>
         </tableViewCell>
     </objects>

@@ -8,6 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger,ZZEditControlType) {
+    ZZEditControlTypeTextField       = 1,
+    ZZEditControlTypeDoubleTextField = 2,
+    ZZEditControlTypeTextView        = 3,
+    ZZEditControlTypeButton          = 4,
+    ZZEditControlTypeChoose          = 5,
+    ZZEditControlTypeSex             = 6,
+    ZZEditControlTypeDelImag         = 7,
+};
+
+
+
 @interface ZZBaseModel : NSObject
 
 -(id)initWithMyDict:(NSDictionary *) dict;

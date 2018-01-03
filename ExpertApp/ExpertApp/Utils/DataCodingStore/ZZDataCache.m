@@ -22,6 +22,8 @@ NSString * const KEY_CONFIG_DCLABEL = @"ZZConfigdcLable";
 NSString * const KEY_CONFIG_DEPARTMENT = @"ZZConfigdepartment";
 NSString * const KEY_CONFIG_HSLEVEL = @"ZZConfighsLevel";
 NSString * const KEY_CONFIG_TC = @"ZZConfigtc";
+NSString * const KEY_CONFIG_RELATION = @"ZZConfigrelation";
+
 
 
 NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";

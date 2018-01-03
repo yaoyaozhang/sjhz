@@ -46,6 +46,10 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     self.menuLeftButton.hidden = YES;
     
     [self cretateScrollView];
+    
+    [[ZZDataCache getInstance] getCacheConfigDict:^(NSMutableDictionary *dict, int status) {
+        
+    }];
 }
 
 

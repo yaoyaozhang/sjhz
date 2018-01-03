@@ -25,6 +25,7 @@ extern NSString * const KEY_CONFIG_DCLABEL;
 extern NSString * const KEY_CONFIG_DEPARTMENT;
 extern NSString * const KEY_CONFIG_HSLEVEL;
 extern NSString * const KEY_CONFIG_TC;
+extern NSString * const KEY_CONFIG_RELATION;
 
 
 extern NSString * const KEY_SEARCH_KEYWORD;
