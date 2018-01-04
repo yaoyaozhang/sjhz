@@ -11,14 +11,25 @@
 #import "UIView+Extension.h"
 #import "MJRefresh.h"
 
+#import "ZZSymptomWTListView.h"
+
 #import "ZZSymptomCell.h"
 #define cellIdentifier @"ZZSymptomCell"
 
-@interface ZZAddSymptomController ()
+@interface ZZAddSymptomController ()<ZZSymptomCellDelegate>{
+    
+    NSString *symptomTitle;
+    NSString *bsSymptomTitle;
+    NSMutableDictionary *wentiMap;
+    NSMutableArray *tempArray;
+}
 
 
 @property(nonatomic,strong)UITableView      *listTable;
 @property(nonatomic,strong)NSMutableArray   *listArray;
+@property(nonatomic,strong)NSMutableArray   *symptomArray;
+@property(nonatomic,strong)NSMutableArray   *checkArray;
+@property(nonatomic,strong)NSMutableArray   *bsArray;
 
 @end
 
@@ -30,27 +41,26 @@
     [self createTitleMenu];
     [self.menuTitleButton setTitle:@"常见症状" forState:0];
     
+    symptomTitle = @"点击下面的症状马上为你检查疾病";
+    bsSymptomTitle = @"是否还有其他不适伴随症状";
+    
     
     [self createTableView];
     
+    
+    [self loadMoreData];
 }
 
 -(void)createTableView{
+    _bsArray = [[NSMutableArray alloc] init];
+    _checkArray = [[NSMutableArray alloc] init];
+    _symptomArray = [[NSMutableArray alloc] init];
+    
     _listArray = [[NSMutableArray alloc] init];
     
-    for(int j=0;j<10;j++){
-     
-        NSMutableArray *arr = [[NSMutableArray alloc] init];
-        for(int i = 0;i<20;i++){
-            ZZSymptomModel *model = [ZZSymptomModel new];
-            model.name = [NSString stringWithFormat:@"%d 内容%d",j,i];
-            [arr addObject:model];
-        }
-        [_listArray addObject:arr];
-    }
-    
-    _listTable=[self.view createTableView:self cell:cellIdentifier];
-    
+    _listTable=[self.view createTableView:self cell:nil];
+    [_listTable registerClass:[ZZSymptomCell class] forCellReuseIdentifier:cellIdentifier];
+    [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight-NavBarHeight - 40)];
     [_listTable setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     
     if (iOS7) {
@@ -58,23 +68,102 @@
     }
     
     
-    MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-    footer.stateLabel.hidden=YES;
-    _listTable.footer=footer;
-    
     [_listTable setSeparatorColor:UIColorFromRGB(BgLineColor)];
     [_listTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     
     
     [self setTableSeparatorInset];
+    
+    
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn.titleLabel setFont:ListTitleFont];
+    [btn setTitle:@"下一步" forState:0];
+    [btn setBackgroundColor:UIColorFromRGB(BgTitleColor)];
+    [btn addTarget:self action:@selector(addClick:) forControlEvents:UIControlEventTouchUpInside];
+    [btn setFrame:CGRectMake(0,ScreenHeight - 40, ScreenWidth, 40)];
+    [self.view addSubview:btn];
 }
 
+
+-(void)addClick:(UIButton *) btn{
+    
+    if(_checkArray.count == 0){
+        [self.view makeToast:@"请选择症状"];
+        return;
+    }
+    
+    int symptomId = 0;
+    NSString *bsSymptom=@"";
+    NSString *bsSymptomWT=@"";
+    for (int i=0;i<_checkArray.count;i++) {
+        ZZSymptomModel *item =_checkArray[i];
+        if(i==0){
+            symptomId = item.symptomId;
+        }else{
+            bsSymptom = [bsSymptom stringByAppendingFormat:@"%@;",item.sname];
+        }
+    }
+    if(bsSymptom.length > 1){
+        bsSymptom = [bsSymptom substringToIndex:bsSymptom.length - 1];
+    }
+    
+    if(wentiMap){
+        NSMutableArray *arr = [NSMutableArray arrayWithCapacity:0];
+        for(NSString *ikey in wentiMap.allKeys){
+           // 输入框内容
+           [arr addObject:@{@"id":ikey,@"v":wentiMap[ikey]}];
+        }
+        bsSymptomWT = [ZCLocalStore DataTOjsonString:arr];
+    }
+    
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:convertToString(@"1") forKey:@"patientId"];
+    [dict setObject:@(symptomId) forKey:@"symptomId"];
+    [dict setObject:bsSymptom forKey:@"bsSymptom"];
+    [dict setObject:bsSymptomWT forKey:@"wt"];
+    [ZZRequsetInterface post:API_saveSymptonWt param:dict timeOut:HttpGetTimeOut start:^{
+        
+    } finish:^(id response, NSData *data) {
+        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    } complete:^(NSDictionary *dict) {
+        
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        
+    } progress:^(CGFloat progress) {
+        
+    }];
+}
 
 /**
  加载更多
  */
 -(void)loadMoreData{
-    
+    [SVProgressHUD show];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+//    [dict setObject:convertToString(@"") forKey:@"userId"];
+    [ZZRequsetInterface post:API_symptonList param:dict timeOut:HttpGetTimeOut start:^{
+        
+    } finish:^(id response, NSData *data) {
+        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        [SVProgressHUD dismiss];
+    } complete:^(NSDictionary *dict) {
+        [_symptomArray removeAllObjects];
+        NSArray *arr = dict[@"retData"];
+        
+        if(arr && arr.count>0){
+            for (NSDictionary *item in arr) {
+                [_symptomArray addObject:[[ZZSymptomModel alloc] initWithMyDict:item]];
+            }
+            [_listArray addObject:@{@"data":_symptomArray}];
+            [_listTable reloadData];
+        }
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        
+    } progress:^(CGFloat progress) {
+        
+    }];
 }
 
 
@@ -113,8 +202,8 @@
 
 // 返回section下得行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(_listArray==nil){
-        return 0;
+    if(_listArray.count > 1){
+        return 2;
     }
     return _listArray.count;
 }
@@ -125,36 +214,116 @@
     if (cell == nil) {
         cell = [[ZZSymptomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    if(indexPath.row==_listArray.count-1){
-        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-            [cell setSeparatorInset:UIEdgeInsetsZero];
-        }
-        
-        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-            [cell setLayoutMargins:UIEdgeInsetsZero];
-        }
-        
-        if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]){
-            [cell setPreservesSuperviewLayoutMargins:NO];
-        }
-    }
+    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     //    [cell setSelectedBackgroundView:[[UIView alloc] initWithFrame:cell.bounds]];
     //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
-    if(_listArray.count < indexPath.row){
-        return cell;
+    
+    cell.delegate = self;
+    
+    if(indexPath.row == 1 ){
+        [cell dataToView:bsSymptomTitle data:_listArray[indexPath.row]];
+    }else{
+        if(_checkArray.count > 0){
+            [cell dataToView:@"" data:_listArray[indexPath.row]];
+        }else{
+            [cell dataToView:symptomTitle data:_listArray[indexPath.row]];
+        }
     }
-    
-    NSMutableArray *model=[_listArray objectAtIndex:indexPath.row];
-    
-    
-    [cell dataToView:@"我是描述" data:model];
-    
     
     return cell;
 }
 
-
+-(void)onItemClick:(ZZSymptomModel *)model type:(int)type index:(int)index{
+    if(type == 1){
+        // 编辑，或选项
+        // 删除伴随症状
+        if(model.symptomId == 0){
+            [_checkArray removeObject:model];
+            model.checked = NO;
+            [_bsArray addObject:model];
+        }else{
+            // 删除主要症状
+            [_checkArray removeAllObjects];
+            [_bsArray removeAllObjects];
+            [_listArray removeAllObjects];
+            [_listArray addObject:@{@"data":_symptomArray}];
+            wentiMap = nil;
+        }
+        [_listTable reloadData];
+        
+    }else if(type == 2){
+        // 编辑，或选项
+        if(model.symptomId == 0){
+            // 伴随症状点击无效
+            if(model.checked){
+                [_checkArray removeObject:model];
+                model.checked = NO;
+                [_bsArray addObject:model];
+            }else{
+                [_bsArray removeObject:model];
+                model.checked = YES;
+                [_checkArray addObject:model];
+            }
+            [_listTable reloadData];
+        }else{
+            if(model.checked){
+                ZZSymptomWTListView *view = [[ZZSymptomWTListView alloc] initWithSymptomView:model arr:tempArray check:wentiMap block:^(int type, id obj) {
+                    wentiMap = obj;
+                }];
+                [view show];
+            }else{
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+                [dict setObject:convertIntToString(model.symptomId) forKey:@"id"];
+                [ZZRequsetInterface post:API_symptonWt param:dict timeOut:HttpGetTimeOut start:^{
+                    
+                } finish:^(id response, NSData *data) {
+                    NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                } complete:^(NSDictionary *dict) {
+                    
+                    NSArray *arr = dict[@"retData"][@"went"];
+                    
+                    if(arr && arr.count>0){
+                        tempArray = [NSMutableArray new];
+                        for (NSDictionary *item in arr) {
+                            [tempArray addObject:[[ZZSymptomWTModel alloc] initWithMyDict:item]];
+                        }
+                        ZZSymptomWTListView *view = [[ZZSymptomWTListView alloc] initWithSymptomView:model arr:tempArray check:wentiMap block:^(int type, id obj) {
+                            wentiMap = obj;
+                        }];
+                        [view show];
+                    }
+                    
+                    
+                    NSArray *bszz = dict[@"retData"][@"bszz"];
+                    for (NSString *item in bszz) {
+                        ZZSymptomModel *m = [ZZSymptomModel new];
+                        m.sname = item;
+                        m.checked = YES;
+                        [_bsArray addObject:m];
+                    }
+                
+                    model.checked = YES;
+                    [_checkArray addObject:model];
+                    
+                    
+                    [_listArray removeAllObjects];
+                    
+                    
+                    [_listArray addObject:@{@"data":_checkArray,@"isCheck":@"1"}];
+                    [_listArray addObject:@{@"data":_bsArray}];
+                    [_listTable reloadData];
+                
+                } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+                    
+                } progress:^(CGFloat progress) {
+                    
+                }];
+            }
+        }
+    }
+}
 
 // 是否显示删除功能
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -171,33 +340,22 @@
 // table 行的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70.0f;
-    //    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-    //    return cell.frame.size.height;
+//    return 70.0f;
+    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return cell.frame.size.height;
 }
 
 // table 行的点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(_listArray==nil || _listArray.count<indexPath.row){
-        return;
-    }
+    
     
     
 }
 
 //设置分割线间距
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if((indexPath.row+1) < _listArray.count){
-        UIEdgeInsets inset = UIEdgeInsetsMake(0, 10, 0, 0);
-        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-            [cell setSeparatorInset:inset];
-        }
-        
-        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-            [cell setLayoutMargins:inset];
-        }
-    }
+    
 }
 
 -(void)viewDidLayoutSubviews{

@@ -487,12 +487,14 @@
 		7BD950A81FFB910E0016C3D6 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD9509E1FFB910D0016C3D6 /* close@2x.png */; };
 		7BD950AC1FFB91670016C3D6 /* ZZAddSymptomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950AB1FFB91670016C3D6 /* ZZAddSymptomController.m */; };
 		7BD950B01FFB93770016C3D6 /* ZZSymptomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950AE1FFB93770016C3D6 /* ZZSymptomCell.m */; };
-		7BD950B11FFB93770016C3D6 /* ZZSymptomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD950AF1FFB93770016C3D6 /* ZZSymptomCell.xib */; };
 		7BD950B41FFB93D60016C3D6 /* ZZSymptomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950B31FFB93D60016C3D6 /* ZZSymptomView.m */; };
 		7BD950B71FFC80A00016C3D6 /* ZZSymptomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950B61FFC80A00016C3D6 /* ZZSymptomModel.m */; };
 		7BD950BB1FFCB58F0016C3D6 /* ZZPatientListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950BA1FFCB58F0016C3D6 /* ZZPatientListController.m */; };
 		7BD950C31FFCC0170016C3D6 /* ZZPatientDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950C21FFCC0170016C3D6 /* ZZPatientDetailController.m */; };
 		7BD950C71FFCD7C50016C3D6 /* ZZChoosePatientController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950C61FFCD7C50016C3D6 /* ZZChoosePatientController.m */; };
+		7BD950CA1FFDC4ED0016C3D6 /* ZZSymptomWTListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950C91FFDC4ED0016C3D6 /* ZZSymptomWTListView.m */; };
+		7BD950CE1FFDC8180016C3D6 /* ZZSymptomWTCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950CC1FFDC8180016C3D6 /* ZZSymptomWTCell.m */; };
+		7BD950CF1FFDC8180016C3D6 /* ZZSymptomWTCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD950CD1FFDC8180016C3D6 /* ZZSymptomWTCell.xib */; };
 		7BF110091F18678C00456E55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF110081F18678C00456E55 /* main.m */; };
 		7BF1100C1F18678C00456E55 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1100B1F18678C00456E55 /* AppDelegate.m */; };
 		7BF1100F1F18678C00456E55 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1100E1F18678C00456E55 /* ViewController.m */; };
@@ -1173,7 +1175,6 @@
 		7BD950AB1FFB91670016C3D6 /* ZZAddSymptomController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZAddSymptomController.m; sourceTree = "<group>"; };
 		7BD950AD1FFB93770016C3D6 /* ZZSymptomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomCell.h; sourceTree = "<group>"; };
 		7BD950AE1FFB93770016C3D6 /* ZZSymptomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomCell.m; sourceTree = "<group>"; };
-		7BD950AF1FFB93770016C3D6 /* ZZSymptomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZSymptomCell.xib; sourceTree = "<group>"; };
 		7BD950B21FFB93D60016C3D6 /* ZZSymptomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomView.h; sourceTree = "<group>"; };
 		7BD950B31FFB93D60016C3D6 /* ZZSymptomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomView.m; sourceTree = "<group>"; };
 		7BD950B51FFC80A00016C3D6 /* ZZSymptomModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomModel.h; sourceTree = "<group>"; };
@@ -1184,6 +1185,11 @@
 		7BD950C21FFCC0170016C3D6 /* ZZPatientDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZPatientDetailController.m; sourceTree = "<group>"; };
 		7BD950C51FFCD7C50016C3D6 /* ZZChoosePatientController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZChoosePatientController.h; sourceTree = "<group>"; };
 		7BD950C61FFCD7C50016C3D6 /* ZZChoosePatientController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZChoosePatientController.m; sourceTree = "<group>"; };
+		7BD950C81FFDC4ED0016C3D6 /* ZZSymptomWTListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomWTListView.h; sourceTree = "<group>"; };
+		7BD950C91FFDC4ED0016C3D6 /* ZZSymptomWTListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomWTListView.m; sourceTree = "<group>"; };
+		7BD950CB1FFDC8180016C3D6 /* ZZSymptomWTCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomWTCell.h; sourceTree = "<group>"; };
+		7BD950CC1FFDC8180016C3D6 /* ZZSymptomWTCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomWTCell.m; sourceTree = "<group>"; };
+		7BD950CD1FFDC8180016C3D6 /* ZZSymptomWTCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZSymptomWTCell.xib; sourceTree = "<group>"; };
 		7BF110041F18678C00456E55 /* ExpertApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpertApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF110081F18678C00456E55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7BF1100A1F18678C00456E55 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -2406,9 +2412,13 @@
 				7BD950AB1FFB91670016C3D6 /* ZZAddSymptomController.m */,
 				7BD950AD1FFB93770016C3D6 /* ZZSymptomCell.h */,
 				7BD950AE1FFB93770016C3D6 /* ZZSymptomCell.m */,
-				7BD950AF1FFB93770016C3D6 /* ZZSymptomCell.xib */,
 				7BD950B21FFB93D60016C3D6 /* ZZSymptomView.h */,
 				7BD950B31FFB93D60016C3D6 /* ZZSymptomView.m */,
+				7BD950C81FFDC4ED0016C3D6 /* ZZSymptomWTListView.h */,
+				7BD950C91FFDC4ED0016C3D6 /* ZZSymptomWTListView.m */,
+				7BD950CB1FFDC8180016C3D6 /* ZZSymptomWTCell.h */,
+				7BD950CC1FFDC8180016C3D6 /* ZZSymptomWTCell.m */,
+				7BD950CD1FFDC8180016C3D6 /* ZZSymptomWTCell.xib */,
 			);
 			path = Symptom;
 			sourceTree = "<group>";
@@ -2929,6 +2939,7 @@
 				7B7F3D9B1F31DD5700132669 /* YWFeedbackBundle.bundle in Resources */,
 				7B7000121F3B09D600C59281 /* ZZChapterUserCell.xib in Resources */,
 				7B7001A71F45414100C59281 /* treatment_women@3x.png in Resources */,
+				7BD950CF1FFDC8180016C3D6 /* ZZSymptomWTCell.xib in Resources */,
 				7BAE10901F66977B0034AB76 /* tab_knowledge_selected@2x.png in Resources */,
 				7B7001931F45414100C59281 /* tab_treatment_selected@3x.png in Resources */,
 				7B7001201F45414100C59281 /* btn_unselected@2x.png in Resources */,
@@ -3029,7 +3040,6 @@
 				7B7001901F45414100C59281 /* tab_treatment@2x.png in Resources */,
 				7B5C1C981F1F552B00DDDA78 /* expend_grey_normal@2x.png in Resources */,
 				7BAE10A31F66977B0034AB76 /* treatment_8@3x.png in Resources */,
-				7BD950B11FFB93770016C3D6 /* ZZSymptomCell.xib in Resources */,
 				7B7001951F45414100C59281 /* treatment_child@3x.png in Resources */,
 				7B8A90181F189FA500FC53D7 /* titlebar_back_pressed@2x.png in Resources */,
 				7B7001991F45414100C59281 /* treatment_healthcheck@3x.png in Resources */,
@@ -3204,6 +3214,7 @@
 				7B20C1721F72645600FBFD9F /* ZZMyHZListController.m in Sources */,
 				7B20C1491F70C9DA00FBFD9F /* ZZDoctorCaseCell.m in Sources */,
 				7B7002591F5506C700C59281 /* ZZCreateCaseController.m in Sources */,
+				7BD950CA1FFDC4ED0016C3D6 /* ZZSymptomWTListView.m in Sources */,
 				7B06B9911F78AB2100C5EF83 /* ZZInviteDoctorController.m in Sources */,
 				7B250E251FCE994C00C2D72A /* AlertUtil.m in Sources */,
 				7B8A902F1F18A16D00FC53D7 /* UIView+Border.m in Sources */,
@@ -3226,6 +3237,7 @@
 				7B8A90661F18A72A00FC53D7 /* SVWebViewControllerActivitySafari.m in Sources */,
 				7BD950AC1FFB91670016C3D6 /* ZZAddSymptomController.m in Sources */,
 				7BD9508B1FFB833F0016C3D6 /* PGPickerView.m in Sources */,
+				7BD950CE1FFDC8180016C3D6 /* ZZSymptomWTCell.m in Sources */,
 				7BF1100C1F18678C00456E55 /* AppDelegate.m in Sources */,
 				7B5C1C871F1F53DF00DDDA78 /* ZZDoctorHomeController.m in Sources */,
 				7B7F3D511F31A89E00132669 /* ZZCommentController.m in Sources */,

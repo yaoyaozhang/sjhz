@@ -15,19 +15,31 @@ typedef NS_ENUM(NSInteger,ZCSymptomAction) {
 };
 
 
+@protocol ZZSymptomViewDelegate <NSObject>
+
+
+/**
+ 
+ 
+ @param model
+ @param type 0,删除，1状态点击,2病例，3结果
+ */
+-(void)onItemClick:(id) model type:(int) type index:(int  ) index;
+
+@end
 
 @interface ZZSymptomView : UIView<UIScrollViewDelegate>
 {
     UIScrollView *faceView;
     
     UIPageControl *facePageControl;
-    
-    NSArray *_faceMap;
 }
-
+@property(nonatomic,assign) id<ZZSymptomViewDelegate> delegate;
 
 -(id)initZZSymptomView;
 
--(void) setItemValues:(NSMutableArray *) arrs block:(void(^)(ZCSymptomAction action,NSString *text,id obj)) symptomActionBlock;
+
+
+-(void) setItemValues:(NSMutableDictionary *) itemMap block:(void(^)(ZCSymptomAction action,int index,id obj)) symptomActionBlock;
 
 @end

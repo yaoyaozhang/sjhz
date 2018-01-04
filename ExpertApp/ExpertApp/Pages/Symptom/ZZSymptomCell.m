@@ -7,6 +7,10 @@
 //
 
 #import "ZZSymptomCell.h"
+@interface ZZSymptomCell()<ZZSymptomViewDelegate>{
+    
+}
+@end
 
 @implementation ZZSymptomCell
 
@@ -17,43 +21,74 @@
     [_nameLabel setNumberOfLines:0];
     [_nameLabel setFont:ListTitleFont];
     [_nameLabel setTextColor:UIColorFromRGB(TextDarkColor)];
-    
-    
-    [self zzSymptomView];
 }
 
-- (ZZSymptomView *)zzSymptomView
-{
-    if (!_symptomView) {
-        _symptomView = [[ZZSymptomView alloc] initZZSymptomView];
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self=[super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if(self){
+        _bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 0)];
+        [_bgView setBackgroundColor:UIColorFromRGB(BgSystemColor)];
+        [self.contentView addSubview:_bgView];
         
+        
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, ScreenWidth-20, 21)];
+        [_nameLabel setNumberOfLines:0];
+        [_nameLabel setFont:ListTitleFont];
+        [_nameLabel setTextColor:UIColorFromRGB(TextDarkColor)];
+        
+        [self.contentView addSubview:_nameLabel];
+        
+        
+        
+        _symptomView = [[ZZSymptomView alloc] initZZSymptomView];
+        _symptomView.delegate = self;
         [self.contentView addSubview:_symptomView];
+        
     }
-    return _symptomView;
+    return self;
 }
 
 
--(void)dataToView:(NSString *)title data:(NSMutableArray *)arr{
+
+-(void)dataToView:(NSString *)title data:(NSMutableDictionary *)data{
     CGFloat y = 10;
     if(convertToString(title).length == 0){
-        _nameLabel.hidden = NO;
+        _nameLabel.hidden = YES;
+        _bgView.hidden = YES;
     }else{
+        _nameLabel.hidden = NO;
+        _bgView.hidden = NO;
         [_nameLabel setText:convertToString(title)];
+        
         
         [self autoWidthOfLabel:_nameLabel with:ScreenWidth-20];
         CGRect tf = _nameLabel.frame;
-        y = y + tf.size.height + 10;
+        y = tf.origin.y + tf.size.height + 10;
+        
+        [_bgView setFrame:CGRectMake(0, 0, ScreenWidth, y)];
     }
     
-    [_symptomView setItemValues:arr block:^(ZCSymptomAction action, NSString *text, id obj) {
-        
-    }];
+    [_symptomView setItemValues:data block:nil];
     
+//    __block ZZSymptomCell *safeSelf = self;
+//    [_symptomView setItemValues:arr block:^(ZCSymptomAction action, int index, id obj) {
+//        if(safeSelf.delegate){
+//            [safeSelf.delegate onItemClick:obj type:action index:index];
+//        }
+//    }];
+
     CGRect sf = _symptomView.frame;
     sf.origin.y = y;
+    [_symptomView setFrame:sf];
     
     [self setFrame:CGRectMake(0, 0, ScreenWidth, y + sf.size.height + 10)];
     
+}
+
+-(void)onItemClick:(id)model type:(int)type index:(int)index{
+    if(self.delegate){
+        [self.delegate onItemClick:model type:type index:index];
+    }
 }
 
 

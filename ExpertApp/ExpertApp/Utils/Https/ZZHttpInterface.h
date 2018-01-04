@@ -65,6 +65,13 @@
 #define API_serHealthById [NSString stringWithFormat:@"%@/symptom/serHealthById",API_HOST]
 
 
+///////////////////////////////症状相关/////////////////
+#define API_symptonList [NSString stringWithFormat:@"%@/symptom/symptonList",API_HOST]
+#define API_symptonWt [NSString stringWithFormat:@"%@/symptom/symptonWt",API_HOST]
+#define API_saveSymptonWt [NSString stringWithFormat:@"%@/symptom/saveSymptonWt",API_HOST]
+
+
+
 
 /**
  添加会诊记录

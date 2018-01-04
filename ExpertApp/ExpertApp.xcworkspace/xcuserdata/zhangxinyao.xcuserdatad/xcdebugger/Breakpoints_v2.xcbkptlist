@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExpertApp/Pages/Consultation/ZZInviteDoctorController.m"
-            timestampString = "536664865.237737"
+            timestampString = "536754506.217315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "470"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExpertApp/Pages/Case/ASQ/ASQController.m"
-            timestampString = "533720281.077238"
+            timestampString = "536754506.217416"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "103"
@@ -234,12 +234,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExpertApp/Pages/Patient/ZZCreatePatientController.m"
-            timestampString = "536664865.238451"
+            timestampString = "536754506.218039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "142"
             endingLineNumber = "142"
             landmarkName = "-getDetail"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ExpertApp/Pages/Symptom/ZZSymptomView.m"
+            timestampString = "536754506.218138"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "-awakeFromNib"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

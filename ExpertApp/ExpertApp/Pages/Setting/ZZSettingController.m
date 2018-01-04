@@ -38,6 +38,8 @@
 
 #import "ZZPatientListController.h"
 
+#import "ZZAddSymptomController.h"
+
 
 @interface ZZSettingController ()<UITableViewDelegate,UITableViewDataSource>{
     ZZUserInfo *loginUser;
@@ -245,7 +247,9 @@
         [self openNav:vc sound:nil];
     }
     if(code == 3 || code == 10){
-        ZZFansController *vc = [[ZZFansController alloc] init];
+        ZZAddSymptomController *vc=[[ZZAddSymptomController alloc] init];
+        
+//        ZZFansController *vc = [[ZZFansController alloc] init];
         [self openNav:vc sound:nil];
     }
     
