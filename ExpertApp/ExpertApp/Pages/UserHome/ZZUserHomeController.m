@@ -10,9 +10,20 @@
 #import "ZZSearchDoctorController.h"
 #import "EasyTableView.h"
 #import "ZZUserHomeCell.h"
+#import "ASQListController.h"
+
+#import "ZZDoctorDetailController.h"
+
+#import "ZZChoosePatientController.h"
+
+#import "UserIndexController.h"
 
 #import "SDCycleScrollView.h"
 #define cellIdentifier  @"ZZUserHomeCell"
+
+#import "ZZSearchResultController.h"
+
+
 
 #define ZZHomeTopHeight 220
 #define ZZHomeMiddleHeight 175
@@ -31,6 +42,11 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
 @property(nonatomic,strong)UIScrollView *mainScrollView;
 @property (nonatomic,strong) EasyTableView *horizontalView;
 @property (nonatomic,strong) UILabel *headerLabel;
+@property (nonatomic,strong) NSMutableArray *headerArr;
+@property (nonatomic,strong) NSMutableArray *docArr;
+@property (nonatomic,strong) NSMutableArray *lmArr;
+
+
 
 @end
 
@@ -50,13 +66,87 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     [[ZZDataCache getInstance] getCacheConfigDict:^(NSMutableDictionary *dict, int status) {
         
     }];
+    
+    
+    _headerArr = [[NSMutableArray alloc] init];
+    _docArr = [[NSMutableArray alloc] init];
+    _lmArr = [[NSMutableArray alloc] init];
+    
+    [self beginNetRefreshData];
 }
 
+#pragma mark -- 上拉加载
+- (void)beginNetRefreshData{
+    [SVProgressHUD show];
+    [self endNetRefreshData];
+}
 
+-(void)endNetRefreshData{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:convertIntToString([[ZZDataCache getInstance] getLoginUser].userId) forKey:@"userId"];
+    [ZZRequsetInterface post:API_findUserHome param:dict timeOut:HttpGetTimeOut start:^{
+        
+    } finish:^(id response, NSData *data) {
+        [SVProgressHUD dismiss];
+        NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        
+    } complete:^(NSDictionary *dict) {
+        NSArray *arr1 = dict[@"retData"][@"doctor"];
+        NSArray *arr2 = dict[@"retData"][@"gauge"];
+        NSArray *arr3 = dict[@"retData"][@"home"];
+        if(!is_null(arr1)){
+            for (NSDictionary *item in arr1) {
+                [_docArr addObject:[[ZZUserInfo alloc] initWithMyDict:item]];
+            }
+        }
+        if(!is_null(arr3)){
+            [_headerArr addObjectsFromArray:arr3];
+        }
+        if(!is_null(arr2)){
+            [_lmArr addObjectsFromArray:arr2];
+        }
+        
+        
+        if(_headerArr.count == 0){
+            [self createPlaceholderView:@"网络开小差了！" message:@"" image:nil withView:_mainScrollView action:^(UIButton *button) {
+                [self endNetRefreshData];
+            }];
+        }else{
+            [self removePlaceholderView];
+            
+            
+            // 顶部功能按钮
+            [self createFirstMenu];
+            
+            // 中间可滑动模块
+            [self createEasyTable];
+            
+            
+            // 底部科室
+            [self createKeShi];
+            
+            
+            [_horizontalView reload];
+            
+            
+            [_mainScrollView setContentSize:CGSizeMake(ScreenWidth, contentSizeHeight)];
+        }
+        
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        
+    } progress:^(CGFloat progress) {
+        
+    }];
+}
 
 -(void)buttonClick:(UIButton *)sender{
     if(sender.tag == RIGHT_BUTTON){
         ZZSearchDoctorController *vc = [[ZZSearchDoctorController alloc] init];
+        [self openNav:vc sound:nil];
+    }
+    if(sender.tag == ZZHomeButtonTagsMore){
+        
+        UserIndexController *vc = [[UserIndexController alloc] init];
         [self openNav:vc sound:nil];
     }
      NSLog(@"%zd",sender.tag);
@@ -64,7 +154,14 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
 
 -(void)tapItemClick:(UITapGestureRecognizer *) tap{
     int tag = (int)tap.view.tag;
+    NSDictionary *item = _lmArr[tag];
+    ASQListController *vc = [[ASQListController alloc] init];
+    vc.code = item[@"code"];
+    vc.type = ASQTYPELB;
+    [self openNav:vc sound:nil];
     NSLog(@"%d",tag);
+    
+    
 }
 
 
@@ -73,17 +170,6 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     [_mainScrollView setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     [self.view addSubview:_mainScrollView];
     
-    // 顶部功能按钮
-    [self createFirstMenu];
-    
-    // 中间可滑动模块
-    [self createEasyTable];
-    
-    // 底部科室
-    [self createKeShi];
-    
-    
-    [_mainScrollView setContentSize:CGSizeMake(ScreenWidth, contentSizeHeight)];
 }
 
 -(void)createFirstMenu{
@@ -107,10 +193,25 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth, ZZHomeTopHeight) delegate:nil placeholderImage:[UIImage imageNamed:@"placeholder_big"]];
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView.currentPageDotColor = [UIColor whiteColor];
-    cycleScrollView.titlesGroup = @[@"在线帮助在线帮助在线帮助在线帮助在线帮助在线帮助在线帮助在线帮助在线帮助",@"康复方案"];
+    cycleScrollView.titlesGroup = ({
+        NSMutableArray *titleArrayM = [NSMutableArray array];
+        for (int i = 0; i < _headerArr.count; i++) {
+            NSDictionary *item = _headerArr[i];
+            [titleArrayM addObject:item[@"title"]];
+        }
+        
+        titleArrayM;
+    });
     
-    cycleScrollView.imageURLStringsGroup = @[@"Get Help",@"Voicemail"];
-    
+    cycleScrollView.imageURLStringsGroup = ({
+        NSMutableArray *urlArrayM = [NSMutableArray array];
+        for (int i = 0; i < _headerArr.count; i++) {
+            NSDictionary *item = _headerArr[i];
+            [urlArrayM addObject:item[@"url"]];
+        }
+        
+        urlArrayM;
+    });
     cycleScrollView.delegate = self;
     
     return cycleScrollView;
@@ -119,9 +220,11 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
 /** SDCycleScrollView轮播点击事件代理 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
-    
-//    NSAssert(self.cycleImageClickBlock, @"必须传入self.cycleImageClickBlock");
-//    self.cycleImageClickBlock(index);
+    NSDictionary *item = _headerArr[index];
+    NSLog(@"%@",item);
+    ZZChoosePatientController *vc = [[ZZChoosePatientController alloc] init];
+    vc.doctorId  = @"1";
+    [self openNav:vc sound:nil];
 }
 
 
@@ -151,10 +254,11 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     CGFloat itemX = 0;
     CGFloat itemY = 0;
     CGFloat w = (ScreenWidth-2)/3;
-    int count = 12;
+    int count = (int)_lmArr.count;
     for(int i=1;i<=count;i++){
+        NSDictionary *dictItem = _lmArr[i-1];
         CGRect itemF = CGRectMake(itemX, itemY + 1, w, 89);
-        [keShiView addSubview:[self createKeshiItem:itemF image:@"" text:[NSString stringWithFormat:@"量表分类%d",i] tag:i]];
+        [keShiView addSubview:[self createKeshiItem:itemF image:@"" text:[NSString stringWithFormat:@"%@",dictItem[@"name"]] tag:i-1]];
         
         itemX = itemX + 1 + w;
         if(i%3==0){
@@ -175,6 +279,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
 -(UIView *) createKeshiItem:(CGRect )f image:(NSString *) imageName text:(NSString *)titleText tag:(ZZHomeButtonTags) tag{
     UIView *itemView = [[UIView alloc] initWithFrame:f];
     [itemView setBackgroundColor:[UIColor whiteColor]];
+    itemView.tag = tag;
     
     
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 25, 25, 25)];
@@ -251,13 +356,16 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
     
     // selectedIndexPath can be nil so we need to test for that condition
-    
+    [cell dataToView:_docArr[indexPath.row]];
     
     
     return cell;
 }
 -(void)easyTableView:(EasyTableView *)easyTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    ZZUserInfo *info = _docArr[indexPath.row];
+    ZZDoctorDetailController *vc = [[ZZDoctorDetailController alloc] init];
+    vc.docId = info.userId;
+    [self openNav:vc sound:nil];
 }
 
 - (void)didReceiveMemoryWarning {

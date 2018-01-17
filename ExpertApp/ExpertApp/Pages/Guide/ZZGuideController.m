@@ -63,7 +63,7 @@
 - (void)enterButtonAction:(UIButton*)sender{
     UIStoryboard *stryBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.view.window.rootViewController=[stryBoard instantiateInitialViewController];
-    // 如果需要设置首先进入登陆界面，再展示轮播图注开下面这行代码
+    // 如果需要设置首先进入登录界面，再展示轮播图注开下面这行代码
     if(![[ZZDataCache getInstance] isLogin]){
         ZZLoginController * login = [[ZZLoginController alloc] initWithNibName:@"ZZLoginController" bundle:nil];
         UINavigationController *nav=[[UINavigationController alloc] initWithRootViewController:login];

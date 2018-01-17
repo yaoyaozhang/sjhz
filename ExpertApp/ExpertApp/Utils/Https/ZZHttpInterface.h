@@ -18,6 +18,7 @@
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
 //#define API_HOST @"http://192.168.99.123:8080"
 #define API_HOST @"http://219.142.225.69:8123"
+//#define API_HOST @"http://192.168.8.102:8080"
 
 /**
  *  发送验证码
@@ -69,6 +70,18 @@
 #define API_symptonList [NSString stringWithFormat:@"%@/symptom/symptonList",API_HOST]
 #define API_symptonWt [NSString stringWithFormat:@"%@/symptom/symptonWt",API_HOST]
 #define API_saveSymptonWt [NSString stringWithFormat:@"%@/symptom/saveSymptonWt",API_HOST]
+
+
+#define API_getUserPom [NSString stringWithFormat:@"%@/symptom/getUserPom",API_HOST]
+
+// 获取会诊记录详情
+#define API_symptonInterrogation [NSString stringWithFormat:@"%@/symptom/symptonInterrogation",API_HOST]
+
+
+#define API_searchWikit [NSString stringWithFormat:@"%@/symptom/searchWikit",API_HOST]
+
+// 根据档案id查询会诊记录
+#define API_serachDocCaseByHealthId [NSString stringWithFormat:@"%@/doctor/serachDocCaseByHealthId",API_HOST]
 
 
 
@@ -244,6 +257,8 @@
 
 #define API_findNewsTops [NSString stringWithFormat:@"%@/comment/findMessageTop10",API_HOST]
 #define API_findNews [NSString stringWithFormat:@"%@/comment/findMessage",API_HOST]
+#define API_updateMessage [NSString stringWithFormat:@"%@/comment/updateMessage",API_HOST]
+
 
 
 /**

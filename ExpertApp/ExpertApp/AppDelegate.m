@@ -16,6 +16,11 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import <WXApi.h>
 #import "WXApiManager.h"
+#import "SVWebViewController.h"
+#import "ZZChapterDetailController.h"
+#import "ZZPatientSymptomController.h"
+#import "ZZDoctorDetailController.h"
+#import "ASQController.h"
 // iOS10注册APNs所需头文件
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
@@ -26,7 +31,7 @@
 // 如果需要使用idfa功能所需要引入的头文件（可选）
 #import <AdSupport/AdSupport.h>
 
-@interface AppDelegate ()<JPUSHRegisterDelegate>
+@interface AppDelegate ()<JPUSHRegisterDelegate,WXApiManagerDelegate>
 
 @end
 
@@ -34,12 +39,12 @@
 
 - (void)switchRootViewController
 {
-    NSString *key = @"CFBundleVersion";
+//    NSString *key = @"CFBundleVersion";
     // 上一次的使用版本（存储在沙盒中的版本号）
-    NSString *lastVersion = [ZZCoreTools getValueFromNSUserDefaultsByKey:key];
-    
-    // 当前软件的版本号（从Info.plist中获得）
-    NSString *currentVersion = [ZZCoreTools getAppBuildVersion];
+//    NSString *lastVersion = [ZZCoreTools getValueFromNSUserDefaultsByKey:key];
+//
+//    // 当前软件的版本号（从Info.plist中获得）
+//    NSString *currentVersion = [ZZCoreTools getAppBuildVersion];
     
     // 版本号相同：这次打开和上次打开的是同一个版本
 //    if ([currentVersion isEqualToString:lastVersion]) {
@@ -103,6 +108,7 @@
     
     
     [self launchImageView];
+    
     return YES;
 }
 
@@ -220,6 +226,7 @@
         [JPUSHService handleRemoteNotification:userInfo];
     }
     
+    [self parseNotice:userInfo];
     /**
      {
     "_j_business" = 1;
@@ -241,6 +248,8 @@
     // Required, iOS 7 Support
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
+    
+    [self parseNotice:userInfo];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
@@ -321,5 +330,165 @@
         [imageView removeFromSuperview];
     }];
 }
+
+#pragma mark - 获取Oss信息
+- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
+    if (jsonString == nil) {
+        return nil;
+    }
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if(err) {
+        NSLog(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dic;
+}
+
+//定义type=1的时候，就取action的字符串干活
+-(void)parseNotice:(NSDictionary *) userInfo{
+    NSString *actionStr = [userInfo objectForKey:@"iosNotification extras key"];
+    NSDictionary *dict = [self dictionaryWithJsonString:actionStr];
+    if([dict[@"type"] intValue] == 1){
+        [self openNewPage:dict[@"action"]];
+    }
+}
+
+-(void)openNewPage:(NSString *) action{
+    UIViewController *rootVC = [self getCurVC];
+    if(is_null(action) || is_null(rootVC)){
+        return;
+    }
+    if([action hasPrefix:@"http"]){
+        SVWebViewController *vc = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:action]];
+        [rootVC.navigationController pushViewController:vc animated:YES];
+    }else if([action hasPrefix:@"sjhz://news"]){
+        ZZChapterDetailController *vc = [[ZZChapterDetailController alloc] init];
+        ZZChapterModel *model = [ZZChapterModel new];
+        model.nid = [[action stringByReplacingOccurrencesOfString:@"sjhz://news?id=" withString:@""] intValue];
+        vc.model = model;
+        [rootVC.navigationController pushViewController:vc animated:YES];
+    }else if([action hasPrefix:@"sjhz://case"]){
+        // 如果是医生，刷新医生首页，如果是用户，跳转到会诊详情
+        if([ZZDataCache getInstance].getLoginUser.isDoctor){
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZZNoticeInviteDoctorSucess" object:nil];
+        }else{
+            
+           
+            ZZPatientSymptomController *vc = [[ZZPatientSymptomController alloc] init];
+            ZZHZEngity *model = [ZZHZEngity new];
+            action = [action stringByReplacingOccurrencesOfString:@"sjhz://case?" withString:@""];
+            NSArray *arr = [action componentsSeparatedByString:@"&"];
+            for (NSString *item in arr) {
+                NSArray *items = [item componentsSeparatedByString:@"="];
+                if(items.count == 2){
+                    if([@"caseId" isEqual:items[0]]){
+                        model.caseId = [items[1] intValue];
+                    }
+                    if([@"state" isEqual:items[0]]){
+                        model.state =[items[1] intValue];
+                    }
+                }
+            }
+            vc.entity = model;
+            [rootVC.navigationController pushViewController:vc animated:YES];
+        }
+    }else if([action hasPrefix:@"sjhz://doctor"]){
+        // sjhz:///doctor?userI1d=17
+        ZZDoctorDetailController *vc = [[ZZDoctorDetailController alloc] init];
+        vc.docId = [[action stringByReplacingOccurrencesOfString:@"sjhz://doctor?userId=" withString:@""] intValue];
+//        vc.model = model;
+        [rootVC.navigationController pushViewController:vc animated:YES];
+    }
+    else if([action hasPrefix:@"sjhz://liangbiao"]){
+        // sjhz:///doctor?userI1d=17
+        ASQController *vc = [[ASQController alloc] init];
+        ZZQSListModel *model = [ZZQSListModel new];
+        action = [action stringByReplacingOccurrencesOfString:@"sjhz://liangbiao?" withString:@""];
+        NSArray *arr = [action componentsSeparatedByString:@"&"];
+        for (NSString *item in arr) {
+            NSArray *items = [item componentsSeparatedByString:@"="];
+            if(items.count == 2){
+                if([@"lbId" isEqual:items[0]]){
+                    model.wenjuanId = [items[1] intValue];
+                }
+                if([@"type" isEqual:items[0]]){
+                    model.type =[items[1] intValue];
+                }
+            }
+        }
+        vc.model = model;
+        vc.type = ASQTYPELB;
+        [rootVC.navigationController pushViewController:vc animated:YES];
+    }else if([action hasPrefix:@"sjhz://wenjuan"]){
+        // sjhz:///doctor?userI1d=17
+        ASQController *vc = [[ASQController alloc] init];
+        ZZQSListModel *model = [ZZQSListModel new];
+        action = [action stringByReplacingOccurrencesOfString:@"sjhz://wenjuan?" withString:@""];
+        NSArray *arr = [action componentsSeparatedByString:@"&"];
+        for (NSString *item in arr) {
+            NSArray *items = [item componentsSeparatedByString:@"="];
+            if(items.count == 2){
+                if([@"wjId" isEqual:items[0]]){
+                    model.wenjuanId = [items[1] intValue];
+                }
+                if([@"type" isEqual:items[0]]){
+                    model.type =[items[1] intValue];
+                }
+            }
+        }
+        vc.model = model;
+        vc.type = ASQTYPEWJ;
+        [rootVC.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+-(UIViewController *)getCurVC{
+    UIViewController *result = nil;
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    //app默认windowLevel是UIWindowLevelNormal，如果不是，找到UIWindowLevelNormal的
+    if (window.windowLevel != UIWindowLevelNormal)
+    {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows)
+        {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    id  nextResponder = nil;
+    UIViewController *appRootVC=window.rootViewController;
+    //    如果是present上来的appRootVC.presentedViewController 不为nil
+    if (appRootVC.presentedViewController) {
+        nextResponder = appRootVC.presentedViewController;
+    }else{
+        UIView *frontView = [[window subviews] objectAtIndex:0];
+        nextResponder = [frontView nextResponder];
+    }
+    
+    if ([nextResponder isKindOfClass:[UITabBarController class]]){
+        UITabBarController * tabbar = (UITabBarController *)nextResponder;
+        UINavigationController * nav = (UINavigationController *)tabbar.viewControllers[tabbar.selectedIndex];
+        //        UINavigationController * nav = tabbar.selectedViewController ; 上下两种写法都行
+        result=nav.childViewControllers.lastObject;
+        
+    }else if ([nextResponder isKindOfClass:[UINavigationController class]]){
+        UIViewController * nav = (UIViewController *)nextResponder;
+        result = nav.childViewControllers.lastObject;
+    }else{
+        result = nextResponder;
+    }
+    return result;
+}
+
+
+////////////////////////////
+//
 
 @end

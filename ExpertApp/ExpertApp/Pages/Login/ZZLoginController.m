@@ -146,7 +146,7 @@
     }
     
     if(sender.tag == _btnWeiXin.tag){
-        NSLog(@"微信登陆");
+        NSLog(@"微信登录");
         [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:self completion:^(id result, NSError *error) {
             
             NSLog(@"%@",result);
@@ -160,7 +160,7 @@
         
     }
     if(sender.tag == _btnSina.tag){
-        NSLog(@"新浪微博登陆");
+        NSLog(@"新浪微博登录");
         
         [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_Sina currentViewController:self completion:^(id result, NSError *error) {
             NSLog(@"%@",result);
@@ -172,7 +172,7 @@
         }];
     }
     if(sender.tag == _btnTencent.tag){
-        NSLog(@"QQ登陆");
+        NSLog(@"QQ登录");
         [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:self completion:^(id result, NSError *error) {
             NSLog(@"%@",result);
             if(!error){

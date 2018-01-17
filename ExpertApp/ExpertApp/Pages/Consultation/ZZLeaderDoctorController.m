@@ -7,7 +7,7 @@
 //
 
 #import "ZZLeaderDoctorController.h"
-#import "ZZCaseDetailController.h"
+#import "ZZPatientSymptomController.h"
 
 #import "ZZWriteResultController.h"
 #import "ZZAttentionController.h"
@@ -42,10 +42,13 @@
     
     btnY = tipF.origin.y + tipF.size.height + 10;
     
-    NSArray *titles = @[@"请点击阅读病情",@"以往病例以及会诊结果",@"用户资料",@"填写会诊结果",@"邀请医生会诊"];
+    NSArray *titles = @[@"请点击阅读病情",@"以往咨询及会诊结果",@"用户资料",@"填写会诊结果",@"邀请医生会诊"];
     for(int i=0;i<titles.count;i++)
     {
         if(_model.caseDept==0 && i == 1){
+            continue;
+        }
+        if(i==2){
             continue;
         }
         [self createItemButton:i+1 title:titles[i]];
@@ -56,14 +59,15 @@
 -(void)itemOnClick:(UIButton *) btn{
     if(btn.tag == 1){
         // 病例
-        ZZCaseDetailController *detailVC = [[ZZCaseDetailController alloc] init];
-        detailVC.caseId = _model.caseId;
-        detailVC.caseType = _model.type;
+        ZZPatientSymptomController *detailVC = [[ZZPatientSymptomController alloc] init];
+        detailVC.entity = _model;
         [self openNav:detailVC sound:nil];
     }
     if(btn.tag == 2){
         // 历史会诊记录
         ZZMyHZListController *reVC = [[ZZMyHZListController alloc] init];
+        reVC.isFromDoc = YES;
+        reVC.model = _model;
         [self openNav:reVC sound:nil];
     }
     if(btn.tag == 3){

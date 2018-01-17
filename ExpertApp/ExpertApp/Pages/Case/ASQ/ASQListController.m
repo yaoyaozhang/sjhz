@@ -74,17 +74,24 @@
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     if(_userId>0){
         [dict setObject:convertIntToString(_userId) forKey:@"userId"];
-    }else{
-        ZZUserInfo *user = [ZZDataCache getInstance].getLoginUser;
-        [dict setObject:convertIntToString(user.userId) forKey:@"userId"];
     }
+    
     NSString *api = API_findWenjuanList;
     if(_type == ASQTYPELB){
         api = API_findLiangBiaoList;
+        if(convertToString(_code).length>0){
+            [dict setObject:convertToString(_code) forKey:@"code"];
+        }
+    }else{
+        [dict setObject:@"1" forKey:@"type"];
     }
+    
     [ZZRequsetInterface post:api param:dict timeOut:HttpGetTimeOut start:^{
         
+        [SVProgressHUD show];
     } finish:^(id response, NSData *data) {
+        
+        [SVProgressHUD dismiss];
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         NSArray *arr = dict[@"retData"];

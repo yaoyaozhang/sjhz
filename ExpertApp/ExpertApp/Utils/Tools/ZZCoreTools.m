@@ -104,6 +104,12 @@
     //    return device;
 }
 
++(NSString *)getAppName{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    // 当前应用名称
+    return [infoDictionary objectForKey:@"CFBundleDisplayName"];
+}
+
 
 
 //检查是否有相册的权限

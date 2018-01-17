@@ -20,4 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIView *viewLabels;
 
 
+-(void)dataToView:(ZZUserInfo *)model;
+
 @end

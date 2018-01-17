@@ -7,6 +7,7 @@
 //
 
 #import "ZZUserHomeCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation ZZUserHomeCell
 
@@ -28,6 +29,14 @@
     _imgAvatar.layer.borderColor = UIColorFromRGB(BgSystemColor).CGColor;
 }
 
+
+-(void)dataToView:(ZZUserInfo *)model{
+    if(model){
+        [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]];
+        [_labelNameZhiWei setText:[NSString stringWithFormat:@"%@ %@",model.docName,model.departmentName]];
+        [_labelHosptial setText:model.hospital];
+    }
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

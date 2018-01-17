@@ -183,7 +183,8 @@
                 [delBtn setFrame:CGRectMake(EmojiWidth-30, 0, 20, 20)];
                 delBtn.objTag = faceDict;
                 delBtn.tag = i*pageSize+j;
-                [delBtn addTarget:self action:@selector(delButton:) forControlEvents:0];
+                delBtn.userInteractionEnabled = YES;
+                [delBtn addTarget:self action:@selector(delButton:) forControlEvents:UIControlEventTouchUpInside];
                 [faceButton addSubview:delBtn];
             }
             

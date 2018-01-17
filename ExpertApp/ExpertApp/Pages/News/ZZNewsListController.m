@@ -13,6 +13,8 @@
 #define cellIdentifier @"ZZNewsCell"
 #import "UIView+Border.h"
 
+#import "AppDelegate.h"
+
 
 @interface ZZNewsListController ()<UITableViewDataSource,UITableViewDelegate>{
     ZZUserInfo *loginUser;
@@ -97,7 +99,7 @@
  */
 -(void)loadMoreData{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(7) forKey:@"userId"];
+    [dict setObject:convertIntToString([[ZZDataCache getInstance] getLoginUser].userId) forKey:@"userId"];
     [dict setObject:convertIntToString(_newType) forKey:@"type"];
     [dict setObject:convertIntToString(page) forKey:@"pageNum"];
     [dict setObject:convertToString(@"30") forKey:@"pageSize"];
@@ -225,7 +227,30 @@
         return;
     }
     
+    ZZNewsModel *model = [_listArray objectAtIndex:indexPath.row];
+    if(model.state == 0){
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:convertIntToString(model.newsId) forKey:@"id"];
+        [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+        [ZZRequsetInterface post:API_updateMessage param:dict timeOut:HttpGetTimeOut start:^{
+            
+        } finish:^(id response, NSData *data) {
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            model.state = 1;
+            [_listTable reloadData];
+            
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            
+        } progress:^(CGFloat progress) {
+            
+        }];
+    }
     
+    if(convertToString(model.action).length > 0){
+        [((AppDelegate*)[UIApplication sharedApplication].delegate) openNewPage:model.action];
+    }
 }
 
 //设置分割线间距

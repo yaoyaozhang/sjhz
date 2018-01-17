@@ -7,6 +7,7 @@
 //
 
 #import "WXApiManager.h"
+#import "AppDelegate.h"
 
 @implementation WXApiManager
 
@@ -81,6 +82,9 @@
             && [_delegate respondsToSelector:@selector(managerDidRecvShowMessageReq:)]) {
             ShowMessageFromWXReq *showMessageReq = (ShowMessageFromWXReq *)req;
             [_delegate managerDidRecvShowMessageReq:showMessageReq];
+        }else{
+            ShowMessageFromWXReq *showMessageReq = (ShowMessageFromWXReq *)req;
+            [((AppDelegate *)[UIApplication sharedApplication].delegate) openNewPage:showMessageReq.message.messageExt];
         }
     } else if ([req isKindOfClass:[LaunchFromWXReq class]]) {
         if (_delegate

@@ -62,10 +62,26 @@
     statusView.backgroundColor = UIColorFromRGB(BgTitleColor);
     [self.titleMenu addSubview:statusView];
     
+    self.menuLeftButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    [self.menuLeftButton setFrame:CGRectMake(0, StatusBarHeight, 64, 44)];
+    self.menuLeftButton.tag=BACK_BUTTON;
+    [self.menuLeftButton.titleLabel setFont:ListTitleFont];
+    [self.menuLeftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.menuLeftButton setTitleColor:UIColorFromRGBAlpha(TextWhiteColor, 0.7) forState:UIControlStateHighlighted];
+    [self.menuLeftButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.menuLeftButton.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [self.menuLeftButton setImage:[UIImage imageNamed:@"titlebar_back_normal"] forState:UIControlStateNormal];
+    [self.menuLeftButton setImage:[UIImage imageNamed:@"titlebar_back_pressed"] forState:UIControlStateHighlighted];
+    [self.menuLeftButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
+    [self.menuLeftButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [self.menuLeftButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    [self.titleMenu addSubview:self.menuLeftButton];
+    
+    
     // 选项
     self.seletBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_seletBtn setTitle:@"类别" forState:UIControlStateNormal];
-    _seletBtn.frame = CGRectMake(10, StatusBarHeight+5, 40, 26);
+    _seletBtn.frame = CGRectMake(44, StatusBarHeight+9, 40, 26);
     [_seletBtn setTitleColor:UIColorFromRGB(TextWhiteColor) forState:UIControlStateNormal];
     [_seletBtn addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
     self.seletBtn.titleLabel.font = ListDetailFont;
@@ -81,7 +97,7 @@
     
     
     self.searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_searchButton setFrame:CGRectMake(61, StatusBarHeight+5, ScreenWidth - 71, 26)];
+    [_searchButton setFrame:CGRectMake(94, StatusBarHeight+9, ScreenWidth - 104, 26)];
     [self.searchButton setImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
     [self.searchButton setTitle:@"搜索医生、医院" forState:UIControlStateNormal];
     _searchButton.backgroundColor = UIColorFromRGB(TextWhiteColor);
@@ -101,7 +117,8 @@
     
     
     
-    _listTable = [[UITableView alloc]initWithFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight - NavBarHeight - TabBarHeight) style:UITableViewStylePlain];
+//    _listTable = [[UITableView alloc]initWithFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight - NavBarHeight - TabBarHeight) style:UITableViewStylePlain];
+    _listTable = [[UITableView alloc]initWithFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight - NavBarHeight) style:UITableViewStylePlain];
     _listTable.dataSource = self;
     _listTable.delegate = self;
     [_listTable setBackgroundColor:[UIColor clearColor]];

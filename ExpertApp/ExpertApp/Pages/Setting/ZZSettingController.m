@@ -247,9 +247,7 @@
         [self openNav:vc sound:nil];
     }
     if(code == 3 || code == 10){
-        ZZAddSymptomController *vc=[[ZZAddSymptomController alloc] init];
-        
-//        ZZFansController *vc = [[ZZFansController alloc] init];
+        ZZFansController *vc = [[ZZFansController alloc] init];
         [self openNav:vc sound:nil];
     }
     
@@ -289,13 +287,14 @@
         if(code == 15){
             vc.type = ASQTYPEWJ;
         }
+        vc.userId = loginUser.userId;
         [self openNav:vc sound:nil];
     }
     
     if(code == 7){
         /** 设置App自定义扩展反馈数据 */
         self.feedbackKit.extInfo = @{@"loginTime":[[NSDate date] description],
-                                     @"visitPath":@"登陆->关于->反馈",
+                                     @"visitPath":@"登录->关于->反馈",
                                      @"userid":@"yourid",
                                      @"应用自定义扩展信息":@"开发者可以根据需要设置不同的自定义信息，方便在反馈系统中查看"};
 

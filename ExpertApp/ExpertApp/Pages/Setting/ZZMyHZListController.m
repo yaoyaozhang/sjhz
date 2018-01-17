@@ -21,6 +21,7 @@
 #import "ZZCaseDetailController.h"
 #import "ZZShareView.h"
 #import "ZZHZResultController.h"
+#import "ZZPatientSymptomController.h"
 
 @interface ZZMyHZListController ()<ZZDoctorCaseDelegate>{
     ZZUserInfo *loginUser;
@@ -108,15 +109,24 @@
 }
 
 
+
+
 /**
  加载更多
  */
 -(void)loadDoctorInfo{
+    NSString *api = API_SearchDocCase;
+    
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
-    //0 用户1、医生
-    [dict setObject:convertIntToString(0) forKey:@"type"];
-    [ZZRequsetInterface post:API_SearchDocCase param:dict timeOut:HttpGetTimeOut start:^{
+    if(_isFromDoc){
+        [dict setObject:convertIntToString(_model.healthId) forKey:@"healthId"];
+        api =  API_serachDocCaseByHealthId;
+    }else{
+        [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+        //0 用户1、医生
+        [dict setObject:convertIntToString(_isFromDoc) forKey:@"type"];
+    }
+    [ZZRequsetInterface post:api param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD show];
     } finish:^(id response, NSData *data) {
         [SVProgressHUD dismiss];
@@ -262,23 +272,13 @@
     if(_listArray==nil || _listArray.count<indexPath.row){
         return;
     }
+    
     ZZHZEngity *entity = [_listArray objectAtIndex:indexPath.row];
-    if(entity.state < 3){
-        NSString *warning = @"";
-        if(entity.state == 0){
-            warning = @"您的会诊请求正在等待医生处理！";
-        }else if(entity.state == 1){
-            warning = @"医生已接收到你的会诊申请，请耐心等待会诊结果！";
-        }else{
-            warning = @"医生正在为你会诊，请耐心等待会诊结果！";
-        }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"会诊状态" message:warning delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-    }else if(entity.state == 3 || entity.state == 4){
-        ZZHZResultController *vc = [[ZZHZResultController alloc] init];
-        vc.model = entity;
-        [self openNav:vc sound:nil];
-    }
+    ZZPatientSymptomController *vc = [[ZZPatientSymptomController alloc] init];
+    //        ZZCaseDetailController *vc = [[ZZCaseDetailController alloc] init];
+    vc.entity = entity;
+    //        vc.caseType = model.type;
+    [self openNav:vc sound:nil];
 }
 
 //设置分割线间距
@@ -304,7 +304,7 @@
     // 删除
     if(type == 0){
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertIntToString(_model.tid) forKey:@"id"];
+        [dict setObject:convertIntToString(_model.caseId) forKey:@"id"];
         [ZZRequsetInterface post:API_delCaseById param:dict timeOut:HttpGetTimeOut start:^{
             
         } finish:^(id response, NSData *data) {
@@ -322,12 +322,17 @@
     
     if(type == 2){
         // 病例详情
-        ZZCaseDetailController *vc = [[ZZCaseDetailController alloc] init];
-        vc.caseId = model.caseId;
-        vc.caseType = model.type;
+        ZZPatientSymptomController *vc = [[ZZPatientSymptomController alloc] init];
+//        ZZCaseDetailController *vc = [[ZZCaseDetailController alloc] init];
+        vc.entity = model;
+//        vc.caseType = model.type;
         [self openNav:vc sound:nil];
     }
     if(type == 3){
+        if(model.state < 3){
+            [self.view makeToast:@"还没有给结果！"];
+            return;
+        }
         // 会诊结果
         ZZHZResultController *vc = [[ZZHZResultController alloc] init];
         vc.model = model;

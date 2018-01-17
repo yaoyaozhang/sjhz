@@ -10,9 +10,11 @@
 
 @interface ZZHZEngity : ZZBaseModel
 
-@property(nonatomic,assign) int tid;
-
 @property(nonatomic,assign) int caseId;//": 10,
+@property(nonatomic,assign) int healthId;//": 10,
+@property(nonatomic,assign) int symId;//": 10,
+@property(nonatomic,assign) int diseaseId;//": 10,
+
 
 // 0.创建，1处理，2在讨论，3已完成，4在评价
 @property(nonatomic,assign) int state;//": 0,
@@ -21,6 +23,7 @@
 @property(nonatomic,strong) NSString *caseQuestion;//": "Meiyou kangaroo l zaishuo",
 @property(nonatomic,strong) NSString *caseResult;//": null,
 @property(nonatomic,assign) int  type;//": "1"
+
 
 // 是否首诊医生 1是 0否
 @property(nonatomic,assign) int firstDoc;

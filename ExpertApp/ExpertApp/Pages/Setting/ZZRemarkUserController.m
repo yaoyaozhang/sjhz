@@ -26,7 +26,7 @@
 #define cellIdentifierNext @"ZZRemarkNextCell"
 
 #import "ZZCaseDetailController.h"
-#import "ZZArchivesController.h"
+#import "ZZPatientListController.h"
 
 #import "ASQListController.h"
 
@@ -130,7 +130,7 @@
     
     
     if(_type > 0){
-        [_listArray addObject:@{@"cid":@"4",@"name":@"个人病例",@"value":@"",@"type":@"0"}];
+        [_listArray addObject:@{@"cid":@"4",@"name":@"个人档案",@"value":@"",@"type":@"0"}];
         [_listArray addObject:@{@"cid":@"5",@"name":@"调查问卷",@"value":@"",@"type":@"0"}];
         [_listArray addObject:@{@"cid":@"6",@"name":@"自测量表",@"value":@"",@"type":@"0"}];
     }else{
@@ -302,7 +302,7 @@
         [self openNav:vc sound:nil];
     }
     if(cid == 4){
-        ZZArchivesController *vc = [[ZZArchivesController alloc] init];
+        ZZPatientListController *vc = [[ZZPatientListController alloc] init];
         vc.userId = _myFriend.userId;
         [self openNav:vc sound:nil];
     }

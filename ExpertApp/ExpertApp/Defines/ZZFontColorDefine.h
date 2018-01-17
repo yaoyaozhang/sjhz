@@ -56,7 +56,7 @@
 // 验证码不可点状态
 #define BgVCodeColor        0x9ea2a2
 
-// 登陆不可点状态
+// 登录不可点状态
 #define BgLoginColor        0x5fcccd
 
 // 网络状态提醒背景

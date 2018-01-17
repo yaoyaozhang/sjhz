@@ -16,7 +16,7 @@
 #define cellIdentifier @"ZZDiscussCell"
 
 #import "ZZWriteResultController.h"
-#import "ZZCaseDetailController.h"
+#import "ZZPatientSymptomController.h"
 #import "ZZMyHZListController.h"
 #import "ZZRemarkUserController.h"
 
@@ -108,9 +108,9 @@
 -(void)headerButtonClick:(UIButton *) btn{
     // 1 病例，2相关诊断 3结论 4、同意 5、发布评论
     if(btn.tag == 1){
-        ZZCaseDetailController *vc = [[ZZCaseDetailController alloc] init];
-        vc.caseId = _model.caseId;
-        vc.caseType = _model.type;
+        ZZPatientSymptomController *vc = [[ZZPatientSymptomController alloc] init];
+        vc.formDoctor = NO;
+        vc.entity = _model;
         [self openNav:vc sound:nil];
     }
     
@@ -163,7 +163,7 @@
             [dict setObject:[NSString stringWithFormat:@"%@同意了%@的会诊结果",loginUser.docName,_model.docName] forKey:@"context"];
         }
         
-        [dict setObject:convertIntToString(_model.tid) forKey:@"id"];
+        [dict setObject:convertIntToString(_model.caseId) forKey:@"id"];
         [dict setObject:convertIntToString(loginUser.userId) forKey:@"docId"];
         
         _textView.text = @"";
@@ -208,7 +208,7 @@
  */
 -(void)loadMoreData:(BOOL) scrool{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(_model.tid) forKey:@"id"];
+    [dict setObject:convertIntToString(_model.caseId) forKey:@"id"];
     [ZZRequsetInterface post:API_GetCaseTalk param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {

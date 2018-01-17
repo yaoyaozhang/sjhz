@@ -10,6 +10,7 @@
 #import "ZZCaseDetailBaseCell.h"
 
 @interface ZZCaseDetailMulCell : ZZCaseDetailBaseCell
+@property (weak, nonatomic) IBOutlet UIImageView *bgView;
 
 @property (weak, nonatomic) IBOutlet UILabel *labTag;
 

@@ -16,6 +16,8 @@
 #import "ZCTextPlaceholderView.h"
 
 #import "ZZInviteDoctorController.h"
+#import "ZZSearchResultController.h"
+#import "ZZTipsAlertView.h"
 
 @interface ZZWriteResultController ()<UITextViewDelegate,ZZDoctorCellDelegate>{
     ZZUserInfo *loginUser;
@@ -51,6 +53,45 @@
 
 
 -(void)addOrCommitClick:(UIButton *) sender{
+    if(sender.tag == 3){
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:convertIntToString(_model.diseaseId) forKey:@"diseaseId"];
+        [dict setObject:convertIntToString(_model.symId) forKey:@"symId"];
+        [ZZRequsetInterface post:API_getUserPom param:dict timeOut:HttpGetTimeOut start:^{
+            [SVProgressHUD show];
+        } finish:^(id response, NSData *data) {
+            [SVProgressHUD dismiss];
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            NSString *result = convertToString(dict[@"retData"][@"result"]);
+            if(result.length > 0){
+//                NSString *bssym = dict[@"retData"][@"bssym"];
+                NSString *cText = [NSString stringWithFormat:@"你的症状可以考虑为<a href=\"sjhz://1234\">%@</a>疾病,如果想获取更多医学资料请点击“是”，如果不需要点击“否”。",result];
+                ZZTipsAlertView *tipView = [[ZZTipsAlertView alloc] initWithTitle:@"提示" message:cText cancel:@"否" comfirm:@"是"];
+                [tipView setBlock:^(NSInteger buttonTag, NSString *text) {
+                    if(convertToString(text).length > 0){
+                        ZZSearchResultController *vc = [[ZZSearchResultController alloc] init];
+                        vc.searchText = result;
+                        [self openNav:vc sound:nil];
+                    }
+                    else{
+                        ZZSearchResultController *vc = [[ZZSearchResultController alloc] init];
+                        [self openNav:vc sound:nil];
+                    }
+                }];
+                [tipView show];
+            }else{
+                ZZSearchResultController *vc = [[ZZSearchResultController alloc] init];
+                vc.searchText = result;
+                [self openNav:vc sound:nil];
+            }
+           
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            
+        } progress:^(CGFloat progress) {
+            
+        }];
+    }
     if(sender.tag == 1){
         // 推荐朋友
         ZZInviteDoctorController *vc = [[ZZInviteDoctorController alloc] init];
@@ -73,7 +114,7 @@
         }
         
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertIntToString(_model.tid) forKey:@"id"];
+        [dict setObject:convertIntToString(_model.caseId) forKey:@"id"];
         [dict setObject:convertToString(_resultView.text) forKey:@"result"];
         [dict setObject:convertToString(_tjView.text) forKey:@"tjOutDoc"];
         
@@ -164,22 +205,46 @@
     if(_headerView){
         return _headerView;
     }
-    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 345)];
+    _headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 375)];
     _headerView.autoresizesSubviews = YES;
     [_headerView setBackgroundColor:UIColorFromRGB(BgListSectionColor)];
     
-    UIView *whiteBg = [[UIView alloc] initWithFrame:CGRectMake(0, 10, ScreenWidth, 200)];
+    
+    
+    UIView *whiteBg = [[UIView alloc] initWithFrame:CGRectMake(0, 10, ScreenWidth, 230)];
     [whiteBg setBackgroundColor:[UIColor whiteColor]];
     [_headerView addSubview:whiteBg];
     
-    _resultView = [[ZCTextPlaceholderView alloc] initWithFrame:CGRectMake(15, 15, ScreenWidth-30, 170)];
-    [_resultView setBackgroundColor:[UIColor clearColor]];
+    UILabel *label1=[[UILabel alloc] initWithFrame:CGRectMake(15, 15, ScreenWidth-90, 21)];
+    [label1 setFont:ListDetailFont];
+    [label1 setText:@"填写会诊结果"];
+    [label1 setTextAlignment:NSTextAlignmentLeft];
+    [label1 setTextColor:UIColorFromRGB(TextBlackColor)];
+    [whiteBg addSubview:label1];
+    
+    UIButton *addBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addBtn1 setFrame:CGRectMake(ScreenWidth-95, 12.5, 80, 25)];
+    [addBtn1 setImage:[UIImage imageNamed:@"nav_search"] forState:UIControlStateNormal];
+    [addBtn1 setTitle:@"医生助手" forState:0];
+    [addBtn1 setImageEdgeInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    [addBtn1.titleLabel setFont:ListDetailFont];
+    [addBtn1 setBackgroundColor:UIColorFromRGB(BgTitleColor)];
+    [addBtn1 setTitleColor:UIColorFromRGB(TextWhiteColor) forState:0];
+    addBtn1.layer.cornerRadius = 4.0f;
+    addBtn1.layer.masksToBounds = YES;
+    addBtn1.tag = 3;
+    [addBtn1 addTarget:self action:@selector(addOrCommitClick:) forControlEvents:UIControlEventTouchUpInside];
+    [whiteBg addSubview:addBtn1];
+    
+    _resultView = [[ZCTextPlaceholderView alloc] initWithFrame:CGRectMake(15, 45, ScreenWidth-30, 170)];
+    [_resultView setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     [_resultView setPlaceholder:@"填写会诊结果"];
+    [_resultView setTextColor:UIColorFromRGB(TextDarkColor)];
     _resultView.delegate = self;
     [whiteBg addSubview:_resultView];
     
     
-    UIView *whiteBg1 = [[UIView alloc] initWithFrame:CGRectMake(0, 225, ScreenWidth, 120)];
+    UIView *whiteBg1 = [[UIView alloc] initWithFrame:CGRectMake(0, 255, ScreenWidth, 120)];
     [whiteBg1 setBackgroundColor:[UIColor whiteColor]];
     [_headerView addSubview:whiteBg1];
     

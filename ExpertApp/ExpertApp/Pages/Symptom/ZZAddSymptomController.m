@@ -11,6 +11,8 @@
 #import "UIView+Extension.h"
 #import "MJRefresh.h"
 
+#import "AddSymptomDescController.h"
+
 #import "ZZSymptomWTListView.h"
 
 #import "ZZSymptomCell.h"
@@ -93,13 +95,17 @@
         return;
     }
     
+    
     int symptomId = 0;
+    NSString *symptomName=@"";
     NSString *bsSymptom=@"";
     NSString *bsSymptomWT=@"";
+    ZZSymptomModel *firstModel = [_checkArray firstObject];
     for (int i=0;i<_checkArray.count;i++) {
         ZZSymptomModel *item =_checkArray[i];
         if(i==0){
             symptomId = item.symptomId;
+            symptomName = item.sname;
         }else{
             bsSymptom = [bsSymptom stringByAppendingFormat:@"%@;",item.sname];
         }
@@ -119,21 +125,26 @@
     
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertToString(@"1") forKey:@"patientId"];
+    [dict setObject:convertIntToString(_patient.patientId) forKey:@"patientId"];
+    [dict setObject:@(_docId) forKey:@"docId"];
     [dict setObject:@(symptomId) forKey:@"symptomId"];
-    [dict setObject:bsSymptom forKey:@"bsSymptom"];
+    if(firstModel.bansui == 1){
+        [dict setObject:bsSymptom forKey:@"bsSymptom"];
+    }else{
+        [dict setObject:@"" forKey:@"bsSymptom"];
+    }
+    [dict setObject:convertToString(symptomName) forKey:@"symptomName"];
     [dict setObject:bsSymptomWT forKey:@"wt"];
-    [ZZRequsetInterface post:API_saveSymptonWt param:dict timeOut:HttpGetTimeOut start:^{
-        
-    } finish:^(id response, NSData *data) {
-        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    } complete:^(NSDictionary *dict) {
-        
-    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-        
-    } progress:^(CGFloat progress) {
+    
+    
+    
+    AddSymptomDescController *desc = [[AddSymptomDescController alloc] init];
+    desc.model = firstModel;
+    desc.preParams = dict;
+    [desc setZZCreateResultBlock:^(int status) {
         
     }];
+    [self openNav:desc sound:nil];
 }
 
 /**
@@ -203,6 +214,10 @@
 // 返回section下得行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if(_listArray.count > 1){
+        ZZSymptomModel *model = [_checkArray firstObject];
+        if(model.bansui == 0){
+            return 1;
+        }
         return 2;
     }
     return _listArray.count;
@@ -223,6 +238,7 @@
     cell.delegate = self;
     
     if(indexPath.row == 1 ){
+        
         [cell dataToView:bsSymptomTitle data:_listArray[indexPath.row]];
     }else{
         if(_checkArray.count > 0){
@@ -295,13 +311,14 @@
                         [view show];
                     }
                     
-                    
-                    NSArray *bszz = dict[@"retData"][@"bszz"];
-                    for (NSString *item in bszz) {
-                        ZZSymptomModel *m = [ZZSymptomModel new];
-                        m.sname = item;
-                        m.checked = YES;
-                        [_bsArray addObject:m];
+                    if(model.bansui == 1){
+                        NSArray *bszz = dict[@"retData"][@"bszz"];
+                        for (NSString *item in bszz) {
+                            ZZSymptomModel *m = [ZZSymptomModel new];
+                            m.sname = item;
+                            m.checked = NO;
+                            [_bsArray addObject:m];
+                        }
                     }
                 
                     model.checked = YES;

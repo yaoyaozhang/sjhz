@@ -27,10 +27,13 @@
 #import "ZZLeaderDoctorController.h"
 #import "ZZDiscussController.h"
 #import "ZZHZResultController.h"
+#import "ZZSearchResultController.h"
 
 #import "ZZShareView.h"
 
 #import "ZZHZEngity.h"
+
+#import "ASQListController.h"
 
 
 @interface ZZDoctorHomeController ()<ZZDoctorCaseDelegate>{
@@ -88,9 +91,12 @@
     
     if(sender.tag == RIGHT_BUTTON){
         // 分享
-        ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeUser vc:self];
-        shareView.shareModel=loginUser;
-        [shareView show];
+//        ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeUser vc:self];
+//        shareView.shareModel=loginUser;
+//        [shareView show];
+        
+        ZZSearchResultController *vc = [[ZZSearchResultController alloc] init];
+        [self openNav:vc sound:nil];
     }else if(sender.tag == 111){
         // 关注
         
@@ -445,7 +451,7 @@
     if(type == 1){
         if(model.state == 0){
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-            [dict setObject:convertIntToString(model.tid) forKey:@"id"];
+            [dict setObject:convertIntToString(model.caseId) forKey:@"id"];
             [ZZRequsetInterface post:API_SetCaseStateByDoctor param:dict timeOut:HttpPostTimeOut start:^{
                 [SVProgressHUD show];
             } finish:^(id response, NSData *data) {

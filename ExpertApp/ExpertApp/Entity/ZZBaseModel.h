@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger,ZZEditControlType) {
     ZZEditControlTypeChoose          = 5,
     ZZEditControlTypeSex             = 6,
     ZZEditControlTypeDelImag         = 7,
+    ZZEditControlTypeAddPic          = 8,
 };
 
 

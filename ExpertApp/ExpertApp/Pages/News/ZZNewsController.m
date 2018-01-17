@@ -14,6 +14,7 @@
 #import "UIView+Border.h"
 
 #import "ZZNewsListController.h"
+#import "AppDelegate.h"
 
 
 @interface ZZNewsController ()<UITableViewDataSource,UITableViewDelegate>{
@@ -63,6 +64,10 @@
     [_listTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     
     
+    _listTable.header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [self loadMoreData];
+    }];
+    
     [self setTableSeparatorInset];
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -100,6 +105,9 @@
         
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        if([_listTable.header isRefreshing]){
+            [_listTable.header endRefreshing];
+        }
     } complete:^(NSDictionary *dict) {
         [_caseArray removeAllObjects];
         [_xtArray removeAllObjects];
@@ -219,6 +227,7 @@
         model=[_xtArray objectAtIndex:indexPath.row];
     }
     
+    
 //    [cell InitDataToView:model row:indexPath.row];
     [cell dataToView:indexPath model:model];
     
@@ -258,6 +267,29 @@
     }
     if(model == nil){
         return;
+    }
+    if(model.state == 0){
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:convertIntToString(model.newsId) forKey:@"id"];
+        [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+        [ZZRequsetInterface post:API_updateMessage param:dict timeOut:HttpGetTimeOut start:^{
+            
+        } finish:^(id response, NSData *data) {
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            model.state = 1;
+            [_listTable reloadData];
+            
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            
+        } progress:^(CGFloat progress) {
+            
+        }];
+    }
+    
+    if(convertToString(model.action).length > 0){
+        [((AppDelegate*)[UIApplication sharedApplication].delegate) openNewPage:model.action];
     }
 }
 

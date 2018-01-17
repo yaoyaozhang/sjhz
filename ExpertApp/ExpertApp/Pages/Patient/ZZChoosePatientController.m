@@ -121,6 +121,8 @@
     }
     
     ZZAddSymptomController *vc = [[ZZAddSymptomController alloc] init];
+    vc.docId = [_doctorId intValue];
+    vc.patient = _listArray[checkedRow];
     [self openNav:vc sound:nil];
     
 //    NSDictionary *item = _listArray[checkedRow];

@@ -13,6 +13,7 @@
 #import "ZZUserHomeModel.h"
 #import "ZZChapterModel.h"
 #import "ZZHZEngity.h"
+#import "ZZQSModel.h"
 #import <WXApi.h>
 
 @interface ZZShareView(){
@@ -101,13 +102,14 @@
     
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    
+    NSString *action = @"";
     if(_type == ZZShareTypeUser){
         ZZUserInfo *userModel = (ZZUserInfo *)_shareModel;
         if([@"" isEqual:convertToString(userModel.docName)]){
             userModel.docName = convertToString(userModel.accomplished);
         }
         
+        action = [NSString stringWithFormat:@"sjhz:///doctor?userI1d=%d",userModel.userId];
         
 //        shareObject = [UMShareVideoObject shareObjectWithTitle:userModel.docName descr:convertToString(userModel.departmentName) thumImage:[UIImage imageNamed:@"Icon120"]];
 //        shareObject.thumbImage = [UIImage imageNamed:@"Icon120"];
@@ -126,6 +128,8 @@
         messageObject.text = model.title;
         messageObject.title =convertToString(model.content);
         
+        action = [NSString stringWithFormat:@"sjhz://news?id=%d",model.nid];
+        
 //        messageObject.shareObject = shareObject1;
     }else if(_type == ZZShareTypeHZResult){
         ZZHZEngity *model = (ZZHZEngity *)_shareModel;
@@ -134,11 +138,25 @@
         messageObject.text = model.caseName;
         messageObject.title = model.caseResult;
         
+        action = [NSString stringWithFormat:@"sjhz://case?caseId=%d&state=%d",model.caseId,model.state];
 //        messageObject.shareObject = shareObject;
+    }else if(_type == ZZShareTypeLiangBiao || _type == ZZShareTypeWenJuan){
+        ZZQSListModel *model = (ZZQSListModel *)_shareModel;
+        //        shareObject = [UMShareObject shareObjectWithTitle:model.caseName descr:model.caseResult thumImage:nil];
+        
+        messageObject.text = model.quesName;
+        messageObject.title =[NSString stringWithFormat:@"%@-%@",[ZZCoreTools getAppName],_type == ZZShareTypeLiangBiao?@"量表":@"问卷"];
+        
+        //        messageObject.shareObject = shareObject;
+        if(_type == ZZShareTypeLiangBiao){
+            action = [NSString stringWithFormat:@"sjhz:///liangbiao?lbId=%d&type=%d",model.wenjuanId,model.type];
+        }else{
+            action = [NSString stringWithFormat:@"sjhz:///wenjuan?wjId=%d&type=%d",model.wenjuanId,model.type];
+        }
     }
     
     
-    messageObject.moreInfo = @{@"name":@"userHome"};
+    messageObject.moreInfo = @{@"action":action};
     
     
     
@@ -212,7 +230,7 @@
         
         message.title = userModel.docName;
         message.description = convertToString(userModel.departmentName).length>100?[userModel.departmentName substringToIndex:100]:userModel.departmentName;
-        message.messageExt = [NSString stringWithFormat:@"userId=%d",userModel.userId];
+        message.messageExt = [NSString stringWithFormat:@"sjhz:///doctor?userI1d=%d",userModel.userId];
         message.messageAction = kAppMessageAction;
         message.mediaTagName = nil;
         [message setThumbImage:thumbImage];
@@ -222,7 +240,7 @@
         
         message.title = model.author;
         message.description = convertToString(model.title).length>100?[model.title substringToIndex:100]:model.title;
-        message.messageExt = [NSString stringWithFormat:@"chapterId=%d",model.nid];
+        message.messageExt = [NSString stringWithFormat:@"sjhz://news?id=%d",model.nid];
         message.messageAction = kAppMessageAction;
         message.mediaTagName = nil;
         [message setThumbImage:thumbImage];
@@ -231,10 +249,24 @@
         
         message.title = model.caseName;
         message.description = convertToString(model.caseResult).length>100?[model.caseResult substringToIndex:100]:model.caseResult;
-        message.messageExt = [NSString stringWithFormat:@"hzId=%d",model.tid];
+        message.messageExt = [NSString stringWithFormat:@"sjhz://case?caseId=%d&state=%d",model.caseId,model.state];
         message.messageAction = kAppMessageAction;
         message.mediaTagName = nil;
         [message setThumbImage:thumbImage];
+    }else if(_type == ZZShareTypeLiangBiao || _type == ZZShareTypeWenJuan){
+        ZZQSListModel *model = (ZZQSListModel *)_shareModel;
+        //        shareObject = [UMShareObject shareObjectWithTitle:model.caseName descr:model.caseResult thumImage:nil];
+        message.title = [NSString stringWithFormat:@"%@-%@",[ZZCoreTools getAppName],_type == ZZShareTypeLiangBiao?@"量表":@"问卷"];
+        message.description =model.quesName;
+        if(_type == ZZShareTypeLiangBiao){
+            message.messageExt = [NSString stringWithFormat:@"sjhz:///liangbiao?lbId=%d&type=%d",model.wenjuanId,model.type];
+        }else{
+            message.messageExt = [NSString stringWithFormat:@"sjhz:///wenjuan?wjId=%d&type=%d",model.wenjuanId,model.type];
+        }
+        message.messageAction = kAppMessageAction;
+        message.mediaTagName = nil;
+        [message setThumbImage:thumbImage];
+        //        messageObject.shareObject = shareObject;
     }
     ext.extInfo = message.messageExt;
     message.mediaObject = ext;

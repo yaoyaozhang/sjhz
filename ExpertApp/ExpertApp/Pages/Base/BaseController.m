@@ -30,6 +30,8 @@
     if(iOS7){
         self.automaticallyAdjustsScrollViewInsets=NO;
     }
+    
+//    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -88,7 +90,7 @@
     [self.titleMenu addSubview:self.menuLeftButton];
     
     self.menuRightButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    [self.menuRightButton setFrame:CGRectMake(ScreenWidth-64, StatusBarHeight, 64, 44)];
+    [self.menuRightButton setFrame:CGRectMake(ScreenWidth-84, StatusBarHeight, 84, 44)];
     self.menuRightButton.tag=RIGHT_BUTTON;
     [self.menuRightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     [self.menuRightButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
@@ -259,7 +261,6 @@
     [super viewWillAppear:animated];
     
     
-    [self.navigationController setNavigationBarHidden:YES];
     [self preferredStatusBarStyle];
     
     [MobClick beginLogPageView:self.description];
@@ -421,6 +422,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
 }
 
 -(void)dealloc{

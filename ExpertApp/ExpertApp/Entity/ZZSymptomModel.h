@@ -12,7 +12,11 @@
 
 @property(nonatomic,assign) int symptomId;//症状名称
 @property(nonatomic,strong) NSString * sname;//症状名称
+@property(nonatomic,strong) NSString * bssym;//症状名称
 @property(nonatomic,assign) int bansui;//症状名称
+
+
+@property(nonatomic,assign) int recovery;//1运动康复
 
 
 @property(nonatomic,assign) int checked;//是选择的内容
@@ -25,8 +29,8 @@
 @interface ZZSymptomWTModel : ZZBaseModel
 
 @property(nonatomic,assign) int symptomWtId;//问题id
-
 @property(nonatomic,strong) NSString * quesName;//问题原始字符串
+@property(nonatomic,strong) NSString * answer;//问题原始字符串
 @property(nonatomic,strong) NSString * quesOptions;//问题原始字符串
 
 @property(nonatomic,strong) NSMutableArray *quesOptionArr;//问题使用的数组

@@ -13,4 +13,6 @@
 
 @property(nonatomic,strong) ZZHZEngity *model;
 
+@property(nonatomic,assign) BOOL isFromDoc;
+
 @end

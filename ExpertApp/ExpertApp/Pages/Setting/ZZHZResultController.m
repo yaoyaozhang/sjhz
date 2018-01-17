@@ -21,6 +21,8 @@
 #import "ZZShareView.h"
 #import "CoreTextLabel.h"
 
+#import "ZZAddSymptomController.h"
+
 
 @interface ZZHZResultController (){
     CGSize        contentSize;// 记录list的偏移量
@@ -37,6 +39,7 @@
     
     
 }
+
 @property(nonatomic,strong) UIScrollView *mainScroll;
 @property(nonatomic,strong)UIView           *headerView;
 @property(nonatomic,strong)UIView           *bottomView;
@@ -105,7 +108,7 @@
         [dict setObject:convertIntToString(score) forKey:@"satisfied"];
         
         [dict setObject:@"1" forKey:@"type"];
-        [dict setObject:convertIntToString(_model.tid) forKey:@"id"];
+        [dict setObject:convertIntToString(_model.caseId) forKey:@"id"];
         
         [ZZRequsetInterface post:API_getTalkAssess param:dict timeOut:HttpGetTimeOut start:^{
             
@@ -145,22 +148,28 @@
     }else if(sender.tag == 333){
         // 复诊
         // 根据病例类型
-        if(sender){
-            
-            ZZCreateCaseController *vc = [[ZZCreateCaseController alloc] init];
-//            vc.docId = _mo
-            vc.pCaseId =  convertIntToString(_model.caseId);
-            vc.editModel =  nil;
-            [self openNav:vc sound:nil];
-        }else{
-            
-            ZZCreateSportCaseController *vc = [[ZZCreateSportCaseController alloc] init];
-            
-            //            vc.docId = _mo
-            vc.pCaseId =  convertIntToString(_model.caseId);
-            vc.editModel = nil;
-            [self openNav:vc sound:nil];
-        }
+        ZZAddSymptomController *vc = [[ZZAddSymptomController alloc] init];
+        ZZPatientModel *pm = [ZZPatientModel new];
+        pm.patientId = _model.healthId;
+        vc.patient = pm;
+        vc.docId = _model.writeDoc;
+        [self openNav:vc sound:nil];
+//        if(sender){
+//            
+//            ZZCreateCaseController *vc = [[ZZCreateCaseController alloc] init];
+////            vc.docId = _mo
+//            vc.pCaseId =  convertIntToString(_model.caseId);
+//            vc.editModel =  nil;
+//            [self openNav:vc sound:nil];
+//        }else{
+//            
+//            ZZCreateSportCaseController *vc = [[ZZCreateSportCaseController alloc] init];
+//            
+//            //            vc.docId = _mo
+//            vc.pCaseId =  convertIntToString(_model.caseId);
+//            vc.editModel = nil;
+//            [self openNav:vc sound:nil];
+//        }
     }
     
 }
@@ -359,7 +368,7 @@
 
 -(void)loadCaseResult{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(_model.tid) forKey:@"id"];
+    [dict setObject:convertIntToString(_model.caseId) forKey:@"id"];
     [ZZRequsetInterface post:API_GetCaseResult param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD show];
     } finish:^(id response, NSData *data) {
@@ -371,9 +380,13 @@
             CGFloat y = 10;
             NSArray *hzdoc = dict[@"retData"][@"hzdoc"];
             NSString *hzStr = @"";
+            
             if(hzdoc && hzdoc.count>0){
                 for (NSDictionary *hzItem in hzdoc) {
                     hzStr = [hzStr stringByAppendingFormat:@",%@",hzItem[@"docName"]];
+                    if([hzItem[@"firstDoc"] intValue]==1){
+                        _model.docName =hzItem[@"docName"];
+                    }
                 }
                 
                 if(hzStr.length>0){
@@ -385,14 +398,22 @@
             }else{
                 y = y + [self createLabel:[NSString stringWithFormat:@"您的［%@］的病例经过%@大夫会诊结果如下：",_model.caseName,hzStr] y:y pView:_headerView] +10;
             }
-            y = y + [self createWhiteText:convertToString(dict[@"retData"][@"result"][@"caseRsult"]) y:y arr:nil] +15;
             
             NSDictionary *tjDict = dict[@"retData"][@"result"];
+            
+            y = y + [self createWhiteText:convertToString(tjDict[@"caseRsult"]) y:y arr:nil] +15;
+            
+            
+            _model.caseName = tjDict[@"caseName"];
+            
             NSArray *tjArr = dict[@"retData"][@"tjdoc"];
             // 如果有推荐医生
             if(tjDict[@"tjOutdoc"] || tjArr.count>0){
                 y = y + [self createWhiteText:convertToString(tjDict[@"tjOutdoc"]) y:y arr:tjArr] + 15;
             }
+            
+            
+            
             NSDictionary *pjDict = dict[@"retData"][@"pingjia"];
             if(!is_null(pjDict) && pjDict.count>0){
                 
@@ -461,29 +482,30 @@
         int i=0;
         for (NSDictionary *hzItem in arr) {
             if(i==0){
-                text = [text stringByAppendingFormat:@"<a href='sjhz://%@'>%@</a>,",hzItem[@"id"],hzItem[@"docName"]];
+                text = [text stringByAppendingFormat:@"<a href=\"sjhz://%@\">%@</a>,",hzItem[@"docId"],hzItem[@"docName"]];
                 
             }else{
-                text = [text stringByAppendingFormat:@"<a href='sjhz://%@'>%@</a>,",hzItem[@"id"],hzItem[@"docName"]];
+                text = [text stringByAppendingFormat:@"<a href=\"sjhz://%@\">%@</a>,",hzItem[@"docId"],hzItem[@"docName"]];
             }
         }
         text = [text stringByAppendingFormat:@"建议您去找他查看!"];
     }
     text = [text stringByAppendingFormat:@"%@",content];
     
-    CoreTextLabel *label = [[CoreTextLabel alloc] initWithFrame:CGRectMake(15, y + 15, ScreenWidth - 30, 0)];
-    [label setFont:ListDetailFont];
-    [label setTextColor:UIColorFromRGB(TextSizeSixColor)];
-    [label setLinkTextColor:UIColorFromRGB(BgTitleColor)];
-    label.numberOfLines = 0;
-    [label setText:text];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setHtml:text];
-    [label sizeToFit];
+    CoreTextLabel *_labelText = [[CoreTextLabel alloc] initWithFrame:CGRectMake(15, y + 15, ScreenWidth - 30, 0)];
+    _labelText.userInteractionEnabled = YES;
+    [_labelText setFont:ListDetailFont];
+    [_labelText setTextColor:UIColorFromRGB(TextSizeSixColor)];
+    [_labelText setLinkTextColor:UIColorFromRGB(BgTitleColor)];
+    [_labelText setLinkFont:ListDetailFont];
+    _labelText.numberOfLines = 0;
+//    [_labelText setText:text];
+    [_labelText setBackgroundColor:[UIColor clearColor]];
+    [_labelText setHtml:text];
+    [_labelText sizeToFit];
     
-    CGRect cf = label.frame;
     __weak ZZHZResultController *safeSelf = self;
-    [label setLinkPressedBlock:^(NSTextCheckingResult *textCheckingResult) {
+    [_labelText setLinkPressedBlock:^(NSTextCheckingResult *textCheckingResult) {
         //        NSLog(@"textCheckingResult => %@", textCheckingResult.URL.absoluteString);
         NSString *uid = [textCheckingResult.URL.absoluteString stringByReplacingOccurrencesOfString:@"sjhz://" withString:@""];
         
@@ -491,8 +513,9 @@
         vc.docId = [convertToString(uid) intValue];
         [safeSelf openNav:vc sound:nil];
     }];
-    [_headerView addSubview:label];
+    [_headerView addSubview:_labelText];
     
+    CGRect cf = _labelText.frame;
     f.size.height = cf.size.height + 30;
     [whiteBg setFrame:f];
     

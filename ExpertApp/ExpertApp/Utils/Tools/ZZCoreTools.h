@@ -90,6 +90,15 @@ typedef NS_ENUM(NSInteger,LineType) {
 +(NSString *)getDeviceName;
 
 
+
+/**
+ 获取APP名称
+
+ @return
+ */
++(NSString *)getAppName;
+
+
 /**
  *  检查是否有相册权限
  *

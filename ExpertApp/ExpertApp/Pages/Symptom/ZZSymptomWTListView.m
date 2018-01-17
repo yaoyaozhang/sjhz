@@ -76,6 +76,17 @@
         [btn setFrame:CGRectMake(10, _contentView.bounds.size.height - 50, contentWidth-20, 40)];
         [_contentView addSubview:btn];
         
+        UIButton *btnDel = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btnDel.titleLabel setFont:ListTitleFont];
+        [btnDel setImage:[UIImage imageNamed:@"close"] forState:0];
+        [btnDel setBackgroundColor:UIColor.clearColor];
+        [btnDel.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        btnDel.layer.cornerRadius = 5.0f;
+        btnDel.layer.masksToBounds = YES;
+        [btnDel addTarget:self action:@selector(tapClick) forControlEvents:UIControlEventTouchUpInside];
+        [btnDel setFrame:CGRectMake( contentWidth + 20, 30, 30, 30)];
+        [self addSubview:btnDel];
+        
     }
     
     return self;
@@ -212,6 +223,7 @@
             [cell setPreservesSuperviewLayoutMargins:NO];
         }
     }
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     cell.delegate = self;
     cell.pwidth = contentWidth;

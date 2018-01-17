@@ -15,6 +15,7 @@
 @property(nonatomic,strong) NSString *createTime;//": 1507800722000,
 @property(nonatomic,assign) int  newsId;//": 1
 
+@property(nonatomic,strong) NSString *action;
 
 /**
  state 1 已读

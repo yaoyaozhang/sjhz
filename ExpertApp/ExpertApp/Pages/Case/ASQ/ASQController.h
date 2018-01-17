@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger,ASQTYPE) {
 
 @property(nonatomic,assign) ASQTYPE type;
 @property(nonatomic,assign) int docId;
-@property(nonatomic,assign) ZZQSListModel *model;
+@property(nonatomic,strong) ZZQSListModel *model;
 
 @property (nonatomic, strong)  void(^ZZCreateResultBlock) (int status);
 

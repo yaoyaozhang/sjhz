@@ -13,7 +13,7 @@
 -(id)initWithMyDict:(NSDictionary *)dict{
     self= [super initWithMyDict:dict];
     if(self){
-        _tid = [convertToString(dict[@"id"]) intValue];
+        _caseId = [convertToString(dict[@"id"]) intValue];
     }
     return self;
 }

@@ -54,6 +54,9 @@
 @property(nonatomic,assign) int wenjuanId;
 @property(nonatomic,strong) NSString *quesName;
 @property(nonatomic,strong) NSString *createTime;
+@property(nonatomic,assign) int type;
+
+
 
 
 @end

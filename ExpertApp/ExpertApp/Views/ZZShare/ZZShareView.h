@@ -11,6 +11,8 @@ typedef NS_ENUM(NSInteger,ZZShareType) {
     ZZShareTypeUser     = 1,
     ZZShareTypeChapter  = 2,
     ZZShareTypeHZResult = 3,
+    ZZShareTypeLiangBiao = 4,// 
+    ZZShareTypeWenJuan = 5,
 };
 
 

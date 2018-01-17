@@ -187,7 +187,7 @@
         
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:convertToString(userids) forKey:@"forUserId"];
-        [dict setObject:convertIntToString(_model.tid) forKey:@"caseId"];
+        [dict setObject:convertIntToString(_model.caseId) forKey:@"caseId"];
         [dict setObject:convertIntToString(_model.type) forKey:@"type"];
         [dict setObject:convertToString(@"0") forKey:@"firstDoc"];
         [ZZRequsetInterface post:API_AddOtherDoctor param:dict timeOut:HttpGetTimeOut start:^{

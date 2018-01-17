@@ -15,9 +15,11 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    [_bgView setBackgroundColor:UIColorFromRGB(BgListSectionColor)];
     // Initialization code
     [_labTag setFont:ListDetailFont];
-    [_labTag setTextColor:UIColorFromRGB(TextPlaceHolderColor)];
+    [_labTag setTextColor:UIColorFromRGB(TextDarkColor)];
     
     
     [_labDesc setFont:ListDetailFont];

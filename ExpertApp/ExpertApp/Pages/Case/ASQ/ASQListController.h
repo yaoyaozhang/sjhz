@@ -13,6 +13,9 @@
 @interface ASQListController : BaseController
 
 @property(nonatomic,assign) int userId;
+@property(nonatomic,assign) NSString *code;
+
+
 
 
 @property(nonatomic,assign) ASQTYPE type;

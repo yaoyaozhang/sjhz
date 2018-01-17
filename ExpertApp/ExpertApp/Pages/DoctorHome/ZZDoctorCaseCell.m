@@ -30,7 +30,7 @@
     _btnCase.layer.borderWidth = 1.0f;
     [_btnCase setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
     [_btnCase setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
-    [_btnCase setTitle:@"会诊病例" forState:UIControlStateNormal];
+    [_btnCase setTitle:@"病情介绍" forState:UIControlStateNormal];
     [_btnCase.titleLabel setFont:ListDetailFont];
     
     [_btnHZResult setFrame:CGRectMake(ScreenWidth/2, 0, ScreenWidth/4, 40)];

@@ -7,7 +7,11 @@
 //
 
 #import "BaseController.h"
+#import "ZZPatientModel.h"
 
 @interface ZZAddSymptomController : BaseController
+
+@property(nonatomic,strong) ZZPatientModel *patient;
+@property(nonatomic,assign) int docId;
 
 @end

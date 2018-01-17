@@ -111,6 +111,12 @@
 		7B5C1CEB1F1F601200DDDA78 /* ZZImageTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C1CEA1F1F601200DDDA78 /* ZZImageTools.m */; };
 		7B5C1CEE1F1F659300DDDA78 /* icon_menu_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B5C1CEC1F1F659300DDDA78 /* icon_menu_search@2x.png */; };
 		7B5C1CEF1F1F659300DDDA78 /* icon_menu_search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B5C1CED1F1F659300DDDA78 /* icon_menu_search@3x.png */; };
+		7B61C8BA200C4EA700C932D9 /* ZZSearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B61C8B9200C4EA700C932D9 /* ZZSearchResultController.m */; };
+		7B61C8BD200C512F00C932D9 /* ZZSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B61C8BC200C512F00C932D9 /* ZZSearchResultCell.m */; };
+		7B61C8C0200C74B700C932D9 /* ZZRSTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B61C8BF200C74B700C932D9 /* ZZRSTableController.m */; };
+		7B61C8C3200D9BA500C932D9 /* LemmaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B61C8C2200D9BA500C932D9 /* LemmaModel.m */; };
+		7B61C8C6200DAE8B00C932D9 /* ZZTipsAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B61C8C5200DAE8B00C932D9 /* ZZTipsAlertView.m */; };
+		7B61C8C9200DC53D00C932D9 /* ZZBaseAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B61C8C8200DC53D00C932D9 /* ZZBaseAlertView.m */; };
 		7B7000031F3AF90A00C59281 /* ZZAlertview.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7000021F3AF90A00C59281 /* ZZAlertview.m */; };
 		7B7000061F3AFEB300C59281 /* ZZPushSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7000051F3AFEB300C59281 /* ZZPushSettingController.m */; };
 		7B70000A1F3B06E700C59281 /* ZZAttentionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7000091F3B06E700C59281 /* ZZAttentionController.m */; };
@@ -495,6 +501,12 @@
 		7BD950CA1FFDC4ED0016C3D6 /* ZZSymptomWTListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950C91FFDC4ED0016C3D6 /* ZZSymptomWTListView.m */; };
 		7BD950CE1FFDC8180016C3D6 /* ZZSymptomWTCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950CC1FFDC8180016C3D6 /* ZZSymptomWTCell.m */; };
 		7BD950CF1FFDC8180016C3D6 /* ZZSymptomWTCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD950CD1FFDC8180016C3D6 /* ZZSymptomWTCell.xib */; };
+		7BD950D21FFE41C30016C3D6 /* AddSymptomDescController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950D11FFE41C30016C3D6 /* AddSymptomDescController.m */; };
+		7BD950D51FFE42CB0016C3D6 /* ZZSymptomExtModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950D41FFE42CB0016C3D6 /* ZZSymptomExtModel.m */; };
+		7BE654902004BB26000B57AE /* ZZPatientSymptomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE6548F2004BB26000B57AE /* ZZPatientSymptomController.m */; };
+		7BE654932005BCF9000B57AE /* ZZDiseaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE654922005BCF9000B57AE /* ZZDiseaseModel.m */; };
+		7BE654972005C830000B57AE /* ZZSymptomDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE654952005C830000B57AE /* ZZSymptomDetailCell.m */; };
+		7BE654982005C830000B57AE /* ZZSymptomDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BE654962005C830000B57AE /* ZZSymptomDetailCell.xib */; };
 		7BF110091F18678C00456E55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF110081F18678C00456E55 /* main.m */; };
 		7BF1100C1F18678C00456E55 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1100B1F18678C00456E55 /* AppDelegate.m */; };
 		7BF1100F1F18678C00456E55 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1100E1F18678C00456E55 /* ViewController.m */; };
@@ -517,6 +529,8 @@
 		7BF110711F1887D700456E55 /* ZZNSSessionRequestImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF110701F1887D700456E55 /* ZZNSSessionRequestImpl.m */; };
 		7BF110741F1888D300456E55 /* ZZURLConnectionRequestImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF110731F1888D300456E55 /* ZZURLConnectionRequestImpl.m */; };
 		7BF110771F188AFA00456E55 /* ZZCoreCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF110761F188AFA00456E55 /* ZZCoreCommon.m */; };
+		7BF545442003555C00198886 /* ZZAddPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF545422003555C00198886 /* ZZAddPicCell.m */; };
+		7BF545452003555C00198886 /* ZZAddPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BF545432003555C00198886 /* ZZAddPicCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -686,6 +700,18 @@
 		7B5C1CEA1F1F601200DDDA78 /* ZZImageTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZImageTools.m; sourceTree = "<group>"; };
 		7B5C1CEC1F1F659300DDDA78 /* icon_menu_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_search@2x.png"; sourceTree = "<group>"; };
 		7B5C1CED1F1F659300DDDA78 /* icon_menu_search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_search@3x.png"; sourceTree = "<group>"; };
+		7B61C8B8200C4EA700C932D9 /* ZZSearchResultController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSearchResultController.h; sourceTree = "<group>"; };
+		7B61C8B9200C4EA700C932D9 /* ZZSearchResultController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSearchResultController.m; sourceTree = "<group>"; };
+		7B61C8BB200C512F00C932D9 /* ZZSearchResultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSearchResultCell.h; sourceTree = "<group>"; };
+		7B61C8BC200C512F00C932D9 /* ZZSearchResultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSearchResultCell.m; sourceTree = "<group>"; };
+		7B61C8BE200C74B700C932D9 /* ZZRSTableController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZRSTableController.h; sourceTree = "<group>"; };
+		7B61C8BF200C74B700C932D9 /* ZZRSTableController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZRSTableController.m; sourceTree = "<group>"; };
+		7B61C8C1200D9BA500C932D9 /* LemmaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LemmaModel.h; sourceTree = "<group>"; };
+		7B61C8C2200D9BA500C932D9 /* LemmaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LemmaModel.m; sourceTree = "<group>"; };
+		7B61C8C4200DAE8B00C932D9 /* ZZTipsAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZTipsAlertView.h; sourceTree = "<group>"; };
+		7B61C8C5200DAE8B00C932D9 /* ZZTipsAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZTipsAlertView.m; sourceTree = "<group>"; };
+		7B61C8C7200DC53D00C932D9 /* ZZBaseAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZBaseAlertView.h; sourceTree = "<group>"; };
+		7B61C8C8200DC53D00C932D9 /* ZZBaseAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZBaseAlertView.m; sourceTree = "<group>"; };
 		7B7000011F3AF90A00C59281 /* ZZAlertview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAlertview.h; sourceTree = "<group>"; };
 		7B7000021F3AF90A00C59281 /* ZZAlertview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAlertview.m; sourceTree = "<group>"; };
 		7B7000041F3AFEB300C59281 /* ZZPushSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPushSettingController.h; sourceTree = "<group>"; };
@@ -1190,6 +1216,17 @@
 		7BD950CB1FFDC8180016C3D6 /* ZZSymptomWTCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomWTCell.h; sourceTree = "<group>"; };
 		7BD950CC1FFDC8180016C3D6 /* ZZSymptomWTCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomWTCell.m; sourceTree = "<group>"; };
 		7BD950CD1FFDC8180016C3D6 /* ZZSymptomWTCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZSymptomWTCell.xib; sourceTree = "<group>"; };
+		7BD950D01FFE41C30016C3D6 /* AddSymptomDescController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSymptomDescController.h; sourceTree = "<group>"; };
+		7BD950D11FFE41C30016C3D6 /* AddSymptomDescController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSymptomDescController.m; sourceTree = "<group>"; };
+		7BD950D31FFE42CB0016C3D6 /* ZZSymptomExtModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomExtModel.h; sourceTree = "<group>"; };
+		7BD950D41FFE42CB0016C3D6 /* ZZSymptomExtModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomExtModel.m; sourceTree = "<group>"; };
+		7BE6548E2004BB26000B57AE /* ZZPatientSymptomController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZPatientSymptomController.h; sourceTree = "<group>"; };
+		7BE6548F2004BB26000B57AE /* ZZPatientSymptomController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZPatientSymptomController.m; sourceTree = "<group>"; };
+		7BE654912005BCF9000B57AE /* ZZDiseaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZDiseaseModel.h; sourceTree = "<group>"; };
+		7BE654922005BCF9000B57AE /* ZZDiseaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZDiseaseModel.m; sourceTree = "<group>"; };
+		7BE654942005C830000B57AE /* ZZSymptomDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomDetailCell.h; sourceTree = "<group>"; };
+		7BE654952005C830000B57AE /* ZZSymptomDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomDetailCell.m; sourceTree = "<group>"; };
+		7BE654962005C830000B57AE /* ZZSymptomDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZSymptomDetailCell.xib; sourceTree = "<group>"; };
 		7BF110041F18678C00456E55 /* ExpertApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpertApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF110081F18678C00456E55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7BF1100A1F18678C00456E55 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1236,6 +1273,9 @@
 		7BF110731F1888D300456E55 /* ZZURLConnectionRequestImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZURLConnectionRequestImpl.m; sourceTree = "<group>"; };
 		7BF110751F188AFA00456E55 /* ZZCoreCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCoreCommon.h; sourceTree = "<group>"; };
 		7BF110761F188AFA00456E55 /* ZZCoreCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCoreCommon.m; sourceTree = "<group>"; };
+		7BF545412003555C00198886 /* ZZAddPicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZAddPicCell.h; sourceTree = "<group>"; };
+		7BF545422003555C00198886 /* ZZAddPicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZAddPicCell.m; sourceTree = "<group>"; };
+		7BF545432003555C00198886 /* ZZAddPicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZAddPicCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1349,6 +1389,9 @@
 				7B20C15B1F71030F00FBFD9F /* ZZCaseDetailMulCell.h */,
 				7B20C15C1F71030F00FBFD9F /* ZZCaseDetailMulCell.m */,
 				7B20C15D1F71030F00FBFD9F /* ZZCaseDetailMulCell.xib */,
+				7BE654942005C830000B57AE /* ZZSymptomDetailCell.h */,
+				7BE654952005C830000B57AE /* ZZSymptomDetailCell.m */,
+				7BE654962005C830000B57AE /* ZZSymptomDetailCell.xib */,
 			);
 			name = CaseDetailCell;
 			sourceTree = "<group>";
@@ -1476,6 +1519,12 @@
 				7B8EBD3A1FA03A600039E602 /* ZZFriendUserCell.h */,
 				7B8EBD3B1FA03A600039E602 /* ZZFriendUserCell.m */,
 				7B8EBD3C1FA03A600039E602 /* ZZFriendUserCell.xib */,
+				7B61C8B8200C4EA700C932D9 /* ZZSearchResultController.h */,
+				7B61C8B9200C4EA700C932D9 /* ZZSearchResultController.m */,
+				7B61C8BB200C512F00C932D9 /* ZZSearchResultCell.h */,
+				7B61C8BC200C512F00C932D9 /* ZZSearchResultCell.m */,
+				7B61C8BE200C74B700C932D9 /* ZZRSTableController.h */,
+				7B61C8BF200C74B700C932D9 /* ZZRSTableController.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1651,6 +1700,10 @@
 			children = (
 				7B7000011F3AF90A00C59281 /* ZZAlertview.h */,
 				7B7000021F3AF90A00C59281 /* ZZAlertview.m */,
+				7B61C8C4200DAE8B00C932D9 /* ZZTipsAlertView.h */,
+				7B61C8C5200DAE8B00C932D9 /* ZZTipsAlertView.m */,
+				7B61C8C7200DC53D00C932D9 /* ZZBaseAlertView.h */,
+				7B61C8C8200DC53D00C932D9 /* ZZBaseAlertView.m */,
 			);
 			path = ZZAlertView;
 			sourceTree = "<group>";
@@ -1982,6 +2035,9 @@
 				7B7002721F55493800C59281 /* ZZCreateCaseMulCell.h */,
 				7B7002731F55493800C59281 /* ZZCreateCaseMulCell.m */,
 				7B7002741F55493800C59281 /* ZZCreateCaseMulCell.xib */,
+				7BF545412003555C00198886 /* ZZAddPicCell.h */,
+				7BF545422003555C00198886 /* ZZAddPicCell.m */,
+				7BF545432003555C00198886 /* ZZAddPicCell.xib */,
 			);
 			name = CreateCaseCell;
 			sourceTree = "<group>";
@@ -2105,6 +2161,12 @@
 				7BD9506B1FFB718E0016C3D6 /* ZZPatientModel.m */,
 				7BD950B51FFC80A00016C3D6 /* ZZSymptomModel.h */,
 				7BD950B61FFC80A00016C3D6 /* ZZSymptomModel.m */,
+				7BD950D31FFE42CB0016C3D6 /* ZZSymptomExtModel.h */,
+				7BD950D41FFE42CB0016C3D6 /* ZZSymptomExtModel.m */,
+				7BE654912005BCF9000B57AE /* ZZDiseaseModel.h */,
+				7BE654922005BCF9000B57AE /* ZZDiseaseModel.m */,
+				7B61C8C1200D9BA500C932D9 /* LemmaModel.h */,
+				7B61C8C2200D9BA500C932D9 /* LemmaModel.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2419,6 +2481,10 @@
 				7BD950CB1FFDC8180016C3D6 /* ZZSymptomWTCell.h */,
 				7BD950CC1FFDC8180016C3D6 /* ZZSymptomWTCell.m */,
 				7BD950CD1FFDC8180016C3D6 /* ZZSymptomWTCell.xib */,
+				7BD950D01FFE41C30016C3D6 /* AddSymptomDescController.h */,
+				7BD950D11FFE41C30016C3D6 /* AddSymptomDescController.m */,
+				7BE6548E2004BB26000B57AE /* ZZPatientSymptomController.h */,
+				7BE6548F2004BB26000B57AE /* ZZPatientSymptomController.m */,
 			);
 			path = Symptom;
 			sourceTree = "<group>";
@@ -2754,6 +2820,7 @@
 				7B7001441F45414100C59281 /* my_doctor@2x.png in Resources */,
 				7B7001101F45414100C59281 /* btn_cannotselected@2x.png in Resources */,
 				7BAE109C1F66977B0034AB76 /* treatment_5@2x.png in Resources */,
+				7BF545452003555C00198886 /* ZZAddPicCell.xib in Resources */,
 				7BABAD401F67E958004C85FB /* prompt@2x.png in Resources */,
 				7BAE109B1F66977B0034AB76 /* treatment_4@3x.png in Resources */,
 				7B06B9C01F79198600C5EF83 /* tab_bill_selected@3x.png in Resources */,
@@ -3004,6 +3071,7 @@
 				7BAE10981F66977B0034AB76 /* treatment_3@2x.png in Resources */,
 				7B7000171F3B0E2000C59281 /* ZZDoctorUserCell.xib in Resources */,
 				7BD950A51FFB910E0016C3D6 /* Selected_state@3x.png in Resources */,
+				7BE654982005C830000B57AE /* ZZSymptomDetailCell.xib in Resources */,
 				7BAE108C1F66977B0034AB76 /* classificationbg2@2x.png in Resources */,
 				7B7001331F45414100C59281 /* icon_password@3x.png in Resources */,
 				7BAE10A81F66977B0034AB76 /* Voicemail@2x.png in Resources */,
@@ -3111,8 +3179,10 @@
 				7B7F3D3C1F31778200132669 /* TAAbstractDotView.m in Sources */,
 				7B3DFE351FBC3E3100AD39AE /* ASQListController.m in Sources */,
 				7B70028E1F56647700C59281 /* ZZSportCaseEntity.m in Sources */,
+				7B61C8C9200DC53D00C932D9 /* ZZBaseAlertView.m in Sources */,
 				7B5C1CDC1F1F5B7B00DDDA78 /* UIImage+Utility.m in Sources */,
 				7B7C1C3E1FBCA233001F6DE4 /* ASQDetailController.m in Sources */,
+				7B61C8BD200C512F00C932D9 /* ZZSearchResultCell.m in Sources */,
 				7B8A90421F18A4A400FC53D7 /* ZZGuideView.m in Sources */,
 				7BD796511F740702006223A2 /* UIButton+countDown.m in Sources */,
 				7B8A902E1F18A16D00FC53D7 /* UILabel+Additions.m in Sources */,
@@ -3124,6 +3194,7 @@
 				7B5C1CEB1F1F601200DDDA78 /* ZZImageTools.m in Sources */,
 				7B20C1561F7101C800FBFD9F /* ZZCaseDtailCell.m in Sources */,
 				7BD9508A1FFB833F0016C3D6 /* PGPickerViewConfig.m in Sources */,
+				7B61C8C0200C74B700C932D9 /* ZZRSTableController.m in Sources */,
 				7B20C16E1F721D0D00FBFD9F /* ZZDiscussCell.m in Sources */,
 				7B8A90341F18A1F400FC53D7 /* ZZCoreTools.m in Sources */,
 				7BD950651FFB625C0016C3D6 /* ZZCreatePatientController.m in Sources */,
@@ -3133,6 +3204,7 @@
 				7B7002811F55730700C59281 /* ZZDoctorDetailController.m in Sources */,
 				7B7000061F3AFEB300C59281 /* ZZPushSettingController.m in Sources */,
 				7BF1105F1F18828D00456E55 /* ZZRequsetInterface.m in Sources */,
+				7BE654972005C830000B57AE /* ZZSymptomDetailCell.m in Sources */,
 				7B20C16A1F7215A300FBFD9F /* ZZDiscussController.m in Sources */,
 				7B00F8DC1F30708000E29561 /* EasyTableView.m in Sources */,
 				7B7000111F3B09D600C59281 /* ZZChapterUserCell.m in Sources */,
@@ -3172,7 +3244,9 @@
 				7BD9508C1FFB833F0016C3D6 /* PGPickerTableView.m in Sources */,
 				7B20C15A1F7102D600FBFD9F /* ZZCaseDetailBaseCell.m in Sources */,
 				7B5C1CE01F1F5B7B00DDDA78 /* XHImageViewer.m in Sources */,
+				7B61C8C6200DAE8B00C932D9 /* ZZTipsAlertView.m in Sources */,
 				7B7002B91F5FA78900C59281 /* ZZDictModel.m in Sources */,
+				7BF545442003555C00198886 /* ZZAddPicCell.m in Sources */,
 				7B5C1CE51F1F5B7B00DDDA78 /* ZCMenuItem.m in Sources */,
 				7BD950881FFB833F0016C3D6 /* PGPickerColumnCell.m in Sources */,
 				7B5C1CD61F1F5B7B00DDDA78 /* RegexKitLite.m in Sources */,
@@ -3212,6 +3286,7 @@
 				7BF1104C1F18807600456E55 /* ZZLoginController.m in Sources */,
 				7B8EBD3D1FA03A600039E602 /* ZZFriendUserCell.m in Sources */,
 				7B20C1721F72645600FBFD9F /* ZZMyHZListController.m in Sources */,
+				7B61C8BA200C4EA700C932D9 /* ZZSearchResultController.m in Sources */,
 				7B20C1491F70C9DA00FBFD9F /* ZZDoctorCaseCell.m in Sources */,
 				7B7002591F5506C700C59281 /* ZZCreateCaseController.m in Sources */,
 				7BD950CA1FFDC4ED0016C3D6 /* ZZSymptomWTListView.m in Sources */,
@@ -3220,6 +3295,7 @@
 				7B8A902F1F18A16D00FC53D7 /* UIView+Border.m in Sources */,
 				7B8A902D1F18A16D00FC53D7 /* UIImage+ImageWithColor.m in Sources */,
 				7B5C1C8E1F1F544D00DDDA78 /* ZZSearchDoctorController.m in Sources */,
+				7B61C8C3200D9BA500C932D9 /* LemmaModel.m in Sources */,
 				7B7F3D2B1F31770200132669 /* ZZChapterModel.m in Sources */,
 				7BF110621F18846900456E55 /* ZZASIRequestImpl.m in Sources */,
 				7B5C1C921F1F547B00DDDA78 /* ZZDoctorCell.m in Sources */,
@@ -3249,9 +3325,11 @@
 				7B8A902C1F18A16D00FC53D7 /* UIColor+HexColor.m in Sources */,
 				7B8A905F1F18A72A00FC53D7 /* SVWebViewController.m in Sources */,
 				7B70000A1F3B06E700C59281 /* ZZAttentionController.m in Sources */,
+				7BE654902004BB26000B57AE /* ZZPatientSymptomController.m in Sources */,
 				7B7F3D451F317DB900132669 /* ZZChannelCell.m in Sources */,
 				7B5C1CDF1F1F5B7B00DDDA78 /* XHFileAttribute.m in Sources */,
 				7B8A903F1F18A44C00FC53D7 /* ZZGuideController.m in Sources */,
+				7BD950D51FFE42CB0016C3D6 /* ZZSymptomExtModel.m in Sources */,
 				7B7001AD1F4596F700C59281 /* ZZPerfectInfoController.m in Sources */,
 				7B7C1C3B1FBC9D6A001F6DE4 /* ZZDoctorArchivesController.m in Sources */,
 				7B5C1CE61F1F5B7B00DDDA78 /* TTTAttributedLabel.m in Sources */,
@@ -3273,6 +3351,8 @@
 				7B74A7191F7B927E00FA2BF3 /* NSString+HTML.m in Sources */,
 				7B7001B91F45AB3000C59281 /* NirKxMenu.m in Sources */,
 				7B5C1CDD1F1F5B7B00DDDA78 /* ZCAppUIImageView.m in Sources */,
+				7BE654932005BCF9000B57AE /* ZZDiseaseModel.m in Sources */,
+				7BD950D21FFE41C30016C3D6 /* AddSymptomDescController.m in Sources */,
 				7BF110471F18802200456E55 /* ZZSettingController.m in Sources */,
 				7B5C1C7F1F1F532500DDDA78 /* ZZChapterListController.m in Sources */,
 				7BD950C31FFCC0170016C3D6 /* ZZPatientDetailController.m in Sources */,

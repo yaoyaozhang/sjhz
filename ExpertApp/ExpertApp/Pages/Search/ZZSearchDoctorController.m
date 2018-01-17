@@ -571,7 +571,7 @@
     // 选项
     self.seletBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_seletBtn setTitle:@"类别" forState:UIControlStateNormal];
-    _seletBtn.frame = CGRectMake(10, StatusBarHeight+5, 40, 26);
+    _seletBtn.frame = CGRectMake(10, StatusBarHeight+9, 40, 26);
     [_seletBtn setTitleColor:UIColorFromRGB(TextWhiteColor) forState:UIControlStateNormal];
     [_seletBtn addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
     self.seletBtn.titleLabel.font = ListDetailFont;
@@ -586,7 +586,7 @@
     
     
     // 灰色背景
-    UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(61, StatusBarHeight+5, ScreenWidth - 58 - 71, 26)];
+    UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(61, StatusBarHeight+9, ScreenWidth - 58 - 71, 26)];
     bgView.backgroundColor = UIColorFromRGB(BgSystemColor);
     bgView.layer.cornerRadius = 3.5f;
     bgView.layer.masksToBounds = YES;
@@ -609,7 +609,7 @@
     
     // 取消btn
     self.cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _cancelBtn.frame = CGRectMake(CGRectGetMaxX(bgView.frame)+10, StatusBarHeight + 5, 48, 26);
+    _cancelBtn.frame = CGRectMake(CGRectGetMaxX(bgView.frame)+10, StatusBarHeight + 9, 48, 26);
     [_cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
