@@ -30,46 +30,29 @@
 
 //**************************项目中的导航栏一部分是自定义的View,一部分是系统自带的NavigationBar*********************************
 - (void)setNavigationBarStyle{
-//    if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]){
-//        NSArray *list=self.navigationController.navigationBar.subviews;
-//        for (id obj in list) {
-//            if ([obj isKindOfClass:[UIImageView class]]) {
-//                UIImageView *imageView=(UIImageView *)obj;
-//                imageView.hidden=YES;
-//            }
-//        }
-//        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, iOS7?-20:0,ScreenWidth, NavBarHeight)];
-//        imageView.image=[UIImage imageWithColor:UIColorFromRGB(BgTitleColor)];
-//        imageView.tag=10001;
-//        [self.navigationController.navigationBar addSubview:imageView];
-//        [self.navigationController.navigationBar sendSubviewToBack:imageView];
-//    }
+    if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]){
+        NSArray *list=self.navigationController.navigationBar.subviews;
+        for (id obj in list) {
+            if ([obj isKindOfClass:[UIImageView class]]) {
+                UIImageView *imageView=(UIImageView *)obj;
+                imageView.hidden=YES;
+            }
+        }
+        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, iOS7?-20:0,ScreenWidth, NavBarHeight)];
+        imageView.image=[UIImage imageWithColor:UIColorFromRGB(BgTitleColor)];
+        imageView.tag=10001;
+        [self.navigationController.navigationBar addSubview:imageView];
+        [self.navigationController.navigationBar sendSubviewToBack:imageView];
+    }
     
     if(iOS7){
         [self.navigationController.navigationBar setTranslucent:YES];
-        //设置所有的导航了的背景颜色
-        
-        UINavigationBar  *bar = [UINavigationBar appearance];
-        
-        if ([[UIDevice currentDevice].systemVersion floatValue] >= 7.0) {
-            [bar setBackgroundImage:[UIImage imageWithColor:UIColorFromRGB(BgTitleColor)] forBarMetrics:UIBarMetricsDefault];
-            
-            NSDictionary *dict =@{
-                                  
-                                  NSForegroundColorAttributeName:[UIColor whiteColor],
-                                  
-                                  NSFontAttributeName:[UIFont systemFontOfSize:16]
-                                  
-                                  };
-            
-            [bar setTitleTextAttributes:dict];
-            
-            //设置主题
-            
-            [bar setTintColor:[UIColor whiteColor]];
-        }
     }
     [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,TitleFont, NSFontAttributeName, nil]];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:UIColorFromRGB(BgTitleColor)] forBarMetrics:UIBarMetricsDefault];
+    
+    [self createLeftBarItemSelect:@selector(goBack:) norImageName:nil highImageName:nil];
 }
 
 

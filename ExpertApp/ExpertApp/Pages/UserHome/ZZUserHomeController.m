@@ -283,7 +283,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     
     
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 25, 25, 25)];
-    [imgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"treatment_%zd",tag]]];
+    [imgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"treatment_%zd",tag+1]]];
     [imgView setBackgroundColor:[UIColor clearColor]];
     [imgView setContentMode:UIViewContentModeScaleAspectFit];
     [itemView addSubview:imgView];

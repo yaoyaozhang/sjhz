@@ -122,7 +122,7 @@
         [_listArray addObject:arr1];
         
         NSArray *arr2 = @[@{@"code":@"5",@"icon":@"my_set",@"text":@"设置与帮助"},
-                          @{@"code":@"6",@"icon":@"my_recommend",@"text":@"推荐给朋友"},
+//                          @{@"code":@"6",@"icon":@"my_recommend",@"text":@"推荐给朋友"},
                           @{@"code":@"7",@"icon":@"my_opinion",@"text":@"意见反馈"}];
         [_listArray addObject:arr2];
     }else{

@@ -51,6 +51,13 @@
     if(sender.tag == BACK_BUTTON){
         [self goBack:nil];
     }
+    
+    if(sender.tag == RIGHT_BUTTON){
+        // 分享
+        ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeChapter vc:self];
+        shareView.shareModel = _model;
+        [shareView show];
+    }
 }
 
 

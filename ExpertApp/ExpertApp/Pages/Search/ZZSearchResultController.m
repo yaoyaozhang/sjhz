@@ -152,8 +152,11 @@
     
     [self loadCollectionView];
     [self createSearchController];
-    [self allAppRequestWithParm];
-    
+    if(convertToString(_searchText).length>0){
+        [_searchVC.searchBar setText:_searchText];
+    }else{
+        [self allAppRequestWithParm];
+    }
 }
 
 #pragma mark 搜索视图

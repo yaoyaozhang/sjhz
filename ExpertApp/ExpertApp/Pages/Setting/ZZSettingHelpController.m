@@ -200,7 +200,7 @@
         [SVProgressHUD showInfoWithStatus:@"清理完成"];
     }
     if(code == 3){
-        SVWebViewController *sv = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
+        SVWebViewController *sv = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:API_ProtocolDoctor]];
         [self openNav:sv sound:nil];
     }
     

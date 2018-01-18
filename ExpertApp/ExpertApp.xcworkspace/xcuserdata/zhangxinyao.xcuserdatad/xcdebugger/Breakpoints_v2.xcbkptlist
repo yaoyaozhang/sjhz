@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExpertApp/Pages/Consultation/ZZInviteDoctorController.m"
-            timestampString = "537875199.4969341"
+            timestampString = "537949510.207798"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "470"
@@ -58,45 +58,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExpertApp/AppDelegate.m"
-            timestampString = "537875199.497059"
+            timestampString = "537949510.207885"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "-application:openURL:sourceApplication:annotation:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AppDelegate application:openURL:sourceApplication:annotation:]"
-                  moduleName = "ExpertApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhangxinyao/Documents/work/SJHZ/sjhz/ExpertApp/ExpertApp/AppDelegate.m"
-                  timestampString = "537875200.908149"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "120"
-                  endingLineNumber = "120"
-                  offsetFromSymbolStart = "335">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__64-[AppDelegate application:openURL:sourceApplication:annotation:]_block_invoke"
-                  moduleName = "ExpertApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhangxinyao/Documents/work/SJHZ/sjhz/ExpertApp/ExpertApp/AppDelegate.m"
-                  timestampString = "537875200.910275"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
-                  offsetFromSymbolStart = "51">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -106,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExpertApp/AppDelegate.m"
-            timestampString = "537875199.4971811"
+            timestampString = "537949510.2080261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "-application:handleOpenURL:"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExpertApp/AppDelegate.m"
-            timestampString = "537875199.497273"
+            timestampString = "537949510.208119"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "-application:openURL:options:"
             landmarkType = "7">
          </BreakpointContent>
@@ -169,29 +137,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ExpertApp/Views/CoreTextLabel/CoreTextLabel.m"
-            timestampString = "537862100.749011"
+            filePath = "ExpertApp/Pages/SVWebViewController/SVWebViewController.m"
+            timestampString = "537949510.208339"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "669"
-            endingLineNumber = "669"
-            landmarkName = "-touchesBegan:withEvent:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ExpertApp/Views/ZZShare/ZZShareView.m"
-            timestampString = "537875199.497623"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "-shareWithButton:"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "-updateToolbarItems"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

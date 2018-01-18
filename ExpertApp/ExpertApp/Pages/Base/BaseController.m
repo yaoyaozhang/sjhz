@@ -306,7 +306,7 @@
         [icon setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         icon.frame = CGRectMake(0,0, pf.size.width, image.size.height);
         [_placeholderView addSubview:icon];
-        y= icon.frame.size.height+20;
+        y= icon.frame.size.height+10;
     }
     if(title){
         CGFloat height=[ZZCoreTools getHeightContain:title font:ListTitleFont Width:pf.size.width];

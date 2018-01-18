@@ -185,7 +185,11 @@
             
         }];
     }else if(btn.tag == _btnLink.tag){
-        SVWebViewController *vc = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
+        NSString *pageUrl = API_ProtocolUser;
+        if(_btnDoctor.selected){
+            pageUrl = API_ProtocolDoctor;
+        }
+        SVWebViewController *vc = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:pageUrl]];
         [self openNav:vc sound:nil];
     }else if(btn.tag == _btnRegister.tag){
         NSString *tel = convertToString(_txtPhone.text);

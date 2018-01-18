@@ -14,16 +14,18 @@
  */
 ////////////////////////////////////////////////////////////////
 
-//#define API_HOST @"http://47.94.131.85:8080"
+#define API_HOST @"http://47.94.131.85:8080"
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
 //#define API_HOST @"http://192.168.99.123:8080"
-#define API_HOST @"http://219.142.225.69:8123"
+//#define API_HOST @"http://219.142.225.69:8123"
 //#define API_HOST @"http://192.168.8.102:8080"
 
 /**
  *  发送验证码
  */
 #define API_SendSms [NSString stringWithFormat:@"%@/user/appSendSms",API_HOST]
+#define API_ProtocolUser [NSString stringWithFormat:@"%@/Protocol/user_protocol.html",API_HOST]
+#define API_ProtocolDoctor [NSString stringWithFormat:@"%@/Protocol/doctor_protocol.html",API_HOST]
 
 
 #define API_updateDoctorDn [NSString stringWithFormat:@"%@/doctor/updateDoctorDn",API_HOST]
