@@ -16,7 +16,7 @@
 
 @property(nonatomic,strong) NSString *quesNum;
 
-// 1、单选，2多选，3数字
+// 1、单选，2多选，3数字,4图片
 @property(nonatomic,assign) int       quesType;
 @property(nonatomic,strong) NSString *quesWt;
 

@@ -123,6 +123,11 @@
     ZZAddSymptomController *vc = [[ZZAddSymptomController alloc] init];
     vc.docId = [_doctorId intValue];
     vc.patient = _listArray[checkedRow];
+    [vc setZZCreateResultBlock:^(int status) {
+        if(status == 1){
+            [self.view makeToast:@"问诊提交成功，请耐心等待医生诊断！"];
+        }
+    }];
     [self openNav:vc sound:nil];
     
 //    NSDictionary *item = _listArray[checkedRow];

@@ -34,7 +34,8 @@
     [_textViewCase setText:item[@"dictValue"]];
     [_textViewCase setPlaceholder:item[@"placeholder"]];
     
-    if([@"remark" isEqual:item[@"dictName"]]){
+    
+    if([@"0" isEqual:item[@"isOption"]]){
         _imgRequired.hidden = YES;
     }else{
         _imgRequired.hidden = NO;

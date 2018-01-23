@@ -66,7 +66,7 @@
     
     
     [self.menuRightButton setImage:[UIImage imageNamed:@"nav_share"] forState:UIControlStateNormal];
-    [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@的个人诊所",loginUser.name] forState:UIControlStateNormal];
+    [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@的个人诊所",loginUser.docName] forState:UIControlStateNormal];
     
     [self createTableView];
     
@@ -91,12 +91,9 @@
     
     if(sender.tag == RIGHT_BUTTON){
         // 分享
-//        ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeUser vc:self];
-//        shareView.shareModel=loginUser;
-//        [shareView show];
-        
-        ZZSearchResultController *vc = [[ZZSearchResultController alloc] init];
-        [self openNav:vc sound:nil];
+        ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeUser vc:self];
+        shareView.shareModel=loginUser;
+        [shareView show];
     }else if(sender.tag == 111){
         // 关注
         

@@ -48,9 +48,9 @@
         if(_model.caseDept==0 && i == 1){
             continue;
         }
-        if(i==2){
-            continue;
-        }
+//        if(i==2){
+//            continue;
+//        }
         [self createItemButton:i+1 title:titles[i]];
         btnY = btnY + 40 + 10;
     }

@@ -101,10 +101,13 @@
  加载更多
  */
 -(void)loadMoreData{
-   
-    _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"消息通知"},
-                      @{@"code":@"2",@"icon":@"",@"text":@"清除缓存"},
-                      @{@"code":@"3",@"icon":@"",@"text":@"协议声明"}];
+//
+//    _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"消息通知"},
+//                      @{@"code":@"2",@"icon":@"",@"text":@"清除缓存"},
+//                      @{@"code":@"3",@"icon":@"",@"text":@"协议声明"}];
+    _listArray = @[
+                   @{@"code":@"2",@"icon":@"",@"text":@"清除缓存"},
+                   @{@"code":@"3",@"icon":@"",@"text":@"协议声明"}];
     
     [_listTable reloadData];
 }
@@ -200,7 +203,11 @@
         [SVProgressHUD showInfoWithStatus:@"清理完成"];
     }
     if(code == 3){
-        SVWebViewController *sv = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:API_ProtocolDoctor]];
+        NSString *pageUrl = API_ProtocolUser;
+        if([[ZZDataCache getInstance] getLoginUser].isDoctor){
+            pageUrl = API_ProtocolDoctor;
+        }
+        SVWebViewController *sv = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:pageUrl]];
         [self openNav:sv sound:nil];
     }
     

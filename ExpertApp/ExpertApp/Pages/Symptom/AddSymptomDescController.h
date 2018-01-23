@@ -9,6 +9,7 @@
 #import "BaseController.h"
 #import "ZZSymptomModel.h"
 
+
 @interface AddSymptomDescController : BaseController
 
 @property(nonatomic,strong) ZZSymptomModel *model;

@@ -14,9 +14,25 @@
     
     if(self){
         _quesAnswer = [[NSMutableArray alloc] init];
-        NSArray *arr = dict[@"quesAnswer"];
-        for (NSDictionary *qitem in arr) {
-            [_quesAnswer addObject:[[ZZQSAnswerModel alloc] initWithMyDict:qitem]];
+        if(_quesType == 4 && convertToString(_answerValue).length >0){
+            NSArray *iarr = [_answerValue componentsSeparatedByString:@"&"];
+            for (NSString *itemStr in iarr) {
+                if(convertToString(itemStr).length > 0 ){
+                    NSArray *itemV = [itemStr componentsSeparatedByString:@"="];
+                    if(!is_null(itemV) && itemV.count == 2){
+                        ZZQSAnswerModel *m = [ZZQSAnswerModel new];
+                        m.tag = itemV[0];
+                        m.context = itemV[1];
+                        [_quesAnswer addObject:m];
+                    }
+                }
+            }
+        }else{
+            NSArray *arr = dict[@"quesAnswer"];
+            for (NSDictionary *qitem in arr) {
+                ZZQSAnswerModel *m = [[ZZQSAnswerModel alloc] initWithMyDict:qitem];
+                [_quesAnswer addObject:m];
+            }
         }
     }
     return self;

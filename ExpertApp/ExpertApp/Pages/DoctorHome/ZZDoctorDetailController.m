@@ -202,6 +202,8 @@
                 _model = [ZZUserHomeModel new];
             }
             _model.docInfo = [[ZZUserInfo alloc] initWithMyDict:dict[@"retData"]];
+            
+            [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@的个人诊所",_model.docInfo.docName] forState:UIControlStateNormal];
             isLook = [convertToString(dict[@"retData"][@"isLook"]) intValue];
             if(isLook > 0){
                 [_colloctBtn setTitle:@"已关注" forState:UIControlStateNormal];

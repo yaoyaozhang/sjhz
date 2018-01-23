@@ -97,6 +97,12 @@
         [_labTagName setText:item[@"dictDesc"]];
         
         
+        
+        if([@"0" isEqual:item[@"isOption"]]){
+            _imgRequired.hidden = YES;
+        }else{
+            _imgRequired.hidden = NO;
+        }
         int type = [item[@"dictType"] intValue];
         
         if(type == ZZEditControlTypeAddPic){

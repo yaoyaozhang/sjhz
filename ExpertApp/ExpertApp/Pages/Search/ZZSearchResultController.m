@@ -64,11 +64,11 @@
                 imageView.hidden=YES;
             }
         }
-        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, iOS7?-20:0,ScreenWidth, NavBarHeight)];
-        imageView.image=[UIImage imageWithColor:UIColorFromRGB(BgTitleColor)];
-        imageView.tag=10001;
-        [self.navigationController.navigationBar addSubview:imageView];
-        [self.navigationController.navigationBar sendSubviewToBack:imageView];
+//        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, iOS7?-20:0,ScreenWidth, NavBarHeight)];
+//        imageView.image=[UIImage imageWithColor:UIColorFromRGB(BgTitleColor)];
+//        imageView.tag=10001;
+//        [self.navigationController.navigationBar addSubview:imageView];
+//        [self.navigationController.navigationBar sendSubviewToBack:imageView];
     }
 
     if(iOS7){
@@ -187,26 +187,28 @@
     _searchVC.searchResultsUpdater = self;
     
     //修改searchBar的属性
-    UIView *subView =_searchVC.searchBar.subviews[0];
-    for (UIView *view in subView.subviews)
-    {
-        if ([view isKindOfClass:NSClassFromString(@"UISearchBarBackground")])
+    if(!ZC_iPhoneX){
+        UIView *subView =_searchVC.searchBar.subviews[0];
+        for (UIView *view in subView.subviews)
         {
-            [view removeFromSuperview];
-            //修改搜索框背景
-            UIView *backView = [[UIView alloc] init];
-            backView.backgroundColor = UIColorFromRGB(BgSystemColor);
-            backView.frame = CGRectMake(0, -20, ScreenWidth, 64);
-            [_searchVC.searchBar insertSubview:backView atIndex:0];
-        }
-        //自定义textField
-        else if ([view isKindOfClass:[UITextField class]])
-        {
-            UITextField *textField = (UITextField *)view;
-            textField.layer.borderWidth = 0.5;
-            textField.layer.borderColor = UIColorFromRGB(BgLineColor).CGColor;
-            textField.layer.cornerRadius = 2;
-            textField.clipsToBounds = YES;
+            if ([view isKindOfClass:NSClassFromString(@"UISearchBarBackground")])
+            {
+                [view removeFromSuperview];
+                //修改搜索框背景
+                UIView *backView = [[UIView alloc] init];
+                backView.backgroundColor = UIColorFromRGB(BgSystemColor);
+                backView.frame = CGRectMake(0, -20, ScreenWidth, 64);
+                [_searchVC.searchBar insertSubview:backView atIndex:0];
+            }
+            //自定义textField
+            else if ([view isKindOfClass:[UITextField class]])
+            {
+                UITextField *textField = (UITextField *)view;
+                textField.layer.borderWidth = 0.5;
+                textField.layer.borderColor = UIColorFromRGB(BgLineColor).CGColor;
+                textField.layer.cornerRadius = 2;
+                textField.clipsToBounds = YES;
+            }
         }
     }
     

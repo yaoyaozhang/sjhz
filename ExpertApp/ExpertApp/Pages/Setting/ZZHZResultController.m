@@ -153,6 +153,11 @@
         pm.patientId = _model.healthId;
         vc.patient = pm;
         vc.docId = _model.writeDoc;
+        [vc setZZCreateResultBlock:^(int status) {
+            if(status == 1){
+                [self.view makeToast:@"问诊提交成功，请耐心等待医生诊断！"];
+            }
+        }];
         [self openNav:vc sound:nil];
 //        if(sender){
 //            

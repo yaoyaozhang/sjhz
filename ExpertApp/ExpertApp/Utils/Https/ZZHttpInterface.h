@@ -13,19 +13,19 @@
  * 接口
  */
 ////////////////////////////////////////////////////////////////
-
-#define API_HOST @"http://47.94.131.85:8080"
+//
+//#define API_HOST @"http://47.94.131.85:8080"
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
 //#define API_HOST @"http://192.168.99.123:8080"
-//#define API_HOST @"http://219.142.225.69:8123"
+#define API_HOST @"http://219.142.225.69:8123"
 //#define API_HOST @"http://192.168.8.102:8080"
 
 /**
  *  发送验证码
  */
 #define API_SendSms [NSString stringWithFormat:@"%@/user/appSendSms",API_HOST]
-#define API_ProtocolUser [NSString stringWithFormat:@"%@/Protocol/user_protocol.html",API_HOST]
-#define API_ProtocolDoctor [NSString stringWithFormat:@"%@/Protocol/doctor_protocol.html",API_HOST]
+#define API_ProtocolUser [NSString stringWithFormat:@"%@/user_protocol.html",API_HOST]
+#define API_ProtocolDoctor [NSString stringWithFormat:@"%@/doctor_protocol.html",API_HOST]
 
 
 #define API_updateDoctorDn [NSString stringWithFormat:@"%@/doctor/updateDoctorDn",API_HOST]
@@ -53,6 +53,7 @@
 
 
 #define API_UpdateUserInfo [NSString stringWithFormat:@"%@/user/appUpdateUser",API_HOST]
+#define API_UpdateUserInfoName [NSString stringWithFormat:@"%@/user/appUpdateUserName",API_HOST]
 
 
 #define API_SaveCase [NSString stringWithFormat:@"%@/comconCase/add",API_HOST]
@@ -173,7 +174,9 @@
 #define API_findBaseInfo [NSString stringWithFormat:@"%@/baseInfo/info",API_HOST]
 
 // 用户首页
+#define API_findUserNewHome [NSString stringWithFormat:@"%@/doctor/findNewHome",API_HOST]
 #define API_findUserHome [NSString stringWithFormat:@"%@/doctor/findHome",API_HOST]
+
 
 // 搜索医生
 #define API_searchDoctor [NSString stringWithFormat:@"%@/doctor/findDoctorAll",API_HOST]

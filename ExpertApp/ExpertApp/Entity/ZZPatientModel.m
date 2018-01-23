@@ -75,9 +75,9 @@
     [arr1 addObject:@{@"code":@"4",
                       @"dictName":@"city",
                       @"dictDesc":@"所在城市",
-                      @"placeholder":@"选择地区",
+                      @"placeholder":@"请输入城市",
                       @"dictValue":convertToString(_city),
-                      @"dictType":convertIntToString(ZZEditControlTypeChoose),
+                      @"dictType":convertIntToString(ZZEditControlTypeTextField),
                       @"valueType":@"1",
                       @"isOption":@"0",
                       }];

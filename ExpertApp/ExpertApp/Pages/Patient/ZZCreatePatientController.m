@@ -477,22 +477,23 @@
 -(void)onCaseValueChanged:(id)changeModel type:(ZZEditControlType)type dict:(NSDictionary *)dict obj:(id)object{
     _editModel = (ZZPatientModel *)changeModel;
     // 城市
-    if([@"city" isEqual:dict[@"dictName"]]){
-        menuType  = 1;
-        [[ZZDataCache getInstance] getCacheConfigDict:^(NSMutableDictionary *dict, int status) {
-            if(status == 0){
-                [SVProgressHUD dismiss];
-                
-                [self btnShowMenu:object];
-            }
-            if(status == 1){
-                [SVProgressHUD show];
-            }
-            if(status == 2){
-                [SVProgressHUD showErrorWithStatus:@"加载配置信息错误"];
-            }
-        }];
-    }else if([@"patients" isEqual:dict[@"dictName"]]){
+//    if([@"city" isEqual:dict[@"dictName"]]){
+//        menuType  = 1;
+//        [[ZZDataCache getInstance] getCacheConfigDict:^(NSMutableDictionary *dict, int status) {
+//            if(status == 0){
+//                [SVProgressHUD dismiss];
+//
+//                [self btnShowMenu:object];
+//            }
+//            if(status == 1){
+//                [SVProgressHUD show];
+//            }
+//            if(status == 2){
+//                [SVProgressHUD showErrorWithStatus:@"加载配置信息错误"];
+//            }
+//        }];
+//    }else
+        if([@"patients" isEqual:dict[@"dictName"]]){
         menuType = 2;
         [[ZZDataCache getInstance] getCacheConfigDict:^(NSMutableDictionary *dict, int status) {
             if(status == 0){

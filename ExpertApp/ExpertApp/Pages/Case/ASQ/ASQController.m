@@ -14,13 +14,17 @@
 
 #import "ZZSQTextCell.h"
 #import "ZZChooseCell.h"
+#import "ZZSQPicCell.h"
 
 #define cellIdentifier @"ZZSQTextCell"
 #define cellIdentifierChoose @"ZZChooseCell"
+#define cellIdentifierPic @"ZZSQPicCell"
 #import "AlertUtil.h"
 #import "ZZShareView.h"
 
-@interface ASQController ()<ZZSQBaseCellDelegate>{
+#import "ZCActionSheetView.h"
+
+@interface ASQController ()<ZZSQBaseCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ZCActionSheetViewDelegate>{
     UITextField *tempField;
     CGPoint contentOffset;
     NSString * wenTiId;
@@ -28,9 +32,13 @@
     
     NSMutableDictionary *values;
     UIView *bottomView;
+    NSString *curUpTitle;
+    ZZQSModel *curPicModel;
 }
 @property(nonatomic,strong)UITableView      *listTable;
 @property(nonatomic,strong)NSMutableArray   *listArray;
+
+@property(nonatomic,strong) UIImagePickerController *imagepicker;
 
 
 @end
@@ -110,20 +118,28 @@
         NSMutableArray *ans = [NSMutableArray arrayWithCapacity:0];
         for(int i=0;i<_listArray.count;i++){
             ZZQSModel *pm = [_listArray objectAtIndex:i];
-            NSString *key = convertIntToString(pm.quesId);
-            NSDictionary *item = values[key];
             NSMutableArray *arr = [NSMutableArray arrayWithCapacity:0];
-            for(NSString *ikey in item.allKeys){
-                if([ikey hasPrefix:@"value"]){
+            if(pm.quesType == 4){
+                for (ZZQSAnswerModel *mm in pm.quesAnswer) {
                     // 输入框内容
-                    [arr addObject:@{@"n":pm.quesNum,@"id":key,@"v":convertToString(item[ikey]),@"s":@""}];
-                }else{
-                    // 选项内容
-                    ZZQSAnswerModel *model = item[ikey];
-                    [arr addObject:@{@"n":pm.quesNum,@"id":ikey,@"v":convertToString(model.context),@"s":convertToString(model.tag)}];
+                    [arr addObject:@{@"n":convertIntToString(pm.quesType),@"id":convertIntToString(pm.quesId),@"v":convertToString(mm.context),@"s":convertToString(mm.tag)}];
+                }
+            }else{
+                NSString *key = convertIntToString(pm.quesId);
+                NSDictionary *item = values[key];
+                
+                for(NSString *ikey in item.allKeys){
+                    if([ikey hasPrefix:@"value"]){
+                        // 输入框内容
+                        [arr addObject:@{@"n":pm.quesNum,@"id":key,@"v":convertToString(item[ikey]),@"s":@""}];
+                    }else{
+                        // 选项内容
+                        ZZQSAnswerModel *model = item[ikey];
+                        [arr addObject:@{@"n":pm.quesNum,@"id":ikey,@"v":convertToString(model.context),@"s":convertToString(model.tag)}];
+                    }
                 }
             }
-            [ans addObject:@{@"qid":key,@"answer":arr}];
+            [ans addObject:@{@"qid":convertIntToString(pm.quesId),@"answer":arr}];
         }
         NSString *text = [ZCLocalStore DataTOjsonString:ans];
         
@@ -185,6 +201,7 @@
     
     [_listTable registerNib:[UINib nibWithNibName:cellIdentifierChoose bundle:nil] forCellReuseIdentifier:cellIdentifierChoose];
     
+    [_listTable registerNib:[UINib nibWithNibName:cellIdentifierPic bundle:nil] forCellReuseIdentifier:cellIdentifierPic];
     
     [_listTable setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     if (iOS7) {
@@ -241,6 +258,8 @@
                             if(m.quesType==3){
                                 
                                 [self onCellClick:m.answerValue type:m.quesType with:m];
+                            }else if(m.quesType== 4){
+                                [values setObject:m.quesAnswer forKey:convertIntToString(m.quesId)];
                             }else{
                                 ZZQSAnswerModel *obj = [temp objectForKey:convertToString(alist[i])];
                                 obj.isSelected = YES;
@@ -301,7 +320,13 @@
         if (cell == nil) {
             cell = [[ZZChooseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierChoose];
         }
-    }else{
+    }else if(model.quesType == 4){
+        cell =  (ZZSQPicCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifierPic];
+        if (cell == nil) {
+            cell = [[ZZSQPicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierPic];
+        }
+    }
+    else{
         cell =  (ZZSQTextCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
             cell = [[ZZSQTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
@@ -363,37 +388,56 @@
 
 
 -(ZZQSModel *)onCellClick:(id)obj type:(int)type with:(ZZQSModel *)questModel{
-    NSMutableDictionary *dict = [values objectForKey:convertIntToString(questModel.quesId)];
-    if(is_null(dict)){
-        dict = [NSMutableDictionary dictionaryWithCapacity:1];
-    }
-    if(type == 1){
-        ZZQSAnswerModel *model = obj;
-        [dict removeAllObjects];
-        if(model.isSelected){
-            [dict setObject:model forKey:convertIntToString(model.aid)];
+    
+    // 4添加图片，5删除图片
+    if(type == 4){
+        curPicModel = questModel;
+        NSArray *arr = @[@"心肺运动试验",@"心电图",@"背部站立照"];
+        [[AlertUtil shareInstance] showSheet:@"选择分类" message:@"" cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag) {
+            if(buttonTag >= 0){
+                curUpTitle = arr[buttonTag];
+                [self didAddImage];
+            }
+        } buttonTitles:@"心肺运动试验",@"心电图",@"背部站立照", nil];
+    }else if(type == 5){
+        [questModel.quesAnswer removeObject:obj];
+        [values setObject:questModel.quesAnswer forKey:convertIntToString(questModel.quesId)];
+        [_listTable reloadData];
+    }else{
+        NSMutableDictionary *dict = [values objectForKey:convertIntToString(questModel.quesId)];
+        if(is_null(dict)){
+            dict = [NSMutableDictionary dictionaryWithCapacity:1];
         }
-    }
-    if(type == 2){
-        ZZQSAnswerModel *model = obj;
-        if(model.isSelected){
-            [dict setObject:model forKey:convertIntToString(model.aid)];
-        }else{
-            [dict removeObjectForKey:convertIntToString(model.aid)];
+        if(type == 1){
+            ZZQSAnswerModel *model = obj;
+            [dict removeAllObjects];
+            if(model.isSelected){
+                [dict setObject:model forKey:convertIntToString(model.aid)];
+            }
         }
+        if(type == 2){
+            ZZQSAnswerModel *model = obj;
+            if(model.isSelected){
+                [dict setObject:model forKey:convertIntToString(model.aid)];
+            }else{
+                [dict removeObjectForKey:convertIntToString(model.aid)];
+            }
+        }
+        
+        if(type == 3){
+            NSString *text = obj;
+            [dict removeAllObjects];
+            [dict setObject:text forKey:@"value"];
+        }
+        
+        
+        
+        questModel.values = dict;
+        [values setObject:dict forKey:convertIntToString(questModel.quesId)];
+        
+        
     }
     
-    if(type == 3){
-        NSString *text = obj;
-        [dict removeAllObjects];
-        [dict setObject:text forKey:@"value"];
-    }
-    questModel.values = dict;
-    [values setObject:dict forKey:convertIntToString(questModel.quesId)];
-    if(type != 3){
-     
-//        [_listTable reloadData];
-    }
     
     return questModel;
 }
@@ -475,6 +519,184 @@
         
     }
     return NO;
+}
+
+
+
+///////////////////////////////////////////////////
+// 添加图片
+
+- (void)didAddImage{
+    
+    ZCActionSheetView *actionSheet = [[ZCActionSheetView alloc]initWithDelegate:self title:nil CancelTitle:@"取消" OtherTitles:@"拍照",@"从相册选择", nil];
+    [actionSheet show];
+}
+
+
+- (void)actionSheet:(ZCActionSheetView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 1:
+        {
+            if ([ZZCoreTools isHasCaptureDeviceAuthorization]) {
+                _imagepicker = nil;
+                _imagepicker=[[UIImagePickerController alloc]init];
+                _imagepicker.delegate= self;
+                _imagepicker.allowsEditing=NO;
+                _imagepicker.sourceType=UIImagePickerControllerSourceTypeCamera;
+                if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+                    _imagepicker.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+                }
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self openWithPresent:_imagepicker animated:YES];
+                });
+            }else{
+                UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"请在iPhone的“设置-隐私-相机”选项中，允许访问你的手机相机" message:@"" delegate:nil cancelButtonTitle:@"好" otherButtonTitles: nil];
+                [alert show];
+                
+            }
+            break;
+        }
+        case 2:
+        {
+            //                从相册选择
+            
+            if ([ZZCoreTools isHasPhotoLibraryAuthorization]) {
+                
+                _imagepicker = nil;
+                _imagepicker=[[UIImagePickerController alloc]init];
+                _imagepicker.delegate=self;
+                _imagepicker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+                if ([_imagepicker.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
+                    [_imagepicker.navigationBar setBarTintColor:UIColorFromRGB(BgTitleColor)];
+                    [_imagepicker.navigationBar setTranslucent:YES];
+                    [_imagepicker.navigationBar setTintColor:[UIColor whiteColor]];
+                }else{
+                    [_imagepicker.navigationBar setBackgroundColor:UIColorFromRGB(BgTitleColor)];
+                }
+                
+                [_imagepicker.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,TitleFont, NSFontAttributeName, nil]];
+                
+                
+                _imagepicker.allowsEditing=NO;
+                
+                if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+                    _imagepicker.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+                }
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self openWithPresent:_imagepicker animated:YES];
+                });
+            }else{
+                UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"请在iPhone的“设置-隐私-照片”选项中，允许访问你的手机相册" message:@"" delegate:nil cancelButtonTitle:@"好" otherButtonTitles: nil];
+                [alert show];
+                
+            }
+            
+            break;
+        }
+        default:
+            break;
+    }
+    
+}
+
+
+#pragma mark UIImagePickerControllerDelegate
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:NO completion:^{
+        
+    }];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    [picker dismissViewControllerAnimated:NO completion:^{
+        
+    }];
+    
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera)
+    {
+        // 原始图片
+        UIImage * oriImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+        //        发送图片
+        if (oriImage) {
+            NSData * imageData =UIImageJPEGRepresentation(oriImage, 0.5f);
+            
+            NSString * fname = [NSString stringWithFormat:@"/Expert/image100%ld.jpg",(long)[NSDate date].timeIntervalSince1970];
+            checkPathAndCreate(getDocumentsFilePath(@"/Expert/"));
+            NSString *fullPath=getDocumentsFilePath(fname);
+            [imageData writeToFile:fullPath atomically:YES];
+            
+            CGFloat mb=imageData.length/1024/1024;
+            if(mb>4){
+                [self.view makeToast:@"图片大小需小于4M!" duration:1.0 position:@"center"];
+                
+                return;
+            }
+            [self updateloadFile:fullPath fileName:fname];
+            
+            [_listTable reloadData];
+        }
+        
+    }
+    if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+        // 原始图片
+        UIImage * originImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+        if (originImage) {
+            NSData * imageData =UIImageJPEGRepresentation(originImage, 0.5f);
+            
+            NSString * fname = [NSString stringWithFormat:@"/expert/image100%ld.jpg",(long)[NSDate date].timeIntervalSince1970];
+            checkPathAndCreate(getDocumentsFilePath(@"/expert/"));
+            NSString *fullPath=getDocumentsFilePath(fname);
+            [imageData writeToFile:fullPath atomically:YES];
+            
+            CGFloat mb=imageData.length/1024/1024;
+            if(mb>4){
+                [self.view makeToast:@"图片大小需小于4M!" duration:1.0 position:@"center"];
+                
+                return;
+            }
+            
+            [self updateloadFile:fullPath fileName:fname];
+            
+        }
+    }
+}
+
+
+
+#pragma mark -- 上传附件和图片
+- (void)updateloadFile:(NSString *)filePath fileName:(NSString *)fileName{
+    NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithCapacity:0];
+    paramDic[@"file"] = filePath;
+    paramDic[@"type"] = @"inspection";
+    
+    [ZZRequsetInterface post:API_UploadFile param:paramDic timeOut:HttpPostTimeOut start:^{
+        [SVProgressHUD showWithStatus:@"上传中"];
+    } finish:^(id response, NSData *data) {
+        
+    } complete:^(NSDictionary *dict) {
+        [SVProgressHUD showSuccessWithStatus:@"上传成功!"];
+        NSLog(@"%@",dict);
+        ZZQSAnswerModel *picModel = [ZZQSAnswerModel new];
+        picModel.tag = curUpTitle;
+        picModel.context = convertToString(dict[@"retData"]);
+        picModel.wentiId = 0;
+        if(is_null(curPicModel.quesAnswer)){
+            curPicModel.quesAnswer = [[NSMutableArray alloc] init];
+        }
+        [curPicModel.quesAnswer addObject:picModel];
+        
+        [values setObject:curPicModel.quesAnswer forKey:convertIntToString(curPicModel.quesId)];
+        
+        [_listTable reloadData];
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        [SVProgressHUD showErrorWithStatus:errorMsg];
+    } progress:^(CGFloat progress) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

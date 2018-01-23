@@ -21,7 +21,7 @@
             }
         }
         
-        if(![@"" isEqual:convertToString(_name)]){
+        if([@"" isEqual:convertToString(_userName)]){
             _userName = _name;
         }
     }

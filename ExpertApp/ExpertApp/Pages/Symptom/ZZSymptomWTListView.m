@@ -51,8 +51,8 @@
         [_contentView setBackgroundColor:UIColor.whiteColor];
         [self addSubview:_contentView];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick)];
-        [self addGestureRecognizer:tap];
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick)];
+//        [self addGestureRecognizer:tap];
         
         [self createTableView];
         
@@ -250,8 +250,11 @@
         value = [value stringByAppendingFormat:@"%@;",text];
     }
     [params setObject:value forKey:convertIntToString(model.symptomWtId)];
+    if([value isEqual:@""]){
+        [params removeObjectForKey:convertIntToString(model.symptomWtId)];
+    }
     
-    [_listTable reloadData];
+//    [_listTable reloadData];
 }
 
 

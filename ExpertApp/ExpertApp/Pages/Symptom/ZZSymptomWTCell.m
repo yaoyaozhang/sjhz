@@ -100,6 +100,12 @@
 
 -(void)onItemClick:(MyButton *) btn{
     btn.selected = !btn.selected;
+    
+    for(MyButton *otherbtn in _chooseView.subviews){
+        if(![otherbtn.objTag isEqualToString:btn.objTag]){
+            otherbtn.selected = NO;
+        }
+    }
     if(self.delegate){
         [self.delegate onItemClick:_tempModel text:btn.objTag check:btn.selected];
     }

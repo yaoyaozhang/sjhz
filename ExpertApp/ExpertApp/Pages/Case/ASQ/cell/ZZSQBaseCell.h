@@ -11,9 +11,8 @@
 
 @protocol ZZSQBaseCellDelegate
 
-// 1 单选 2多选 3文本
+// 1 单选 2多选 3文本,4添加图片，5删除图片
 -(ZZQSModel *)onCellClick:(id) obj type:(int) type with:(ZZQSModel *) questModel;
-
 
 -(void)didKeyboardWillShow:(NSIndexPath *)indexPath view:(UITextField *) textfield;
 @end

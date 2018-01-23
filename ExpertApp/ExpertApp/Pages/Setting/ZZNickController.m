@@ -72,19 +72,16 @@
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         if(_type == ZZUserEidtTypeNick){
             [dict setObject:convertToString(name) forKey:@"name"];
+            [dict setObject:@"1" forKey:@"type"];
         }
         
         if(_type == ZZUserEidtTypeSC){
-            [dict setObject:convertToString(name) forKey:@"accomplished"];
-            [dict setObject:convertToString(loginUser.userName) forKey:@"name"];
+            [dict setObject:convertToString(name) forKey:@"name"];
+            [dict setObject:@"2" forKey:@"type"];
         }
         
-        [dict setObject:convertToString(loginUser.thirdId) forKey:@"thirdId"];
-        [dict setObject:convertIntToString(loginUser.isYj) forKey:@"isYj"];
-        [dict setObject:convertToString(loginUser.witness) forKey:@"witness"];
-        [dict setObject:convertToString(loginUser.yjBackGround) forKey:@"yjBackGround"];
         [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
-        [ZZRequsetInterface post:API_UpdateUserInfo param:dict timeOut:HttpGetTimeOut start:^{
+        [ZZRequsetInterface post:API_UpdateUserInfoName param:dict timeOut:HttpGetTimeOut start:^{
             
         } finish:^(id response, NSData *data) {
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);

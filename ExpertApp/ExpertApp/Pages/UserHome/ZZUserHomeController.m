@@ -84,7 +84,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
 -(void)endNetRefreshData{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:convertIntToString([[ZZDataCache getInstance] getLoginUser].userId) forKey:@"userId"];
-    [ZZRequsetInterface post:API_findUserHome param:dict timeOut:HttpGetTimeOut start:^{
+    [ZZRequsetInterface post:API_findUserNewHome param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
         [SVProgressHUD dismiss];
@@ -283,7 +283,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     
     
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 25, 25, 25)];
-    [imgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"treatment_%zd",tag+1]]];
+    [imgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"scale_%zd",((int)tag>9)?tag-9:tag+1]]];
     [imgView setBackgroundColor:[UIColor clearColor]];
     [imgView setContentMode:UIViewContentModeScaleAspectFit];
     [itemView addSubview:imgView];

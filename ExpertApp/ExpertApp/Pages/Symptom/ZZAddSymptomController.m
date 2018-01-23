@@ -141,9 +141,7 @@
     AddSymptomDescController *desc = [[AddSymptomDescController alloc] init];
     desc.model = firstModel;
     desc.preParams = dict;
-    [desc setZZCreateResultBlock:^(int status) {
-        
-    }];
+    [desc setZZCreateResultBlock:_ZZCreateResultBlock];
     [self openNav:desc sound:nil];
 }
 

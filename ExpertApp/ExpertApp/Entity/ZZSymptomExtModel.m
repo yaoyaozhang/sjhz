@@ -60,7 +60,7 @@
                       @"dictValue":convertToString(_remark),
                       @"dictType":convertIntToString(ZZEditControlTypeTextView),
                       @"valueType":@"1",
-                      @"isOption":@"1",
+                      @"isOption":@"0",
                       }];
     [arr1 addObject:@{@"code":@"5",
                       @"dictName":@"addPic",
@@ -69,7 +69,7 @@
                       @"dictValue":is_null(_picList)?@"":_picList,
                       @"dictType":convertIntToString(ZZEditControlTypeAddPic),
                       @"valueType":@"1",
-                      @"isOption":@"1",
+                      @"isOption":@"0",
                       }];
     return arr1;
 }
@@ -126,7 +126,7 @@
                       @"dictValue":convertToString(_remark),
                       @"dictType":convertIntToString(ZZEditControlTypeTextView),
                       @"valueType":@"1",
-                      @"isOption":@"1",
+                      @"isOption":@"0",
                       }];
     
     [arr1 addObject:@{@"code":@"6",
@@ -136,7 +136,7 @@
                       @"dictValue":is_null(_picList)?@"":_picList,
                       @"dictType":convertIntToString(ZZEditControlTypeAddPic),
                       @"valueType":@"1",
-                      @"isOption":@"1",
+                      @"isOption":@"0",
                       }];
     return arr1;
 }

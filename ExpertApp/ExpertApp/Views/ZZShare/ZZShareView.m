@@ -238,7 +238,7 @@
     }else if(_type == ZZShareTypeChapter){
         ZZChapterModel *model = (ZZChapterModel *)_shareModel;
         
-        message.title = model.author;
+        message.title = convertToString(model.title);
         message.description = convertToString(model.title).length>100?[model.title substringToIndex:100]:model.title;
         message.messageExt = [NSString stringWithFormat:@"sjhz://news?id=%d",model.nid];
         message.messageAction = kAppMessageAction;
@@ -285,7 +285,7 @@
     if (!isOK) {
         [_curVC.view makeToast:@"分享失败！"];
     }else{
-        NSLog(@"response data is %@",data);
+//        NSLog(@"response data is %@",data);
         [_curVC.view makeToast:@"分享成功！"];
     }
     

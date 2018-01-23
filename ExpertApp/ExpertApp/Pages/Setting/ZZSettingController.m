@@ -38,7 +38,6 @@
 
 #import "ZZPatientListController.h"
 
-#import "ZZAddSymptomController.h"
 
 
 @interface ZZSettingController ()<UITableViewDelegate,UITableViewDataSource>{

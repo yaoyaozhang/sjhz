@@ -9,7 +9,7 @@
 #import "ZZDoctorArchivesController.h"
 #import "ZCTextPlaceholderView.h"
 
-@interface ZZDoctorArchivesController (){
+@interface ZZDoctorArchivesController ()<UIScrollViewDelegate,UIGestureRecognizerDelegate>{
     CGSize        contentSize;// 记录list的偏移量
     
     UIButton *checkButton;
@@ -59,17 +59,23 @@
     _mainScroll.showsHorizontalScrollIndicator = NO;
     _mainScroll.showsVerticalScrollIndicator = NO;
     _mainScroll.alwaysBounceHorizontal = NO;
-    _mainScroll.alwaysBounceVertical = NO;
-    _mainScroll.pagingEnabled = YES;
-    _mainScroll.bounces = NO;
-    _mainScroll.scrollEnabled = NO;
+    _mainScroll.alwaysBounceVertical = YES;
+    _mainScroll.pagingEnabled = NO;
+    _mainScroll.bounces = YES;
+    _mainScroll.scrollEnabled = YES;
+    _mainScroll.delegate = self;
     
     [self createInitView:1];
     [self createInitView:2];
     [self createInitView:3];
     
     
-    [_mainScroll setContentSize:CGSizeMake(ScreenWidth, 390)];
+    [self handleKeyboard];
+    if(_mainScroll.contentSize.height < 390){
+        [_mainScroll setContentSize:CGSizeMake(ScreenWidth, 390)];
+    }
+    
+    contentSize = _mainScroll.contentSize;
     [self createBottomView];
 }
 
@@ -93,9 +99,12 @@
         } finish:^(id response, NSData *data) {
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
-            
+            loginUser.medicalBackground = convertToString(v1);
+            loginUser.academicResearch = convertToString(v2);
+            loginUser.doctorWrote = convertToString(v3);
             [[ZZDataCache getInstance] changeUserInfo:loginUser];
             [self.view makeToast:@"保存成功!"];
+            [self goBack:nil];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             
         } progress:^(CGFloat progress) {
@@ -133,10 +142,13 @@
     [_mainScroll addSubview:_textView];
     if(tag == 1){
         _textView1 = _textView;
+        _textView1.text = convertToString(loginUser.medicalBackground);
     }else if(tag == 2){
         _textView2 = _textView;
+        _textView2.text = convertToString(loginUser.academicResearch);
     }else if(tag == 3){
         _textView3 = _textView;
+        _textView3.text = convertToString(loginUser.doctorWrote);
     }
     
 }
@@ -167,18 +179,31 @@
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     
     
-    
-    CGRect mf = _mainScroll.frame;
-    mf.origin.y = NavBarHeight;
-    _mainScroll.frame = mf;
-    
+    [self setBootomLocation];
     [UIView commitAnimations];
-    
-    
-    [self.view removeGestureRecognizer:tapRecognizer];
 }
 
 
+//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+//    [self didTapAnywhere:nil];
+//}
+
+
+
+-(void)setBootomLocation{
+    CGSize tempSize = CGSizeMake(ScreenWidth, 0);
+    tempSize.height = contentSize.height + keyboardHeight;
+    CGRect f = _mainScroll.frame;
+    if(keyboardHeight>0){
+     
+        f.size.height = ScreenHeight - NavBarHeight - keyboardHeight;
+    }else{
+        
+        f.size.height = ScreenHeight - NavBarHeight - 60 ;
+    }
+    [_mainScroll setFrame:f];
+    [_mainScroll setContentSize:tempSize];
+}
 
 //键盘显示
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -196,23 +221,7 @@
     // get a rect for the view frame
     {
         
-        CGRect mf = _mainScroll.frame;
-        
-        CGFloat x = mf.size.height - _mainScroll.contentSize.height;
-        CGFloat SH = StatusBarHeight;
-        CGFloat bottomH = 0;
-        if (ZC_iPhoneX ) {
-            SH = 0;
-            bottomH = 34;
-        }
-        if(x > 0){
-            if(x<keyboardHeight){
-                mf.origin.y = NavBarHeight - (keyboardHeight - x);
-            }
-        }else{
-            mf.origin.y   = NavBarHeight - keyboardHeight;
-        }
-        _mainScroll.frame = mf;
+        [self setBootomLocation];
     }
     
     // commit animations
@@ -226,7 +235,20 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapAnywhere:)];
-    [self.view addGestureRecognizer:tapRecognizer];
+    
+    tapRecognizer.delegate = self;
+    _mainScroll.userInteractionEnabled = YES;
+    [_mainScroll addGestureRecognizer:tapRecognizer];
+    
+}
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    UIView *view = [touch view];
+    
+    if ([view isKindOfClass:[UIButton class]]) {
+        return NO;
+    }
+    return YES;
 }
 
 //屏幕点击事件

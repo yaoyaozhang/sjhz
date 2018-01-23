@@ -222,7 +222,10 @@
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
             if([@"0" isEqual:dict[@"retCode"]]){
-                [SVProgressHUD showInfoWithStatus:@"问诊提交成功，请耐心等待医生诊断！"];
+                if(_ZZCreateResultBlock){
+                    _ZZCreateResultBlock(1);
+                }
+                
                 if(self.navigationController.viewControllers.count > 2){
                     [self.navigationController popToViewController:self.navigationController.viewControllers[self.navigationController.viewControllers.count - 3] animated:YES];
                 }else{

@@ -14,4 +14,7 @@
 @property(nonatomic,strong) ZZPatientModel *patient;
 @property(nonatomic,assign) int docId;
 
+@property (nonatomic, strong)  void(^ZZCreateResultBlock) (int status);
+
+
 @end
