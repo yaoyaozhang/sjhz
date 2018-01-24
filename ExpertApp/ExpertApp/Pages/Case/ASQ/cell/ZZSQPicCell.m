@@ -30,6 +30,9 @@
     
     [_imgsScroll.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
+    if(self.showType == 1){
+        _isDetail = YES;
+    }
     if(model.quesType == 4){
        
         int count = 0;

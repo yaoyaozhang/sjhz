@@ -229,7 +229,7 @@
         }
         
         message.title = userModel.docName;
-        message.description = convertToString(userModel.departmentName).length>100?[userModel.departmentName substringToIndex:100]:userModel.departmentName;
+        message.description = convertToString(userModel.accomplished).length>100?[userModel.accomplished substringToIndex:100]:userModel.accomplished;
         message.messageExt = [NSString stringWithFormat:@"sjhz:///doctor?userI1d=%d",userModel.userId];
         message.messageAction = kAppMessageAction;
         message.mediaTagName = nil;

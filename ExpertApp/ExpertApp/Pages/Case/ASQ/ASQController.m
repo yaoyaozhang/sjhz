@@ -34,6 +34,8 @@
     UIView *bottomView;
     NSString *curUpTitle;
     ZZQSModel *curPicModel;
+    
+    NSString *resultText;
 }
 @property(nonatomic,strong)UITableView      *listTable;
 @property(nonatomic,strong)NSMutableArray   *listArray;
@@ -64,9 +66,8 @@
     
     
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-    gestureRecognizer.numberOfTapsRequired = 1;
-    gestureRecognizer.cancelsTouchesInView = NO;
-    [_listTable addGestureRecognizer:gestureRecognizer];
+    self.view.userInteractionEnabled = YES;
+    [self.view addGestureRecognizer:gestureRecognizer];
     
     if(_model && _model.wenjuanId>0){
         wenTiId = convertIntToString(_model.wenjuanId);
@@ -86,6 +87,9 @@
     saleButton.tag = 111;
     [saleButton setTitle:@"提交" forState:UIControlStateNormal];
     
+    if([self getLoginUser].isDoctor){
+        [saleButton setTitle:@"查看结果" forState:UIControlStateNormal];
+    }
     
     [saleButton setFrame:CGRectMake(30, 10, ScreenWidth - 60, 35)];
     [saleButton setTitleColor:UIColorFromRGB(TextWhiteColor) forState:UIControlStateNormal];
@@ -111,6 +115,16 @@
         
     }
     if(sender.tag == 111){
+        if([self getLoginUser].isDoctor){
+            if(_type == ASQTYPELB){
+                
+            [[AlertUtil shareInstance] showAlert:@"结果成功" message:resultText cancelTitle:nil titleArray:nil viewController:self confirm:^(NSInteger buttonTag) {
+                
+            }];
+            return;
+                
+            }
+        }
         if(values.count  < _listArray.count){
             [self.view makeToast:@"请填写完整结果！"];
             return;
@@ -229,7 +243,7 @@
 -(void)loadMoreData{
     ZZUserInfo *user = [ZZDataCache getInstance].getLoginUser;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(user.userId) forKey:@"userId"];
+    [dict setObject:convertIntToString(_userId>0?_userId:user.userId) forKey:@"userId"];
     [dict setObject:convertIntToString(_model.wenjuanId) forKey:@"quesId"];
     [dict setObject:convertIntToString(_model.type) forKey:@"type"];
     [ZZRequsetInterface post:API_findWenjuanDetail param:dict timeOut:HttpGetTimeOut start:^{
@@ -238,6 +252,9 @@
         [SVProgressHUD dismiss];
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
+        if(_type == ASQTYPELB){
+            resultText=[NSString stringWithFormat:@"总分%@\n%@\n%@",dict[@"retData"][@"total"],dict[@"retData"][@"result"],dict[@"retData"][@"coreSouce"]] ;
+        }
         wenTiId = convertToString(dict[@"retData"][@"wenTiId"]);
         [self.menuTitleButton setTitle:convertToString(dict[@"retData"][@"wenTiName"]) forState:UIControlStateNormal];
         _model.quesName = dict[@"retData"][@"wenTiName"];
@@ -272,7 +289,11 @@
                 [_listArray addObject:m];
             }
             
-            _listTable.tableFooterView = [self createBottomView];
+            if([self getLoginUser].isDoctor && _type == ASQTYPEWJ){
+                _listTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+            }else{
+                _listTable.tableFooterView = [self createBottomView];
+            }
             
             [_listTable reloadData];
             
@@ -333,7 +354,9 @@
         }
     }
    
-    
+    if([self getLoginUser].isDoctor){
+        cell.showType = 1;
+    }
 //    cell.showType = 0;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 //    [cell setSelectedBackgroundView:[[UIView alloc] initWithFrame:cell.bounds]];
@@ -482,8 +505,7 @@
 
 - (void) hideKeyboard {
     
-    [tempField becomeFirstResponder];
-    tempField = nil;
+    [self allHideKeyBoard];
     
     if(contentOffset.x != 0 || contentOffset.y != 0){
         // 隐藏键盘，还原偏移量

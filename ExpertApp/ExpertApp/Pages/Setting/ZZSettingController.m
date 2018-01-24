@@ -126,6 +126,7 @@
         [_listArray addObject:arr2];
     }else{
         NSArray *arr1 = @[@{@"code":@"8",@"icon":@"my_data",@"text":@"我的资料"},
+                          @{@"code":@"15",@"icon":@"my_healthrecords",@"text":@"我的问卷"},
                           @{@"code":@"9",@"icon":@"my_article",@"text":@"文章管理"},
                           @{@"code":@"10",@"icon":@"my_fans",@"text":@"我的粉丝"},
                           @{@"code":@"11",@"icon":@"Doctor_friend",@"text":@"我的医生朋友"}];

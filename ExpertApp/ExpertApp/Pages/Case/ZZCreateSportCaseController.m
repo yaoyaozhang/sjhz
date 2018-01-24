@@ -38,7 +38,7 @@
 
 
 
-@interface ZZCreateSportCaseController ()<ZCActionSheetViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,ZZCreateCaseDeleate>{
+@interface ZZCreateSportCaseController ()<ZCActionSheetViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,ZZCreateCaseDeleate,UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>{
     
     CGPoint        contentoffset;// 记录list的偏移量
     
@@ -341,9 +341,8 @@
     [self setTableSeparatorInset];
     
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHideKeyboard)];
-    gestureRecognizer.numberOfTapsRequired = 1;
-    gestureRecognizer.cancelsTouchesInView = NO;
-    [_listTable addGestureRecognizer:gestureRecognizer];
+    self.view.userInteractionEnabled =YES;
+    [self.view addGestureRecognizer:gestureRecognizer];
     
     
     addBtn = [UIButton buttonWithType:UIButtonTypeCustom];

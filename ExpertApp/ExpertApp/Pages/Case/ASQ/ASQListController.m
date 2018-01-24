@@ -84,6 +84,9 @@
         }
     }else{
         [dict setObject:@"1" forKey:@"type"];
+        if([self getLoginUser].isDoctor && _userId == [self getLoginUser].userId){
+            [dict setObject:@"2" forKey:@"type"];
+        }
     }
     
     [ZZRequsetInterface post:api param:dict timeOut:HttpGetTimeOut start:^{
@@ -204,6 +207,7 @@
     ASQController *detail = [[ASQController alloc] init];
     detail.model = m;
     detail.type = _type;
+    detail.userId = _userId;
     [self openNav:detail sound:nil];
     
 }

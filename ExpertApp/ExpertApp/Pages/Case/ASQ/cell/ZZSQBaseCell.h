@@ -22,6 +22,7 @@
 @property(nonatomic,strong) id<ZZSQBaseCellDelegate> delegate;
 
 
+// 0 可编辑， 1不可编辑
 @property (assign, nonatomic) int showType;
 
 

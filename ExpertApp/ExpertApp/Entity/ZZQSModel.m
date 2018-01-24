@@ -14,16 +14,18 @@
     
     if(self){
         _quesAnswer = [[NSMutableArray alloc] init];
-        if(_quesType == 4 && convertToString(_answerValue).length >0){
-            NSArray *iarr = [_answerValue componentsSeparatedByString:@"&"];
-            for (NSString *itemStr in iarr) {
-                if(convertToString(itemStr).length > 0 ){
-                    NSArray *itemV = [itemStr componentsSeparatedByString:@"="];
-                    if(!is_null(itemV) && itemV.count == 2){
-                        ZZQSAnswerModel *m = [ZZQSAnswerModel new];
-                        m.tag = itemV[0];
-                        m.context = itemV[1];
-                        [_quesAnswer addObject:m];
+        if(_quesType == 4){
+            if(convertToString(_answerValue).length >0){
+                NSArray *iarr = [_answerValue componentsSeparatedByString:@"&"];
+                for (NSString *itemStr in iarr) {
+                    if(convertToString(itemStr).length > 0 ){
+                        NSArray *itemV = [itemStr componentsSeparatedByString:@"="];
+                        if(!is_null(itemV) && itemV.count == 2){
+                            ZZQSAnswerModel *m = [ZZQSAnswerModel new];
+                            m.tag = itemV[0];
+                            m.context = itemV[1];
+                            [_quesAnswer addObject:m];
+                        }
                     }
                 }
             }

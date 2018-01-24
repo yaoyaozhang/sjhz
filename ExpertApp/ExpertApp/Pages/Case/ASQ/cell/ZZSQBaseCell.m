@@ -16,6 +16,7 @@
     _labTitle=[[UILabel alloc] init];
     [_labTitle setTextAlignment:NSTextAlignmentCenter];
     [_labTitle setFont:ListTitleFont];
+    _labTitle.numberOfLines = 0;
     [_labTitle setTextColor:TextBlackColor];
     [_labTitle setTextAlignment:NSTextAlignmentLeft];
     [_labTitle setBackgroundColor:[UIColor clearColor]];
@@ -28,6 +29,7 @@
         _labTitle=[[UILabel alloc] init];
         [_labTitle setTextAlignment:NSTextAlignmentCenter];
         [_labTitle setFont:ListTitleFont];
+        _labTitle.numberOfLines = 0;
         [_labTitle setTextColor:TextBlackColor];
         [_labTitle setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:_labTitle];
@@ -44,6 +46,8 @@
             [_labTitle setText:[NSString stringWithFormat:@"%@、%@[单选]",model.quesNum,convertToString(model.quesWt)]];
         }else if(model.quesType == 2){
             [_labTitle setText:[NSString stringWithFormat:@"%@、%@[多选]",model.quesNum,convertToString(model.quesWt)]];
+        }else if(model.quesType == 4){
+            [_labTitle setText:[NSString stringWithFormat:@"%@、%@[图片]",model.quesNum,convertToString(model.quesWt)]];
         }else{
             [_labTitle setText:[NSString stringWithFormat:@"%@、%@[数字]",model.quesNum,convertToString(model.quesWt)]];
         }
