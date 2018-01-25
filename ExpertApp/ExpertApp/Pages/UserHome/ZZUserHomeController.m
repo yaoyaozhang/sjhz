@@ -75,6 +75,14 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     [self beginNetRefreshData];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    if(_headerArr.count == 0){
+        [self endNetRefreshData];
+    }
+}
+
 #pragma mark -- 上拉加载
 - (void)beginNetRefreshData{
     [SVProgressHUD show];

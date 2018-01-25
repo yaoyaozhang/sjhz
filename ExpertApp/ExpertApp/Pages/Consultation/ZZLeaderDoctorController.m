@@ -68,6 +68,7 @@
         ZZMyHZListController *reVC = [[ZZMyHZListController alloc] init];
         reVC.isFromDoc = YES;
         reVC.model = _model;
+        reVC.userId = _model.userId;
         [self openNav:reVC sound:nil];
     }
     if(btn.tag == 3){

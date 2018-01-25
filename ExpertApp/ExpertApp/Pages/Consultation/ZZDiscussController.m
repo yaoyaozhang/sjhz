@@ -117,6 +117,8 @@
     if(btn.tag == 2){
         ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
         vc.model = _model;
+        vc.userId = _model.userId;
+        vc.isFromDoc = YES;
         [self openNav:vc sound:nil];
     }
     
@@ -132,6 +134,7 @@
     if(btn.tag == 4){
         ZZWriteResultController *vc = [[ZZWriteResultController alloc] init];
         vc.model = _model;
+        
         [vc setResultBlock:^(ZZHZEngity *reModel){
             _model = reModel;
             [_listTable reloadData];

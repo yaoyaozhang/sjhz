@@ -247,6 +247,13 @@
     if(arr==nil || arr.count==0){
         return;
     }
+    ZZDictModel *fm = [arr firstObject];
+    if(fm.baseId > 0){
+        ZZDictModel *nModel = [ZZDictModel new];
+        nModel.baseId = 0;
+        nModel.name = @"全部科室";
+        [arr insertObject:nModel atIndex:0];
+    }
     
     //配置一：基础配置
     KxMenu.titleFont = ListDetailFont;

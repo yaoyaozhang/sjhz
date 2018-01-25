@@ -109,7 +109,7 @@
             userModel.docName = convertToString(userModel.accomplished);
         }
         
-        action = [NSString stringWithFormat:@"sjhz:///doctor?userI1d=%d",userModel.userId];
+        action = [NSString stringWithFormat:@"sjhz://doctor?userId=%d",userModel.userId];
         
 //        shareObject = [UMShareVideoObject shareObjectWithTitle:userModel.docName descr:convertToString(userModel.departmentName) thumImage:[UIImage imageNamed:@"Icon120"]];
 //        shareObject.thumbImage = [UIImage imageNamed:@"Icon120"];
@@ -149,9 +149,9 @@
         
         //        messageObject.shareObject = shareObject;
         if(_type == ZZShareTypeLiangBiao){
-            action = [NSString stringWithFormat:@"sjhz:///liangbiao?lbId=%d&type=%d",model.wenjuanId,model.type];
+            action = [NSString stringWithFormat:@"sjhz://liangbiao?lbId=%d&type=%d",model.wenjuanId,model.type];
         }else{
-            action = [NSString stringWithFormat:@"sjhz:///wenjuan?wjId=%d&type=%d",model.wenjuanId,model.type];
+            action = [NSString stringWithFormat:@"sjhz://wenjuan?wjId=%d&type=%d",model.wenjuanId,model.type];
         }
     }
     
@@ -230,7 +230,7 @@
         
         message.title = userModel.docName;
         message.description = convertToString(userModel.accomplished).length>100?[userModel.accomplished substringToIndex:100]:userModel.accomplished;
-        message.messageExt = [NSString stringWithFormat:@"sjhz:///doctor?userI1d=%d",userModel.userId];
+        message.messageExt = [NSString stringWithFormat:@"sjhz://doctor?userId=%d",userModel.userId];
         message.messageAction = kAppMessageAction;
         message.mediaTagName = nil;
         [message setThumbImage:thumbImage];
@@ -259,9 +259,9 @@
         message.title = [NSString stringWithFormat:@"%@-%@",[ZZCoreTools getAppName],_type == ZZShareTypeLiangBiao?@"量表":@"问卷"];
         message.description =model.quesName;
         if(_type == ZZShareTypeLiangBiao){
-            message.messageExt = [NSString stringWithFormat:@"sjhz:///liangbiao?lbId=%d&type=%d",model.wenjuanId,model.type];
+            message.messageExt = [NSString stringWithFormat:@"sjhz://liangbiao?lbId=%d&type=%d",model.wenjuanId,model.type];
         }else{
-            message.messageExt = [NSString stringWithFormat:@"sjhz:///wenjuan?wjId=%d&type=%d",model.wenjuanId,model.type];
+            message.messageExt = [NSString stringWithFormat:@"sjhz://wenjuan?wjId=%d&type=%d",model.wenjuanId,model.type];
         }
         message.messageAction = kAppMessageAction;
         message.mediaTagName = nil;

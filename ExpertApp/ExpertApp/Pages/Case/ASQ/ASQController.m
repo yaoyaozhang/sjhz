@@ -415,13 +415,16 @@
     // 4添加图片，5删除图片
     if(type == 4){
         curPicModel = questModel;
-        NSArray *arr = @[@"心肺运动试验",@"心电图",@"背部站立照"];
-        [[AlertUtil shareInstance] showSheet:@"选择分类" message:@"" cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag) {
-            if(buttonTag >= 0){
-                curUpTitle = arr[buttonTag];
-                [self didAddImage];
-            }
-        } buttonTitles:@"心肺运动试验",@"心电图",@"背部站立照", nil];
+        curUpTitle =  @"";
+        [self didAddImage];
+        
+//        NSArray *arr = @[@"心肺运动试验",@"心电图",@"背部站立照"];
+//        [[AlertUtil shareInstance] showSheet:@"选择分类" message:@"" cancelTitle:@"取消" viewController:self confirm:^(NSInteger buttonTag) {
+//            if(buttonTag >= 0){
+//                curUpTitle = arr[buttonTag];
+//                [self didAddImage];
+//            }
+//        } buttonTitles:@"心肺运动试验",@"心电图",@"背部站立照", nil];
     }else if(type == 5){
         [questModel.quesAnswer removeObject:obj];
         [values setObject:questModel.quesAnswer forKey:convertIntToString(questModel.quesId)];

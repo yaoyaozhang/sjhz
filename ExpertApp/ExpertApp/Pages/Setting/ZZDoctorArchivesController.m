@@ -45,7 +45,8 @@
     [self.view addSubview:_mainScroll];
     
     [self createTitleMenu];
-    self.menuRightButton.hidden = YES;
+    self.menuRightButton.hidden = NO;
+    [self.menuRightButton setTitle:@"保存" forState:0];
     
     loginUser = [[ZZDataCache getInstance] getLoginUser];
     _listArray = [[NSMutableArray alloc] init];
@@ -76,13 +77,13 @@
     }
     
     contentSize = _mainScroll.contentSize;
-    [self createBottomView];
+//    [self createBottomView];
 }
 
 -(void)buttonClick:(UIButton *)sender{
     [super buttonClick:sender];
     
-    if(sender.tag == 111){
+    if(sender.tag == RIGHT_BUTTON){
         NSString *v1 = _textView1.text;
         NSString *v2 = _textView2.text;
         NSString *v3 = _textView3.text;

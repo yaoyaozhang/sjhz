@@ -96,7 +96,7 @@
         [self autoWidthOfLabel:_labDesc with:df.size.width];
         df = _labDesc.frame;
         
-        if(model.state == 4 && _cellType == ZZHZCellTypeUserHistory){
+        if(model.state >= 3 && _cellType == ZZHZCellTypeUserHistory){
             self.btnDel.hidden = NO;
         }
         

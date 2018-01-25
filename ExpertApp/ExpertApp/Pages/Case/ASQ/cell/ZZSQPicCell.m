@@ -59,11 +59,8 @@
     UIImageView *imageViwe = [[UIImageView alloc] init];
     [imageViwe setFrame:CGRectMake(0,0, 80, 80)];
     [imageViwe setBackgroundColor:[UIColor clearColor]];
-    if([imgurl hasPrefix:@"http"]){
-        [imageViwe sd_setImageWithURL:[NSURL URLWithString:convertToString(imgurl)] placeholderImage:[UIImage imageNamed:@"Upload_photos"]];
-    }else{
-        [imageViwe setImage:[UIImage imageNamed:@"Upload_photos"]];
-    }
+    
+    [imageViwe sd_setImageWithURL:[NSURL URLWithString:convertToString(imgurl)] placeholderImage:[UIImage imageNamed:@"Upload_photos"]];
     imageViwe.layer.cornerRadius = 5.0f;
     imageViwe.layer.masksToBounds = YES;
     imageViwe.layer.borderWidth = 1.0f;

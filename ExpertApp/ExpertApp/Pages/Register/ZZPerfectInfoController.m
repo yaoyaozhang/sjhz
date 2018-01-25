@@ -272,8 +272,8 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
             if(labMap){
                 NSString *ksIds = @"";
                 NSString *ksNames = @"";
-                for (NSString *key in keshiMap.allKeys) {
-                    MyButton *btnCheckKS = keshiMap[key];
+                for (NSString *key in labMap.allKeys) {
+                    MyButton *btnCheckKS = labMap[key];
                     ZZDictModel *item = btnCheckKS.objTag;
                     ksIds = [ksIds stringByAppendingFormat:@",%d",item.baseId];
                     ksNames = [ksNames stringByAppendingFormat:@",%@",item.name];
@@ -309,10 +309,17 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
             NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             [SVProgressHUD dismiss];
         } complete:^(NSDictionary *dict) {
-            [ZCLocalStore addObject:_params[@"mobile"] forKey:KEY_LOGIN_USERNAME];
-            [ZCLocalStore addObject:_params[@"passWord"] forKey:KEY_LOGIN_USERPWD];
-            
-            [[ZZDataCache getInstance] saveLoginUserInfo:dict[@"retData"] view:self.view];
+            if(!_isEdit){
+                [ZCLocalStore addObject:_params[@"mobile"] forKey:KEY_LOGIN_USERNAME];
+                [ZCLocalStore addObject:_params[@"passWord"] forKey:KEY_LOGIN_USERPWD];
+                [[ZZDataCache getInstance] saveLoginUserInfo:dict[@"retData"] view:self.view];
+            }else{
+                [ZCLocalStore addObject:dict[@"retData"] forKey:KEY_LOGIN_USERINFO];
+                [[ZZDataCache getInstance] changeUserInfo:[[ZZUserInfo alloc] initWithMyDict:dict[@"retData"]]];
+                ZZUserInfo *info = [[ZZDataCache getInstance] getLoginUser];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZZNoticeUserInfoChanged" object:info];
+                [self goBack:nil];
+            }
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             
         } progress:^(CGFloat progress) {
@@ -433,7 +440,7 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
         [_contentScrollView addSubview:field];
         if(_isEdit){
             if(ZZControlTagTextName == tag){
-                [field setText:loginUser.name];
+                [field setText:loginUser.docName];
             }
             if(ZZControlTagHispital == tag){
                 [field setText:loginUser.hospital];

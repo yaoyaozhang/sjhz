@@ -435,6 +435,7 @@
         _loginUser.imageUrl = convertToString(dict[@"retData"]);
         [[ZZDataCache getInstance] changeUserInfo:_loginUser];
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZZNoticeUserInfoChanged" object:_loginUser];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         [SVProgressHUD showErrorWithStatus:errorMsg];
     } progress:^(CGFloat progress) {

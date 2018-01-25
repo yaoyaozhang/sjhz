@@ -21,9 +21,18 @@
             }
         }
         
-        if([@"" isEqual:convertToString(_userName)]){
+        if(convertToString(_userName).length > 0){
+            _name = _userName;
+        }else if([@"" isEqual:convertToString(_userName)]){
             _userName = _name;
         }
+        
+        
+        if(_isDoctor){
+            _userName = _docName;
+        }
+        
+        
     }
     return self;
 }

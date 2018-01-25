@@ -72,8 +72,9 @@
         [dict setObject:convertToString(_myFriend.lableName) forKey:@"lableName"];
         
         [ZZRequsetInterface post:API_saveRemarkName param:dict timeOut:HttpGetTimeOut start:^{
-            
+            [SVProgressHUD show];
         } finish:^(id response, NSData *data) {
+            [SVProgressHUD dismiss];
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
             [self.view makeToast:@"备注成功!"];
@@ -332,6 +333,7 @@
 -(void)onCellClick:(id)obj type:(int)type{
     if(type == 1){
         _myFriend.lableName = convertToString(obj);
+        [self loadMoreData];
     }
     
     if(type == 2){

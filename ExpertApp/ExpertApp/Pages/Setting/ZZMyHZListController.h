@@ -12,6 +12,7 @@
 @interface ZZMyHZListController : BaseController
 
 @property(nonatomic,strong) ZZHZEngity *model;
+@property(nonatomic,assign) int userId;
 
 @property(nonatomic,assign) BOOL isFromDoc;
 

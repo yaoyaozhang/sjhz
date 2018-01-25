@@ -397,11 +397,17 @@
             [rootVC.navigationController pushViewController:vc animated:YES];
         }
     }else if([action hasPrefix:@"sjhz://doctor"]){
-        // sjhz:///doctor?userI1d=17
-        ZZDoctorDetailController *vc = [[ZZDoctorDetailController alloc] init];
-        vc.docId = [[action stringByReplacingOccurrencesOfString:@"sjhz://doctor?userId=" withString:@""] intValue];
-//        vc.model = model;
-        [rootVC.navigationController pushViewController:vc animated:YES];
+        int docId = [[action stringByReplacingOccurrencesOfString:@"sjhz://doctor?userId=" withString:@""] intValue];
+        // 如果是医生，刷新医生首页，如果是用户，跳转到会诊详情
+        if([ZZDataCache getInstance].getLoginUser.userId == docId ){
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZZNoticeInviteDoctorSucess" object:nil];
+        }else{
+            // sjhz:///doctor?userI1d=17
+            ZZDoctorDetailController *vc = [[ZZDoctorDetailController alloc] init];
+            vc.docId = docId;
+    //        vc.model = model;
+            [rootVC.navigationController pushViewController:vc animated:YES];
+        }
     }
     else if([action hasPrefix:@"sjhz://liangbiao"]){
         // sjhz:///doctor?userI1d=17

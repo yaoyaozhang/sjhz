@@ -145,6 +145,7 @@
             if(_ResultBlock){
                 _ResultBlock(_model);
             }
+            [self.view makeToast:@"感谢您的填写!"];
             [self goBack:nil];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             

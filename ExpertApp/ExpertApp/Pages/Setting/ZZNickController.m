@@ -82,8 +82,9 @@
         
         [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
         [ZZRequsetInterface post:API_UpdateUserInfoName param:dict timeOut:HttpGetTimeOut start:^{
-            
+            [SVProgressHUD show];
         } finish:^(id response, NSData *data) {
+            [SVProgressHUD dismiss];
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
             if(_type == ZZUserEidtTypeSC){
@@ -93,10 +94,12 @@
             if(_type == ZZUserEidtTypeNick){
                 
                 loginUser.name = name;
+                loginUser.userName = name;
             }
             
             [[ZZDataCache getInstance] changeUserInfo:loginUser];
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZZNoticeUserInfoChanged" object:loginUser];
             [self goBack:nil];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             

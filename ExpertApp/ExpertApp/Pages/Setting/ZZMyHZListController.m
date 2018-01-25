@@ -48,6 +48,12 @@
     [self.menuTitleButton setTitle:@"会诊结果" forState:UIControlStateNormal];
     
     [self createTableView];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changedHZList:) name:@"HZListChanged" object:nil];
+}
+-(void)changedHZList:(NSNotification *) info{
+    [self loadDoctorInfo];
 }
 
 -(void)buttonClick:(UIButton *)sender{
@@ -99,7 +105,7 @@
     
     [self setTableSeparatorInset];
     
-    if(_model != nil){
+    if(_model != nil && _userId == 0){
         _listTable.tableHeaderView = [self createTHeader];
         [self loadDoctorInfo];
     }else{
@@ -122,7 +128,7 @@
         [dict setObject:convertIntToString(_model.healthId) forKey:@"healthId"];
         api =  API_serachDocCaseByHealthId;
     }else{
-        [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+        [dict setObject:convertIntToString(_userId>0?_userId:loginUser.userId) forKey:@"userId"];
         //0 用户1、医生
         [dict setObject:convertIntToString(_isFromDoc) forKey:@"type"];
     }
@@ -140,6 +146,7 @@
 
             
             NSArray *arr = values[@"groupList"];
+            [_listArray removeAllObjects];
             if(arr && arr.count > 0 ){
                 for (NSDictionary *item in arr) {
                     [_listArray addObject:[[ZZHZEngity alloc] initWithMyDict:item]];
@@ -304,7 +311,7 @@
     // 删除
     if(type == 0){
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:convertIntToString(_model.caseId) forKey:@"id"];
+        [dict setObject:convertIntToString(model.caseId) forKey:@"id"];
         [ZZRequsetInterface post:API_delCaseById param:dict timeOut:HttpGetTimeOut start:^{
             
         } finish:^(id response, NSData *data) {
