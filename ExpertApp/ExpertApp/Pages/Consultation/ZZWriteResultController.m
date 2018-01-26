@@ -145,8 +145,10 @@
             if(_ResultBlock){
                 _ResultBlock(_model);
             }
-            [self.view makeToast:@"感谢您的填写!"];
-            [self goBack:nil];
+            [self.view makeToast:@"非常感谢，问诊已经完成!"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self goBack:nil];
+            });
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             
         } progress:^(CGFloat progress) {

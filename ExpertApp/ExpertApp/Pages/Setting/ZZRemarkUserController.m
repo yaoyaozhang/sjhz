@@ -61,6 +61,10 @@
 -(void)buttonClick:(UIButton *)sender{
     [super buttonClick:sender];
     if(sender.tag == RIGHT_BUTTON){
+        if(_myFriend.state==1 && _myFriend.fromUserId!=[self getLoginUser].userId){
+            [self.view makeToast:@"还没有关注对方，不能进行备注!"];
+            return;
+        }
         if([@"" isEqual:convertToString(_myFriend.name)]){
             
         }

@@ -178,6 +178,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     [_mainScrollView setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     [self.view addSubview:_mainScrollView];
     
+    
 }
 
 -(void)createFirstMenu{
@@ -348,7 +349,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
 }
 
 -(NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return _docArr.count;
 }
 
 -(UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

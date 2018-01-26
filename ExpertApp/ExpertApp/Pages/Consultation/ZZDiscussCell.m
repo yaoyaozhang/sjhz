@@ -38,7 +38,7 @@
 
     CGFloat h = _labMessage.frame.origin.y;
     if(item){
-        [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:convertToString(item.imgUrl)]];
+        [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:convertToString(item.imgUrl)] placeholderImage:[UIImage imageNamed:@"docheader"]];
         [_labName setText:item.docName];
         [_labMessage setText:item.context];
         

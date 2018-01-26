@@ -666,6 +666,7 @@ NSString * CoreTextLabelBlockKeyLinkPressed = @"CoreTextLabelBlockKeyLinkPressed
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"begin111111111111111111");
     CGPoint point   = [[touches anyObject] locationInView:self];
     CFIndex idx     = [self characterIndexAtPoint:point];
     self.activeLink = [self linkAtCharacterIndex:idx];
@@ -678,6 +679,7 @@ NSString * CoreTextLabelBlockKeyLinkPressed = @"CoreTextLabelBlockKeyLinkPressed
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"move22222222222222222222");
     if (self.activeLink)
     {
         CGPoint point   = [[touches anyObject] locationInView:self];
@@ -696,6 +698,7 @@ NSString * CoreTextLabelBlockKeyLinkPressed = @"CoreTextLabelBlockKeyLinkPressed
 
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"end3333333333333333333");
     if (AF_VALID(self.activeLink, NSTextCheckingResult) && self.blocks[CoreTextLabelBlockKeyLinkPressed])
     {
         void (^block)(NSTextCheckingResult * textCheckingResult);
@@ -707,6 +710,9 @@ NSString * CoreTextLabelBlockKeyLinkPressed = @"CoreTextLabelBlockKeyLinkPressed
     }
 }
 
+-(void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    NSLog(@"cancel4444444444444");
+}
 - (void) addLink:(NSURL*)url atRange:(NSRange)range
 {
     [self addLink:url atRange:range inString:self.string];

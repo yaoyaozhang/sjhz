@@ -7,6 +7,7 @@
 //
 
 #import "ZZDoctorCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation ZZDoctorCell
 
@@ -76,6 +77,8 @@
     
     if(model){
         _tempModel = model;
+        
+        [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:[UIImage imageNamed:@"docheader"]];
         
         [_labelName setText:model.userName];
         CGSize ns = [self autoWidthOfLabel:_labelName with:22];

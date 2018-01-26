@@ -95,6 +95,9 @@
             [self createPlaceholderView:@"还没有评论哦！" message:@"" image:nil withView:_listTable action:^(UIButton *button) {
                 [self loadMoreData];
             }];
+            CGRect f = self.placeholderView.frame;
+            f.size.height = f.size.height - 60;
+            [self.placeholderView setFrame:f];
         }else{
             [self removePlaceholderView];
         }

@@ -286,7 +286,6 @@
     if(superView==nil){
         superView=self.view;
     }
-    
     _placeholderView = [[UIView alloc]initWithFrame:superView.bounds];
     
     

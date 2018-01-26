@@ -36,6 +36,8 @@
 #import "NirKxMenu.h"
 #import "ZZDiseaseModel.h"
 
+#import "ZZSymptomAlertView.h"
+
 
 @interface ZZPatientSymptomController (){
     ZZDiseaseModel *detailModel;
@@ -87,7 +89,7 @@
                       @"dictName":@"sexName",
                       @"dictDesc":@"性别",
                       @"placeholder":@"点击输入",
-                      @"dictValue":convertToString(detailModel.health.sexName),
+                      @"dictValue":convertIntToString(detailModel.health.sex),
                       @"dictType":convertIntToString(ZZEditControlTypeSex),
                       @"valueType":@"1",
                       @"isOption":@"0",
@@ -503,6 +505,11 @@
     
     
     NSDictionary *itemDict = _listArray[indexPath.section][@"arr"][indexPath.row];
+    if([itemDict[@"code"] intValue] == 20){
+        ZZSymptomAlertView *alert = [[ZZSymptomAlertView alloc] initWithTitle:@"症状详情" dict:itemDict cancel:@"关闭" comfirm:@""];
+        [alert show];
+    }
+    
     
     if([itemDict[@"propertyType"] intValue]==3){
         return;

@@ -63,6 +63,8 @@
 		7B250E251FCE994C00C2D72A /* AlertUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B250E231FCE994B00C2D72A /* AlertUtil.m */; };
 		7B2D6C452015E3C400445A6B /* ZZSQPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D6C432015E3C400445A6B /* ZZSQPicCell.m */; };
 		7B2D6C462015E3C400445A6B /* ZZSQPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B2D6C442015E3C400445A6B /* ZZSQPicCell.xib */; };
+		7B2D6C4E2019B3C200445A6B /* ZZSymptomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D6C4D2019B3C200445A6B /* ZZSymptomAlertView.m */; };
+		7B2D6C512019E32E00445A6B /* UIScrollView+TouchEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D6C502019E32E00445A6B /* UIScrollView+TouchEvent.m */; };
 		7B3DFDD31FBAD98800AD39AE /* ZZQSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DFDD21FBAD98800AD39AE /* ZZQSModel.m */; };
 		7B3DFE351FBC3E3100AD39AE /* ASQListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DFE341FBC3E3000AD39AE /* ASQListController.m */; };
 		7B5365571FB04619000CD932 /* ZZRemarkUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5365561FB04619000CD932 /* ZZRemarkUserController.m */; };
@@ -635,6 +637,10 @@
 		7B2D6C422015E3C400445A6B /* ZZSQPicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSQPicCell.h; sourceTree = "<group>"; };
 		7B2D6C432015E3C400445A6B /* ZZSQPicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSQPicCell.m; sourceTree = "<group>"; };
 		7B2D6C442015E3C400445A6B /* ZZSQPicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZSQPicCell.xib; sourceTree = "<group>"; };
+		7B2D6C4C2019B3C200445A6B /* ZZSymptomAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomAlertView.h; sourceTree = "<group>"; };
+		7B2D6C4D2019B3C200445A6B /* ZZSymptomAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomAlertView.m; sourceTree = "<group>"; };
+		7B2D6C4F2019E32E00445A6B /* UIScrollView+TouchEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TouchEvent.h"; sourceTree = "<group>"; };
+		7B2D6C502019E32E00445A6B /* UIScrollView+TouchEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TouchEvent.m"; sourceTree = "<group>"; };
 		7B3DFDD11FBAD98800AD39AE /* ZZQSModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZQSModel.h; sourceTree = "<group>"; };
 		7B3DFDD21FBAD98800AD39AE /* ZZQSModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZQSModel.m; sourceTree = "<group>"; };
 		7B3DFE331FBC3E3000AD39AE /* ASQListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASQListController.h; sourceTree = "<group>"; };
@@ -1748,6 +1754,8 @@
 				7B61C8C5200DAE8B00C932D9 /* ZZTipsAlertView.m */,
 				7B61C8C7200DC53D00C932D9 /* ZZBaseAlertView.h */,
 				7B61C8C8200DC53D00C932D9 /* ZZBaseAlertView.m */,
+				7B2D6C4C2019B3C200445A6B /* ZZSymptomAlertView.h */,
+				7B2D6C4D2019B3C200445A6B /* ZZSymptomAlertView.m */,
 			);
 			path = ZZAlertView;
 			sourceTree = "<group>";
@@ -2115,6 +2123,8 @@
 				7B74A7121F7B927E00FA2BF3 /* CoreTextLabel.h */,
 				7B74A7131F7B927E00FA2BF3 /* CoreTextLabel.m */,
 				7B74A7141F7B927E00FA2BF3 /* NSString-HTML */,
+				7B2D6C4F2019E32E00445A6B /* UIScrollView+TouchEvent.h */,
+				7B2D6C502019E32E00445A6B /* UIScrollView+TouchEvent.m */,
 			);
 			path = CoreTextLabel;
 			sourceTree = "<group>";
@@ -3343,6 +3353,7 @@
 				7B70000D1F3B06F600C59281 /* ZZCollectionController.m in Sources */,
 				7BD950911FFB833F0016C3D6 /* NSCalendar+PGCurrent.m in Sources */,
 				7B7F3D401F31778200132669 /* SDCollectionViewCell.m in Sources */,
+				7B2D6C4E2019B3C200445A6B /* ZZSymptomAlertView.m in Sources */,
 				7BF110711F1887D700456E55 /* ZZNSSessionRequestImpl.m in Sources */,
 				7B74A7211F7CE56A00FA2BF3 /* ZZFansController.m in Sources */,
 				7B20C15E1F71030F00FBFD9F /* ZZCaseDetailMulCell.m in Sources */,
@@ -3412,6 +3423,7 @@
 				7B8A903F1F18A44C00FC53D7 /* ZZGuideController.m in Sources */,
 				7BD950D51FFE42CB0016C3D6 /* ZZSymptomExtModel.m in Sources */,
 				7B7001AD1F4596F700C59281 /* ZZPerfectInfoController.m in Sources */,
+				7B2D6C512019E32E00445A6B /* UIScrollView+TouchEvent.m in Sources */,
 				7B7C1C3B1FBC9D6A001F6DE4 /* ZZDoctorArchivesController.m in Sources */,
 				7B5C1CE61F1F5B7B00DDDA78 /* TTTAttributedLabel.m in Sources */,
 				7B20C0301F68E3A400FBFD9F /* ZZDoctorChapterController.m in Sources */,

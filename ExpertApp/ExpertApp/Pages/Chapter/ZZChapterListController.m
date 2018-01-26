@@ -179,7 +179,7 @@ static NSString * const reuseID  = @"ZZChannelCell";
 - (UIScrollView *)smallScrollView
 {
     if (_smallScrollView == nil) {
-        _smallScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, 44)];
+        _smallScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, NavBarHeight, ScreenWidth, 44)];
         _smallScrollView.backgroundColor = [UIColor whiteColor];
         _smallScrollView.showsHorizontalScrollIndicator = NO;
         // 设置频道

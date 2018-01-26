@@ -57,8 +57,13 @@
         if(model.dclabel && model.dclabel.length>0){
             NSArray *arr = [model.dclabel componentsSeparatedByString:@","];
             CGFloat xx = 0;
+            int i= 0;
             for(NSString *itemText in arr){
                 xx = [self createLabel:itemText x:xx];
+                i = i + 1;
+                if(i>=3){
+                    break;
+                }
             }
         }
     }

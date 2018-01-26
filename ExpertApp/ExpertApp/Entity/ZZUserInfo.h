@@ -67,7 +67,6 @@
 @property(nonatomic,strong) NSString *imageUrl;//": "url:/upload/uhead/2017-09-06/demoUploadimage1001504693326.jpg",
 @property(nonatomic,strong) NSString *location;//": "中部地区",
 @property(nonatomic,strong) NSString *accomplished;//": "放假放假，皮肤病",
-@property(nonatomic,strong) NSString *orderNumber;//": 0,
 @property(nonatomic,strong) NSString *titleName;//": "高级职称,第二高级"
 
 // 背景
@@ -83,6 +82,7 @@
 @property(nonatomic,strong) NSString *certificateUrl1;//": "高级职称,第二高级"
 
 
+@property(nonatomic,assign) int     orderNumber;//": 问诊量
 @property(nonatomic,assign) int     articleNum;//: 文章量
 @property(nonatomic,assign) int     fansNumber;//: 粉丝数
 

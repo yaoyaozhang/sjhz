@@ -36,7 +36,7 @@
     
     [_labelUname setText:convertToString(loginUser.userName)];
     if(loginUser.isDoctor){
-        [_labelQuestionNum setText:[NSString stringWithFormat:@"会诊%d个  文章%d个",0,loginUser.articleNum]];
+        [_labelQuestionNum setText:[NSString stringWithFormat:@"会诊%d个  文章%d个",loginUser.orderNumber,loginUser.articleNum]];
     }else{
         _labelQuestionNum.hidden = YES;
         CGRect f = _labelUname.frame;

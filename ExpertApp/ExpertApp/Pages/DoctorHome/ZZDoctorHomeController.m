@@ -171,6 +171,7 @@
 }
 
 
+
 /**
  加载更多
  */
@@ -200,8 +201,13 @@
             allgroup = [values[@"allgroup"] intValue];
             waitgroup = [values[@"waitgroup"] intValue];
             dogroup = [values[@"dogroup"] intValue];
+            loginUser.fansNumber = [values[@"isLook"] intValue];
+            loginUser.orderNumber = allgroup;
+            loginUser.articleNum = [values[@"newsNum"] intValue];
+            [[ZZDataCache getInstance] changeUserInfo:loginUser];
             
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZZNoticeUserInfoChanged" object:nil];
             NSArray *arr = values[@"groupList"];
             if(arr && arr.count > 0 ){
                 for (NSDictionary *item in arr) {
@@ -217,6 +223,7 @@
         
     }];
 }
+
 
 -(void)loadCaseByState:(int)state{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];

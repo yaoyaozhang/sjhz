@@ -78,6 +78,7 @@
     _mainScroll.pagingEnabled = YES;
     _mainScroll.bounces = NO;
     _mainScroll.scrollEnabled = NO;
+    _mainScroll.userInteractionEnabled = YES;
     
     
     [self loadCaseResult];
@@ -320,15 +321,9 @@
     
     keyboardHeight = [[[notification userInfo] objectForKey:@"UIKeyboardBoundsUserInfoKey"] CGRectValue].size.height;
     
-    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:animationDuration];
-    [UIView setAnimationCurve:[curve intValue]];
-    [UIView setAnimationDelegate:self];
-    // get a rect for the view frame
-    {
-        
+//    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    [UIView animateWithDuration:animationDuration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
         CGRect mf = _mainScroll.frame;
         
         CGFloat x = mf.size.height - _mainScroll.contentSize.height;
@@ -346,10 +341,7 @@
             mf.origin.y   = NavBarHeight - keyboardHeight;
         }
         _mainScroll.frame = mf;
-    }
-    
-    // commit animations
-    [UIView commitAnimations];
+    } completion:nil];
     
     [self.view addGestureRecognizer:tapRecognizer];
 }
@@ -359,6 +351,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapAnywhere:)];
+    tapRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapRecognizer];
 }
 

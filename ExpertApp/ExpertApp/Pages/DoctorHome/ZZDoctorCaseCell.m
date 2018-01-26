@@ -96,6 +96,7 @@
         [self autoWidthOfLabel:_labDesc with:df.size.width];
         df = _labDesc.frame;
         
+#warning 医生的如果要删除，也是在这里
         if(model.state >= 3 && _cellType == ZZHZCellTypeUserHistory){
             self.btnDel.hidden = NO;
         }

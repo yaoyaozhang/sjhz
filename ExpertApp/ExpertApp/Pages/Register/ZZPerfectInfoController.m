@@ -240,6 +240,12 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     if(sender.tag == 2){
         // 提交审核
         if(_params){
+            if(labMap){
+                if(labMap.allKeys.count > 3){
+                    [self.view makeToast:@"最多只能显示3个标签!"];
+                    return;
+                }
+            }
             if(keshiMap){
                 NSString *ksIds = @"";
                 NSString *ksNames = @"";
@@ -270,6 +276,10 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
             
             
             if(labMap){
+                if(labMap.allKeys.count > 3){
+                    [self.view makeToast:@"最多只能显示3个标签!"];
+                    return;
+                }
                 NSString *ksIds = @"";
                 NSString *ksNames = @"";
                 for (NSString *key in labMap.allKeys) {
