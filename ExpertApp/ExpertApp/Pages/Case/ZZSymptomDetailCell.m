@@ -15,49 +15,67 @@
     [super awakeFromNib];
     
     [_bgView setBackgroundColor:UIColorFromRGB(BgListSectionColor)];
+    [_bgView2 setBackgroundColor:UIColorFromRGB(BgListSectionColor)];
     
     // Initialization code
     [_labName setFont:ListDetailFont];
     [_labName setTextColor:UIColorFromRGB(TextDarkColor)];
+    [_labTitle setFont:ListDetailFont];
+    [_labTitle setTextColor:UIColorFromRGB(TextDarkColor)];
+    _labTitle.numberOfLines = 0;
     [_viewWts setBackgroundColor:UIColor.clearColor];
+    _viewWts.layer.cornerRadius = 3.0f;
+    _viewWts.layer.masksToBounds = YES;
+    _bgView2.layer.cornerRadius = 3.0f;
+    _bgView2.layer.masksToBounds = YES;
 }
 
 
 -(void)dataToView:(NSDictionary *)item{
     [super dataToView:item];
-    [_labName setText:item[@"placeholder"]];
-    CGSize ns = [self autoHeightOfLabel:_labName with:ScreenWidth - 20];
-    if(ns.height > 21){
-        [_bgView setFrame:CGRectMake(0, 0, ScreenWidth, 9 + ns.height + 9)];
-    }
-    [_viewWts setFrame:CGRectMake(10, _bgView.frame.size.height + 10, ScreenWidth - 20, 0)];
+    [_labName setText:@"患者症状"];
+    
+    
+    [_labTitle setText:item[@"placeholder"]];
+    [_labTitle setFrame:CGRectMake(20, 55, ScreenWidth-40, 0)];
+    CGSize ns = [self autoHeightOfLabel:_labTitle with:ScreenWidth - 40];
+    
+    [_labTitle setFrame:CGRectMake(20, 55, ScreenWidth-40, ns.height)];
+    [_bgView2 setFrame:CGRectMake(10, 50 , ScreenWidth - 20, ns.height + 10)];
+    
+    [_viewWts setFrame:CGRectMake(10, 50 + ns.height + 15, ScreenWidth - 20, 0)];
+    [_viewWts setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     [_viewWts.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     NSMutableArray *arr = item[@"dictValue"];
     
     
-    CGFloat y = 0;
+    CGFloat y = 5;
     if(!is_null(arr) && arr.count>0){
+        CGFloat iw = _viewWts.frame.size.width - 20;
+        CGFloat ix = 10;
         for (ZZSymptomWTModel *model in arr) {
             UILabel *labQ = [self crateItemWith];
-            UILabel *labV = [self crateItemWith];
-            [labQ setText:convertToString(model.quesName)];
-            [labQ setTextColor:UIColorFromRGB(TextDarkColor)];
-            [labV setText:convertToString(model.answer)];
-//            if(convertToString(model.answer).length == 0 ){
-//                [labV setText:convertToString(model.quesOptions)];
-//            }
-            [labV setTextColor:UIColorFromRGB(TextLightDarkColor)];
+            NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@：%@",convertToString(model.quesName),convertToString(model.answer)]];
+            [str addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(TextLightDarkColor) range:NSMakeRange(convertToString(model.quesName).length + 1,convertToString(model.answer).length)];
             
-            CGRect f1 = CGRectMake(0, y, _viewWts.frame.size.width,0);
+//            [labQ setText:convertToString(model.quesName)];
+            [labQ setTextColor:UIColorFromRGB(TextDarkColor)];
+            labQ.attributedText = str;
+            
+            CGRect f1 = CGRectMake(ix, y, iw,0);
             labQ.frame = f1;
             CGSize s = [self autoHeightOfLabel:labQ with:f1.size.width];
             
             
-            CGRect f2 = CGRectMake(0, y + s.height + 5, _viewWts.frame.size.width,0);
-            labV.frame = f2;
-            CGSize s2 = [self autoHeightOfLabel:labV with:f1.size.width];
+//            UILabel *labV = [self crateItemWith];
+//            [labV setText:convertToString(model.answer)];
+//            [labV setTextColor:UIColorFromRGB(TextLightDarkColor)];
+//
+//            CGRect f2 = CGRectMake(ix, y + s.height + 5, iw,0);
+//            labV.frame = f2;
+//            CGSize s2 = [self autoHeightOfLabel:labV with:f1.size.width];
             
-            y = y + s.height + 5 + s2.height + 5;
+            y = y + s.height + 5;
         }
         CGRect f = _viewWts.frame;
         f.size.height = y;

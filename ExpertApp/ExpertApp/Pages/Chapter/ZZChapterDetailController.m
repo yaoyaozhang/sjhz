@@ -43,6 +43,9 @@
     
     _keyboardView = [[ZZKeyboardView alloc] initWithDelegate:self changeView:self.webView.scrollView show:NO];
     _keyboardView.chatpterModel = _model;
+    if(_model!=nil){
+        _keyboardView.nid =  convertIntToString(_model.nid);
+    }
     
     [self btnFontSizeChange];
 }

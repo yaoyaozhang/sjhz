@@ -248,7 +248,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     _headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
     [_headerLabel setBackgroundColor:[UIColor clearColor]];
     [_headerLabel setFont:ListTitleFont];
-    [_headerLabel setText:@"按分类找量表"];
+    [_headerLabel setText:@"健康自评量表"];
     [_headerLabel setTextAlignment:NSTextAlignmentCenter];
     [_headerLabel setTextColor:UIColorFromRGB(TextBlackColor)];
     [titleView addSubview:_headerLabel];

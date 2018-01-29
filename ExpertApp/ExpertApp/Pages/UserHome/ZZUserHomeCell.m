@@ -27,6 +27,8 @@
     [_viewLabels setBackgroundColor:[UIColor clearColor]];
     _imgAvatar.layer.borderWidth = 1.0f;
     _imgAvatar.layer.borderColor = UIColorFromRGB(BgSystemColor).CGColor;
+    [_imgAvatar setContentMode:UIViewContentModeScaleAspectFill];
+    _imgAvatar.layer.masksToBounds = YES;
 }
 
 

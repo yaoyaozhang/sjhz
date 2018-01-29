@@ -12,6 +12,7 @@
 #import "ZZUserHomeModel.h"
 #import "ZZChapterModel.h"
 #import "ZZHZEngity.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface ZZRewardController (){
     UIButton *checkNum;
@@ -41,18 +42,23 @@
     y = NavBarHeight + 95;
     
     NSString *author = @"";
+    NSString *avatar = @"";
     if(_type == ZZRewardTypeDoctor){
         ZZUserHomeModel *model = _rewardModel;
         author = model.docInfo.docName;
+        avatar = model.docInfo.imageUrl;
     }
     if(_type == ZZRewardTypeChapter){
         ZZChapterModel *model = _rewardModel;
         author = model.author;
+        avatar = @"";
     }
     if(_type == ZZRewardTypeHZ){
         ZZHZEngity *model = _rewardModel;
         author = model.docName;
+        avatar = @"";
     }
+    [imgView sd_setImageWithURL:[NSURL URLWithString:convertToString(avatar)] placeholderImage:[UIImage imageNamed:@"docheader"]];
     [self createLabel:author y:y];
     
     y = NavBarHeight + 131;
@@ -127,7 +133,7 @@
         if(_type == ZZRewardTypeChapter){
             ZZChapterModel *model = _rewardModel;
             desc = [NSString stringWithFormat:@"打赏%@的文章：%@",model.author,model.title];
-            receivedId = model.userId;
+            receivedId = model.authorId;
         }
         if(_type == ZZRewardTypeHZ){
             ZZHZEngity *model = _rewardModel;
@@ -150,8 +156,10 @@
         
         if(checkNum!=nil){
             [checkNum setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
+            checkNum.layer.borderColor = UIColorFromRGB(BgTitleColor).CGColor;
         }
         
+        btn.layer.borderColor = UIColorFromRGB(TextPlaceHolderColor).CGColor;
         [btn setTitleColor:UIColorFromRGB(TextPlaceHolderColor) forState:UIControlStateNormal];
         checkNum = btn;
     } else if(btn.tag==5){

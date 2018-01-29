@@ -29,7 +29,7 @@
 // 创建时间
 @property(nonatomic,strong) NSString *createTime;
 // 创建人
-@property(nonatomic,assign) int userId;
+@property(nonatomic,assign) int authorId;
 // 修改时间
 @property(nonatomic,strong) NSString *updateTime;
 // 修改人

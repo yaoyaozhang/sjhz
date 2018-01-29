@@ -143,7 +143,7 @@
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:self.cycleImageView.bounds delegate:nil placeholderImage:[UIImage imageNamed:@"placeholder_big"]];
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView.currentPageDotColor = [UIColor whiteColor];
-    
+    [cycleScrollView setBannerImageViewContentMode:UIViewContentModeScaleAspectFill];
     cycleScrollView.titlesGroup = ({
         NSMutableArray *titleArrayM = [NSMutableArray array];
         for (int i = 0; i < newsModel.pics.count; i++) {
