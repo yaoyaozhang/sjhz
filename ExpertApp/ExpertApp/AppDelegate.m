@@ -159,7 +159,7 @@
             NSLog(@"result = %@",resultDic);
         }];
     }else{
-        if([url.absoluteString hasPrefix:@"wx759030b1505761bf"]){
+        if([url.absoluteString hasPrefix:@"wx759030b1505761bf://pay/"]){
             return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
         }
     }
