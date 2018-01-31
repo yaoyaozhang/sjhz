@@ -217,7 +217,7 @@
     static NSString *kAppMessageAction = @"<action>sjhz</action>";
     WXAppExtendObject *ext = [WXAppExtendObject object];
     ext.extInfo = @"<xml>extend info</xml>";
-    ext.url = @"https://www.baidu.com";
+    ext.url = API_HOST;
     ext.fileData = data;
     
     //分享网页给好友
