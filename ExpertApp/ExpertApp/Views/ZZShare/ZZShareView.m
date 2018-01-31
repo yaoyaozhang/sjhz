@@ -217,7 +217,7 @@
     static NSString *kAppMessageAction = @"<action>sjhz</action>";
     WXAppExtendObject *ext = [WXAppExtendObject object];
     ext.extInfo = @"<xml>extend info</xml>";
-    ext.url = @"http://weixin.qq.com";
+    ext.url = @"https://www.baidu.com";
     ext.fileData = data;
     
     //分享网页给好友
@@ -244,6 +244,8 @@
         message.messageAction = kAppMessageAction;
         message.mediaTagName = nil;
         [message setThumbImage:thumbImage];
+        
+        ext.url = API_getChapterDetail(model.nid);
     }else if(_type == ZZShareTypeHZResult){
         ZZHZEngity *model = (ZZHZEngity *)_shareModel;
         

@@ -84,7 +84,9 @@
             [_delegate managerDidRecvShowMessageReq:showMessageReq];
         }else{
             ShowMessageFromWXReq *showMessageReq = (ShowMessageFromWXReq *)req;
-            [((AppDelegate *)[UIApplication sharedApplication].delegate) openNewPage:showMessageReq.message.messageExt];
+            if(!is_null(showMessageReq) && !is_null(showMessageReq.message)){
+                [((AppDelegate *)[UIApplication sharedApplication].delegate) openNewPage:showMessageReq.message.messageExt];
+            }
         }
     } else if ([req isKindOfClass:[LaunchFromWXReq class]]) {
         if (_delegate

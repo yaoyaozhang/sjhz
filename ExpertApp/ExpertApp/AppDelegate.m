@@ -31,7 +31,7 @@
 // 如果需要使用idfa功能所需要引入的头文件（可选）
 #import <AdSupport/AdSupport.h>
 
-@interface AppDelegate ()<JPUSHRegisterDelegate,WXApiManagerDelegate>
+@interface AppDelegate ()<JPUSHRegisterDelegate>
 
 @end
 
@@ -127,6 +127,10 @@
             if([url.absoluteString hasPrefix:@"wx759030b1505761bf://pay/"]){
                 return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
             }
+            if([url.absoluteString hasPrefix:@"wx759030b1505761bf://platformId"]){
+                return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+                
+            }
         }
     }
     return result;
@@ -146,6 +150,10 @@
         if([url.absoluteString hasPrefix:@"wx759030b1505761bf://pay/"]){
             return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
         }
+        if([url.absoluteString hasPrefix:@"wx759030b1505761bf://platformId"]){
+            return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+            
+        }
     }
     return YES;
 }
@@ -161,6 +169,10 @@
     }else{
         if([url.absoluteString hasPrefix:@"wx759030b1505761bf://pay/"]){
             return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+        }
+        if([url.absoluteString hasPrefix:@"wx759030b1505761bf://platformId"]){
+            return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+            
         }
     }
     [[UMSocialManager defaultManager] handleOpenURL:url options:options];
@@ -360,6 +372,12 @@
 -(void)openNewPage:(NSString *) action{
     UIViewController *rootVC = [self getCurVC];
     if(is_null(action) || is_null(rootVC)){
+        return;
+    }
+    if(![rootVC isKindOfClass:[UIViewController class]]){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self openNewPage:action];
+        });
         return;
     }
     if([action hasPrefix:@"http"]){
