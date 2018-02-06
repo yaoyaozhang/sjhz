@@ -159,7 +159,6 @@
     messageObject.moreInfo = @{@"action":action};
     
     
-    
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:shareType messageObject:messageObject currentViewController:_curVC completion:^(id data, NSError *error) {
         if (error) {
@@ -217,7 +216,7 @@
     static NSString *kAppMessageAction = @"<action>sjhz</action>";
     WXAppExtendObject *ext = [WXAppExtendObject object];
     ext.extInfo = @"<xml>extend info</xml>";
-    ext.url = API_HOST;
+    ext.url = [NSString stringWithFormat:@"%@?1=1",API_HOST];
     ext.fileData = data;
     
     //分享网页给好友
@@ -270,6 +269,16 @@
         [message setThumbImage:thumbImage];
         //        messageObject.shareObject = shareObject;
     }
+    
+//    朋友圈   from=timeline&isappinstalled=0
+//    微信群   from=groupmessage&isappinstalled=0
+//    好友分享 from=singlemessage&isappinstalled=0
+    if(shareType == UMSocialPlatformType_WechatTimeLine){
+        ext.url = [ext.url stringByAppendingString:@"&from=timeline&isappinstalled=0"];
+    }else{
+        ext.url = [ext.url stringByAppendingString:@"&from=singlemessage&isappinstalled=0"];
+    }
+    
     ext.extInfo = message.messageExt;
     message.mediaObject = ext;
     

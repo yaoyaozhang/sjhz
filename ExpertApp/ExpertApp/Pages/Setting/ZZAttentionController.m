@@ -251,7 +251,7 @@
     if(fm.baseId > 0){
         ZZDictModel *nModel = [ZZDictModel new];
         nModel.baseId = 0;
-        nModel.name = @"全部科室";
+        nModel.name = @"全部专业";
         [arr insertObject:nModel atIndex:0];
     }
     
@@ -327,7 +327,7 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth/2-80, 60)];
     label.numberOfLines = 1;
-    [label setText:@"选择科室"];
+    [label setText:@"选择专业"];
     [label setTextAlignment:NSTextAlignmentRight];
     [label setFont:ListDetailFont];
     [label setTextColor:UIColorFromRGB(TextSizeNineColor)];
@@ -345,7 +345,7 @@
     _checkButton.layer.borderColor = UIColorFromRGB(BgListSectionColor).CGColor;
     _checkButton.layer.borderWidth = 1.0f;
     [_checkButton.titleLabel setFont:ListDetailFont];
-    [_checkButton setTitle:[NSString stringWithFormat:@"选择科室"] forState:UIControlStateNormal];
+    [_checkButton setTitle:[NSString stringWithFormat:@"选择专业"] forState:UIControlStateNormal];
     [_checkButton setTitleColor:UIColorFromRGB(TextBlackColor) forState:UIControlStateNormal];
     [view addSubview:_checkButton];
     
@@ -366,6 +366,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if(_listArray.count == 0){
+        return 0;
+    }
     return 1;
 }
 
@@ -413,17 +416,21 @@
         cell.cellType =  ZZDoctorCellTypeDefault;
     }
     cell.delegate = self;
-    ZZUserInfo *model=[_listArray objectAtIndex:indexPath.section];
     
-    
-    [cell dataToView:model];
-    
+    if(_listArray.count > indexPath.section){
+     
+        ZZUserInfo *model=[_listArray objectAtIndex:indexPath.section];
+        
+        
+        [cell dataToView:model];
+        
+    }
     
     return cell;
 }
 
 -(void)onDoctorCellClick:(ZZDoctorCellType)type model:(ZZUserInfo *)model{
-    if(type == ZZDoctorCellTypeDel){
+    if(type == ZZDoctorCellTypeDel || model.state == 1 || model.state == 3){
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:convertIntToString(loginUser.userId) forKey:@"fromUserId"];
         [dict setObject:convertIntToString(model.userId) forKey:@"toUserId"];
@@ -432,7 +439,11 @@
         } finish:^(id response, NSData *data) {
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
-            [_listArray removeObject:model];
+            if(type == ZZDoctorCellTypeDel){
+                [_listArray removeObject:model];
+            }else{
+                model.state = 0;
+            }
             [_listTable reloadData];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             

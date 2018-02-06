@@ -14,10 +14,10 @@
  */
 ////////////////////////////////////////////////////////////////
 //
-#define API_HOST @"http://47.94.131.85:8080"
+//#define API_HOST @"http://47.94.131.85:8080"
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
 //#define API_HOST @"http://192.168.99.123:8080"
-//#define API_HOST @"http://219.142.225.69:8123"
+#define API_HOST @"http://219.142.225.69:8123"
 //#define API_HOST @"http://192.168.8.102:8080"
 
 /**
@@ -50,6 +50,8 @@
 
 
 #define API_UpdatePwd [NSString stringWithFormat:@"%@/user/appFindPassWord",API_HOST]
+#define API_bindPhone [NSString stringWithFormat:@"%@/user/bindPhone",API_HOST]
+
 
 
 #define API_UpdateUserInfo [NSString stringWithFormat:@"%@/user/appUpdateUser",API_HOST]

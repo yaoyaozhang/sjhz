@@ -50,7 +50,7 @@
     
     loginUser = [[ZZDataCache getInstance] getLoginUser];
     _listArray = [[NSMutableArray alloc] init];
-    _listArray = @[@"医学背景介绍",@"学术研究成果",@"医生寄语"];
+    _listArray = @[@"医生教育背景及职业资格",@"医生临床专长及学术任职",@"医生寄语及健康观点"];
     
     
     

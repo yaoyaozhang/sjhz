@@ -38,7 +38,7 @@
         [_nameLabel setText:convertToString(item[@"caseName"])];
         [_ageLabel setText:[NSString stringWithFormat:@"%@岁%@",convertToString(item[@"age"]),[item[@"sex"] intValue]==1?@"男":@"女"]];
         if([item[@"type"] intValue] == 2){
-            [_caseLabel setText:@"运动康复病例"];
+            [_caseLabel setText:@"运动治疗技术病例"];
         }else{
             [_caseLabel setText:@"普通病例"];
         }

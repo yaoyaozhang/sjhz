@@ -47,7 +47,7 @@
     NSString *text = @"";
     text = [text stringByAppendingFormat:@"%@ (%@%@岁)",convertToString(item[@"name"]),[item[@"sex"] intValue]==1?@"男":@"女",convertToString(item[@"age"])];
     if([item[@"type"] intValue] == 2){
-        text = [text stringByAppendingString:@"运动康复病例"];
+        text = [text stringByAppendingString:@"运动治疗技术病例"];
     }else{
        text = [text stringByAppendingString:@"普通病例"];
     }

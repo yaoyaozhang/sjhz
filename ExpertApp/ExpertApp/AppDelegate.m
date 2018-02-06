@@ -21,6 +21,7 @@
 #import "ZZPatientSymptomController.h"
 #import "ZZDoctorDetailController.h"
 #import "ASQController.h"
+#import "ZZChoosePatientController.h"
 // iOS10注册APNs所需头文件
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
@@ -331,6 +332,8 @@
     // 在window上放一个imageView
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     imageView.image = [UIImage imageNamed:@"Startpage"];
+    [imageView setContentMode:UIViewContentModeScaleAspectFill];
+    [imageView setBackgroundColor:UIColor.whiteColor];
     [self.window addSubview:imageView];
     
     // 执行动画
@@ -466,6 +469,10 @@
         }
         vc.model = model;
         vc.type = ASQTYPEWJ;
+        [rootVC.navigationController pushViewController:vc animated:YES];
+    }else if([action hasPrefix:@"sjhz://wenzhen?docId"]){
+        ZZChoosePatientController *vc = [[ZZChoosePatientController alloc] init];
+        vc.doctorId  = [action stringByReplacingOccurrencesOfString:@"sjhz://wenzhen?docId=" withString:@""];
         [rootVC.navigationController pushViewController:vc animated:YES];
     }
 }

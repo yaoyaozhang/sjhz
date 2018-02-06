@@ -103,7 +103,7 @@
 
 // 添加病例
 -(void) addCase:(UIButton *) btn{
-    ZCActionSheetView *actionSheet = [[ZCActionSheetView alloc]initWithDelegate:self title:nil CancelTitle:@"取消" OtherTitles:@"普通病例",@"运动康复病例", nil];
+    ZCActionSheetView *actionSheet = [[ZCActionSheetView alloc]initWithDelegate:self title:nil CancelTitle:@"取消" OtherTitles:@"普通病例",@"运动治疗技术病例", nil];
    
     [actionSheet show];
     
@@ -130,8 +130,8 @@
     }
     
     if(buttonIndex == 2){
-        if(_doctInfo && ![convertToString(_doctInfo.departmentName) hasPrefix:@"运动康复"]){
-            [self.view makeToast:@"只有运动康复科室的医生才可接受此病例的咨询"];
+        if(_doctInfo && ![convertToString(_doctInfo.departmentName) hasPrefix:@"运动治疗技术"]){
+            [self.view makeToast:@"只有运动治疗技术专业的医生才可接受此病例的咨询"];
             return;
         }
         

@@ -66,6 +66,16 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
     if(info.thirdId == nil){
         info.thirdId = @"";
     }
+    if(info.articleNum == 0){
+        info.articleNum = _loginUserInfo.articleNum;
+    }
+    if(info.fansNumber == 0){
+        info.fansNumber = _loginUserInfo.fansNumber;
+    }
+    if(info.orderNumber == 0){
+        info.orderNumber = _loginUserInfo.orderNumber;
+    }
+    
     _loginUserInfo = info;
     if(_loginUserInfo){
         NSDictionary *changeDict = [ZCLocalStore getObjectData:_loginUserInfo];

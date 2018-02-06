@@ -445,7 +445,7 @@
     [btn addTarget:self action:@selector(btnShowDropMenu:) forControlEvents:UIControlEventTouchUpInside];
     if(tag == 1){
         btn.tag = 1;
-        [btn setTitle:@"全部科室" forState:UIControlStateNormal];
+        [btn setTitle:@"全部专业" forState:UIControlStateNormal];
         [btn setFrame:CGRectMake(10, 15, (ScreenWidth-30)/2, 30)];
         if(btnDepartment!=nil){
             btn.objTag = btnDepartment.objTag;

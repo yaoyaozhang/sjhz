@@ -22,6 +22,8 @@
 #define cellIdentifier  @"ZZUserHomeCell"
 
 #import "ZZSearchResultController.h"
+#import "AppDelegate.h"
+#import <MJRefresh.h>
 
 
 
@@ -73,6 +75,11 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     _lmArr = [[NSMutableArray alloc] init];
     
     [self beginNetRefreshData];
+    
+    MJRefreshStateHeader *header=[MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [self endNetRefreshData];
+    }];
+    self.mainScrollView.header = header;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -97,11 +104,17 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     } finish:^(id response, NSData *data) {
         [SVProgressHUD dismiss];
         NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        
+        if([self.mainScrollView.header isRefreshing]){
+            [self.mainScrollView.header endRefreshing];
+        }
     } complete:^(NSDictionary *dict) {
         NSArray *arr1 = dict[@"retData"][@"doctor"];
         NSArray *arr2 = dict[@"retData"][@"gauge"];
         NSArray *arr3 = dict[@"retData"][@"home"];
+        
+        [_docArr removeAllObjects];
+        [_headerArr removeAllObjects];
+        [_lmArr removeAllObjects];
         if(!is_null(arr1)){
             for (NSDictionary *item in arr1) {
                 [_docArr addObject:[[ZZUserInfo alloc] initWithMyDict:item]];
@@ -130,7 +143,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
             [self createEasyTable];
             
             
-            // 底部科室
+            // 底部专业
             [self createKeShi];
             
             
@@ -231,9 +244,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
 {
     NSDictionary *item = _headerArr[index];
     NSLog(@"%@",item);
-    ZZChoosePatientController *vc = [[ZZChoosePatientController alloc] init];
-    vc.doctorId  = @"1";
-    [self openNav:vc sound:nil];
+    [((AppDelegate*)[UIApplication sharedApplication].delegate) openNewPage:item[@"exUrl"]];
 }
 
 

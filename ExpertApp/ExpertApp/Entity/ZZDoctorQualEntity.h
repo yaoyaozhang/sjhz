@@ -16,9 +16,9 @@
 @property(nonatomic,strong) NSString *userId;
 // 医生姓名
 @property(nonatomic,strong) NSString *docName;
-// 科室Id
+// 专业Id
 @property(nonatomic,strong) NSString *departmentId;
-// 科室
+// 专业
 @property(nonatomic,strong) NSString *departmentName;
 // 医院
 @property(nonatomic,strong) NSString *hospital;

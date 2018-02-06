@@ -47,10 +47,8 @@
     _loginUser = [[ZZDataCache getInstance] getLoginUser];
     
     [self createTableView];
-    [self loadMoreData];
-    
-    
 }
+
 
 -(void)createTableView{
     _listArray = [[NSMutableArray alloc] init];
@@ -73,6 +71,15 @@
     
     _listArray = [NSMutableArray arrayWithCapacity:0];
     
+    
+}
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    _loginUser = [self getLoginUser];
+    [self loadMoreData];
 }
 
 /**
@@ -103,10 +110,6 @@
     }
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [_listTable reloadData];
-}
 
 
 #pragma mark UITableView delegate Start
@@ -150,9 +153,9 @@
     }
     
     
+    cell.delegate = self;
     NSDictionary *dict = _listArray[indexPath.section];
     [cell initToDictView:dict info:_loginUser];
-    
     
     //    [cell setSelectedBackgroundView:[[UIView alloc] initWithFrame:cell.bounds]];
     //    [cell.selectedBackgroundView setBackgroundColor:UIColorFromRGB(LineListColor)];
@@ -247,7 +250,8 @@
 
 -(void)onEditCellClick:(NSString *)tag{
     if([@"bound" isEqual:tag]){
-        
+        ZZFindPwdController *vc = [[ZZFindPwdController alloc] init];
+        [self openNav:vc sound:nil];
     }
 }
 #pragma mark UITableView delegate end

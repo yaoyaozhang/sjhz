@@ -27,7 +27,6 @@
             _userName = _name;
         }
         
-        
         if(_isDoctor){
             _userName = _docName;
         }

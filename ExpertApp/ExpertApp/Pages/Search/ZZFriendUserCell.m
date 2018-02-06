@@ -30,6 +30,7 @@
     _imgAvatar.layer.cornerRadius = 30.0f;
     _imgAvatar.layer.borderWidth = 1.0f;
     _imgAvatar.layer.borderColor = UIColorFromRGB(BgSystemColor).CGColor;
+    [_imgAvatar setContentMode:UIViewContentModeScaleAspectFill];
     
     [_btnControl.titleLabel setFont:ListDetailFont];
     [_btnControl setBackgroundColor:[UIColor clearColor]];

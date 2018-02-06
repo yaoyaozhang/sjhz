@@ -72,7 +72,7 @@
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:convertIntToString(login.userId) forKey:@"userId"];
         [dict setObject:convertIntToString(_myFriend.userId) forKey:@"touserId"];
-        [dict setObject:convertToString(_myFriend.name) forKey:@"remarkName"];
+        [dict setObject:convertToString(_myFriend.userRemark) forKey:@"remarkName"];
         [dict setObject:convertToString(_myFriend.lableName) forKey:@"lableName"];
         
         [ZZRequsetInterface post:API_saveRemarkName param:dict timeOut:HttpGetTimeOut start:^{
@@ -123,7 +123,7 @@
     [self setTableSeparatorInset];
     
     [self loadMoreData];
-    [self loadCases];
+//    [self loadCases];
 }
 
 
@@ -349,7 +349,7 @@
         [self openNav:vc sound:nil];
     }
     if(type == 3){
-        _myFriend.name = convertToString(obj);
+        _myFriend.userRemark = convertToString(obj);
 //        [self loadMoreData];
     }
 }

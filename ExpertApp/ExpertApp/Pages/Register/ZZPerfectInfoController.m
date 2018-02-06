@@ -191,7 +191,7 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     
     y = y + [self createLabelValue:@"姓名" type:1 tag:ZZControlTagTextName holder:@""];
     y = y + space;
-    y = y + [self createLabelValue:@"科室" type:5 tag:ZZControlTagKeshi holder:@""];
+    y = y + [self createLabelValue:@"专业" type:5 tag:ZZControlTagKeshi holder:@""];
     y = y + space;
     y = y + [self createLabelValue:@"医院" type:1 tag:ZZControlTagHispital holder:@""];
     y = y + space;
@@ -299,9 +299,14 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
             if(zhengchenModel){
                 [_params setObject:convertIntToString(zhengchenModel.baseId) forKey:@"titleId"];
                 [_params setObject:convertToString(zhengchenModel.name) forKey:@"titleName"];
+            }else{
+                [_params setObject:convertIntToString(loginUser.titleId) forKey:@"titleId"];
+                [_params setObject:convertToString(loginUser.titleName) forKey:@"titleName"];
             }
             if(areaModel){
                 [_params setObject:convertToString(areaModel.name) forKey:@"location"];
+            }else{
+                [_params setObject:convertToString(loginUser.location) forKey:@"location"];
             }
             [_params setObject:convertToString(heaerUrl) forKey:@"imageUrl"];
             [_params setObject:convertToString(zhengsuUrl) forKey:@"certificateUrl1"];
@@ -422,7 +427,7 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
  创建行控件
 
  @param labelText
- @param type 1、单行文本 2、多行文本 ，3 按钮，4下拉，5、科室，6、标签
+ @param type 1、单行文本 2、多行文本 ，3 按钮，4下拉，5、专业，6、标签
  @param tag
  */
 -(CGFloat )createLabelValue:(NSString *)labelText type:(int) type tag:(int) tag holder:(NSString *) placeHolder{
@@ -538,10 +543,10 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
         [self setViewCheckedBorder:btn];
         [btn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
         
-        if(![model.name isEqual:@"全部科室"] && ![@"运动康复" isEqual:model.name]){
+        if(![@"运动治疗技术" isEqual:model.name]){
             NSArray *keys = keshiMap.allKeys;
             for (NSString *key in keys) {
-                if(![key isEqual:@"全部科室"] && ![@"运动康复" isEqual:key]){
+                if(![@"运动治疗技术" isEqual:key]){
                     MyButton *rBtn = [keshiMap objectForKey:key];
                     [self setViewBorder:rBtn];
                     [rBtn setTitleColor:UIColorFromRGB(TextBlackColor) forState:UIControlStateNormal];
@@ -577,7 +582,7 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     int column = 2;
     CGFloat cy = 0;
     
-    // 标签科室
+    // 标签专业
     NSString *configKey = KEY_CONFIG_DCLABEL;
     
     if(type == 5){
@@ -603,7 +608,7 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
         [btn addTarget:self action:@selector(onItemClick:) forControlEvents:UIControlEventTouchUpInside];
         [_contentScrollView addSubview:btn];
         if(_isEdit){
-            // 科室
+            // 专业
             if(type == 5){
                 if([convertToString(loginUser.departmentName) rangeOfString:model.name].location !=NSNotFound)
                 {

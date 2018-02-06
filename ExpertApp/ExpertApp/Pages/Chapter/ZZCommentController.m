@@ -92,9 +92,7 @@
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         
         if(_listArray.count == 0){
-            [self createPlaceholderView:@"还没有评论哦！" message:@"" image:nil withView:_listTable action:^(UIButton *button) {
-                [self loadMoreData];
-            }];
+            [self createPlaceholderView:@"还没有评论哦！" message:@"" image:nil withView:_listTable action:nil];
             CGRect f = self.placeholderView.frame;
             f.size.height = f.size.height - 60;
             [self.placeholderView setFrame:f];

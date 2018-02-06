@@ -16,7 +16,7 @@
 @property(nonatomic,assign) int bansui;//症状名称
 
 
-@property(nonatomic,assign) int recovery;//1运动康复
+@property(nonatomic,assign) int recovery;//1运动治疗技术
 
 
 @property(nonatomic,assign) int checked;//是选择的内容

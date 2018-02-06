@@ -13,6 +13,6 @@
 @property(nonatomic,strong) NSString *code;//": "01",
 @property(nonatomic,strong) NSString *createDate;//": null,
 @property(nonatomic,strong) NSString *name;//": "甲状腺内分泌",
-@property(nonatomic,strong) NSString *remark;//": "科室",
+@property(nonatomic,strong) NSString *remark;//": "专业",
 @property(nonatomic,strong) NSString *type;//": "department"
 @end

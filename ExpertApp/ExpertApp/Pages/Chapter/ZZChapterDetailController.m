@@ -34,6 +34,7 @@
     
     [self createTitleMenu];
     [self.menuTitleButton setTitle:_model.title forState:UIControlStateNormal];
+    [self.view setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
     
     self.menuRightButton.hidden = NO;
     [self.menuRightButton setTitle:@"" forState:UIControlStateNormal];
@@ -48,6 +49,12 @@
     }
     
     [self btnFontSizeChange];
+}
+
+-(void) viewDidDisappear:(BOOL)animated
+{
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+    
 }
 
 -(void)buttonClick:(UIButton *)sender{

@@ -62,7 +62,7 @@
     [self createTitleMenu];
     self.menuRightButton.hidden = NO;
     [self.menuRightButton setImage:[UIImage imageNamed:@"nav_share"] forState:UIControlStateNormal];
-    [self.menuTitleButton setTitle:[NSString stringWithFormat:@"个人诊所"] forState:UIControlStateNormal];
+    [self.menuTitleButton setTitle:[NSString stringWithFormat:@"医生的主页"] forState:UIControlStateNormal];
     
     showDesc = NO;
     showWenjuan = NO;
@@ -203,7 +203,7 @@
             }
             _model.docInfo = [[ZZUserInfo alloc] initWithMyDict:dict[@"retData"]];
             
-            [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@的个人诊所",_model.docInfo.docName] forState:UIControlStateNormal];
+            [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@医生的主页",_model.docInfo.docName] forState:UIControlStateNormal];
             isLook = [convertToString(dict[@"retData"][@"isLook"]) intValue];
             if(isLook > 0){
                 [_colloctBtn setTitle:@"已关注" forState:UIControlStateNormal];
@@ -333,7 +333,7 @@
         [view setBackgroundColor:UIColorFromRGB(BgSystemColor)];
         
         UIButton *otherBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [otherBtn setTitle:@"更多文章" forState:UIControlStateNormal];
+        [otherBtn setTitle:@"更多视频音频文章" forState:UIControlStateNormal];
         [otherBtn setFrame:CGRectMake(0,10, ScreenWidth, 40)];
         [otherBtn setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
         [otherBtn setTitleColor:UIColorFromRGB(TextBlackColor) forState:UIControlStateNormal];
@@ -546,16 +546,16 @@
     [_descView addTopBorderWithColor:UIColorFromRGB(BgLineColor) andWidth:0.75f];
     [_descView setBackgroundColor:UIColor.whiteColor];
     CGFloat y = 10;
-    y = y + [self createTextLabel:@"医学教育背景" type:1 y:y] + 10;
+    y = y + [self createTextLabel:@"医生教育背景及职业资格" type:1 y:y] + 10;
     y = y + [self createTextLabel:_model.docInfo.medicalBackground type:2 y:y] + 10;
     [self createLineView:y pv:_descView];
     y = y + 10;
     
-    y = y + [self createTextLabel:@"学术研究成果" type:1 y:y] + 10;
+    y = y + [self createTextLabel:@"医生临床专长及学术任职" type:1 y:y] + 10;
     y = y + [self createTextLabel:_model.docInfo.academicResearch type:2 y:y] + 10;
     [self createLineView:y pv:_descView];
     y = y + 10;
-    y = y + [self createTextLabel:@"医生寄语" type:1 y:y] + 10;
+    y = y + [self createTextLabel:@"医生寄语及健康观点" type:1 y:y] + 10;
     y = y + [self createTextLabel:_model.docInfo.doctorWrote type:2 y:y] + 10;
     [self createLineView:y pv:_descView];
     y = y + 1;

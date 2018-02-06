@@ -34,6 +34,7 @@
     _imgAvatar.layer.masksToBounds = YES;
     _imgAvatar.layer.cornerRadius = 40.0f;
     _imgAvatar.layer.borderWidth = 1.0f;
+    [_imgAvatar setContentMode:UIViewContentModeScaleAspectFill];
     _imgAvatar.layer.borderColor = UIColorFromRGB(BgSystemColor).CGColor;
     
     [_imgLine setBackgroundColor:UIColorFromRGB(BgSystemColor)];

@@ -92,7 +92,7 @@
     }];
     [self openNav:addVC sound:nil];
     
-    //    ZCActionSheetView *actionSheet = [[ZCActionSheetView alloc]initWithDelegate:self title:nil CancelTitle:@"取消" OtherTitles:@"普通病例",@"运动康复病例", nil];
+    //    ZCActionSheetView *actionSheet = [[ZCActionSheetView alloc]initWithDelegate:self title:nil CancelTitle:@"取消" OtherTitles:@"普通病例",@"运动治疗技术病例", nil];
     //    [actionSheet show];
     
     

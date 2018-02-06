@@ -316,8 +316,12 @@
     }else{
         [dict setObject:@"0" forKey:@"keshi"];
     }
+    NSString *api = API_getMyDoctorList;
+    if(checkIndex == 0){
+        api = API_searchDoctor;
+    }
     
-    [ZZRequsetInterface post:API_getMyDoctorList param:dict timeOut:HttpGetTimeOut start:^{
+    [ZZRequsetInterface post:api param:dict timeOut:HttpGetTimeOut start:^{
         [SVProgressHUD show];
     } finish:^(id response, NSData *data) {
         [SVProgressHUD dismiss];
@@ -361,7 +365,7 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth/2-80, 60)];
     label.numberOfLines = 1;
-    [label setText:@"选择科室"];
+    [label setText:@"选择"];
     [label setTextAlignment:NSTextAlignmentRight];
     [label setFont:ListDetailFont];
     [label setTextColor:UIColorFromRGB(TextSizeNineColor)];
@@ -379,7 +383,7 @@
     _checkButton.layer.borderColor = UIColorFromRGB(BgListSectionColor).CGColor;
     _checkButton.layer.borderWidth = 1.0f;
     [_checkButton.titleLabel setFont:ListDetailFont];
-    [_checkButton setTitle:[NSString stringWithFormat:@"选择科室"] forState:UIControlStateNormal];
+    [_checkButton setTitle:[NSString stringWithFormat:@"选择专业"] forState:UIControlStateNormal];
     [_checkButton setTitleColor:UIColorFromRGB(TextBlackColor) forState:UIControlStateNormal];
     [view addSubview:_checkButton];
     

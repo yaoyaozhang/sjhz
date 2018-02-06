@@ -37,7 +37,6 @@
 
 
 @interface ZZDoctorHomeController ()<ZZDoctorCaseDelegate>{
-    ZZUserInfo *loginUser;
     
     int checkIndex;
     
@@ -62,11 +61,9 @@
     self.menuLeftButton.hidden = YES;
     [self.view setBackgroundColor:UIColorFromRGB(BgListSectionColor)];
     
-    loginUser = [[ZZDataCache getInstance] getLoginUser];
-    
     
     [self.menuRightButton setImage:[UIImage imageNamed:@"nav_share"] forState:UIControlStateNormal];
-    [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@的个人诊所",loginUser.docName] forState:UIControlStateNormal];
+    [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@医生的主页",[self getLoginUser].docName] forState:UIControlStateNormal];
     
     [self createTableView];
     
@@ -80,6 +77,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self beginNetRefreshData];
+    [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@医生的主页",[self getLoginUser].docName] forState:UIControlStateNormal];
+    
 }
 
 -(void)userInfoChanged:(NSNotification *) info{
@@ -92,7 +91,7 @@
     if(sender.tag == RIGHT_BUTTON){
         // 分享
         ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeUser vc:self];
-        shareView.shareModel=loginUser;
+        shareView.shareModel=[self getLoginUser];
         [shareView show];
     }else if(sender.tag == 111){
         // 关注
@@ -100,14 +99,14 @@
     }else if(sender.tag == 222){
         // 咨询
         ZZChoosePatientController *chooseVC = [[ZZChoosePatientController alloc] init];
-        chooseVC.doctorId = convertIntToString(loginUser.userId);
-        chooseVC.doctInfo = loginUser;
+        chooseVC.doctorId = convertIntToString([self getLoginUser].userId);
+        chooseVC.doctInfo = [self getLoginUser];
         [self openNav:chooseVC sound:nil];
         
     }else if(sender.tag == 333){
         // 所有文章
         ZZDoctorChapterController *chatpterVC = [[ZZDoctorChapterController alloc] init];
-        chatpterVC.docInfo = loginUser;
+        chatpterVC.docInfo = [self getLoginUser];
         [self openNav:chatpterVC sound:nil];
     }
     
@@ -181,7 +180,7 @@
  */
 -(void)loadDoctorInfo{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+    [dict setObject:convertIntToString([self getLoginUser].userId) forKey:@"userId"];
     //0 用户1、医生
     [dict setObject:convertIntToString(1) forKey:@"type"];
     [ZZRequsetInterface post:API_SearchDocCase param:dict timeOut:HttpGetTimeOut start:^{
@@ -201,6 +200,7 @@
             allgroup = [values[@"allgroup"] intValue];
             waitgroup = [values[@"waitgroup"] intValue];
             dogroup = [values[@"dogroup"] intValue];
+            ZZUserInfo *loginUser = [self getLoginUser];
             loginUser.fansNumber = [values[@"isLook"] intValue];
             loginUser.orderNumber = allgroup;
             loginUser.articleNum = [values[@"newsNum"] intValue];
@@ -227,7 +227,7 @@
 
 -(void)loadCaseByState:(int)state{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+    [dict setObject:convertIntToString([self getLoginUser].userId) forKey:@"userId"];
     //0 用户1、医生
     [dict setObject:@"1" forKey:@"type"];
     [dict setObject:convertIntToString(state) forKey:@"state"];
@@ -348,7 +348,7 @@
             cell = [[ZZDoctorHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierHeader];
         }
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [cell dataToView:loginUser];
+        [cell dataToView:[self getLoginUser]];
         return cell;
     }
     

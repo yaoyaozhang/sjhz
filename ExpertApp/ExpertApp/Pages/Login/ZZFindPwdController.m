@@ -115,12 +115,28 @@
         [dict setObject:pwd forKey:@"newPwd"];
         [dict setObject:convertToString(_txtCode.text) forKey:@"verCode"];
         
-        [ZZRequsetInterface post:API_UpdatePwd param:dict timeOut:0 start:^{
+        NSString *api = API_UpdatePwd;
+        if([ZZDataCache getInstance].isLogin){
+            ZZUserInfo *login = [self getLoginUser];
+            [dict setObject:convertIntToString(login.userId) forKey:@"userId"];
+            [dict setObject:convertToString(login.thirdId) forKey:@"thirdId"];
+            api=API_bindPhone;
+        }
+        
+        [ZZRequsetInterface post:api param:dict timeOut:0 start:^{
             [SVProgressHUD show];
         } finish:^(id response, NSData *data) {
             NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
             [SVProgressHUD showSuccessWithStatus:@"设置成功!"];
+            if([ZZDataCache getInstance].isLogin){
+                // 清理数据
+                [[ZZDataCache getInstance] loginOut];
+                
+                [ZCLocalStore addObject:dict[@"retData"] forKey:KEY_LOGIN_USERINFO];
+                
+                [[ZZDataCache getInstance] saveLoginUserInfo:dict[@"retData"] view:self.view];
+            }
             [self goBack:nil];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             [SVProgressHUD showErrorWithStatus:errorMsg];

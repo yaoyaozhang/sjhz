@@ -61,13 +61,14 @@
 
 
 @property(nonatomic,strong) NSString *docName;//": "李丹",
-@property(nonatomic,strong) NSString *departmentName;//": "全部科室",
+@property(nonatomic,strong) NSString *departmentName;//": "全部专业",
 @property(nonatomic,strong) NSString *hospital;//": "海淀妇幼",
 // 头像
 @property(nonatomic,strong) NSString *imageUrl;//": "url:/upload/uhead/2017-09-06/demoUploadimage1001504693326.jpg",
 @property(nonatomic,strong) NSString *location;//": "中部地区",
 @property(nonatomic,strong) NSString *accomplished;//": "放假放假，皮肤病",
 @property(nonatomic,strong) NSString *titleName;//": "高级职称,第二高级"
+@property(nonatomic,assign) int       titleId;//": "高级职称,第二高级"
 
 // 背景
 @property(nonatomic,strong) NSString *medicalBackground;
