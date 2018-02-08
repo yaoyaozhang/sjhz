@@ -16,6 +16,7 @@
 #import "ZZQSModel.h"
 #import <WXApi.h>
 
+
 @interface ZZShareView(){
     ZZShareType zzShareType;
 }
@@ -206,21 +207,22 @@
 
 -(void)shareButtonClick:(UIButtonUpDown *) shareButton{
     UMSocialPlatformType shareType = shareButton.tag;
-    Byte* pBuffer = (Byte *)malloc(1024*100);
-    memset(pBuffer, 0, 1024*100);
-    NSData* data = [NSData dataWithBytes:pBuffer length:1024*100];
-    free(pBuffer);
+//    Byte* pBuffer = (Byte *)malloc(1024*100);
+//    memset(pBuffer, 0, 1024*100);
+//    NSData *data = [NSData dataWithBytes:pBuffer length:1024*100];
+//    free(pBuffer);
     
     UIImage *thumbImage = [UIImage imageNamed:@"icon_news_top"];
     
     static NSString *kAppMessageAction = @"<action>sjhz</action>";
     WXAppExtendObject *ext = [WXAppExtendObject object];
     ext.extInfo = @"<xml>extend info</xml>";
-    ext.url = [NSString stringWithFormat:@"%@?1=1",API_HOST];
-    ext.fileData = data;
+    ext.url = [NSString stringWithFormat:@"http://47.94.131.85:8080/home.html?1=1"];
+    ext.fileData = [@"三甲会诊" dataUsingEncoding:NSUTF8StringEncoding];
     
     //分享网页给好友
     WXMediaMessage *message = [WXMediaMessage message];
+    
     if(_type == ZZShareTypeUser){
         ZZUserInfo *userModel = (ZZUserInfo *)_shareModel;
         if([@"" isEqual:convertToString(userModel.docName)]){
@@ -273,14 +275,20 @@
 //    朋友圈   from=timeline&isappinstalled=0
 //    微信群   from=groupmessage&isappinstalled=0
 //    好友分享 from=singlemessage&isappinstalled=0
-    if(shareType == UMSocialPlatformType_WechatTimeLine){
-        ext.url = [ext.url stringByAppendingString:@"&from=timeline&isappinstalled=0"];
-    }else{
-        ext.url = [ext.url stringByAppendingString:@"&from=singlemessage&isappinstalled=0"];
-    }
+//    if(shareType == UMSocialPlatformType_WechatTimeLine){
+//        ext.url = [ext.url stringByAppendingString:@"&from=timeline&isappinstalled=0"];
+//    }else{
+//        ext.url = [ext.url stringByAppendingString:@"&from=singlemessage&isappinstalled=0"];
+//    }
     
-    ext.extInfo = message.messageExt;
-    message.mediaObject = ext;
+    if(_type == ZZShareTypeChapter){
+        WXWebpageObject *obj = [WXWebpageObject object];
+        obj.webpageUrl = ext.url;
+        message.mediaObject = obj;
+    }else{
+        ext.extInfo = message.messageExt;
+        message.mediaObject = ext;
+    }
     
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.message = message;

@@ -30,7 +30,7 @@
 
 
 -(void)createImageWith:(NSString *)imgurl tag:(int) tag text:(NSString *)title isDel:(BOOL )isdel{
-    UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(80*tag + 10*tag, 0, 80, 101)];
+    UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(90*tag + 15*tag, 0, 90, 101)];
     
     UIImageView *imageViwe = [[UIImageView alloc] init];
     [imageViwe setFrame:CGRectMake(0,0, 80, 80)];
@@ -47,11 +47,12 @@
     [imageViwe setContentMode:UIViewContentModeScaleAspectFit];
     [itemView addSubview:imageViwe];
     
-    UILabel *tLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 80, 21)];
+    UILabel *tLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 90, 21)];
     [tLabel setFont:ListDetailFont];
     [tLabel setText:title];
     [tLabel setTextColor:UIColorFromRGB(TextDarkColor)];
     [tLabel setTextAlignment:NSTextAlignmentCenter];
+    [tLabel setBackgroundColor:UIColor.clearColor];
     [itemView addSubview:tLabel];
     
     if(_isDetail){
@@ -68,7 +69,7 @@
     if(isdel){
         MyButton *delBtn = [MyButton buttonWithType:UIButtonTypeCustom];
         [delBtn setImage:[UIImage imageNamed:@"close"] forState:0];
-        [delBtn setFrame:CGRectMake(80-10, 0, 20, 20)];
+        [delBtn setFrame:CGRectMake(90-10, 0, 20, 20)];
         delBtn.objTag = title;
         delBtn.tag = tag;
         delBtn.userInteractionEnabled = YES;
@@ -122,7 +123,7 @@
                 [self createImageWith:@"Upload_photos" tag:count text:@"添加图像" isDel:NO];
             }
             
-            [_addScrollView setContentSize:CGSizeMake(80*count + 10*count + 80, 101)];
+            [_addScrollView setContentSize:CGSizeMake(90*count + 15*count + 90, 101)];
         }
     }
 }

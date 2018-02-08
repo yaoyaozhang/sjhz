@@ -180,6 +180,16 @@
                           @"valueType":@"1",
                           @"isOption":@"0",
                           }];
+        NSString *textDesc = [NSString stringWithFormat:@"%@ 伴随 %@",convertToString(detailModel.symptom.sname),convertToString(detailModel.symptom.bssym)];
+        [_listArray addObject:@{@"code":@"20",
+                                @"dictName":@"disease",
+                                @"dictDesc":@"患者症状",
+                                @"placeholder":textDesc,
+                                @"dictValue":detailModel.answer,
+                                @"dictType":convertIntToString(ZZEditControlTypeTextView),
+                                @"valueType":@"1",
+                                @"isOption":@"0",
+                                }];
         if(convertToString(_entity.caseName).length == 0){
             
             _entity.caseName = @"运动评估";

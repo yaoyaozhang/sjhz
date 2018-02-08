@@ -373,6 +373,9 @@
 }
 
 -(void)openNewPage:(NSString *) action{
+    if(![[ZZDataCache getInstance] isLogin]){
+        return;
+    }
     UIViewController *rootVC = [self getCurVC];
     if(is_null(action) || is_null(rootVC)){
         return;

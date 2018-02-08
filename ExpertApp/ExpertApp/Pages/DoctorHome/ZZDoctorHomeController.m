@@ -290,7 +290,7 @@
     if(section==1){
         UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 97)];
         [view setBackgroundColor:UIColorFromRGB(BgListSectionColor)];
-        [view addSubview:[self createTips:[NSString stringWithFormat:@"您现在还有%d个病例需要处理。",1]]];
+        [view addSubview:[self createTips:[NSString stringWithFormat:@"您现在还有%d个病例需要处理。",waitgroup]]];
         
         UIView *bgWhite = [[UIView alloc] initWithFrame:CGRectMake(0, 37, ScreenWidth, 60)];
         [bgWhite setBackgroundColor:[UIColor whiteColor]];
