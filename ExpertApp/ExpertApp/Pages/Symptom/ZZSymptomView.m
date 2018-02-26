@@ -47,7 +47,7 @@
     
     
     //添加PageControl
-    facePageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 20)];
+    facePageControl = [[UIPageControl alloc] init];
     
     [facePageControl addTarget:self
                         action:@selector(pageChange:)
@@ -103,7 +103,7 @@
     
     items = itemMap[@"data"];
     CGFloat ch = 150;
-    if(items.count > 8){
+    if(items.count > 6){
         facePageControl.hidden = NO;
         ch = 150;
         [facePageControl setFrame:CGRectMake(0, 130, 0, 20)];
@@ -113,7 +113,7 @@
         if(items.count < 5){
             ch = 70;
         }
-        if(items.count > 4){
+        if(items.count > 3){
             ch = 120;
         }
         
@@ -130,13 +130,13 @@
     CGFloat width=(ScreenWidth-10);
     
     // 框的大小
-    CGFloat EmojiWidth  = width/4;
+    CGFloat EmojiWidth  = width/3;
     
     // 框的高度
     CGFloat EmojiHeight = 40;
     
     // 列数
-    int columns         = 4;
+    int columns         = 3;
     
     // 当宽度无法除尽时，表情居中
     int allSize         = (int)items.count;
@@ -145,7 +145,10 @@
     int pageNum         = (allSize%pageSize==0) ? (allSize/pageSize) : (allSize/pageSize+1);
     
     faceView.contentSize = CGSizeMake(pageNum * ScreenWidth, faceView.bounds.size.height);
-    facePageControl.numberOfPages = pageNum;
+    if(!facePageControl.hidden){
+        facePageControl.numberOfPages = pageNum;
+        [facePageControl setFrame:CGRectMake(0, 130, ScreenWidth, 20)];
+    }
     
     for(int i=0; i< pageNum; i++){
         for (int j=0; j<pageSize; j++) {
@@ -179,7 +182,7 @@
             
             if([@"1" isEqual:convertToString(itemMap[@"isCheck"])]){
                 MyButton *delBtn = [MyButton buttonWithType:UIButtonTypeCustom];
-                [delBtn setImage:[UIImage imageNamed:@"close"] forState:0];
+                [delBtn setBackgroundImage:[UIImage imageNamed:@"close"] forState:0];
                 [delBtn setFrame:CGRectMake(EmojiWidth-30, 0, 20, 20)];
                 delBtn.objTag = faceDict;
                 delBtn.tag = i*pageSize+j;

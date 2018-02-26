@@ -49,6 +49,7 @@
         if(ibtnF.origin.x + ibtnF.size.width > _pwidth){
             ibtnF.origin.y = ibtnF.origin.y + 50;
             ibtnF.origin.x = 0;
+            ibtnF.size.width = _pwidth-20;
             [ibtn setFrame:ibtnF];
             
             y = y + 50;
@@ -81,6 +82,8 @@
     [btn setBackgroundImage:[UIImage imageWithColor:UIColorFromRGB(BgSelectedColor)] forState:UIControlStateSelected];
     [btn setTitleColor:UIColorFromRGB(TextBlackColor) forState:0];
     [btn setTitle:text forState:UIControlStateNormal];
+    [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     [btn.titleLabel setFont:ListDetailFont];
     btn.userInteractionEnabled = YES;
     btn.selected = isselected;
@@ -124,7 +127,7 @@
     
     [_tempLabel setText:text];
     CGSize s = [self autoWidthOfLabel:_tempLabel height:40];
-    return s.width;
+    return s.width + 5;
 }
 
 /**

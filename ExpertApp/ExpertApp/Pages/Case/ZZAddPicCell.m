@@ -68,7 +68,7 @@
     }
     if(isdel){
         MyButton *delBtn = [MyButton buttonWithType:UIButtonTypeCustom];
-        [delBtn setImage:[UIImage imageNamed:@"close"] forState:0];
+        [delBtn setBackgroundImage:[UIImage imageNamed:@"close"] forState:0];
         [delBtn setFrame:CGRectMake(90-10, 0, 20, 20)];
         delBtn.objTag = title;
         delBtn.tag = tag;

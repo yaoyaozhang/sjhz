@@ -25,6 +25,7 @@
     CGFloat y =  topF.origin.y + topF.size.height + 10;
     
     [_textField setFrame:CGRectMake(15, y,ScreenWidth-30, 28)];
+    [_textField setText:@""];
     if(!is_null(model.values) && [model.values isKindOfClass:[NSDictionary class]]){
         [_textField setText:model.values[@"value"]];
     }

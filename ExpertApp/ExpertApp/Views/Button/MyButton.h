@@ -17,4 +17,6 @@
 
 - (void)verticalImageAndTitle:(CGFloat)spacing;
 
+-(void)fillImageView;
+
 @end

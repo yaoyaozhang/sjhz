@@ -78,13 +78,13 @@
         
         UIButton *btnDel = [UIButton buttonWithType:UIButtonTypeCustom];
         [btnDel.titleLabel setFont:ListTitleFont];
-        [btnDel setImage:[UIImage imageNamed:@"close"] forState:0];
-        [btnDel setBackgroundColor:UIColor.clearColor];
+        [btnDel setBackgroundColor:UIColor.whiteColor];
+        [btnDel setBackgroundImage:[UIImage imageNamed:@"gray_close"] forState:0];
         [btnDel.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        btnDel.layer.cornerRadius = 5.0f;
+        btnDel.layer.cornerRadius = 12.5f;
         btnDel.layer.masksToBounds = YES;
         [btnDel addTarget:self action:@selector(tapClick) forControlEvents:UIControlEventTouchUpInside];
-        [btnDel setFrame:CGRectMake( contentWidth + 20, 30, 30, 30)];
+        [btnDel setFrame:CGRectMake( contentWidth + 20, 30, 25, 25)];
         [self addSubview:btnDel];
         
     }

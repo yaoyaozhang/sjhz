@@ -12,6 +12,9 @@
 #import "MyButton.h"
 #import "ZCActionSheetView.h"
 
+#import "XHImageViewer.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+
 typedef NS_ENUM(NSInteger,ZZControlTag) {
     ZZControlTagTextName = 11,
     ZZControlTagHispital = 12,
@@ -36,7 +39,7 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     UIButton *btnArrow;
     
     
-    UIButton *btnUpload;
+    UIView *btnUpload;
     NSString *heaerUrl;
     NSString *zhengsuUrl;
     
@@ -344,10 +347,6 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     }
 }
 
--(void)btnClickUpload:(UIButton *) btn{
-    btnUpload = btn;
-    [self didAddImage];
-}
 
 -(void)btnShowMenu:(UIButton *) sender{
     NSString *configKey = @"";
@@ -483,7 +482,13 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
         }
         lh = 80;
     }
-    else if(type == 3 || type == 4){
+    else if(type == 3){
+        CGRect bf = CGRectMake(xx, y, 90, 101);
+        
+        [self createImageWithTag:tag text:@"请上传文件" f:bf];
+        lh = 101;
+    }
+    else if(type == 4){
         UIButton *field = [UIButton buttonWithType:UIButtonTypeCustom];
         CGRect bf = CGRectMake(xx, y, xw, 30);
         [field setFrame:bf];
@@ -494,26 +499,12 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
         [field setTitleColor:UIColorFromRGB(TextBlackColor) forState:UIControlStateNormal];
         [field setBackgroundColor:[UIColor clearColor]];
         [_contentScrollView addSubview:field];
-        if(type == 4){
+        
             UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(xw - 10, 12, 8, 8)];
             [arrow setImage:[UIImage imageNamed:@"search_dropdown"]];
             [field addSubview:arrow];
             
             [field addTarget:self action:@selector(btnShowMenu:) forControlEvents:UIControlEventTouchUpInside];
-        }else{
-            
-            [field addTarget:self action:@selector(btnClickUpload:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        
-        if(_isEdit){
-            if(ZZControlTagZhicheng == tag){
-                [field setTitle:loginUser.titleName forState:UIControlStateNormal];
-            }
-            
-            if(ZZControlTagArea == tag){
-                [field setTitle:loginUser.location forState:UIControlStateNormal];
-            }
-        }
         lh = 30;
     }
     else if(type == 5 || type == 6){
@@ -526,6 +517,150 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
     
     return lh;
 }
+
+
+-(void)createImageWithTag:(int) tag text:(NSString *)title f:(CGRect) frame{
+    UIView *itemView = [[UIView alloc] initWithFrame:frame];
+    itemView.tag = tag;
+    
+    UIImageView *imageViwe = [[UIImageView alloc] init];
+    [imageViwe setFrame:CGRectMake(0,0, 80, 80)];
+    [imageViwe setBackgroundColor:[UIColor clearColor]];
+    NSString *imgurl = zhengsuUrl;
+    if(tag == ZZControlTagHeader){
+        imgurl = heaerUrl;
+    }
+
+    if(convertToString(imgurl).length > 0){
+        if([imgurl hasPrefix:@"http"]){
+            [imageViwe sd_setImageWithURL:[NSURL URLWithString:convertToString(imgurl)] placeholderImage:[UIImage imageNamed:@"Upload_photos"]];
+        }else{
+            [imageViwe setImage:[UIImage imageWithContentsOfFile:imgurl]];
+        }
+    }else{
+        [imageViwe setImage:[UIImage imageNamed:@"Upload_photos"]];
+    }
+    imageViwe.tag = 1;
+    imageViwe.layer.cornerRadius = 5.0f;
+    imageViwe.layer.masksToBounds = YES;
+    imageViwe.layer.borderWidth = 1.0f;
+    imageViwe.layer.borderColor = UIColorFromRGB(BgLineColor).CGColor;
+    [imageViwe setContentMode:UIViewContentModeScaleAspectFit];
+    [itemView addSubview:imageViwe];
+    
+    UILabel *tLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 90, 21)];
+    [tLabel setFont:ListDetailFont];
+    [tLabel setText:title];
+    tLabel.tag = 2;
+    [tLabel setTextColor:UIColorFromRGB(TextDarkColor)];
+    [tLabel setTextAlignment:NSTextAlignmentCenter];
+    [tLabel setBackgroundColor:UIColor.clearColor];
+    [itemView addSubview:tLabel];
+    
+    MyButton *delBtn = [MyButton buttonWithType:UIButtonTypeCustom];
+    [delBtn setBackgroundImage:[UIImage imageNamed:@"close"] forState:0];
+    [delBtn setFrame:CGRectMake(90-15, 0, 20, 20)];
+    [delBtn.imageView setContentMode:UIViewContentModeScaleAspectFill];
+    delBtn.objTag = itemView;
+    delBtn.tag = 3;
+    delBtn.userInteractionEnabled = YES;
+    delBtn.hidden = YES;
+    [delBtn addTarget:self action:@selector(delButton:) forControlEvents:UIControlEventTouchUpInside];
+    [itemView addSubview:delBtn];
+    
+    if(convertToString(imgurl).length > 0){
+        delBtn.hidden = NO;
+    }
+    
+    //设置点击事件
+    UITapGestureRecognizer *tapGesturer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(btnClickUpload:)];
+    itemView.userInteractionEnabled=YES;
+    [itemView addGestureRecognizer:tapGesturer];
+    
+    [_contentScrollView addSubview:itemView];
+}
+
+-(void)delButton:(MyButton *) btn{
+    UIView *itemView = btn.objTag;
+    if(itemView.tag == ZZControlTagZhengsu){
+        zhengsuUrl = @"";
+    }else{
+        heaerUrl = @"";
+    }
+    
+    UIImageView *imageView = [itemView viewWithTag:1];
+    [imageView setImage:[UIImage imageNamed:@"Upload_photos"]];
+    btn.hidden = YES;
+}
+
+-(void)btnClickUpload:(UITapGestureRecognizer *) tapView{
+    btnUpload = tapView.view;
+    if(btnUpload.tag==ZZControlTagZhengsu){
+        if(convertToString(zhengsuUrl).length > 0){
+            [self imgTouchUpInside:[btnUpload viewWithTag:1]];
+            return;
+        }
+    }
+    if(btnUpload.tag == ZZControlTagHeader){
+        if(convertToString(heaerUrl).length > 0){
+            [self imgTouchUpInside:[btnUpload viewWithTag:1]];
+            return;
+        }
+    }
+    
+    [self didAddImage];
+}
+
+/**
+ *  点击查看大图
+ *
+ *  @param recognizer
+ */
+-(void) imgTouchUpInside:(UIImageView *)_picView{
+    
+    //    int type = [self.tempDict[@"dictType"] intValue];
+    //    NSString *value = convertToString(self.tempDict[@"dictValue"]);
+    //
+    //    BOOL isImage = NO;
+    //    if([[value lowercaseString] hasSuffix:@".png"]
+    //       || [[value lowercaseString] hasSuffix:@".pneg"]
+    //       || [[value lowercaseString] hasSuffix:@".jpg"]
+    //       || [[value lowercaseString] hasSuffix:@".jpeg"]
+    //       || [[value lowercaseString] hasSuffix:@".bmp"]
+    //       || [[value lowercaseString] hasSuffix:@".gif"]){
+    //        isImage = YES;
+    //    }
+    //
+    //    if(type != ZZEditControlTypeButton || !isImage){
+    //        return;
+    //    }
+    
+    NSLog(@"我怎么不处罚呢：");
+//    UIImageView *_picView = (UIImageView*)recognizer.view;
+    
+    CALayer *calayer = _picView.layer.mask;
+    [_picView.layer.mask removeFromSuperlayer];
+    
+    
+    
+    XHImageViewer *xh = [[XHImageViewer alloc] initWithImageViewerWillDismissWithSelectedViewBlock:^(XHImageViewer *imageViewer, UIImageView *selectedView) {
+        
+    } didDismissWithSelectedViewBlock:^(XHImageViewer *imageViewer, UIImageView *selectedView) {
+        
+        selectedView.layer.mask = calayer;
+        [selectedView setNeedsDisplay];
+        
+    } didChangeToImageViewBlock:^(XHImageViewer *imageViewer, UIImageView *selectedView) {
+    }];
+    
+    NSMutableArray *photos = [[NSMutableArray alloc] init];
+    [photos addObject:_picView];
+    
+    //    xh.delegate = self;
+    xh.disableTouchDismiss = NO;
+    [xh showWithImageViews:photos selectedView:_picView];
+}
+
 
 -(void)onItemClick:(MyButton *)btn{
     ZZDictModel *model = btn.objTag;
@@ -829,11 +964,16 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
         [SVProgressHUD showSuccessWithStatus:@"上传成功!"];
         NSLog(@"%@",dict);
         
+        
+        UIImageView *imageView = [btnUpload viewWithTag:1];
+        MyButton *btnU = [btnUpload viewWithTag:3];
         if(btnUpload.tag == ZZControlTagHeader){
             heaerUrl = convertToString(dict[@"retData"]);
         }else{
             zhengsuUrl = convertToString(dict[@"retData"]);
         }
+        btnU.hidden = NO;
+        [imageView setImage:[UIImage imageWithContentsOfFile:filePath]];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         [SVProgressHUD showErrorWithStatus:errorMsg];
     } progress:^(CGFloat progress) {

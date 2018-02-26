@@ -259,6 +259,7 @@
             [_bsArray addObject:model];
         }else{
             // 删除主要症状
+            model.checked = NO;
             [_checkArray removeAllObjects];
             [_bsArray removeAllObjects];
             [_listArray removeAllObjects];
@@ -301,7 +302,10 @@
                     if(arr && arr.count>0){
                         tempArray = [NSMutableArray new];
                         for (NSDictionary *item in arr) {
-                            [tempArray addObject:[[ZZSymptomWTModel alloc] initWithMyDict:item]];
+                            ZZSymptomWTModel *m = [[ZZSymptomWTModel alloc] initWithMyDict:item];
+                            m.quesOptions = [m.quesOptions stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                            m.quesOptions = [m.quesOptions stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+                            [tempArray addObject:m];
                         }
                         ZZSymptomWTListView *view = [[ZZSymptomWTListView alloc] initWithSymptomView:model arr:tempArray check:wentiMap block:^(int type, id obj) {
                             wentiMap = obj;
@@ -315,6 +319,8 @@
                             ZZSymptomModel *m = [ZZSymptomModel new];
                             m.sname = item;
                             m.checked = NO;
+                            m.sname = [m.sname stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                            m.sname = [m.sname stringByReplacingOccurrencesOfString:@"\r" withString:@""];
                             [_bsArray addObject:m];
                         }
                     }

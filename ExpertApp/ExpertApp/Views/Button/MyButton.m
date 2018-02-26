@@ -43,4 +43,8 @@
     
 }
 
+-(void)fillImageView{
+    self.imageView.frame = self.bounds;
+}
+
 @end
