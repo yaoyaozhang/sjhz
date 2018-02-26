@@ -260,7 +260,7 @@
         } finish:^(id response, NSData *data) {
             NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
-            model.state = 3;
+            model.state = 2;
             [_listTable reloadData];
         } fail:^(id response, NSString *errorMsg, NSError *connectError) {
             

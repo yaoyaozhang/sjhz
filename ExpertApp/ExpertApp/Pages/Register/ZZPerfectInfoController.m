@@ -768,7 +768,7 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
         UIImage * oriImage = [info objectForKey:UIImagePickerControllerOriginalImage];
         //        发送图片
         if (oriImage) {
-            NSData * imageData =UIImageJPEGRepresentation(oriImage, 0.5f);
+            NSData * imageData = [ZZImageTools compressionImageToData:oriImage];
             
             NSString * fname = [NSString stringWithFormat:@"/Expert/image100%ld.jpg",(long)[NSDate date].timeIntervalSince1970];
             checkPathAndCreate(getDocumentsFilePath(@"/Expert/"));
@@ -789,7 +789,7 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
         // 原始图片
         UIImage * originImage = [info objectForKey:UIImagePickerControllerOriginalImage];
         if (originImage) {
-            NSData * imageData =UIImageJPEGRepresentation(originImage, 0.5f);
+            NSData * imageData = [ZZImageTools compressionImageToData:originImage];
             
             NSString * fname = [NSString stringWithFormat:@"/Expert/image100%ld.jpg",(long)[NSDate date].timeIntervalSince1970];
             checkPathAndCreate(getDocumentsFilePath(@"/Expert/"));

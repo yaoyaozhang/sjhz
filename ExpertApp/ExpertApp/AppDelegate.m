@@ -121,6 +121,7 @@
     if (!result) {
         if ([url.host isEqualToString:@"safepay"]) {
             // 支付跳转支付宝钱包进行支付，处理支付结果
+            
             [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
                 NSLog(@"result = %@",resultDic);
             }];
@@ -302,7 +303,7 @@
      设置微信的appKey和appSecret
      [微信平台从U-Share 4/5升级说明]http://dev.umeng.com/social/ios/%E8%BF%9B%E9%98%B6%E6%96%87%E6%A1%A3#1_1
      */
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx759030b1505761bf" appSecret:@"fc0893677caba198cedc08af67b63662" redirectURL:nil];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx759030b1505761bf" appSecret:@"5510d4e72790319fa3b804f14f7c6467" redirectURL:nil];
 //    [WXApi registerApp:@"wx759030b1505761bf"];
     
     /*

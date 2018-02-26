@@ -302,7 +302,7 @@
         [view setBackgroundColor:UIColorFromRGB(BgSystemColor)];
         
         UIButton *otherBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [otherBtn setTitle:@"医生问卷" forState:UIControlStateNormal];
+        [otherBtn setTitle:@"博士问答" forState:UIControlStateNormal];
         [otherBtn setFrame:CGRectMake(0,10, ScreenWidth, 40)];
         [otherBtn setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
         [otherBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 15)];

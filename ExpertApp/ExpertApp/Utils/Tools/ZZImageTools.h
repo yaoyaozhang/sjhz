@@ -73,4 +73,9 @@ void VP8DspInitNEON(void);
 
 +(UIImage *)fastImageWithContentsOfFile:(NSString *)path;
 
+
+
++ (NSData *)compressionImageToData:(UIImage *) image targetWH:(CGFloat)targetWH maxFileSize:(NSInteger)maxFileSize;
++ (NSData *)compressionImageToData:(UIImage *) image;
+
 @end

@@ -382,4 +382,43 @@
     return [self decode:image];
 }
 
++ (NSData *)compressionImageToData:(UIImage *) image targetWH:(CGFloat)targetWH maxFileSize:(NSInteger)maxFileSize
+{
+    if (targetWH <= 0) {
+        targetWH = 1024;
+    }
+    
+    //缩
+    CGSize newSize = CGSizeMake(image.size.width, image.size.height);
+    CGFloat tempHeight = newSize.height / targetWH;
+    CGFloat tempWidth = newSize.width / targetWH;
+    if (tempWidth > 1.0 && tempWidth > tempHeight) {
+        newSize = CGSizeMake(image.size.width / tempWidth, image.size.height / tempWidth);
+    }
+    else if (tempHeight > 1.0 && tempWidth < tempHeight){
+        newSize = CGSizeMake(image.size.width / tempHeight, image.size.height / tempHeight);
+    }
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    //压
+    CGFloat compression = 0.9f;
+    CGFloat maxCompression = 0.1f;
+    NSData *imageData = UIImageJPEGRepresentation(newImage, compression);
+    while (imageData.length / 1000 > maxFileSize && compression > maxCompression) {
+        compression -= 0.1;
+        imageData = UIImageJPEGRepresentation(newImage, compression);
+    }
+    
+    return imageData;
+}
+
+
++(NSData *)compressionImageToData:(UIImage *)image{
+    return [self compressionImageToData:image targetWH:1024 maxFileSize:500];
+}
+
+
 @end
