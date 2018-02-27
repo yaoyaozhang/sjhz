@@ -505,6 +505,19 @@ typedef NS_ENUM(NSInteger,ZZControlTag) {
             [field addSubview:arrow];
             
             [field addTarget:self action:@selector(btnShowMenu:) forControlEvents:UIControlEventTouchUpInside];
+        
+        if(_isEdit){
+            if(tag == ZZControlTagArea){
+                if(convertToString(loginUser.location).length > 0){
+                    [field setTitle:convertToString(loginUser.location) forState:0];
+                }
+            }
+            if(tag == ZZControlTagZhicheng){
+                if(convertToString(loginUser.titleName).length > 0){
+                    [field setTitle:convertToString(loginUser.titleName) forState:0];
+                }
+            }
+        }
         lh = 30;
     }
     else if(type == 5 || type == 6){

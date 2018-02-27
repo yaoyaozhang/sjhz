@@ -212,7 +212,7 @@
 //    NSData *data = [NSData dataWithBytes:pBuffer length:1024*100];
 //    free(pBuffer);
     
-    UIImage *thumbImage = [UIImage imageNamed:@"icon_news_top"];
+    UIImage *thumbImage = [UIImage imageNamed:@"Icon120"];
     
     static NSString *kAppMessageAction = @"<action>sjhz</action>";
     WXAppExtendObject *ext = [WXAppExtendObject object];
