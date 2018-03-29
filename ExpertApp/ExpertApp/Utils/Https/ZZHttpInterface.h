@@ -14,7 +14,7 @@
  */
 ////////////////////////////////////////////////////////////////
 //
-#define API_HOST @"http://47.94.131.85:8080"
+#define API_HOST @"http://www.sanjiahuizhen.com"
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
 //#define API_HOST @"http://192.168.99.123:8080"
 //#define API_HOST @"http://219.142.225.69:8123"
@@ -26,6 +26,7 @@
 #define API_SendSms [NSString stringWithFormat:@"%@/user/appSendSms",API_HOST]
 #define API_ProtocolUser [NSString stringWithFormat:@"%@/user_protocol.html",API_HOST]
 #define API_ProtocolDoctor [NSString stringWithFormat:@"%@/doctor_protocol.html",API_HOST]
+#define API_About [NSString stringWithFormat:@"%@/about.html",API_HOST]
 
 
 #define API_updateDoctorDn [NSString stringWithFormat:@"%@/doctor/updateDoctorDn",API_HOST]
@@ -238,6 +239,10 @@
 
 //#define API_getChapterDetail(nid) [NSString stringWithFormat:@"%@/news/bronews.html?nid=%d",API_HOST,nid]
 #define API_getChapterDetail(nid) [NSString stringWithFormat:@"%@/news/wz/chapter.html?nid=%d",API_HOST,nid]
+
+#define API_getShareChapterDetail(nid) [NSString stringWithFormat:@"%@/dotcor/PerClinic.html?nid=%d",API_HOST,nid]
+
+#define API_getShareDoctorDetail(docId,userId) [NSString stringWithFormat:@"%@/dotcor/PerClinic.html?docId=%d&userId=%d",API_HOST,docId,userId]
 
 
 #define API_SendChapterComment [NSString stringWithFormat:@"%@/comment/appSaveComment",API_HOST]

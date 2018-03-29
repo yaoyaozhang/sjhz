@@ -57,6 +57,10 @@
         [_viewOtherLogin setFrame:CGRectMake(0, ScreenHeight-110, ScreenWidth, 90)];
     }
     
+    _viewOtherLogin.hidden = YES;
+    if([[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_QQ] && [[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession]){
+        _viewOtherLogin.hidden = NO;
+    }
     
     
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hiddenKeyboard:)];

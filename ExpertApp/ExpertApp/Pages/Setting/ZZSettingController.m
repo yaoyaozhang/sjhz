@@ -31,6 +31,7 @@
 #import "ZZDoctorChapterController.h"
 #import "ZZFansController.h"
 #import "ZZDrawMoneyController.h"
+#import "SVWebViewController.h"
 
 #import "ZZDoctorArchivesController.h"
 
@@ -122,7 +123,8 @@
         
         NSArray *arr2 = @[@{@"code":@"5",@"icon":@"my_set",@"text":@"设置与帮助"},
 //                          @{@"code":@"6",@"icon":@"my_recommend",@"text":@"推荐给朋友"},
-                          @{@"code":@"7",@"icon":@"my_opinion",@"text":@"意见反馈"}];
+                          @{@"code":@"7",@"icon":@"my_opinion",@"text":@"意见反馈"},
+                          @{@"code":@"16",@"icon":@"my_healthrecords",@"text":@"关于我们"}];
         [_listArray addObject:arr2];
     }else{
         NSArray *arr1 = @[@{@"code":@"8",@"icon":@"my_data",@"text":@"我的资料"},
@@ -133,7 +135,8 @@
         [_listArray addObject:arr1];
         
         NSArray *arr2 = @[@{@"code":@"12",@"icon":@"my_set",@"text":@"设置与帮助"},
-                          @{@"code":@"13",@"icon":@"my_withdrawdeposit",@"text":@"提现管理"}];
+                          @{@"code":@"13",@"icon":@"my_withdrawdeposit",@"text":@"提现管理"},
+                          @{@"code":@"16",@"icon":@"my_healthrecords",@"text":@"关于我们"}];
         [_listArray addObject:arr2];
     }
     [_listTable reloadData];
@@ -241,47 +244,37 @@
     if(code == 1){
         ZZMyHZListController *vc = [[ZZMyHZListController alloc] init];
         [self openNav:vc sound:nil];
-    }
-    if(code == 2){
+    }else if(code == 2){
         ZZPatientListController *vc = [[ZZPatientListController alloc] init];
         [self openNav:vc sound:nil];
-    }
-    if(code == 3 || code == 10){
+    }else if(code == 3 || code == 10){
         ZZFansController *vc = [[ZZFansController alloc] init];
         [self openNav:vc sound:nil];
-    }
-    
-    
-    if(code == 4){
+    }else if(code == 4){
         ZZCollectionController *vc = [[ZZCollectionController alloc] init];
         [self openNav:vc sound:nil];
-    }
-    if(code == 5 || code == 12){
+    }else if(code == 5 || code == 12){
         ZZSettingHelpController *vc = [[ZZSettingHelpController alloc] init];
         [self openNav:vc sound:nil];
-    }
-    
-    if(code == 8){
+    }else if(code == 8){
         ZZEditUserController *vc = [[ZZEditUserController alloc] init];
         [self openNav:vc sound:nil];
-    }
-    
-    if(code == 9){
+    }else if(code == 9){
         ZZDoctorChapterController *vc = [[ZZDoctorChapterController alloc] init];
         vc.docInfo = loginUser;
         [self openNav:vc sound:nil];
-    }
-    if(code == 11){
+    }else if(code == 11){
         ZZAttentionController *vc = [[ZZAttentionController alloc] init];
         
         [self openNav:vc sound:nil];
-    }
-    
-    if(code == 13){
+        
+    }else if(code == 16){
+        SVWebViewController *vc = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:API_About]];
+        [self openNav:vc sound:nil];
+    }else if(code == 13){
         ZZDrawMoneyController *vc = [[ZZDrawMoneyController alloc] init];
         [self openNav:vc sound:nil];
-    }
-    if(code == 14 || code == 15){
+    }else if(code == 14 || code == 15){
         ASQListController *vc = [[ASQListController alloc] init];
         vc.type = ASQTYPELB;
         if(code == 15){
@@ -289,9 +282,7 @@
         }
         vc.userId = loginUser.userId;
         [self openNav:vc sound:nil];
-    }
-    
-    if(code == 7){
+    }else if(code == 7){
         /** 设置App自定义扩展反馈数据 */
         self.feedbackKit.extInfo = @{@"loginTime":[[NSDate date] description],
                                      @"visitPath":@"登录->关于->反馈",

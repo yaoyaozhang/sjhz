@@ -14,6 +14,7 @@
 #import "ZZChapterModel.h"
 #import "ZZHZEngity.h"
 #import "ZZQSModel.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 #import <WXApi.h>
 
 
@@ -119,6 +120,7 @@
         messageObject.text = userModel.docName;
         messageObject.title = convertToString(userModel.departmentName);
         
+        
         // 必须为视频
 //        messageObject.shareObject = shareObject;
     }else if(_type == ZZShareTypeChapter){
@@ -167,7 +169,7 @@
             [_curVC.view makeToast:@"分享失败！"];
         }else{
             NSLog(@"response data is %@",data);
-            [_curVC.view makeToast:@"分享成功！"];
+//            [_curVC.view makeToast:@"分享成功！"];
         }
     }];
     
@@ -234,7 +236,25 @@
         message.messageExt = [NSString stringWithFormat:@"sjhz://doctor?userId=%d",userModel.userId];
         message.messageAction = kAppMessageAction;
         message.mediaTagName = nil;
-        [message setThumbImage:thumbImage];
+        
+//        [message setThumbImage:thumbImage];
+        UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:userModel.imageUrl];
+        
+        if (cachedImage == nil) {
+            [message setThumbImage:thumbImage];
+        }else {
+            
+            CGSize newsize = CGSizeMake(100, 100);
+            UIGraphicsBeginImageContext(newsize);
+            [cachedImage drawInRect:CGRectMake(0, 0, 100, 100)];
+            UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            [message setThumbImage:[UIImage imageWithData:UIImagePNGRepresentation(newImage)]];
+//            [message setThumbData:[ZZImageTools compressionImageToData:cachedImage targetWH:100 maxFileSize:30]];
+        }
+        
+        ext.url = API_getShareDoctorDetail(userModel.userId, [ZZDataCache getInstance].getLoginUser.userId);
         
     }else if(_type == ZZShareTypeChapter){
         ZZChapterModel *model = (ZZChapterModel *)_shareModel;
@@ -244,7 +264,22 @@
         message.messageExt = [NSString stringWithFormat:@"sjhz://news?id=%d",model.nid];
         message.messageAction = kAppMessageAction;
         message.mediaTagName = nil;
-        [message setThumbImage:thumbImage];
+//        [message setThumbImage:thumbImage];
+        
+        UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:model.picture];
+        if (cachedImage == nil) {
+            [message setThumbImage:thumbImage];
+        }else {
+            
+            CGSize newsize = CGSizeMake(100, 100);
+            UIGraphicsBeginImageContext(newsize);
+            [cachedImage drawInRect:CGRectMake(0, 0, 100, 100)];
+            UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            [message setThumbImage:[UIImage imageWithData:UIImagePNGRepresentation(newImage)]];
+            //            [message setThumbData:[ZZImageTools compressionImageToData:cachedImage targetWH:100 maxFileSize:30]];
+        }
         
         ext.url = API_getChapterDetail(model.nid);
     }else if(_type == ZZShareTypeHZResult){
@@ -281,7 +316,7 @@
 //        ext.url = [ext.url stringByAppendingString:@"&from=singlemessage&isappinstalled=0"];
 //    }
     
-    if(_type == ZZShareTypeChapter){
+    if(_type == ZZShareTypeChapter || _type == ZZShareTypeUser){
         WXWebpageObject *obj = [WXWebpageObject object];
         obj.webpageUrl = ext.url;
         message.mediaObject = obj;
@@ -305,7 +340,7 @@
         [_curVC.view makeToast:@"分享失败！"];
     }else{
 //        NSLog(@"response data is %@",data);
-        [_curVC.view makeToast:@"分享成功！"];
+//        [_curVC.view makeToast:@"分享成功！"];
     }
     
     [self dissmisMenu];

@@ -10,6 +10,7 @@
 #import "ZCLocalStore.h"
 #define ImageLocalPath @"CacheImage"
 #import "JPUSHService.h"
+#import <SDImageCache.h>
 
 NSString * const KEY_LOGIN_USERINFO = @"ZZLoginUserInfo";
 NSString * const KEY_LOGIN_USERNAME = @"ZZLoginUserName";
@@ -100,6 +101,8 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
 -(void)loginOut{
     [ZCLocalStore removeObjectforKey:KEY_LOGIN_USERINFO];
     _loginUserInfo = nil;
+    
+//    [self cleanCache];
 }
 
 
@@ -117,6 +120,18 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
     }
     [userDefaults synchronize];
     
+    //获取缓存图片的大小(字节)
+//    NSUInteger bytesCache = [[SDImageCache sharedImageCache] getSize];
+//
+//    //换算成 MB (注意iOS中的字节之间的换算是1000不是1024)
+//    float MBCache = bytesCache/1000/1000;
+    
+    //异步清除图片缓存 （磁盘中的）
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        [[SDImageCache sharedImageCache] clearMemory];
+        [[SDImageCache sharedImageCache] clearDisk];
+    });
     // 清理本地存储文件
     dispatch_async(dispatch_queue_create("com.Expert.cache", DISPATCH_QUEUE_SERIAL), ^{
         NSFileManager *_fileManager = [NSFileManager new];

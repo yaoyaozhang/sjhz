@@ -83,6 +83,8 @@
     [self confitUShareSettings];
     
     
+    application.applicationIconBadgeNumber = 0;
+    
     //Required
     //notice: 3.0.0及以后版本注册可以这样写，也可以继续用之前的注册方式
     JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
@@ -124,6 +126,7 @@
             
             [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
                 NSLog(@"result = %@",resultDic);
+                
             }];
         }else{
             if([url.absoluteString hasPrefix:@"wx759030b1505761bf://pay/"]){
@@ -366,6 +369,9 @@
 
 //定义type=1的时候，就取action的字符串干活
 -(void)parseNotice:(NSDictionary *) userInfo{
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
     NSString *actionStr = [userInfo objectForKey:@"iosNotification extras key"];
     NSDictionary *dict = [self dictionaryWithJsonString:actionStr];
     if([dict[@"type"] intValue] == 1){

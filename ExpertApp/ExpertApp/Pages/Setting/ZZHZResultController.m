@@ -406,7 +406,7 @@
             
             NSArray *tjArr = dict[@"retData"][@"tjdoc"];
             // 如果有推荐医生
-            if(tjDict[@"tjOutdoc"] || tjArr.count>0){
+            if(convertToString(tjDict[@"tjOutdoc"]).length>0 || tjArr.count>0){
                 y = y + [self createWhiteText:convertToString(tjDict[@"tjOutdoc"]) y:y arr:tjArr] + 15;
             }
             
