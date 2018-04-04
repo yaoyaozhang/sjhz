@@ -41,6 +41,10 @@
 		7B06B9CF1F7B389D00C5EF83 /* Startpage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B06B9CD1F7B389D00C5EF83 /* Startpage@3x.png */; };
 		7B1DCC302074B06C0061B755 /* PlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1DCC2F2074B06B0061B755 /* PlayView.m */; };
 		7B1DCC332074B4840061B755 /* ZZAudioPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1DCC322074B4840061B755 /* ZZAudioPlayerView.m */; };
+		7B1DCC362074B79F0061B755 /* MusicPlayTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1DCC352074B79F0061B755 /* MusicPlayTools.m */; };
+		7B1DCC392074B8160061B755 /* MusicInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1DCC382074B8160061B755 /* MusicInfoModel.m */; };
+		7B1DCC3C2074B86E0061B755 /* MusicLyricModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1DCC3B2074B86E0061B755 /* MusicLyricModel.m */; };
+		7B1DCC3F2074B8990061B755 /* ZZMusicPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1DCC3E2074B8990061B755 /* ZZMusicPlayView.m */; };
 		7B20C0301F68E3A400FBFD9F /* ZZDoctorChapterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C02F1F68E3A400FBFD9F /* ZZDoctorChapterController.m */; };
 		7B20C0551F692D0300FBFD9F /* ZZPayHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C0541F692D0300FBFD9F /* ZZPayHandler.m */; };
 		7B20C13D1F6A2B0600FBFD9F /* ZZCreateSportCaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C13C1F6A2B0600FBFD9F /* ZZCreateSportCaseController.m */; };
@@ -602,6 +606,14 @@
 		7B1DCC2F2074B06B0061B755 /* PlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayView.m; sourceTree = "<group>"; };
 		7B1DCC312074B4840061B755 /* ZZAudioPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZAudioPlayerView.h; sourceTree = "<group>"; };
 		7B1DCC322074B4840061B755 /* ZZAudioPlayerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZAudioPlayerView.m; sourceTree = "<group>"; };
+		7B1DCC342074B79F0061B755 /* MusicPlayTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayTools.h; sourceTree = "<group>"; };
+		7B1DCC352074B79F0061B755 /* MusicPlayTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayTools.m; sourceTree = "<group>"; };
+		7B1DCC372074B8160061B755 /* MusicInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicInfoModel.h; sourceTree = "<group>"; };
+		7B1DCC382074B8160061B755 /* MusicInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicInfoModel.m; sourceTree = "<group>"; };
+		7B1DCC3A2074B86E0061B755 /* MusicLyricModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicLyricModel.h; sourceTree = "<group>"; };
+		7B1DCC3B2074B86E0061B755 /* MusicLyricModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicLyricModel.m; sourceTree = "<group>"; };
+		7B1DCC3D2074B8990061B755 /* ZZMusicPlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZMusicPlayView.h; sourceTree = "<group>"; };
+		7B1DCC3E2074B8990061B755 /* ZZMusicPlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZMusicPlayView.m; sourceTree = "<group>"; };
 		7B20C02E1F68E3A400FBFD9F /* ZZDoctorChapterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDoctorChapterController.h; sourceTree = "<group>"; };
 		7B20C02F1F68E3A400FBFD9F /* ZZDoctorChapterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDoctorChapterController.m; sourceTree = "<group>"; };
 		7B20C0531F692D0300FBFD9F /* ZZPayHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPayHandler.h; sourceTree = "<group>"; };
@@ -1400,6 +1412,10 @@
 				7B1DCC2F2074B06B0061B755 /* PlayView.m */,
 				7B1DCC312074B4840061B755 /* ZZAudioPlayerView.h */,
 				7B1DCC322074B4840061B755 /* ZZAudioPlayerView.m */,
+				7B1DCC342074B79F0061B755 /* MusicPlayTools.h */,
+				7B1DCC352074B79F0061B755 /* MusicPlayTools.m */,
+				7B1DCC3D2074B8990061B755 /* ZZMusicPlayView.h */,
+				7B1DCC3E2074B8990061B755 /* ZZMusicPlayView.m */,
 			);
 			path = "player util";
 			sourceTree = "<group>";
@@ -2238,6 +2254,10 @@
 				7BE654922005BCF9000B57AE /* ZZDiseaseModel.m */,
 				7B61C8C1200D9BA500C932D9 /* LemmaModel.h */,
 				7B61C8C2200D9BA500C932D9 /* LemmaModel.m */,
+				7B1DCC372074B8160061B755 /* MusicInfoModel.h */,
+				7B1DCC382074B8160061B755 /* MusicInfoModel.m */,
+				7B1DCC3A2074B86E0061B755 /* MusicLyricModel.h */,
+				7B1DCC3B2074B86E0061B755 /* MusicLyricModel.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -3315,6 +3335,7 @@
 				7BF1105F1F18828D00456E55 /* ZZRequsetInterface.m in Sources */,
 				7BE654972005C830000B57AE /* ZZSymptomDetailCell.m in Sources */,
 				7B20C16A1F7215A300FBFD9F /* ZZDiscussController.m in Sources */,
+				7B1DCC3C2074B86E0061B755 /* MusicLyricModel.m in Sources */,
 				7B00F8DC1F30708000E29561 /* EasyTableView.m in Sources */,
 				7B7000111F3B09D600C59281 /* ZZChapterUserCell.m in Sources */,
 				7BF1106B1F1884F400456E55 /* ZCLocalStore.m in Sources */,
@@ -3448,6 +3469,7 @@
 				7B20C0301F68E3A400FBFD9F /* ZZDoctorChapterController.m in Sources */,
 				7B73A2DD1F905E65004F89C0 /* ZZNewsModel.m in Sources */,
 				7B74A7181F7B927E00FA2BF3 /* CoreTextLabel.m in Sources */,
+				7B1DCC3F2074B8990061B755 /* ZZMusicPlayView.m in Sources */,
 				7BF1102C1F1874EC00456E55 /* RDVTabBar.m in Sources */,
 				7B1DCC302074B06C0061B755 /* PlayView.m in Sources */,
 				7B7002C11F6126D300C59281 /* ZZShareView.m in Sources */,
@@ -3482,9 +3504,11 @@
 				7B70FFFF1F3AEBBE00C59281 /* ZZUserInfo.m in Sources */,
 				7B70002D1F3B124600C59281 /* ZZEditUserController.m in Sources */,
 				7B20C1621F71113900FBFD9F /* ZZWriteResultController.m in Sources */,
+				7B1DCC392074B8160061B755 /* MusicInfoModel.m in Sources */,
 				7B06B9CB1F7A5D2F00C5EF83 /* ZZCaseTalkModel.m in Sources */,
 				7BD9508F1FFB833F0016C3D6 /* ZZPickerTimeView.m in Sources */,
 				7B2D6C452015E3C400445A6B /* ZZSQPicCell.m in Sources */,
+				7B1DCC362074B79F0061B755 /* MusicPlayTools.m in Sources */,
 				7BF110741F1888D300456E55 /* ZZURLConnectionRequestImpl.m in Sources */,
 				7B06B9961F78E93900C5EF83 /* ZZHZEngity.m in Sources */,
 				7B7F3D421F31778200132669 /* UIView+SDExtension.m in Sources */,
