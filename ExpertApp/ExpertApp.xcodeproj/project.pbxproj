@@ -39,6 +39,8 @@
 		7B06B9CB1F7A5D2F00C5EF83 /* ZZCaseTalkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B06B9CA1F7A5D2F00C5EF83 /* ZZCaseTalkModel.m */; };
 		7B06B9CE1F7B389D00C5EF83 /* Startpage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B06B9CC1F7B389D00C5EF83 /* Startpage@2x.png */; };
 		7B06B9CF1F7B389D00C5EF83 /* Startpage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B06B9CD1F7B389D00C5EF83 /* Startpage@3x.png */; };
+		7B1DCC302074B06C0061B755 /* PlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1DCC2F2074B06B0061B755 /* PlayView.m */; };
+		7B1DCC332074B4840061B755 /* ZZAudioPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1DCC322074B4840061B755 /* ZZAudioPlayerView.m */; };
 		7B20C0301F68E3A400FBFD9F /* ZZDoctorChapterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C02F1F68E3A400FBFD9F /* ZZDoctorChapterController.m */; };
 		7B20C0551F692D0300FBFD9F /* ZZPayHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C0541F692D0300FBFD9F /* ZZPayHandler.m */; };
 		7B20C13D1F6A2B0600FBFD9F /* ZZCreateSportCaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C13C1F6A2B0600FBFD9F /* ZZCreateSportCaseController.m */; };
@@ -596,6 +598,10 @@
 		7B06B9CA1F7A5D2F00C5EF83 /* ZZCaseTalkModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCaseTalkModel.m; sourceTree = "<group>"; };
 		7B06B9CC1F7B389D00C5EF83 /* Startpage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Startpage@2x.png"; sourceTree = "<group>"; };
 		7B06B9CD1F7B389D00C5EF83 /* Startpage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Startpage@3x.png"; sourceTree = "<group>"; };
+		7B1DCC2E2074B06B0061B755 /* PlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayView.h; sourceTree = "<group>"; };
+		7B1DCC2F2074B06B0061B755 /* PlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayView.m; sourceTree = "<group>"; };
+		7B1DCC312074B4840061B755 /* ZZAudioPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZAudioPlayerView.h; sourceTree = "<group>"; };
+		7B1DCC322074B4840061B755 /* ZZAudioPlayerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZAudioPlayerView.m; sourceTree = "<group>"; };
 		7B20C02E1F68E3A400FBFD9F /* ZZDoctorChapterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDoctorChapterController.h; sourceTree = "<group>"; };
 		7B20C02F1F68E3A400FBFD9F /* ZZDoctorChapterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDoctorChapterController.m; sourceTree = "<group>"; };
 		7B20C0531F692D0300FBFD9F /* ZZPayHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPayHandler.h; sourceTree = "<group>"; };
@@ -1385,6 +1391,17 @@
 				7B73A2DF1F905F3D004F89C0 /* ZZNewsListController.m */,
 			);
 			path = News;
+			sourceTree = "<group>";
+		};
+		7B1DCC2D2074B06B0061B755 /* player util */ = {
+			isa = PBXGroup;
+			children = (
+				7B1DCC2E2074B06B0061B755 /* PlayView.h */,
+				7B1DCC2F2074B06B0061B755 /* PlayView.m */,
+				7B1DCC312074B4840061B755 /* ZZAudioPlayerView.h */,
+				7B1DCC322074B4840061B755 /* ZZAudioPlayerView.m */,
+			);
+			path = "player util";
 			sourceTree = "<group>";
 		};
 		7B20C0521F692CF200FBFD9F /* Pay */ = {
@@ -2711,6 +2728,7 @@
 		7BF110341F18766200456E55 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				7B1DCC2D2074B06B0061B755 /* player util */,
 				7B250E221FCE994B00C2D72A /* alert util */,
 				7B20C0521F692CF200FBFD9F /* Pay */,
 				7B8A90191F18A16D00FC53D7 /* Categories */,
@@ -3304,6 +3322,7 @@
 				7BF110771F188AFA00456E55 /* ZZCoreCommon.m in Sources */,
 				7B5365731FB2DA60000CD932 /* ZZSQBaseCell.m in Sources */,
 				7B3DFDD31FBAD98800AD39AE /* ZZQSModel.m in Sources */,
+				7B1DCC332074B4840061B755 /* ZZAudioPlayerView.m in Sources */,
 				7BD950C71FFCD7C50016C3D6 /* ZZChoosePatientController.m in Sources */,
 				7B8A90621F18A72A00FC53D7 /* SVWebViewControllerActivityChrome.m in Sources */,
 				7B5365811FB2DB34000CD932 /* ZZSQTextCell.m in Sources */,
@@ -3430,6 +3449,7 @@
 				7B73A2DD1F905E65004F89C0 /* ZZNewsModel.m in Sources */,
 				7B74A7181F7B927E00FA2BF3 /* CoreTextLabel.m in Sources */,
 				7BF1102C1F1874EC00456E55 /* RDVTabBar.m in Sources */,
+				7B1DCC302074B06C0061B755 /* PlayView.m in Sources */,
 				7B7002C11F6126D300C59281 /* ZZShareView.m in Sources */,
 				7BF110091F18678C00456E55 /* main.m in Sources */,
 				7BD950B01FFB93770016C3D6 /* ZZSymptomCell.m in Sources */,
