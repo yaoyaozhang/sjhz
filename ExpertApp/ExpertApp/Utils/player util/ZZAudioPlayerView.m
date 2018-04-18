@@ -133,62 +133,13 @@
     // 开始监控
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
+    AVPlayerItem *currentPlayerItem = [AVPlayerItem playerItemWithURL:url];
+    _player = [[AVPlayer alloc] initWithPlayerItem:currentPlayerItem];
     
-    //    url = [NSURL URLWithString:@"http://www.w3school.com.cn/i/movie.mp4"];
-    __weak ZZAudioPlayerView *saveself = self;
-    //加载视频资源的类
-    AVURLAsset *asset = [AVURLAsset assetWithURL:url];
-    //AVURLAsset 通过tracks关键字会将资源异步加载在程序的一个临时内存缓冲区中
-    [asset loadValuesAsynchronouslyForKeys:[NSArray arrayWithObject:@"tracks"] completionHandler:^{
-        //能够得到资源被加载的状态
-        AVKeyValueStatus status = [asset statusOfValueForKey:@"tracks" error:nil];
-        //如果资源加载完成,开始进行播放
-        if (status == AVKeyValueStatusLoaded) {
-            //将加载好的资源放入AVPlayerItem 中，item中包含视频资源数据,视频资源时长、当前播放的时间点等信息
-            AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
-            _player = [[AVPlayer alloc] initWithPlayerItem:item];
-            //将播放器与播放视图关联
-            [self setPlayer:_player];
-            [_player play];
-            //需要时时显示播放的进度
-            //根据播放的帧数、速率，进行时间的异步(在子线程中完成)获取
-            [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_global_queue(0, 0) usingBlock:^(CMTime time) {
-                //获取时间
-                //获取当前播放时间(根据帧数和播放速率，视频资源的总长度得到的CMTime)
-                CMTime current = saveself.player.currentItem.currentTime;
-                Float64 currentTime = CMTimeGetSeconds(current);
-                
-                //总时间
-                CMTime dur =saveself.player.currentItem.duration;
-                
-                Float64 allTime = CMTimeGetSeconds(dur);
-                //CMTimeGetSeconds 将描述视频时间的结构体转化为float（秒）
-                float pro = CMTimeGetSeconds(current)/CMTimeGetSeconds(dur);
-                //回到主线程刷新UI
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    //要考虑到代码的健壮性
-                    /*1、在向对象发送消息前，要判断对象是否为空
-                     *2、一些值(数组、控制中的属性值)是否越界的判断
-                     *3、是否对各种异常情况进行了处理(照片、定位 用户允许、不允许)
-                     *4、数据存储，对nil的判断或处理
-                     *5、对硬件功能支持情况的判断等
-                     */
-                    if (pro >=0 && pro <=1) {
-                        saveself.progressSlider.value = pro;
-                        [saveself.allTimeLab setText:[saveself timeFromSeconds:allTime]];
-                        [saveself.currentTimeLab setText:[saveself timeFromSeconds:currentTime]];
-                    }
-                });
-                
-            }];
-        }
-    }];
     
 }
 
--(void)findPlayerItemInfo{
-    
-}
+
 #pragma mark -------BtnClick---------
 -(void)playBtnClick:(UIButton *)btn
 {
@@ -240,6 +191,23 @@
     _bgView=nil;
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
+
+
+-(void)nextPlay:(NSURL *) url{
+    if (_player){
+        AVPlayerItem *currentPlayerItem = [AVPlayerItem playerItemWithURL:url];
+        
+        //[_player replaceCurrentItemWithPlayerItem:_currentPlayerItem];
+        _player = [[AVPlayer alloc] initWithPlayerItem:currentPlayerItem];
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        
+        [_player play];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_player.currentItem];
+        
+    }
+
 }
 
 #pragma mark ------Notification-------

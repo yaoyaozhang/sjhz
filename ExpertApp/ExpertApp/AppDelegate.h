@@ -10,6 +10,7 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+@property (assign, nonatomic) BOOL allowRotation;
 @property (strong, nonatomic) UIWindow *window;
 
 -(void)openNewPage:(NSString *) action;

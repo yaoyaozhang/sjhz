@@ -13,6 +13,8 @@
 #import "ZZCommentController.h"
 #import "ZZChapterDetailController.h"
 #import "ZZShareView.h"
+#import "ExpertApp-Swift.h"
+
 
 @interface ZZChapterTVC (){
     int pageNum;
@@ -199,15 +201,23 @@
         [self setTableSeparatorInset];
     }
     
-    ZZChapterModel *newsModel = cell.chapterModel;
     
-    ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
-    NewsDetailC.model = newsModel;
+    ZZChapterModel *newsModel = cell.chapterModel;
+
+    
+//   ZZVoiceController *NewsDetailC = [[ZZVoiceController alloc] init];
+    ZZVideoController *NewsDetailC = [[ZZVideoController alloc] init];
+    
+//    ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
+//    NewsDetailC.model = newsModel;
     if(self.preVC){
         [((UIViewController *)self.preVC).navigationController pushViewController:NewsDetailC animated:YES];
     }else{
         [self.navigationController pushViewController:NewsDetailC animated:YES];
     }
+    
+    
+    
 }
 
 #pragma mark -

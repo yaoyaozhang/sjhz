@@ -18,29 +18,30 @@
 -(void)getCurTiem:(NSString *)curTime Totle:(NSString *)totleTime Progress:(CGFloat)progress;
 // 播放结束之后, 如何操作由外部决定.
 -(void)endOfPlayAction;
+
+-(void)startPlayAction;
+-(void)pausePlayAction;
+
 @end
 
 @interface MusicPlayTools : NSObject
 // 本类中的播放器指针.
 @property(nonatomic,strong)AVPlayer * player;
-// 本类中的,播放中的"歌曲信息模型"
-@property(nonatomic,strong)MusicInfoModel * model;
 
 // 代理
 @property(nonatomic,weak)id<MusicPlayToolsDelegate> delegate;
 
 // 单例方法
 +(instancetype)shareMusicPlay;
+// 准备播放
+-(void)musicPrePlay:(NSString *) url;
+
 // 播放音乐
 -(void)musicPlay;
 // 暂停音乐
 -(void)musicPause;
-// 准备播放
--(void)musicPrePlay;
 // 跳转
 -(void)seekToTimeWithValue:(CGFloat)value;
-// 返回一个歌词数组
--(NSMutableArray *)getMusicLyricArray;
-// 根据当前播放时间,返回 对应歌词 在 数组 中的位置.
--(NSInteger)getIndexWithCurTime;
+
+-(BOOL)isPlaying;
 @end

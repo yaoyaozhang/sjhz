@@ -13,6 +13,7 @@
 #import "ZZFontColorDefine.h"
 #import "MyButton.h"
 #import "UIImage+ImageWithColor.h"
+#import "AppDelegate.h"
 
 @interface BaseController ()
 
@@ -31,6 +32,7 @@
         self.automaticallyAdjustsScrollViewInsets=NO;
     }
     
+    ((AppDelegate *) [UIApplication sharedApplication].delegate).allowRotation = 0;
 //    [self.navigationController setNavigationBarHidden:YES];
 }
 
@@ -428,6 +430,7 @@
     //移除消息监听
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

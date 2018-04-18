@@ -12,6 +12,7 @@ static MusicPlayTools * mp = nil;
 
 @interface MusicPlayTools ()
 @property(nonatomic,strong)NSTimer * timer;
+@property(nonatomic,assign)   BOOL      curPlayState;
 @end
 
 @implementation MusicPlayTools
@@ -53,7 +54,7 @@ static MusicPlayTools * mp = nil;
 }
 
 // 准备播放,我们在外部调用播放器播放时,不会调用"直接播放",而是调用这个"准备播放",当它准备好时,会直接播放.
--(void)musicPrePlay
+-(void)musicPrePlay:(NSString *)url
 {
     // 通过下面的逻辑,只要AVPlayer有currentItem,那么一定被添加了观察者.
     // 所以上来直接移除之.
@@ -63,7 +64,7 @@ static MusicPlayTools * mp = nil;
     
     // 根据传入的URL(MP3歌曲地址),创建一个item对象
     // initWithURL的初始化方法建立异步链接. 什么时候连接建立完成我们不知道.但是它完成连接之后,会修改自身内部的属性status. 所以,我们要观察这个属性,当它的状态变为AVPlayerItemStatusReadyToPlay时,我们便能得知,播放器已经准备好,可以播放了.
-    AVPlayerItem * item = [[ AVPlayerItem alloc] initWithURL:[NSURL URLWithString:self.model.mp3Url]];
+    AVPlayerItem * item = [[ AVPlayerItem alloc] initWithURL:[NSURL URLWithString:url]];
     
     // 为item的status添加观察者.
     [item addObserver:self forKeyPath:@"status" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
@@ -107,6 +108,11 @@ static MusicPlayTools * mp = nil;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
     
     [self.player play];
+    _curPlayState = YES;
+    
+    if(self.delegate){
+        [self.delegate startPlayAction];
+    }
 }
 
 -(void)timerAction:(NSTimer * )sender
@@ -122,6 +128,12 @@ static MusicPlayTools * mp = nil;
     [self.timer invalidate];
     self.timer = nil;
     [self.player pause];
+    _curPlayState = NO;
+    
+    
+    if(self.delegate){
+        [self.delegate pausePlayAction];
+    }
 }
 
 // 跳转方法
@@ -171,36 +183,7 @@ static MusicPlayTools * mp = nil;
     return [NSString stringWithFormat:@"%.2ld:%.2ld",value/60,value%60];
 }
 
-// 返回一个歌词数组(这里有Bug)
--(NSMutableArray *)getMusicLyricArray
-{
-    NSMutableArray * array = [NSMutableArray array];
-    
-    for (NSString * str in self.model.timeLyric) {
-        if (str.length == 0) {
-            continue;
-        }
-        MusicLyricModel * model = [[MusicLyricModel alloc] init];
-        model.lyricTime = [str substringWithRange:NSMakeRange(1, 9)];
-        model.lyricStr = [str substringFromIndex:11];
-        [array addObject:model];
-    }
-    return array;
-}
-
--(NSInteger)getIndexWithCurTime
-{
-    NSInteger index = 0;
-    NSString * curTime = [self valueToString:[self getCurTime]];
-    for (NSString * str in self.model.timeLyric) {
-        if (str.length == 0) {
-            continue;
-        }
-        if ([curTime isEqualToString:[str substringWithRange:NSMakeRange(1, 5)]]) {
-            return index;
-        }
-        index ++;
-    }
-    return -1;
+-(BOOL)isPlaying{
+    return _curPlayState;
 }
 @end
