@@ -11,5 +11,7 @@
 
 
 @property(nonatomic,strong) ZZUserInfo *docInfo;
+@property(nonatomic,assign) int fromType;
+@property(nonatomic,strong) NSString *pageTitle;
 
 @end

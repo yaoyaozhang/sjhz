@@ -23,7 +23,11 @@
     // Do any additional setup after loading the view.
     
     [self createTitleMenu];
-    [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@的讲堂",_docInfo.docName] forState:UIControlStateNormal];
+    if(convertToString(_pageTitle).length>0){
+        [self.menuTitleButton setTitle:convertToString(_pageTitle) forState:UIControlStateNormal];
+    }else{
+        [self.menuTitleButton setTitle:[NSString stringWithFormat:@"%@的讲堂",_docInfo.docName] forState:UIControlStateNormal];
+    }
     self.menuRightButton.hidden = YES;
     
     
@@ -31,8 +35,12 @@
     _newsTVC = [sb instantiateInitialViewController];
     _newsTVC.preVC = self;
     _newsTVC.view.frame = CGRectMake(0, NavBarHeight + 10, ScreenWidth, ScreenHeight - NavBarHeight - 10);
-    _newsTVC.docId = _docInfo.userId;
-    _newsTVC.newsType = @"0";
+    if(_fromType>0){
+        _newsTVC.newsType = [NSString stringWithFormat:@"%d",_fromType];
+    }else{
+        _newsTVC.docId = _docInfo.userId;
+        _newsTVC.newsType = @"0";
+    }
     
     [self.view addSubview:_newsTVC.view];
 }

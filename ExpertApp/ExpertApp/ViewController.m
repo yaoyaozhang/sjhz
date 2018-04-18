@@ -19,6 +19,7 @@
 #import "ZZUserHomeController.h"
 #import "UserIndexController.h"
 
+#import "ZZKnowledgeHomeController.h"
 #import "ZZDoctorHomeController.h"
 
 #import "ExpertApp-Swift.h"
@@ -55,7 +56,7 @@
     ZZDoctorHomeController *docView = [[ZZDoctorHomeController alloc] init];
     
     ZZChapterListController *regView=[[ZZChapterListController alloc]init];
-    
+    ZZKnowledgeHomeController *knowledge = [[ZZKnowledgeHomeController alloc] init];
     
     ZZNewsController *newView=[[ZZNewsController alloc] init];
     
@@ -68,7 +69,7 @@
         self.viewControllers = @[docView,newView,settingView];
     }else{
         
-        self.viewControllers = @[homeView,regView,newView,settingView];
+        self.viewControllers = @[homeView,knowledge,newView,settingView];
     }
     
     NSInteger index = 0;

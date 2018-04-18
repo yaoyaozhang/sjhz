@@ -530,6 +530,25 @@
 		7BAE10A81F66977B0034AB76 /* Voicemail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BAE108A1F66977B0034AB76 /* Voicemail@2x.png */; };
 		7BAE10A91F66977B0034AB76 /* Voicemail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BAE108B1F66977B0034AB76 /* Voicemail@3x.png */; };
 		7BAE10AC1F67BFA10034AB76 /* ZZChapterDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAE10AB1F67BFA10034AB76 /* ZZChapterDetailController.m */; };
+		7BB488102087233D00376930 /* ZZKnowledgeHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB4880F2087233D00376930 /* ZZKnowledgeHomeController.m */; };
+		7BB48813208724B800376930 /* ZZKnowledgeSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB48812208724B800376930 /* ZZKnowledgeSearchController.m */; };
+		7BB48818208725FF00376930 /* ZZKnowledgeItemsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB48816208725FF00376930 /* ZZKnowledgeItemsCell.m */; };
+		7BB48819208725FF00376930 /* ZZKnowledgeItemsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB48817208725FF00376930 /* ZZKnowledgeItemsCell.xib */; };
+		7BB4881D2087261100376930 /* ZZKnowledgeRichCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB4881B2087261100376930 /* ZZKnowledgeRichCell.m */; };
+		7BB4881E2087261100376930 /* ZZKnowledgeRichCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4881C2087261100376930 /* ZZKnowledgeRichCell.xib */; };
+		7BB4882120872B3C00376930 /* icon_list_more@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4881F20872B3C00376930 /* icon_list_more@3x.png */; };
+		7BB4882220872B3C00376930 /* icon_list_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882020872B3C00376930 /* icon_list_more@2x.png */; };
+		7BB4882D20872F6F00376930 /* icon_knowledge_type2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882320872F6E00376930 /* icon_knowledge_type2@2x.png */; };
+		7BB4882E20872F6F00376930 /* icon_knowledge_type3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882420872F6E00376930 /* icon_knowledge_type3@2x.png */; };
+		7BB4882F20872F6F00376930 /* icon_knowledge_type1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882520872F6E00376930 /* icon_knowledge_type1@2x.png */; };
+		7BB4883020872F6F00376930 /* icon_knowledge_type5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882620872F6E00376930 /* icon_knowledge_type5@2x.png */; };
+		7BB4883120872F6F00376930 /* icon_knowledge_type5@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882720872F6E00376930 /* icon_knowledge_type5@3x.png */; };
+		7BB4883220872F6F00376930 /* icon_knowledge_type2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882820872F6F00376930 /* icon_knowledge_type2@3x.png */; };
+		7BB4883320872F6F00376930 /* icon_knowledge_type4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882920872F6F00376930 /* icon_knowledge_type4@2x.png */; };
+		7BB4883420872F6F00376930 /* icon_knowledge_type3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882A20872F6F00376930 /* icon_knowledge_type3@3x.png */; };
+		7BB4883520872F6F00376930 /* icon_knowledge_type4@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882B20872F6F00376930 /* icon_knowledge_type4@3x.png */; };
+		7BB4883620872F6F00376930 /* icon_knowledge_type1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882C20872F6F00376930 /* icon_knowledge_type1@3x.png */; };
+		7BB4883920874B9400376930 /* ZZKnowledgeSearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB4883820874B9400376930 /* ZZKnowledgeSearchResultController.m */; };
 		7BC585481FBC921000570F93 /* ZZQSListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC585461FBC921000570F93 /* ZZQSListCell.m */; };
 		7BC585491FBC921000570F93 /* ZZQSListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BC585471FBC921000570F93 /* ZZQSListCell.xib */; };
 		7BD796511F740702006223A2 /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD796501F740702006223A2 /* UIButton+countDown.m */; };
@@ -1313,6 +1332,30 @@
 		7BAE108B1F66977B0034AB76 /* Voicemail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Voicemail@3x.png"; sourceTree = "<group>"; };
 		7BAE10AA1F67BFA10034AB76 /* ZZChapterDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZChapterDetailController.h; sourceTree = "<group>"; };
 		7BAE10AB1F67BFA10034AB76 /* ZZChapterDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZChapterDetailController.m; sourceTree = "<group>"; };
+		7BB4880E2087233D00376930 /* ZZKnowledgeHomeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeHomeController.h; sourceTree = "<group>"; };
+		7BB4880F2087233D00376930 /* ZZKnowledgeHomeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeHomeController.m; sourceTree = "<group>"; };
+		7BB48811208724B800376930 /* ZZKnowledgeSearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeSearchController.h; sourceTree = "<group>"; };
+		7BB48812208724B800376930 /* ZZKnowledgeSearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeSearchController.m; sourceTree = "<group>"; };
+		7BB48815208725FF00376930 /* ZZKnowledgeItemsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeItemsCell.h; sourceTree = "<group>"; };
+		7BB48816208725FF00376930 /* ZZKnowledgeItemsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeItemsCell.m; sourceTree = "<group>"; };
+		7BB48817208725FF00376930 /* ZZKnowledgeItemsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZKnowledgeItemsCell.xib; sourceTree = "<group>"; };
+		7BB4881A2087261100376930 /* ZZKnowledgeRichCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeRichCell.h; sourceTree = "<group>"; };
+		7BB4881B2087261100376930 /* ZZKnowledgeRichCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeRichCell.m; sourceTree = "<group>"; };
+		7BB4881C2087261100376930 /* ZZKnowledgeRichCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZKnowledgeRichCell.xib; sourceTree = "<group>"; };
+		7BB4881F20872B3C00376930 /* icon_list_more@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_list_more@3x.png"; sourceTree = "<group>"; };
+		7BB4882020872B3C00376930 /* icon_list_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_list_more@2x.png"; sourceTree = "<group>"; };
+		7BB4882320872F6E00376930 /* icon_knowledge_type2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knowledge_type2@2x.png"; sourceTree = "<group>"; };
+		7BB4882420872F6E00376930 /* icon_knowledge_type3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knowledge_type3@2x.png"; sourceTree = "<group>"; };
+		7BB4882520872F6E00376930 /* icon_knowledge_type1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knowledge_type1@2x.png"; sourceTree = "<group>"; };
+		7BB4882620872F6E00376930 /* icon_knowledge_type5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knowledge_type5@2x.png"; sourceTree = "<group>"; };
+		7BB4882720872F6E00376930 /* icon_knowledge_type5@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knowledge_type5@3x.png"; sourceTree = "<group>"; };
+		7BB4882820872F6F00376930 /* icon_knowledge_type2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knowledge_type2@3x.png"; sourceTree = "<group>"; };
+		7BB4882920872F6F00376930 /* icon_knowledge_type4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knowledge_type4@2x.png"; sourceTree = "<group>"; };
+		7BB4882A20872F6F00376930 /* icon_knowledge_type3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knowledge_type3@3x.png"; sourceTree = "<group>"; };
+		7BB4882B20872F6F00376930 /* icon_knowledge_type4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knowledge_type4@3x.png"; sourceTree = "<group>"; };
+		7BB4882C20872F6F00376930 /* icon_knowledge_type1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knowledge_type1@3x.png"; sourceTree = "<group>"; };
+		7BB4883720874B9400376930 /* ZZKnowledgeSearchResultController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeSearchResultController.h; sourceTree = "<group>"; };
+		7BB4883820874B9400376930 /* ZZKnowledgeSearchResultController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeSearchResultController.m; sourceTree = "<group>"; };
 		7BC585451FBC921000570F93 /* ZZQSListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZQSListCell.h; sourceTree = "<group>"; };
 		7BC585461FBC921000570F93 /* ZZQSListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZQSListCell.m; sourceTree = "<group>"; };
 		7BC585471FBC921000570F93 /* ZZQSListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZQSListCell.xib; sourceTree = "<group>"; };
@@ -1630,6 +1673,18 @@
 		7B371E9E2085A4A400D5D617 /* 20180417 */ = {
 			isa = PBXGroup;
 			children = (
+				7BB4882520872F6E00376930 /* icon_knowledge_type1@2x.png */,
+				7BB4882C20872F6F00376930 /* icon_knowledge_type1@3x.png */,
+				7BB4882320872F6E00376930 /* icon_knowledge_type2@2x.png */,
+				7BB4882820872F6F00376930 /* icon_knowledge_type2@3x.png */,
+				7BB4882420872F6E00376930 /* icon_knowledge_type3@2x.png */,
+				7BB4882A20872F6F00376930 /* icon_knowledge_type3@3x.png */,
+				7BB4882920872F6F00376930 /* icon_knowledge_type4@2x.png */,
+				7BB4882B20872F6F00376930 /* icon_knowledge_type4@3x.png */,
+				7BB4882620872F6E00376930 /* icon_knowledge_type5@2x.png */,
+				7BB4882720872F6E00376930 /* icon_knowledge_type5@3x.png */,
+				7BB4882020872B3C00376930 /* icon_list_more@2x.png */,
+				7BB4881F20872B3C00376930 /* icon_list_more@3x.png */,
 				7B371EE22085E0AE00D5D617 /* icon_play_down@2x.png */,
 				7B371EE32085E0AF00D5D617 /* icon_play_down@3x.png */,
 				7B371EE42085E0AF00D5D617 /* icon_play_up@2x.png */,
@@ -1789,6 +1844,7 @@
 		7B5C1C7A1F1F531000DDDA78 /* Chapter */ = {
 			isa = PBXGroup;
 			children = (
+				7BB4880B208721C900376930 /* knowledge */,
 				7B1DCD72208587D30061B755 /* Media */,
 				7B7F3D4E1F31A88400132669 /* Comment */,
 				7B7F3D211F31738C00132669 /* NewsVC */,
@@ -2728,6 +2784,33 @@
 			path = ZZKeyboardView;
 			sourceTree = "<group>";
 		};
+		7BB4880B208721C900376930 /* knowledge */ = {
+			isa = PBXGroup;
+			children = (
+				7BB48814208725CB00376930 /* cell */,
+				7BB4880E2087233D00376930 /* ZZKnowledgeHomeController.h */,
+				7BB4880F2087233D00376930 /* ZZKnowledgeHomeController.m */,
+				7BB48811208724B800376930 /* ZZKnowledgeSearchController.h */,
+				7BB48812208724B800376930 /* ZZKnowledgeSearchController.m */,
+				7BB4883720874B9400376930 /* ZZKnowledgeSearchResultController.h */,
+				7BB4883820874B9400376930 /* ZZKnowledgeSearchResultController.m */,
+			);
+			path = knowledge;
+			sourceTree = "<group>";
+		};
+		7BB48814208725CB00376930 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				7BB48815208725FF00376930 /* ZZKnowledgeItemsCell.h */,
+				7BB48816208725FF00376930 /* ZZKnowledgeItemsCell.m */,
+				7BB48817208725FF00376930 /* ZZKnowledgeItemsCell.xib */,
+				7BB4881A2087261100376930 /* ZZKnowledgeRichCell.h */,
+				7BB4881B2087261100376930 /* ZZKnowledgeRichCell.m */,
+				7BB4881C2087261100376930 /* ZZKnowledgeRichCell.xib */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		7BD950621FFB61B20016C3D6 /* Patient */ = {
 			isa = PBXGroup;
 			children = (
@@ -3178,6 +3261,7 @@
 				7B06B9B41F79198600C5EF83 /* increase@3x.png in Resources */,
 				7BFB1B022011EB8A004AC296 /* scale_3@2x.png in Resources */,
 				7B70015F1F45414100C59281 /* pay_alipay@3x.png in Resources */,
+				7BB48819208725FF00376930 /* ZZKnowledgeItemsCell.xib in Resources */,
 				7B371ED02085A4A400D5D617 /* icon_play_pre_fast@2x.png in Resources */,
 				7B5C1CD81F1F5B7B00DDDA78 /* SVProgressHUD.bundle in Resources */,
 				7B7001441F45414100C59281 /* my_doctor@2x.png in Resources */,
@@ -3196,6 +3280,7 @@
 				7B7001971F45414100C59281 /* treatment_critical@3x.png in Resources */,
 				7B7001701F45414100C59281 /* search_search@2x.png in Resources */,
 				7B7001661F45414100C59281 /* pop_album@2x.png in Resources */,
+				7BB4883520872F6F00376930 /* icon_knowledge_type4@3x.png in Resources */,
 				7B7001651F45414100C59281 /* personalpage_bg@3x.png in Resources */,
 				7BFB1AFD2011EB8A004AC296 /* scale_6@2x.png in Resources */,
 				7BFB1B032011EB8A004AC296 /* scale_5@2x.png in Resources */,
@@ -3238,6 +3323,8 @@
 				7BAE10A11F66977B0034AB76 /* treatment_7@3x.png in Resources */,
 				7B06B9AE1F79198600C5EF83 /* add@3x.png in Resources */,
 				7B8A90631F18A72A00FC53D7 /* SVWebViewControllerActivityChrome@2x.png in Resources */,
+				7BB4881E2087261100376930 /* ZZKnowledgeRichCell.xib in Resources */,
+				7BB4883320872F6F00376930 /* icon_knowledge_type4@2x.png in Resources */,
 				7B06B9B81F79198600C5EF83 /* my_article@3x.png in Resources */,
 				7B5365651FB0474D000CD932 /* ZZRemarkLabelCell.xib in Resources */,
 				7BAE109A1F66977B0034AB76 /* treatment_4@2x.png in Resources */,
@@ -3264,6 +3351,7 @@
 				7B7001801F45414100C59281 /* share_wechat_circle@2x.png in Resources */,
 				7B7001511F45414100C59281 /* mydoctor_havefollow@3x.png in Resources */,
 				7B70016A1F45414100C59281 /* search_cleanup@2x.png in Resources */,
+				7BB4882E20872F6F00376930 /* icon_knowledge_type3@2x.png in Resources */,
 				7B70015A1F45414100C59281 /* nav_search@2x.png in Resources */,
 				7B7F3D561F31A8E600132669 /* ZZCommentCell.xib in Resources */,
 				7B70018E1F45414100C59281 /* tab_news_selected@2x.png in Resources */,
@@ -3318,8 +3406,10 @@
 				7B70018A1F45414100C59281 /* tab_mine_selected@2x.png in Resources */,
 				7B371EC32085A4A400D5D617 /* voice_bg@3x.png in Resources */,
 				7B7002621F5507FD00C59281 /* ZZCaseCell.xib in Resources */,
+				7BB4883620872F6F00376930 /* icon_knowledge_type1@3x.png in Resources */,
 				7BABAD411F67E958004C85FB /* prompt@3x.png in Resources */,
 				7B53657D1FB2DB1F000CD932 /* ZZChooseCell.xib in Resources */,
+				7BB4883420872F6F00376930 /* icon_knowledge_type3@3x.png in Resources */,
 				7B06B9BB1F79198600C5EF83 /* my_fans@2x.png in Resources */,
 				7B8A90031F189FA500FC53D7 /* icon_email_nol@3x.png in Resources */,
 				7B371EE72085E0AF00D5D617 /* icon_play_down@3x.png in Resources */,
@@ -3331,6 +3421,7 @@
 				7BFB1B0C2011EB8A004AC296 /* scale_4@3x.png in Resources */,
 				7B7001551F45414100C59281 /* nav_back@3x.png in Resources */,
 				7BC585491FBC921000570F93 /* ZZQSListCell.xib in Resources */,
+				7BB4883020872F6F00376930 /* icon_knowledge_type5@2x.png in Resources */,
 				7B7001721F45414100C59281 /* service_commonly@2x.png in Resources */,
 				7BAE10A91F66977B0034AB76 /* Voicemail@3x.png in Resources */,
 				7B70016B1F45414100C59281 /* search_cleanup@3x.png in Resources */,
@@ -3370,6 +3461,7 @@
 				7B70014F1F45414100C59281 /* my_set@3x.png in Resources */,
 				7BABAD3E1F67E958004C85FB /* nav_retract@2x.png in Resources */,
 				7B8A905E1F18A72A00FC53D7 /* SVWebViewController.bundle in Resources */,
+				7BB4883120872F6F00376930 /* icon_knowledge_type5@3x.png in Resources */,
 				7B371ED12085A4A400D5D617 /* icon_play_next_fast@2x.png in Resources */,
 				7B8A90601F18A72A00FC53D7 /* SVWebViewControllerActivityChrome-iPad.png in Resources */,
 				7B7001961F45414100C59281 /* treatment_critical@2x.png in Resources */,
@@ -3384,6 +3476,7 @@
 				7B06B9B31F79198600C5EF83 /* increase@2x.png in Resources */,
 				7B7001761F45414100C59281 /* service_satisfied@2x.png in Resources */,
 				7B8A90101F189FA500FC53D7 /* root_menu2@3x.png in Resources */,
+				7BB4883220872F6F00376930 /* icon_knowledge_type2@3x.png in Resources */,
 				7B7000291F3B112C00C59281 /* ZZHZResultCell.xib in Resources */,
 				7B371F0B208601E900D5D617 /* Next.png in Resources */,
 				7B70013A1F45414100C59281 /* icon_verification@2x.png in Resources */,
@@ -3402,6 +3495,7 @@
 				7BAE108F1F66977B0034AB76 /* knowledge_video@3x.png in Resources */,
 				7B7F3D9B1F31DD5700132669 /* YWFeedbackBundle.bundle in Resources */,
 				7BFB1B0A2011EB8A004AC296 /* scale_9@2x.png in Resources */,
+				7BB4882120872B3C00376930 /* icon_list_more@3x.png in Resources */,
 				7B371EC92085A4A400D5D617 /* icon_play_collect@2x.png in Resources */,
 				7B7000121F3B09D600C59281 /* ZZChapterUserCell.xib in Resources */,
 				7B7001A71F45414100C59281 /* treatment_women@3x.png in Resources */,
@@ -3411,6 +3505,7 @@
 				7B7001931F45414100C59281 /* tab_treatment_selected@3x.png in Resources */,
 				7B7001201F45414100C59281 /* btn_unselected@2x.png in Resources */,
 				7B7001541F45414100C59281 /* nav_back@2x.png in Resources */,
+				7BB4882D20872F6F00376930 /* icon_knowledge_type2@2x.png in Resources */,
 				7B7001A61F45414100C59281 /* treatment_women@2x.png in Resources */,
 				7B7F3D471F317E7700132669 /* ZZChapterTVC.storyboard in Resources */,
 				7B8A905C1F18A72A00FC53D7 /* SVWebViewController.strings in Resources */,
@@ -3436,6 +3531,7 @@
 				7B7001221F45414100C59281 /* choosecase_delete@2x.png in Resources */,
 				7B70010E1F45414100C59281 /* btn_alreadycollected@2x.png in Resources */,
 				7B7C28061FBD84AF00C3A6D9 /* icon_down@2x.png in Resources */,
+				7BB4882220872B3C00376930 /* icon_list_more@2x.png in Resources */,
 				7B7001491F45414100C59281 /* my_healthrecords@3x.png in Resources */,
 				7BFB1AFE2011EB8A004AC296 /* scale_7@2x.png in Resources */,
 				7B7001121F45414100C59281 /* btn_collect@2x.png in Resources */,
@@ -3475,6 +3571,7 @@
 				7B7F3D611F31B6C500132669 /* ZZSettingUserCell.xib in Resources */,
 				7B7001391F45414100C59281 /* icon_tips@3x.png in Resources */,
 				7B8A900E1F189FA500FC53D7 /* root_menu1_nor@3x.png in Resources */,
+				7BB4882F20872F6F00376930 /* icon_knowledge_type1@2x.png in Resources */,
 				7BFB1B072011EB8A004AC296 /* scale_5@3x.png in Resources */,
 				7BFB1B092011EB8A004AC296 /* scale_4@2x.png in Resources */,
 				7B70015E1F45414100C59281 /* pay_alipay@2x.png in Resources */,
@@ -3618,9 +3715,11 @@
 				7B20C1561F7101C800FBFD9F /* ZZCaseDtailCell.m in Sources */,
 				7BD9508A1FFB833F0016C3D6 /* PGPickerViewConfig.m in Sources */,
 				7B371E9020859FCD00D5D617 /* ExperApp.swift in Sources */,
+				7BB4883920874B9400376930 /* ZZKnowledgeSearchResultController.m in Sources */,
 				7B61C8C0200C74B700C932D9 /* ZZRSTableController.m in Sources */,
 				7B20C16E1F721D0D00FBFD9F /* ZZDiscussCell.m in Sources */,
 				7B8A90341F18A1F400FC53D7 /* ZZCoreTools.m in Sources */,
+				7BB48818208725FF00376930 /* ZZKnowledgeItemsCell.m in Sources */,
 				7BD950651FFB625C0016C3D6 /* ZZCreatePatientController.m in Sources */,
 				7B7F3D3D1F31778200132669 /* TAAnimatedDotView.m in Sources */,
 				7B70006E1F42E8AD00C59281 /* ZCActionSheetView.m in Sources */,
@@ -3635,6 +3734,7 @@
 				7B7000111F3B09D600C59281 /* ZZChapterUserCell.m in Sources */,
 				7BF1106B1F1884F400456E55 /* ZCLocalStore.m in Sources */,
 				7B7000161F3B0E2000C59281 /* ZZDoctorUserCell.m in Sources */,
+				7BB4881D2087261100376930 /* ZZKnowledgeRichCell.m in Sources */,
 				7B371F0E2086021E00D5D617 /* ZZVideoController.swift in Sources */,
 				7BF110771F188AFA00456E55 /* ZZCoreCommon.m in Sources */,
 				7B5365731FB2DA60000CD932 /* ZZSQBaseCell.m in Sources */,
@@ -3642,6 +3742,7 @@
 				7B1DCC332074B4840061B755 /* ZZAudioPlayerView.m in Sources */,
 				7BD950C71FFCD7C50016C3D6 /* ZZChoosePatientController.m in Sources */,
 				7B8A90621F18A72A00FC53D7 /* SVWebViewControllerActivityChrome.m in Sources */,
+				7BB48813208724B800376930 /* ZZKnowledgeSearchController.m in Sources */,
 				7B5365811FB2DB34000CD932 /* ZZSQTextCell.m in Sources */,
 				7B5C1CA01F1F563100DDDA78 /* MyButton.m in Sources */,
 				7B00F8E51F308E5E00E29561 /* ZZNewsController.m in Sources */,
@@ -3739,6 +3840,7 @@
 				7B7002BD1F60F12400C59281 /* ZZUserHomeModel.m in Sources */,
 				7B7F3D651F31B6D800132669 /* ZZSettingCell.m in Sources */,
 				7B20C1451F70BF6F00FBFD9F /* WXApiManager.m in Sources */,
+				7BB488102087233D00376930 /* ZZKnowledgeHomeController.m in Sources */,
 				7B20C0551F692D0300FBFD9F /* ZZPayHandler.m in Sources */,
 				7B7002911F5664D600C59281 /* ZZDoctorQualEntity.m in Sources */,
 				7B53656F1FB2D645000CD932 /* ASQController.m in Sources */,
