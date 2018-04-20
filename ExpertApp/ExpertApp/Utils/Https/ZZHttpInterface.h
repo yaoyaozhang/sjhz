@@ -14,10 +14,10 @@
  */
 ////////////////////////////////////////////////////////////////
 //
-#define API_HOST @"http://www.sanjiahuizhen.com"
+//#define API_HOST @"http://www.sanjiahuizhen.com"
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
 //#define API_HOST @"http://192.168.99.123:8080"
-//#define API_HOST @"http://219.142.225.69:8123"
+#define API_HOST @"http://219.142.225.82:8123"
 //#define API_HOST @"http://192.168.8.102:8080"
 
 /**
@@ -236,6 +236,8 @@
 #define API_findDoctorHomeChapter [NSString stringWithFormat:@"%@/news/appFindNewsDocId",API_HOST]
 #define API_findDoctorChapterList [NSString stringWithFormat:@"%@/news/appFindNewsAllDocId",API_HOST]
 #define API_getChapterList [NSString stringWithFormat:@"%@/news/appFindNewsByNewsType",API_HOST]
+#define API_getKnowledgeHome [NSString stringWithFormat:@"%@/news/appSecondByNewsType",API_HOST]
+
 
 //#define API_getChapterDetail(nid) [NSString stringWithFormat:@"%@/news/bronews.html?nid=%d",API_HOST,nid]
 #define API_getChapterDetail(nid) [NSString stringWithFormat:@"%@/news/wz/chapter.html?nid=%d",API_HOST,nid]

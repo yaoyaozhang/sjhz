@@ -71,6 +71,8 @@ static MusicPlayTools * mp = nil;
     
     // 用新创建的item,替换AVPlayer之前的item.新的item是带着观察者的哦.
     [self.player replaceCurrentItemWithPlayerItem:item];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 // 观察者的处理方法, 观察的是Item的status状态.

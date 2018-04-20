@@ -9,14 +9,14 @@
 import UIKit
 
 class ZZVoiceController: BaseController{
-    var voiceView:ZZVoiceView = ZZVoiceView.shareVoiceView
+    var voiceView:ZZVoiceView = ZZVoiceView.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         self.view.addSubview(voiceView)
-        voiceView.showViewStyple(style: ZZVoiceViewStyle.AllScreen, frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT))
+        voiceView.showViewAllFull(CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT))
         
         self.createTitleMenu()
         self.titleMenu.backgroundColor=UIColor.clear

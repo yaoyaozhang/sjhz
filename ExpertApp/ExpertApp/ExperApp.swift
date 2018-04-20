@@ -102,3 +102,27 @@ func UIColorFromRGBAlpha(rgbValue:Int64,alpha:CGFloat) -> UIColor {
 func FontWithSize(size:CGFloat) -> UIFont {
     return UIFont.init(name: "Helvetica Neue", size: size)!
 }
+
+
+func getLabHeigh(label:UILabel,width:CGFloat) -> CGFloat {
+    
+    let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+    
+    let dic = NSDictionary(object: label.font, forKey: NSFontAttributeName as NSCopying)
+    
+    let strSize = label.text?.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as? [String : AnyObject], context: nil).size
+    
+    return strSize!.height
+}
+
+
+
+func getLabWidth(label:UILabel,height:CGFloat) -> CGFloat {
+    let size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: height)
+    
+    let dic = NSDictionary(object:  label.font, forKey: NSFontAttributeName as NSCopying)
+    
+    let strSize =  label.text?.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as? [String : AnyObject], context: nil).size
+    
+    return strSize!.width
+}

@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="sssssssssssssssssssssss" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpy-YR-BgO">
-                        <rect key="frame" x="150" y="12" width="162" height="37"/>
+                        <rect key="frame" x="150" y="9" width="162" height="40"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
@@ -43,13 +43,18 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ERi-aH-HT3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="imgFaceBackground" destination="jWs-FO-hN2" id="2lc-zG-m9L"/>
-                <outlet property="labAuthor" destination="rgX-tf-oZy" id="Qwm-Nx-qBK"/>
+                <outlet property="labAuthor" destination="jnH-tY-2ZX" id="yi7-oL-1oQ"/>
                 <outlet property="labTime" destination="rgX-tf-oZy" id="4Eb-Os-3FZ"/>
                 <outlet property="labTitle" destination="bpy-YR-BgO" id="LkM-tb-vM8"/>
+                <outlet property="lineView" destination="ERi-aH-HT3" id="w98-rm-cht"/>
             </connections>
             <point key="canvasLocation" x="34" y="83"/>
         </tableViewCell>

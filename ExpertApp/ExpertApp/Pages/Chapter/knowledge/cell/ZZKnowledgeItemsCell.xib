@@ -39,12 +39,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qFT-au-jNv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="btnMore" destination="S6Y-DQ-oaM" id="LAv-SX-icd"/>
                 <outlet property="imgAvatar" destination="i4H-w7-eos" id="DMv-va-eQB"/>
                 <outlet property="labAuthor" destination="hLf-ac-SOA" id="pGq-Na-pZv"/>
+                <outlet property="lineView" destination="qFT-au-jNv" id="nCm-sv-V2q"/>
                 <outlet property="viewsItem" destination="NDS-jo-05u" id="0G5-6t-p9g"/>
             </connections>
             <point key="canvasLocation" x="50" y="86.5"/>

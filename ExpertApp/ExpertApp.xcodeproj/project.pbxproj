@@ -127,6 +127,8 @@
 		7B371F0B208601E900D5D617 /* Next.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B371EFC208601E800D5D617 /* Next.png */; };
 		7B371F0C208601E900D5D617 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B371EFD208601E800D5D617 /* play.png */; };
 		7B371F0E2086021E00D5D617 /* ZZVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B371F0D2086021E00D5D617 /* ZZVideoController.swift */; };
+		7B3D83DC2089B02600823951 /* icon_list_video@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3D83DA2089B02500823951 /* icon_list_video@3x.png */; };
+		7B3D83DD2089B02600823951 /* icon_list_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3D83DB2089B02600823951 /* icon_list_video@2x.png */; };
 		7B3DFDD31FBAD98800AD39AE /* ZZQSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DFDD21FBAD98800AD39AE /* ZZQSModel.m */; };
 		7B3DFE351FBC3E3100AD39AE /* ASQListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DFE341FBC3E3000AD39AE /* ASQListController.m */; };
 		7B5365571FB04619000CD932 /* ZZRemarkUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5365561FB04619000CD932 /* ZZRemarkUserController.m */; };
@@ -549,6 +551,22 @@
 		7BB4883520872F6F00376930 /* icon_knowledge_type4@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882B20872F6F00376930 /* icon_knowledge_type4@3x.png */; };
 		7BB4883620872F6F00376930 /* icon_knowledge_type1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4882C20872F6F00376930 /* icon_knowledge_type1@3x.png */; };
 		7BB4883920874B9400376930 /* ZZKnowledgeSearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB4883820874B9400376930 /* ZZKnowledgeSearchResultController.m */; };
+		7BB488442088386D00376930 /* icon_btmclose@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4883E2088386800376930 /* icon_btmclose@3x.png */; };
+		7BB488452088386D00376930 /* icon_btmpause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4883F2088386900376930 /* icon_btmpause@2x.png */; };
+		7BB488462088386D00376930 /* icon_btmplay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB488402088386A00376930 /* icon_btmplay@3x.png */; };
+		7BB488472088386D00376930 /* icon_btmplay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB488412088386B00376930 /* icon_btmplay@2x.png */; };
+		7BB488482088386D00376930 /* icon_btmclose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB488422088386C00376930 /* icon_btmclose@2x.png */; };
+		7BB488492088386D00376930 /* icon_btmpause@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB488432088386C00376930 /* icon_btmpause@3x.png */; };
+		7BB4884C2088698600376930 /* ZZTJListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB4884B2088698600376930 /* ZZTJListModel.m */; };
+		7BB488532088703700376930 /* icon_list_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4884D2088703400376930 /* icon_list_play@2x.png */; };
+		7BB488542088703700376930 /* icon_list_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4884E2088703400376930 /* icon_list_pause@2x.png */; };
+		7BB488552088703700376930 /* icon_list_text@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB4884F2088703500376930 /* icon_list_text@2x.png */; };
+		7BB488562088703700376930 /* icon_list_text@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB488502088703600376930 /* icon_list_text@3x.png */; };
+		7BB488572088703700376930 /* icon_list_pause@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB488512088703600376930 /* icon_list_pause@3x.png */; };
+		7BB488582088703700376930 /* icon_list_play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BB488522088703700376930 /* icon_list_play@3x.png */; };
+		7BB4885B20898ED800376930 /* ZZKnowledgeDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB4885A20898ED800376930 /* ZZKnowledgeDetailController.m */; };
+		7BB48864208990A400376930 /* ZZKnowledgeItemTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB48862208990A400376930 /* ZZKnowledgeItemTextCell.m */; };
+		7BB48865208990A400376930 /* ZZKnowledgeItemTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB48863208990A400376930 /* ZZKnowledgeItemTextCell.xib */; };
 		7BC585481FBC921000570F93 /* ZZQSListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC585461FBC921000570F93 /* ZZQSListCell.m */; };
 		7BC585491FBC921000570F93 /* ZZQSListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BC585471FBC921000570F93 /* ZZQSListCell.xib */; };
 		7BD796511F740702006223A2 /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD796501F740702006223A2 /* UIButton+countDown.m */; };
@@ -791,6 +809,8 @@
 		7B371EFC208601E800D5D617 /* Next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Next.png; sourceTree = "<group>"; };
 		7B371EFD208601E800D5D617 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		7B371F0D2086021E00D5D617 /* ZZVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZVideoController.swift; sourceTree = "<group>"; };
+		7B3D83DA2089B02500823951 /* icon_list_video@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_list_video@3x.png"; sourceTree = "<group>"; };
+		7B3D83DB2089B02600823951 /* icon_list_video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_list_video@2x.png"; sourceTree = "<group>"; };
 		7B3DFDD11FBAD98800AD39AE /* ZZQSModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZQSModel.h; sourceTree = "<group>"; };
 		7B3DFDD21FBAD98800AD39AE /* ZZQSModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZQSModel.m; sourceTree = "<group>"; };
 		7B3DFE331FBC3E3000AD39AE /* ASQListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASQListController.h; sourceTree = "<group>"; };
@@ -1356,6 +1376,25 @@
 		7BB4882C20872F6F00376930 /* icon_knowledge_type1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_knowledge_type1@3x.png"; sourceTree = "<group>"; };
 		7BB4883720874B9400376930 /* ZZKnowledgeSearchResultController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeSearchResultController.h; sourceTree = "<group>"; };
 		7BB4883820874B9400376930 /* ZZKnowledgeSearchResultController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeSearchResultController.m; sourceTree = "<group>"; };
+		7BB4883E2088386800376930 /* icon_btmclose@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_btmclose@3x.png"; sourceTree = "<group>"; };
+		7BB4883F2088386900376930 /* icon_btmpause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_btmpause@2x.png"; sourceTree = "<group>"; };
+		7BB488402088386A00376930 /* icon_btmplay@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_btmplay@3x.png"; sourceTree = "<group>"; };
+		7BB488412088386B00376930 /* icon_btmplay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_btmplay@2x.png"; sourceTree = "<group>"; };
+		7BB488422088386C00376930 /* icon_btmclose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_btmclose@2x.png"; sourceTree = "<group>"; };
+		7BB488432088386C00376930 /* icon_btmpause@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_btmpause@3x.png"; sourceTree = "<group>"; };
+		7BB4884A2088698600376930 /* ZZTJListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZTJListModel.h; sourceTree = "<group>"; };
+		7BB4884B2088698600376930 /* ZZTJListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZTJListModel.m; sourceTree = "<group>"; };
+		7BB4884D2088703400376930 /* icon_list_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_list_play@2x.png"; sourceTree = "<group>"; };
+		7BB4884E2088703400376930 /* icon_list_pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_list_pause@2x.png"; sourceTree = "<group>"; };
+		7BB4884F2088703500376930 /* icon_list_text@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_list_text@2x.png"; sourceTree = "<group>"; };
+		7BB488502088703600376930 /* icon_list_text@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_list_text@3x.png"; sourceTree = "<group>"; };
+		7BB488512088703600376930 /* icon_list_pause@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_list_pause@3x.png"; sourceTree = "<group>"; };
+		7BB488522088703700376930 /* icon_list_play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_list_play@3x.png"; sourceTree = "<group>"; };
+		7BB4885920898ED800376930 /* ZZKnowledgeDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeDetailController.h; sourceTree = "<group>"; };
+		7BB4885A20898ED800376930 /* ZZKnowledgeDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeDetailController.m; sourceTree = "<group>"; };
+		7BB48861208990A400376930 /* ZZKnowledgeItemTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeItemTextCell.h; sourceTree = "<group>"; };
+		7BB48862208990A400376930 /* ZZKnowledgeItemTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeItemTextCell.m; sourceTree = "<group>"; };
+		7BB48863208990A400376930 /* ZZKnowledgeItemTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZKnowledgeItemTextCell.xib; sourceTree = "<group>"; };
 		7BC585451FBC921000570F93 /* ZZQSListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZQSListCell.h; sourceTree = "<group>"; };
 		7BC585461FBC921000570F93 /* ZZQSListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZQSListCell.m; sourceTree = "<group>"; };
 		7BC585471FBC921000570F93 /* ZZQSListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZQSListCell.xib; sourceTree = "<group>"; };
@@ -1673,6 +1712,20 @@
 		7B371E9E2085A4A400D5D617 /* 20180417 */ = {
 			isa = PBXGroup;
 			children = (
+				7B3D83DB2089B02600823951 /* icon_list_video@2x.png */,
+				7B3D83DA2089B02500823951 /* icon_list_video@3x.png */,
+				7BB4884E2088703400376930 /* icon_list_pause@2x.png */,
+				7BB488512088703600376930 /* icon_list_pause@3x.png */,
+				7BB4884D2088703400376930 /* icon_list_play@2x.png */,
+				7BB488522088703700376930 /* icon_list_play@3x.png */,
+				7BB4884F2088703500376930 /* icon_list_text@2x.png */,
+				7BB488502088703600376930 /* icon_list_text@3x.png */,
+				7BB488422088386C00376930 /* icon_btmclose@2x.png */,
+				7BB4883E2088386800376930 /* icon_btmclose@3x.png */,
+				7BB4883F2088386900376930 /* icon_btmpause@2x.png */,
+				7BB488432088386C00376930 /* icon_btmpause@3x.png */,
+				7BB488412088386B00376930 /* icon_btmplay@2x.png */,
+				7BB488402088386A00376930 /* icon_btmplay@3x.png */,
 				7BB4882520872F6E00376930 /* icon_knowledge_type1@2x.png */,
 				7BB4882C20872F6F00376930 /* icon_knowledge_type1@3x.png */,
 				7BB4882320872F6E00376930 /* icon_knowledge_type2@2x.png */,
@@ -2561,6 +2614,8 @@
 				7B1DCC382074B8160061B755 /* MusicInfoModel.m */,
 				7B1DCC3A2074B86E0061B755 /* MusicLyricModel.h */,
 				7B1DCC3B2074B86E0061B755 /* MusicLyricModel.m */,
+				7BB4884A2088698600376930 /* ZZTJListModel.h */,
+				7BB4884B2088698600376930 /* ZZTJListModel.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2794,6 +2849,8 @@
 				7BB48812208724B800376930 /* ZZKnowledgeSearchController.m */,
 				7BB4883720874B9400376930 /* ZZKnowledgeSearchResultController.h */,
 				7BB4883820874B9400376930 /* ZZKnowledgeSearchResultController.m */,
+				7BB4885920898ED800376930 /* ZZKnowledgeDetailController.h */,
+				7BB4885A20898ED800376930 /* ZZKnowledgeDetailController.m */,
 			);
 			path = knowledge;
 			sourceTree = "<group>";
@@ -2807,6 +2864,9 @@
 				7BB4881A2087261100376930 /* ZZKnowledgeRichCell.h */,
 				7BB4881B2087261100376930 /* ZZKnowledgeRichCell.m */,
 				7BB4881C2087261100376930 /* ZZKnowledgeRichCell.xib */,
+				7BB48861208990A400376930 /* ZZKnowledgeItemTextCell.h */,
+				7BB48862208990A400376930 /* ZZKnowledgeItemTextCell.m */,
+				7BB48863208990A400376930 /* ZZKnowledgeItemTextCell.xib */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -3261,6 +3321,7 @@
 				7B06B9B41F79198600C5EF83 /* increase@3x.png in Resources */,
 				7BFB1B022011EB8A004AC296 /* scale_3@2x.png in Resources */,
 				7B70015F1F45414100C59281 /* pay_alipay@3x.png in Resources */,
+				7BB488472088386D00376930 /* icon_btmplay@2x.png in Resources */,
 				7BB48819208725FF00376930 /* ZZKnowledgeItemsCell.xib in Resources */,
 				7B371ED02085A4A400D5D617 /* icon_play_pre_fast@2x.png in Resources */,
 				7B5C1CD81F1F5B7B00DDDA78 /* SVProgressHUD.bundle in Resources */,
@@ -3271,6 +3332,7 @@
 				7BABAD401F67E958004C85FB /* prompt@2x.png in Resources */,
 				7BAE109B1F66977B0034AB76 /* treatment_4@3x.png in Resources */,
 				7B371EC22085A4A400D5D617 /* icon_play_open@3x.png in Resources */,
+				7BB488542088703700376930 /* icon_list_pause@2x.png in Resources */,
 				7B06B9C01F79198600C5EF83 /* tab_bill_selected@3x.png in Resources */,
 				7BF110171F18678C00456E55 /* LaunchScreen.storyboard in Resources */,
 				7B06B9C21F79198600C5EF83 /* tab_bill@3x.png in Resources */,
@@ -3288,6 +3350,7 @@
 				7B7001501F45414100C59281 /* mydoctor_havefollow@2x.png in Resources */,
 				7BAE10961F66977B0034AB76 /* treatment_2@2x.png in Resources */,
 				7B371EBD2085A4A400D5D617 /* icon_play_menu_text@2x.png in Resources */,
+				7BB48865208990A400376930 /* ZZKnowledgeItemTextCell.xib in Resources */,
 				7B06B9BC1F79198600C5EF83 /* my_fans@3x.png in Resources */,
 				7BFB1B0D2011EB8A004AC296 /* scale_1@3x.png in Resources */,
 				7BFB1B012011EB8A004AC296 /* scale_7@3x.png in Resources */,
@@ -3335,6 +3398,7 @@
 				7B371ED62085A4A400D5D617 /* icon_play_pre@2x.png in Resources */,
 				7B371ED52085A4A400D5D617 /* icon_play_text@3x.png in Resources */,
 				7B70016C1F45414100C59281 /* search_dropdown@2x.png in Resources */,
+				7BB488482088386D00376930 /* icon_btmclose@2x.png in Resources */,
 				7B7001231F45414100C59281 /* choosecase_delete@3x.png in Resources */,
 				7B7001A51F45414100C59281 /* treatment_tumour@3x.png in Resources */,
 				7BD950A61FFB910E0016C3D6 /* Add_more@3x.png in Resources */,
@@ -3374,6 +3438,7 @@
 				7B371EE82085E0AF00D5D617 /* icon_play_up@2x.png in Resources */,
 				7B7001671F45414100C59281 /* pop_album@3x.png in Resources */,
 				7BD950A71FFB910E0016C3D6 /* close@3x.png in Resources */,
+				7B3D83DC2089B02600823951 /* icon_list_video@3x.png in Resources */,
 				7B8A8FFF1F189FA500FC53D7 /* avatar_default@3x.png in Resources */,
 				7B7001361F45414100C59281 /* icon_required@2x.png in Resources */,
 				7B371ED92085A4A400D5D617 /* icon_play_pre@3x.png in Resources */,
@@ -3381,6 +3446,7 @@
 				7B70015B1F45414100C59281 /* nav_search@3x.png in Resources */,
 				7BAE108D1F66977B0034AB76 /* classificationbg2@3x.png in Resources */,
 				7B7001A21F45414100C59281 /* treatment_thyroid@2x.png in Resources */,
+				7BB488442088386D00376930 /* icon_btmclose@3x.png in Resources */,
 				7B7000321F3B14ED00C59281 /* ZZEditUserCell.xib in Resources */,
 				7B371ECF2085A4A400D5D617 /* icon_play_next@2x.png in Resources */,
 				7B8A90161F189FA500FC53D7 /* root_menu3_nor@3x.png in Resources */,
@@ -3398,6 +3464,7 @@
 				7BAE10951F66977B0034AB76 /* treatment_1@3x.png in Resources */,
 				7B70018C1F45414100C59281 /* tab_news@2x.png in Resources */,
 				7B70019D1F45414100C59281 /* treatment_liver@3x.png in Resources */,
+				7BB488582088703700376930 /* icon_list_play@3x.png in Resources */,
 				7B70013C1F45414100C59281 /* knowledge_sound@2x.png in Resources */,
 				7B7001981F45414100C59281 /* treatment_healthcheck@2x.png in Resources */,
 				7B7001611F45414100C59281 /* pay_free@3x.png in Resources */,
@@ -3437,6 +3504,7 @@
 				7B371EC62085A4A400D5D617 /* icon_play_menu_text@3x.png in Resources */,
 				7B06B9B01F79198600C5EF83 /* Doctor_friend@3x.png in Resources */,
 				7B06B9CE1F7B389D00C5EF83 /* Startpage@2x.png in Resources */,
+				7BB488572088703700376930 /* icon_list_pause@3x.png in Resources */,
 				7B8A900C1F189FA500FC53D7 /* root_menu1@3x.png in Resources */,
 				7B7001921F45414100C59281 /* tab_treatment_selected@2x.png in Resources */,
 				7B7001281F45414100C59281 /* classificationbg@2x.png in Resources */,
@@ -3455,6 +3523,7 @@
 				7B70013D1F45414100C59281 /* knowledge_sound@3x.png in Resources */,
 				7B371F0A208601E900D5D617 /* pause.png in Resources */,
 				7BAE10941F66977B0034AB76 /* treatment_1@2x.png in Resources */,
+				7BB488452088386D00376930 /* icon_btmpause@2x.png in Resources */,
 				7B70014D1F45414100C59281 /* my_recommend@3x.png in Resources */,
 				7B7001581F45414100C59281 /* nav_register_back@2x.png in Resources */,
 				7B70027E1F556A4A00C59281 /* ZZUserIndexCell.xib in Resources */,
@@ -3469,6 +3538,7 @@
 				7B7001401F45414100C59281 /* my_collection@2x.png in Resources */,
 				7B70017D1F45414100C59281 /* share_sina@3x.png in Resources */,
 				7BFB1B082011EB8A004AC296 /* scale_8@2x.png in Resources */,
+				7BB488492088386D00376930 /* icon_btmpause@3x.png in Resources */,
 				7B7001911F45414100C59281 /* tab_treatment@3x.png in Resources */,
 				7B70017C1F45414100C59281 /* share_sina@2x.png in Resources */,
 				7B06B9B61F79198600C5EF83 /* increased@3x.png in Resources */,
@@ -3479,6 +3549,7 @@
 				7BB4883220872F6F00376930 /* icon_knowledge_type2@3x.png in Resources */,
 				7B7000291F3B112C00C59281 /* ZZHZResultCell.xib in Resources */,
 				7B371F0B208601E900D5D617 /* Next.png in Resources */,
+				7B3D83DD2089B02600823951 /* icon_list_video@2x.png in Resources */,
 				7B70013A1F45414100C59281 /* icon_verification@2x.png in Resources */,
 				7B7001691F45414100C59281 /* pop_photograph@3x.png in Resources */,
 				7B06B9B21F79198600C5EF83 /* frame@3x.png in Resources */,
@@ -3562,6 +3633,7 @@
 				7BFB1AFC2011EB8A004AC296 /* scale_2@3x.png in Resources */,
 				7B06B9AF1F79198600C5EF83 /* Doctor_friend@2x.png in Resources */,
 				7B7001461F45414100C59281 /* my_edit@2x.png in Resources */,
+				7BB488552088703700376930 /* icon_list_text@2x.png in Resources */,
 				7B371ED22085A4A400D5D617 /* search_icon@3x.png in Resources */,
 				7B70012E1F45414100C59281 /* icon_grade@2x.png in Resources */,
 				7B70017F1F45414100C59281 /* share_wechat@3x.png in Resources */,
@@ -3602,7 +3674,9 @@
 				7B8EBD421FA1E9890039E602 /* docheader.png in Resources */,
 				7B7001451F45414100C59281 /* my_doctor@3x.png in Resources */,
 				7B5365821FB2DB34000CD932 /* ZZSQTextCell.xib in Resources */,
+				7BB488462088386D00376930 /* icon_btmplay@3x.png in Resources */,
 				7BF110121F18678C00456E55 /* Main.storyboard in Resources */,
+				7BB488532088703700376930 /* icon_list_play@2x.png in Resources */,
 				7B06B9BA1F79198600C5EF83 /* my_data@3x.png in Resources */,
 				7B8A90171F189FA500FC53D7 /* titlebar_back_normal@2x.png in Resources */,
 				7B06B9B51F79198600C5EF83 /* increased@2x.png in Resources */,
@@ -3632,6 +3706,7 @@
 				7B371ED72085A4A400D5D617 /* icon_play_list@3x.png in Resources */,
 				7BAE109E1F66977B0034AB76 /* treatment_6@2x.png in Resources */,
 				7B371EC72085A4A400D5D617 /* icon_play_pre_fast@3x.png in Resources */,
+				7BB488562088703700376930 /* icon_list_text@3x.png in Resources */,
 				7BAE10921F66977B0034AB76 /* tab_knowledge@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3863,6 +3938,7 @@
 				7B8A905F1F18A72A00FC53D7 /* SVWebViewController.m in Sources */,
 				7B70000A1F3B06E700C59281 /* ZZAttentionController.m in Sources */,
 				7BE654902004BB26000B57AE /* ZZPatientSymptomController.m in Sources */,
+				7BB48864208990A400376930 /* ZZKnowledgeItemTextCell.m in Sources */,
 				7B7F3D451F317DB900132669 /* ZZChannelCell.m in Sources */,
 				7B5C1CDF1F1F5B7B00DDDA78 /* XHFileAttribute.m in Sources */,
 				7B8A903F1F18A44C00FC53D7 /* ZZGuideController.m in Sources */,
@@ -3901,6 +3977,7 @@
 				7B7002691F55117600C59281 /* ZZCaseModel.m in Sources */,
 				7B5365571FB04619000CD932 /* ZZRemarkUserController.m in Sources */,
 				7B5C1CE71F1F5B7B00DDDA78 /* ZCTTMLEmojiLabel.m in Sources */,
+				7BB4885B20898ED800376930 /* ZZKnowledgeDetailController.m in Sources */,
 				7B53655B1FB046B7000CD932 /* ZZRemakBaseCell.m in Sources */,
 				7B371F00208601E900D5D617 /* MHPlayer.swift in Sources */,
 				7BF1106C1F1884F400456E55 /* ZCLibUncaughtExceptionHandler.m in Sources */,
@@ -3916,6 +3993,7 @@
 				7B06B9CB1F7A5D2F00C5EF83 /* ZZCaseTalkModel.m in Sources */,
 				7BD9508F1FFB833F0016C3D6 /* ZZPickerTimeView.m in Sources */,
 				7B371F01208601E900D5D617 /* MHPlayerSDK.swift in Sources */,
+				7BB4884C2088698600376930 /* ZZTJListModel.m in Sources */,
 				7B2D6C452015E3C400445A6B /* ZZSQPicCell.m in Sources */,
 				7B1DCC362074B79F0061B755 /* MusicPlayTools.m in Sources */,
 				7BF110741F1888D300456E55 /* ZZURLConnectionRequestImpl.m in Sources */,

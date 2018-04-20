@@ -8,15 +8,8 @@
 
 import UIKit
 
-enum ZZVoiceViewStyle:Int {
-    //简单
-    case Simple = 0
-    // 全屏
-    case AllScreen = 1
-}
-
-
 class ZZVoiceView: UIView,MusicPlayToolsDelegate {
+    public var model:ZZChapterModel?
     var menuBtmView : UIView?
     var headView    : UIView?
     var headImageViewBg    : UIView?
@@ -26,7 +19,13 @@ class ZZVoiceView: UIView,MusicPlayToolsDelegate {
     var allTimeLab:UILabel?
     var playButton:UIButton?
     
+    var downBtn:UIButton?
+    
     var simpleView  : UIView?
+    var stitleLab:UILabel?
+    var stimeLab:UILabel?
+    var sheadImageView: UIImageView?
+    var sPlayButton:UIButton?
     
     let menuHegith:CGFloat = 50
     
@@ -35,8 +34,8 @@ class ZZVoiceView: UIView,MusicPlayToolsDelegate {
     
     let playIcon:Array = ["icon_play_pre_fast","icon_play_pre","icon_play_pause","icon_play_next","icon_play_next_fast"]
     
+    var isPause:Bool?
     
-    static let shareVoiceView =   ZZVoiceView.init()
     
     
     override init(frame:CGRect){
@@ -50,35 +49,60 @@ class ZZVoiceView: UIView,MusicPlayToolsDelegate {
         allTimeLab?.text = totleTime
         curTimeLab?.text = curTime
         progressSlider?.value = Float(progress)
+        stimeLab?.text = String(format: "%@ --%@", "徐顺霖",totleTime)
     }
     
     func endOfPlayAction() {
         playButton?.setImage(UIImage(named: "icon_play_open"), for: UIControlState.normal)
+        sPlayButton?.setImage(UIImage(named: "icon_btmplay"), for: UIControlState.normal)
         
+        
+        isPause = false
     }
     func pausePlayAction() {
         playButton?.setImage(UIImage(named: "icon_play_open"), for: UIControlState.normal)
+        sPlayButton?.setImage(UIImage(named: "icon_btmplay"), for: UIControlState.normal)
+        isPause = true
     }
     func startPlayAction() {
         playButton?.setImage(UIImage(named: "icon_play_pause"), for: UIControlState.normal)
+        sPlayButton?.setImage(UIImage(named: "icon_btmpause"), for: UIControlState.normal)
+        
+        isPause = false
         
     }
     
+    public func showSimpleView(_ frame:CGRect){
+        menuBtmView?.isHidden = true
+        headView?.isHidden = true
+        simpleView?.isHidden = false
+        self.frame = frame
+        
+        downBtn?.frame = CGRect(x: kSCREEN_WIDTH - 95, y: (simpleView?.frame.height)!/2 - 20, width: 40, height: 40)
+        downBtn?.setImage(UIImage(named: "icon_play_up"), for: UIControlState.normal)
+    }
     
-    func showViewStyple(style:ZZVoiceViewStyle,frame:CGRect) {
-        if style == ZZVoiceViewStyle.Simple {
-            menuBtmView?.isHidden = true
-            
-        }
-        if style == ZZVoiceViewStyle.AllScreen {
-            menuBtmView?.isHidden = false
-            self.frame = frame
-            menuBtmView?.frame = CGRect(x: 0, y: frame.size.height - menuHegith, width: frame.size.width, height: menuHegith)
-        }
+    /// 定位视频播放时间
+    ///
+    /// - parameter style: 类型
+    /// - parameter frame: 位置
+    public func showViewAllFull(_ frame:CGRect) {
+        menuBtmView?.isHidden = false
+        headView?.isHidden = false
+        simpleView?.isHidden = true
+        self.frame = frame
+        menuBtmView?.frame = CGRect(x: 0, y: frame.size.height - menuHegith, width: frame.size.width, height: menuHegith)
+    
+        
+        downBtn?.frame = CGRect(x: kSCREEN_WIDTH/2-20, y: 21, width: 40, height: 40)
+        downBtn?.setImage(UIImage(named: "icon_play_down"), for: UIControlState.normal)
     }
     
     func dissmisView() {
         MusicPlayTools.shareMusicPlay().musicPause()
+        isPause = false
+       
+        self.isHidden = true
     }
     
     
@@ -87,8 +111,8 @@ class ZZVoiceView: UIView,MusicPlayToolsDelegate {
     }
     
     func setupSubViews() {
-        
         let frame = self.bounds
+        self.backgroundColor = UIColorFromRGB(rgbValue: TextWhiteColor)
         menuBtmView = UIView(frame: frame)
         menuBtmView?.backgroundColor = UIColorFromRGB(rgbValue: BgVCodeColor)
         
@@ -100,9 +124,26 @@ class ZZVoiceView: UIView,MusicPlayToolsDelegate {
         self.createHeaderItem()
         self.createMenuButton()
         
+        
+        self.createSimpleView()
+        self.addSubview(simpleView!)
+        
+        downBtn = self.createButton(imgName: "icon_play_down")
+        downBtn?.frame = CGRect(x: kSCREEN_WIDTH/2 - 10, y: 30, width: 20, height: 10)
+        downBtn?.addTarget(self, action: #selector(self.onBtnClick(btn:)), for: UIControlEvents.touchUpInside)
+        self.addSubview(downBtn!)
+        
+        
+        isPause = false
     }
     func onBtnClick(btn:UIButton) {
         NSLog("%d", btn.tag)
+        
+        if (!(simpleView?.isHidden)!) {
+            showViewAllFull(CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT))
+        }else{
+            showSimpleView(CGRect(x: 0, y: kSCREEN_HEIGHT - 100, width: kSCREEN_WIDTH, height: 50))
+        }
         
     }
     func onMenuClick(btn:UIButton) {
@@ -137,12 +178,11 @@ class ZZVoiceView: UIView,MusicPlayToolsDelegate {
             //上一个
             break
         case 2:
+           startPlay()
+            break
+        case 10:
             //暂停、播放
-            if MusicPlayTools.shareMusicPlay().isPlaying() {
-                MusicPlayTools.shareMusicPlay().musicPrePlay("http://www.sanjiahuizhen.com/upload/audio/2018-04-02/20180402180612165.mp3")
-            }else{
-                MusicPlayTools.shareMusicPlay().musicPrePlay("http://www.sanjiahuizhen.com/upload/audio/2018-04-02/20180402180612165.mp3")
-            }
+            startPlay()
             break
         case 3:
             //下一个
@@ -154,6 +194,20 @@ class ZZVoiceView: UIView,MusicPlayToolsDelegate {
         }
     }
     
+    
+    func startPlay() {
+        //暂停、播放
+        if MusicPlayTools.shareMusicPlay().isPlaying() {
+            MusicPlayTools.shareMusicPlay().musicPause()
+        }else{
+            if isPause! {
+                MusicPlayTools.shareMusicPlay().musicPlay()
+            }else{
+                MusicPlayTools.shareMusicPlay().musicPrePlay("http://www.sanjiahuizhen.com/upload/audio/2018-04-02/20180402180612165.mp3")
+            }
+        }
+    }
+    
     func progressChange(proSlider:UISlider) {
         
         MusicPlayTools.shareMusicPlay().seekToTime(withValue:CGFloat((progressSlider?.value)!))
@@ -162,12 +216,7 @@ class ZZVoiceView: UIView,MusicPlayToolsDelegate {
     
     func createHeaderItem() {
         headImageViewBg = UIView(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: (kSCREEN_HEIGHT-menuHegith)/2))
-        headImageViewBg?.backgroundColor = UIColor(patternImage: UIImage(named: "voice_bg")!)
-        
-        let downBtn = self.createButton(imgName: "icon_play_down")
-        downBtn.frame = CGRect(x: kSCREEN_WIDTH/2 - 10, y: 30, width: 20, height: 10)
-        downBtn.addTarget(self, action: #selector(self.onBtnClick(btn:)), for: UIControlEvents.touchUpInside)
-        
+        headImageViewBg?.layer.contents = UIImage(named: "voice_bg")?.cgImage
         
         
         headImageView = UIImageView(frame: CGRect(x: (kSCREEN_WIDTH-175)/2, y: (((kSCREEN_HEIGHT-menuHegith)/2)-175)/2, width: 175, height: 175))
@@ -177,7 +226,6 @@ class ZZVoiceView: UIView,MusicPlayToolsDelegate {
         
         
         headImageViewBg?.addSubview(headImageView!)
-        headImageViewBg?.addSubview(downBtn)
         
         headView?.addSubview(headImageViewBg!)
         
@@ -213,14 +261,7 @@ class ZZVoiceView: UIView,MusicPlayToolsDelegate {
         headView?.addSubview(progressSlider!)
         headView?.addSubview(allTimeLab!)
         
-        
-        
-        
         self.createPlayButton(y: kSCREEN_HEIGHT-menuHegith - 80)
-        
-        
-        
-        
         
     }
     
@@ -239,7 +280,41 @@ class ZZVoiceView: UIView,MusicPlayToolsDelegate {
             }
         }
     }
-    
+    func createSimpleView()  {
+        simpleView = UIView(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 50.0))
+        simpleView?.backgroundColor = UIColor(patternImage: UIImage(named: "voice_bg")!)
+        sheadImageView = UIImageView(frame: CGRect(x: (kSCREEN_WIDTH-175)/2, y: (((kSCREEN_HEIGHT-menuHegith)/2)-175)/2, width: 175, height: 175))
+        sheadImageView?.layer.cornerRadius = 175/2
+        sheadImageView?.layer.masksToBounds = true
+        sheadImageView?.image=UIImage(named: "docheader")
+        
+        stitleLab = self.createLabel(f: CGRect(x: 52, y: 5, width: kSCREEN_WIDTH-52-90, height: 21))
+        stitleLab?.textColor = UIColor.white
+        stitleLab?.textAlignment=NSTextAlignment.left
+        stitleLab?.font = FontWithSize(size: 16)
+        stitleLab?.text = "作者"
+        stimeLab = self.createLabel(f: CGRect(x: 52, y: 26, width: kSCREEN_WIDTH-52-90, height: 21))
+        stimeLab?.textColor=UIColorFromRGB(rgbValue: TextWhiteColor)
+        stimeLab?.text = "00:00 -徐顺霖"
+        stimeLab?.font = FontWithSize(size: 14)
+        stimeLab?.textAlignment=NSTextAlignment.left
+        sPlayButton = self.createButton(imgName: "icon_btmplay");
+        sPlayButton?.frame = CGRect(x: kSCREEN_WIDTH - 60, y: 10, width: 32, height: 32)
+        sPlayButton?.tag = 10
+        sPlayButton?.addTarget(self, action:#selector(self.onPlayClick(btn:)), for: UIControlEvents.touchUpInside)
+        
+        let btn:UIButton = UIButton(frame: CGRect(x: kSCREEN_WIDTH-25, y: -5, width: 25, height: 25))
+        btn.setImage(UIImage(named: "icon_btmclose"), for: UIControlState.normal)
+        btn.backgroundColor = UIColor.clear
+        btn.addTarget(self, action: #selector(dissmisView), for: UIControlEvents.touchUpInside)
+        
+        
+        simpleView?.addSubview(sheadImageView!)
+        simpleView?.addSubview(stitleLab!)
+        simpleView?.addSubview(stimeLab!)
+        simpleView?.addSubview(sPlayButton!)
+        simpleView?.addSubview(btn)
+    }
     
     func createMenuButton() {
         let w:CGFloat = kSCREEN_WIDTH / 5

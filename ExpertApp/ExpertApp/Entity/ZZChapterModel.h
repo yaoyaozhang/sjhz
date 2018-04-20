@@ -36,6 +36,12 @@
 @property(nonatomic,strong) NSString *updateUser;
 
 
+@property(nonatomic,strong) NSString *videoUrl;
+@property(nonatomic,strong) NSString *audioUrl;
+
+
+
+
 // 类别，0不显示，1语音，2视频，
 @property(nonatomic,assign) int showVideo;
 
@@ -54,7 +60,19 @@
 @property(nonatomic,assign) int newsType;
 
 
+
+
+/**
+ 内容类型，表示 文章、音频、视频 1,2，3
+ */
+@property(nonatomic,assign) int lclassify;
+
+
 @property(nonatomic,strong) NSMutableArray *pics;
+
+
+@property(nonatomic,assign) BOOL isPlaying;
+
 
 
 @end

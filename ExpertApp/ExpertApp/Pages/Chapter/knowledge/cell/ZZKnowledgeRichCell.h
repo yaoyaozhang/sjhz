@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZZChapterModel.h"
 
 @interface ZZKnowledgeRichCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *lineView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgFaceBackground;
 
@@ -17,4 +19,5 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labAuthor;
 
+-(void)dataToItem:(ZZChapterModel *) model;
 @end

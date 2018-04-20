@@ -21,12 +21,24 @@
 #import "SDCycleScrollView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface ZZKnowledgeHomeController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate,SDCycleScrollViewDelegate>{
+#import "MusicPlayTools.h"
+#import "ZZChapterDetailController.h"
+#import "ExpertApp-Swift.h"
+
+@interface ZZKnowledgeHomeController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate,SDCycleScrollViewDelegate,ZZKnowledgeItemsCellDelegate>{
    
     
+    NSMutableArray     *_tjArray;
     NSMutableArray     *_listArray;
+    NSMutableArray     *_picArray;
+    
     UITableView        *_listTable;
     SDCycleScrollView *_cycleScrollView;
+    
+    ZZVoiceView *zzvoiceView;
+    
+    ZZChapterModel *playModel;
+    
     
     // 当前选择的标签
     
@@ -68,14 +80,17 @@
     [self layoutSearchBarView];
     
     _listArray = [[NSMutableArray alloc] init];
+    _tjArray   = [[NSMutableArray alloc] init];
+    _picArray  = [[NSMutableArray alloc] init];
     
-    [_listTable reloadData];
     
     loginUser = [[ZZDataCache getInstance] getLoginUser];
     
-    [[ZZDataCache getInstance] getCacheConfigDict:^(NSMutableDictionary *dict, int status) {
-        
-    }];
+    [self beginNetRefreshData];
+    
+    zzvoiceView = [[ZZVoiceView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 50, ScreenWidth, 50)];
+    zzvoiceView.hidden = YES;
+    [self.view addSubview:zzvoiceView];
 }
 
 
@@ -89,6 +104,12 @@
 -(void)btnShowDropMenu:(UIButton *) sender{
     if(sender.tag == 1){
         // 编辑推荐
+//        playModel.isPlaying = YES;
+        zzvoiceView.hidden = NO;
+        //        zzvoiceView.model = itemModel;
+        [zzvoiceView showSimpleView:CGRectMake(0,ScreenHeight - 100, ScreenWidth, 50)];
+        
+        [zzvoiceView startPlay];
     }
     if(sender.tag == 2){
         // 精品课
@@ -103,9 +124,11 @@
 
 -(void)endNetRefreshData{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:@"0" forKey:@"newsType"];
+    [dict setObject:@"30" forKey:@"pageSize"];
+    [dict setObject:convertIntToString(pageNumber) forKey:@"pageNum"];
     
-    
-    [ZZRequsetInterface post:API_searchDoctor param:dict timeOut:HttpGetTimeOut start:^{
+    [ZZRequsetInterface post:API_getKnowledgeHome param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
@@ -113,15 +136,28 @@
         if(_listTable.footer && [_listTable.footer respondsToSelector:@selector(endRefreshing)]){
             [_listTable.footer endRefreshing];
         }
+        if(_listTable.header && [_listTable.header respondsToSelector:@selector(endRefreshing)]){
+            [_listTable.header endRefreshing];
+        }
     } complete:^(NSDictionary *dict) {
         if(pageNumber == 1){
             [_listArray removeAllObjects];
+            [_picArray removeAllObjects];
+            [_tjArray removeAllObjects];
+            
         }
-        NSArray *arr = dict[@"retData"];
+        NSDictionary *data= dict[@"retData"];
         
-        for (NSDictionary *item in arr) {
-            [_listArray addObject:[[ZZUserInfo alloc] initWithMyDict:item]];
+        for (NSDictionary *item in data[@"pic"]) {
+            [_picArray addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
         }
+        for (NSDictionary *item in data[@"jinpingke"]) {
+            [_listArray addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
+        }
+        for (NSDictionary *item in data[@"tuijian"]) {
+            [_tjArray addObject:[[ZZTJListModel alloc] initWithMyDict:item]];
+        }
+        
         
         [_listTable reloadData];
     } fail:^(id response, NSString *errorMsg, NSError *connectError) {
@@ -198,8 +234,9 @@
         }
         _cycleScrollView.titlesGroup = ({
             NSMutableArray *titleArrayM = [NSMutableArray array];
-            for (int i = 0; i < 3; i++) {
-                [titleArrayM addObject:@"ssss"];
+            for (int i = 0; i < _picArray.count; i++) {
+                ZZChapterModel *model = [_picArray objectAtIndex:i];
+                [titleArrayM addObject:model.title];
             }
             
             titleArrayM;
@@ -207,8 +244,9 @@
         
         _cycleScrollView.imageURLStringsGroup = ({
             NSMutableArray *urlArrayM = [NSMutableArray array];
-            for (int i = 0; i < 3; i++) {
-                [urlArrayM addObject:@"http://www.sanjiahuizhen.com/images/zuqiu1.jpg"];
+            for (int i = 0; i < _picArray.count; i++) {
+                ZZChapterModel *model = [_picArray objectAtIndex:i];
+                [urlArrayM addObject:convertToString(model.picture)];
             }
             
             urlArrayM;
@@ -227,6 +265,10 @@
     if(section == 0){
         return 0;
     }
+    if(section == 1){
+        return _tjArray.count;
+    }
+    
     return _listArray.count;
 }
 
@@ -237,6 +279,9 @@
         if (cell == nil) {
             cell = [[ZZKnowledgeItemsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifer];
         }
+        cell.delegate = self;
+        
+        [cell dataToItem:[_tjArray objectAtIndex:indexPath.row]];
         return cell;
     }
     else{
@@ -245,6 +290,7 @@
         if (cell == nil) {
             cell = [[ZZKnowledgeRichCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentiferRich];
         }
+        [cell dataToItem:[_listArray objectAtIndex:indexPath.row]];
         return cell;
     }
     
@@ -258,6 +304,54 @@
     UITableViewCell * cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
     
     return CGRectGetHeight(cell.frame);
+}
+
+
+-(void)onItemClick:(id)model type:(int)type{
+    if(type == 1){
+        ZZChapterModel *itemModel = (ZZChapterModel *)model;
+        // 播放、暂停
+        if(playModel.lclassify == 1){
+            ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
+            NewsDetailC.model = itemModel;
+            [self.navigationController pushViewController:NewsDetailC animated:YES];
+        }
+        
+        if(playModel.lclassify == 2){
+            playModel = model;
+            if(playModel!=nil && playModel.isPlaying){
+                playModel.isPlaying = NO;
+                playModel = nil;
+                
+            }else{
+                playModel = itemModel;
+                playModel.isPlaying = YES;
+                zzvoiceView.hidden = NO;
+                zzvoiceView.model = itemModel;
+                [zzvoiceView showSimpleView:CGRectMake(0,ScreenHeight - 50, ScreenWidth, 50)];
+                
+                [zzvoiceView startPlay];
+                
+            }
+            
+            [_listTable reloadData];
+        }
+        
+        if(playModel.lclassify == 3){
+            ZZVideoController *vc = [[ZZVideoController alloc] init];
+            vc.model = itemModel;
+            [self openNav:vc sound:nil];
+        }
+    }
+    
+    if(type == 2){
+        playModel.isPlaying = YES;
+        zzvoiceView.hidden = NO;
+//        zzvoiceView.model = itemModel;
+        [zzvoiceView showSimpleView:CGRectMake(0,ScreenHeight - 50, ScreenWidth, 50)];
+        
+        [zzvoiceView startPlay];
+    }
 }
 
 
@@ -284,9 +378,11 @@
     [btn addSubview:lineImg];
     
     // 箭头
-    UIImageView * arrawImg = [[UIImageView alloc]initWithFrame:CGRectMake(ScreenWidth-60, 0, 30, 30)];
-    arrawImg.image = [UIImage imageNamed:@"icon_list_more"];
-    [btn addSubview:arrawImg];
+    UILabel * labMore = [[UILabel alloc]initWithFrame:CGRectMake(ScreenWidth-60, 0, 44, 30)];
+    [labMore setText:@"查看更多"];
+    [labMore setFont:ListDetailFont];
+    [labMore setTextColor:UIColorFromRGB(BgTitleColor)];
+    [btn addSubview:labMore];
     
     [pview addSubview:btn];
 }
@@ -319,6 +415,11 @@
     [self setTableSeparatorInset];
     
     
+    
+    MJRefreshStateHeader *header=[MJRefreshStateHeader headerWithRefreshingTarget:self refreshingAction:@selector(beginNetRefreshData)];
+//    header.stateLabel.hidden=YES;
+    _listTable.header=header;
+    
     MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(endNetRefreshData)];
     footer.stateLabel.hidden=YES;
     _listTable.footer=footer;
@@ -333,7 +434,9 @@
     _seletBtn.layer.masksToBounds = YES;
     [_seletBtn setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     [_seletBtn setImage:[UIImage imageNamed:@"search_icon"] forState:UIControlStateNormal];
-    [_seletBtn setTitle:@"搜索内容" forState:UIControlStateNormal];
+    [_seletBtn setTitle:@" 搜索内容" forState:UIControlStateNormal];
+    [_seletBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+    [_seletBtn.titleLabel setFont:ListDetailFont];
     [_seletBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [_seletBtn setTitleColor:UIColorFromRGB(TextLightDarkColor) forState:UIControlStateNormal];
     [_seletBtn setContentEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 10)];
@@ -373,8 +476,36 @@
 /** SDCycleScrollView轮播点击事件代理 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
+    ZZChapterModel *itemModel = [_picArray objectAtIndex:index];
+    // 播放、暂停
+    if(playModel.lclassify == 1){
+        ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
+        NewsDetailC.model = itemModel;
+        [self.navigationController pushViewController:NewsDetailC animated:YES];
+    }
     
+//    if(playModel.lclassify == 2){
+//        playModel = model;
+//        if(playModel!=nil && playModel.isPlaying){
+//            [[MusicPlayTools shareMusicPlay] musicPause];
+//            playModel.isPlaying = NO;
+//            playModel = nil;
+//        }else{
+//            [[MusicPlayTools shareMusicPlay] musicPrePlay:playModel.audioUrl];
+//            playModel = itemModel;
+//            playModel.isPlaying = YES;
+//
+//
+//        }
+//
+//        [_listTable reloadData];
+//    }
     
+    if(playModel.lclassify == 3){
+        ZZVideoController *vc = [[ZZVideoController alloc] init];
+        vc.model = itemModel;
+        [self openNav:vc sound:nil];
+    }
 }
 
 -(void)onMenuClick:(UIButton *)btn{
