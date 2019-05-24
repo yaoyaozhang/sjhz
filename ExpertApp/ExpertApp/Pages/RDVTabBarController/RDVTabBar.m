@@ -23,6 +23,7 @@
 
 #import "RDVTabBar.h"
 #import "RDVTabBarItem.h"
+#import "UIView+Border.h"
 
 @interface RDVTabBar ()
 
@@ -67,6 +68,7 @@
     [[self backgroundView] setFrame:CGRectMake(0, frameSize.height - minimumContentHeight,
                                             frameSize.width, frameSize.height)];
     
+    [_backgroundView addTopBorderWithColor:UIColorFromRGB(BgLineColor) andWidth:1.0f];
     [self setItemWidth:roundf((frameSize.width - [self contentEdgeInsets].left -
                                [self contentEdgeInsets].right) / [[self items] count])];
     
@@ -163,10 +165,8 @@
     
     CGFloat alpha = (translucent ? 0.9 : 1.0);
     
-    [_backgroundView setBackgroundColor:[UIColor colorWithRed:245/255.0
-                                                        green:245/255.0
-                                                         blue:245/255.0
-                                                        alpha:alpha]];
+//    [_backgroundView setBackgroundColor:[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:alpha]];
+    [_backgroundView setBackgroundColor:UIColorFromRGBAlpha(BgSystemColor,alpha)];
 }
 
 #pragma mark - Accessibility

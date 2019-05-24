@@ -7,10 +7,10 @@
 //
 
 #import "BaseController.h"
-#import "ZZTJListModel.h"
+#import "ZZKnowledgeTopicModel.h"
 
 @interface ZZKnowledgeDetailController : BaseController
 
-@property(nonatomic,strong) ZZTJListModel *model;
+@property(nonatomic,strong) ZZKnowledgeTopicModel *model;
 
 @end

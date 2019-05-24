@@ -30,6 +30,8 @@
     CGRect tf = _labelName.frame;
     _imgInto.hidden =  YES;
     _labelName.text = dict[@"text"];
+    
+    
     if(code == 1){
         _imgAvatar.hidden = NO;
         _btnBD.hidden  = YES;
@@ -79,7 +81,16 @@
         tf.origin.y = 0;
         _labelName.frame = tf;
         
+      
+        
         _labelDesc.text = loginUser.phone;
+        
+        
+        if(code == 7){
+            NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:_labelName.text];
+            [str addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(BgTitleColor) range:NSMakeRange(_labelName.text.length - loginUser.invtCode.length  - 2 ,loginUser.invtCode.length + 2)];
+            _labelName.attributedText = str;
+        }
         
         if([@"" isEqual:convertToString(loginUser.phone)]){
             _btnBD.hidden  = NO;

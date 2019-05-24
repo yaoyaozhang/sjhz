@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ZZSettingUserCellDelegate <NSObject>
+
+-(void)onCellClick:(NSString *) tag;
+
+@end
+
 @interface ZZSettingUserCell : UITableViewCell
+@property (weak, nonatomic)  id<ZZSettingUserCellDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
 
@@ -17,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelUname;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnEdit;
+@property (weak, nonatomic) IBOutlet UIButton *btnJifen;
+
+
 
 -(void)dataToView:(NSDictionary *)dict;
 

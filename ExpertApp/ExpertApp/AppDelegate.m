@@ -22,6 +22,8 @@
 #import "ZZDoctorDetailController.h"
 #import "ASQController.h"
 #import "ZZChoosePatientController.h"
+#import "ZZKnowledgeDetailController.h"
+#import "ZZKnowledgeSearchController.h"
 // iOS10注册APNs所需头文件
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
@@ -32,6 +34,8 @@
 // 如果需要使用idfa功能所需要引入的头文件（可选）
 #import <AdSupport/AdSupport.h>
 
+#import "ZZKnowledgeDetailController.h"
+
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 
 @end
@@ -40,12 +44,12 @@
 
 - (void)switchRootViewController
 {
-//    NSString *key = @"CFBundleVersion";
-    // 上一次的使用版本（存储在沙盒中的版本号）
-//    NSString *lastVersion = [ZZCoreTools getValueFromNSUserDefaultsByKey:key];
-//
-//    // 当前软件的版本号（从Info.plist中获得）
-//    NSString *currentVersion = [ZZCoreTools getAppBuildVersion];
+    NSString *key = @"CFBundleVersion";
+//     上一次的使用版本（存储在沙盒中的版本号）
+    NSString *lastVersion = [ZZCoreTools getValueFromNSUserDefaultsByKey:key];
+
+    // 当前软件的版本号（从Info.plist中获得）
+    NSString *currentVersion = [ZZCoreTools getAppBuildVersion];
     
     // 版本号相同：这次打开和上次打开的是同一个版本
 //    if ([currentVersion isEqualToString:lastVersion]) {
@@ -58,7 +62,7 @@
 //    } else {
 //        // 将当前的版本号存进沙盒
 //        [ZZCoreTools syncNSUserDeafaultsByKey:key withValue:currentVersion];
-//        
+//
 //        // 这次打开的版本和上一次不一样，显示新特性
 //        self.window.rootViewController = [[ZZGuideController alloc] init];
 //    }
@@ -74,6 +78,9 @@
     // 关闭日志上传
 //    [MobClick setCrashReportEnabled:NO];
     
+    [MobClick setLogEnabled:YES];
+    
+    [self checkAppUpdate];
     
     // 第三方配置
     [[UMSocialManager defaultManager] openLog:YES];
@@ -343,7 +350,7 @@
 -(void)launchImageView{
     // 在window上放一个imageView
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    imageView.image = [UIImage imageNamed:@"Startpage"];
+    imageView.image = [UIImage imageNamed:@"Default-568h"];
     [imageView setContentMode:UIViewContentModeScaleAspectFill];
     [imageView setBackgroundColor:UIColor.whiteColor];
     [self.window addSubview:imageView];
@@ -383,7 +390,10 @@
     NSString *actionStr = [userInfo objectForKey:@"iosNotification extras key"];
     NSDictionary *dict = [self dictionaryWithJsonString:actionStr];
     if([dict[@"type"] intValue] == 1){
-        [self openNewPage:dict[@"action"]];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self openNewPage:dict[@"action"]];
+        });
+        
     }
 }
 
@@ -408,6 +418,12 @@
         ZZChapterDetailController *vc = [[ZZChapterDetailController alloc] init];
         ZZChapterModel *model = [ZZChapterModel new];
         model.nid = [[action stringByReplacingOccurrencesOfString:@"sjhz://news?id=" withString:@""] intValue];
+        vc.model = model;
+        [rootVC.navigationController pushViewController:vc animated:YES];
+    }else if([action hasPrefix:@"sjhz://knowledge"]){
+        ZZKnowledgeDetailController *vc = [[ZZKnowledgeDetailController alloc] init];
+        ZZKnowledgeTopicModel *model = [ZZKnowledgeTopicModel new];
+        model.sid = [[action stringByReplacingOccurrencesOfString:@"sjhz://knowledge?id=" withString:@""] intValue];
         vc.model = model;
         [rootVC.navigationController pushViewController:vc animated:YES];
     }else if([action hasPrefix:@"sjhz://case"]){
@@ -492,6 +508,18 @@
         ZZChoosePatientController *vc = [[ZZChoosePatientController alloc] init];
         vc.doctorId  = [action stringByReplacingOccurrencesOfString:@"sjhz://wenzhen?docId=" withString:@""];
         [rootVC.navigationController pushViewController:vc animated:YES];
+    }else if([action hasPrefix:@"sjhz://jpkc?classId="]){
+        ZZKnowledgeDetailController *vc = [[ZZKnowledgeDetailController alloc] init];
+        ZZKnowledgeTopicModel *m = [ZZKnowledgeTopicModel new];
+        m.sid = [[action stringByReplacingOccurrencesOfString:@"sjhz://jpkc?classId=" withString:@""] intValue];
+        vc.model = m;
+        [rootVC.navigationController pushViewController:vc animated:YES];
+    }else if([action hasPrefix:@"sjhz://jpklist"]){
+        
+        // 精品课
+        ZZKnowledgeSearchController *vc = [[ZZKnowledgeSearchController alloc] init];
+        vc.searchType = 2;
+        [rootVC.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -536,6 +564,58 @@
     return result;
 }
 
+
+
+
+// 版本获取
+-(void)checkAppUpdate
+{
+    
+    dispatch_async ( dispatch_get_global_queue ( DISPATCH_QUEUE_PRIORITY_DEFAULT , 0 ), ^{
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=1276992875"]];
+        NSString * file =  [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+        if(file!=nil && ![@"" isEqual:convertToString(file)]){
+            
+            dispatch_async ( dispatch_get_main_queue (), ^{
+                @try {
+                    NSRange substr = [file rangeOfString:@"\"version\":\""];
+                    NSRange range1 = NSMakeRange(substr.location+substr.length,10);
+                    NSRange substr2 =[file rangeOfString:@"\"" options:NSNumericSearch range:range1];
+                    NSRange range2 = NSMakeRange(substr.location+substr.length, substr2.location-substr.location-substr.length);
+                    
+                    
+                    NSString *nowVersion = [ZZCoreTools getAppVersion];
+                    NSString *newVersion =[file substringWithRange:range2];
+                    
+                    nowVersion = [nowVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
+                    newVersion = [newVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
+                    if([nowVersion intValue] < [newVersion intValue])
+                    {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"发现新版本"delegate:self cancelButtonTitle:@"以后再说"otherButtonTitles:@"立即更新",nil];
+                        [alert show];
+                    }
+                } @catch (NSException *exception) {
+                    
+                } @finally {
+                    
+                }
+            });
+            
+        }
+    });
+    
+    
+}
+
+- (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex==1)
+    {
+        // 此处加入应用在app store的地址，方便用户去更新，一种实现方式如下：
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id1276992875？ls=1&mt=8"]];
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
 
 ////////////////////////////
 //

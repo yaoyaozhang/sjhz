@@ -16,9 +16,12 @@
 //
 //#define API_HOST @"http://www.sanjiahuizhen.com"
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
-//#define API_HOST @"http://192.168.99.123:8080"
-#define API_HOST @"http://219.142.225.82:8123"
+//#define API_HOST @"http://219.142.225.98:8123"
 //#define API_HOST @"http://192.168.8.102:8080"
+
+#define ZCNSUF [NSUserDefaults standardUserDefaults]
+#define ZCKEY_APIHOST @"ZCKEY_APIHOST"
+#define API_HOST ([[NSUserDefaults standardUserDefaults] objectForKey:ZCKEY_APIHOST]!=nil && [[[NSUserDefaults standardUserDefaults] objectForKey:ZCKEY_APIHOST] length]>0)?[ZCNSUF objectForKey:ZCKEY_APIHOST]:@"http://www.sanjiahuizhen.com"
 
 /**
  *  发送验证码
@@ -236,11 +239,15 @@
 #define API_findDoctorHomeChapter [NSString stringWithFormat:@"%@/news/appFindNewsDocId",API_HOST]
 #define API_findDoctorChapterList [NSString stringWithFormat:@"%@/news/appFindNewsAllDocId",API_HOST]
 #define API_getChapterList [NSString stringWithFormat:@"%@/news/appFindNewsByNewsType",API_HOST]
+
+
+
 #define API_getKnowledgeHome [NSString stringWithFormat:@"%@/news/appSecondByNewsType",API_HOST]
 
 
 //#define API_getChapterDetail(nid) [NSString stringWithFormat:@"%@/news/bronews.html?nid=%d",API_HOST,nid]
-#define API_getChapterDetail(nid) [NSString stringWithFormat:@"%@/news/wz/chapter.html?nid=%d",API_HOST,nid]
+#define API_getChapterDetail(nid) [NSString stringWithFormat:@"%@/news/wz/chapter.html?nid=%d&from=app",API_HOST,nid]
+#define API_getKnowledgeDetailH5(sid) [NSString stringWithFormat:@"%@/news/zhuanti/Course.html?nid=%d&from=app",API_HOST,sid]
 
 #define API_getShareChapterDetail(nid) [NSString stringWithFormat:@"%@/dotcor/PerClinic.html?nid=%d",API_HOST,nid]
 
@@ -297,3 +304,71 @@
 
 
 
+
+#define API_getKnowledgeHome [NSString stringWithFormat:@"%@/news/appSecondByNewsType",API_HOST]
+#define API_getKnowledgeSearch [NSString stringWithFormat:@"%@/news/appSecondByNewsSerach",API_HOST]
+#define API_getKnowledgeTJListById [NSString stringWithFormat:@"%@/news/appTuijianList",API_HOST]
+#define API_getKnowledgeDetail [NSString stringWithFormat:@"%@/news/appOneNews",API_HOST]
+#define API_getKnowledgeTopicDetail [NSString stringWithFormat:@"%@/news/appOneClass",API_HOST]
+
+
+
+/**
+ 判断用户是否可以下单
+type = 1会诊，2精品课
+ souId，医生Id， 精品课Id
+ userId
+ @return
+ */
+#define API_getSourceByUserId [NSString stringWithFormat:@"%@/pay/getSourceByUserId",API_HOST]
+
+
+
+/**
+ 下单
+ type = 1会诊，2精品课
+ souId，医生Id， 精品课Id
+ userId
+ @return
+ */
+#define API_createOrderByUserId [NSString stringWithFormat:@"%@/pay/doSourceByUserId",API_HOST]
+
+
+/**
+ 获取积分明细
+
+ @return
+ */
+#define API_getSouceeList [NSString stringWithFormat:@"%@/pay/souceeList",API_HOST]
+
+
+/**
+ 获取积分充值列表
+ 
+ @return
+ */
+#define API_getSouceePayList [NSString stringWithFormat:@"%@/pay/doSourceShow",API_HOST]
+
+
+
+
+
+/**
+ 发布留言
+ forUserId 发起人id
+ toUserId给谁发
+ context 内容
+ @return
+ */
+#define API_sendFollowMsg [NSString stringWithFormat:@"%@/doctor/followDoctorCont",API_HOST]
+
+
+
+
+
+/**
+ 发布留言
+ userId 用户编号
+ @return
+ */
+#define API_getUserInfoByUserId [NSString stringWithFormat:@"%@/user/getUserById",API_HOST]

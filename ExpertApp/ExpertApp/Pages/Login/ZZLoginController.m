@@ -58,8 +58,11 @@
     }
     
     _viewOtherLogin.hidden = YES;
+    _btnRegister.hidden = YES;
     if([[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_QQ] && [[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession]){
         _viewOtherLogin.hidden = NO;
+        
+        _btnRegister.hidden = NO;
     }
     
     
@@ -69,6 +72,34 @@
     
     _fieldPhone.text = convertToString([ZCLocalStore getLocalParamter:KEY_LOGIN_USERNAME]);
     _fieldPassword.text = convertToString([ZCLocalStore getLocalParamter:KEY_LOGIN_USERPWD]);
+    
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@"http://www.sanjiahuizhen.com" forKey:ZCKEY_APIHOST];
+    
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [btn setFrame:CGRectMake(ScreenWidth-64, StatusBarHeight, 64, 44)];
+//    [btn setTitle:@"测试" forState:0];
+//    [btn addTarget:self action:@selector(changeHost:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:btn];
+//    NSString *apiHost = [[NSUserDefaults standardUserDefaults] objectForKey:ZCKEY_APIHOST];
+//
+//    if(convertToString(apiHost) > 0 && [@"http://219.142.225.98:8123" isEqual:convertToString(apiHost)]){
+//        [btn setTitle:@"线上" forState:0];
+//    }else{
+//        [btn setTitle:@"测试" forState:0];
+//    }
+}
+
+-(void)changeHost:(UIButton *) btn{
+    NSString *apiHost = [[NSUserDefaults standardUserDefaults] objectForKey:ZCKEY_APIHOST];
+    
+    if(convertToString(apiHost) > 0 && [@"http://219.142.225.98:8123" isEqual:convertToString(apiHost)]){
+        [[NSUserDefaults standardUserDefaults] setObject:@"http://www.sanjiahuizhen.com" forKey:ZCKEY_APIHOST];
+        [btn setTitle:@"测试" forState:0];
+    }else{
+        [[NSUserDefaults standardUserDefaults] setObject:@"http://219.142.225.98:8123" forKey:ZCKEY_APIHOST];
+        [btn setTitle:@"线上" forState:0];
+    }
 }
 
 -(void) setButtonLocation:(UIButton * ) btnLeft{
@@ -225,6 +256,7 @@
             [SVProgressHUD dismiss];
             // 清理数据
             [[ZZDataCache getInstance] loginOut];
+            [ZCLocalStore removeObjectforKey:KEY_LOGIN_USERPWD];
             
             [[ZZDataCache getInstance] saveLoginUserInfo:retData view:self.view];
         }else{

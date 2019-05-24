@@ -7,6 +7,7 @@
 #import "ZZFontColorDefine.h"
 #import "ZZCoreCommon.h"
 #import "ZCLogUtils.h"
+#import "ZZHttpInterface.h"
 #import "ZZRequsetInterface.h"
 #import "ZZCoreTools.h"
 #import "SVProgressHUD.h"
@@ -18,4 +19,12 @@
 
 #import "MusicPlayTools.h"
 #import "AppDelegate.h"
+#import "ZZBaseModel.h"
 #import "ZZChapterModel.h"
+#import "ZZShareView.h"
+#import "ZZCommentController.h"
+#import "ZZChapterDetailController.h"
+#import "ZZVoiceTools.h"
+#import <Toast/UIView+Toast.h>
+
+#import <SDWebImage/UIImageView+WebCache.h>

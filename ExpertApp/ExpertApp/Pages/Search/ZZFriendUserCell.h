@@ -8,13 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "UIButtonUpDown.h"
+#import "ZZFollowMessageModel.h"
 typedef NS_ENUM(NSInteger,ZZUserFriendCellType) {
     ZZUserFriendCellTypeDefault = 0,
+    ZZUserFriendCellTypeChanged = 2,
 };
 
 @protocol ZZUserFriendCellDelegate <NSObject>
 
 -(void)onDoctorCellClick:(ZZUserFriendCellType ) type model:(ZZUserInfo *) model;
+
+-(void)onChangedMessage:(ZZUserFriendCellType ) type model:(ZZUserInfo *) model;
 
 @end
 
@@ -30,6 +34,10 @@ typedef NS_ENUM(NSInteger,ZZUserFriendCellType) {
 
 @property (weak, nonatomic) IBOutlet UIButtonUpDown *btnControl;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnAccept;
+
+
+@property (weak, nonatomic) IBOutlet UIView *viewChat;
 
 
 @property(nonatomic,assign) ZZUserFriendCellType cellType;

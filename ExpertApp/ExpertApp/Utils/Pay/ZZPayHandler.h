@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, ZZPayType) {
  
  @param userId 用户ID
  @param payType 1支付宝，2微信
- @param type 1，文章，2 会诊，3打赏
+ @param type 1，文章，2 会诊，3打赏,4购买积分
  @param otherId 关联的ID
  @param price 支付价格
  @param desc 付款描述

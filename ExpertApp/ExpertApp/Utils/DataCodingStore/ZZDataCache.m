@@ -14,6 +14,7 @@
 
 NSString * const KEY_LOGIN_USERINFO = @"ZZLoginUserInfo";
 NSString * const KEY_LOGIN_USERNAME = @"ZZLoginUserName";
+NSString * const KEY_LOGIN_OUTBYSELF = @"ZZLoginOutBySelf";
 NSString * const KEY_LOGIN_USERPWD = @"ZZLoginUserPwd";
 
 NSString * const KEY_CONFIG_KNTYPE = @"ZZConfigknType";
@@ -24,6 +25,7 @@ NSString * const KEY_CONFIG_DEPARTMENT = @"ZZConfigdepartment";
 NSString * const KEY_CONFIG_HSLEVEL = @"ZZConfighsLevel";
 NSString * const KEY_CONFIG_TC = @"ZZConfigtc";
 NSString * const KEY_CONFIG_RELATION = @"ZZConfigrelation";
+NSString * const KEY_CONFIG_CHAPTERTYPE = @"ZZConfigcolumn";
 
 
 
@@ -73,7 +75,7 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
     if(info.fansNumber == 0){
         info.fansNumber = _loginUserInfo.fansNumber;
     }
-    if(info.orderNumber == 0){
+    if(info.orderNumber <= 0){
         info.orderNumber = _loginUserInfo.orderNumber;
     }
     
@@ -100,6 +102,10 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
 
 -(void)loginOut{
     [ZCLocalStore removeObjectforKey:KEY_LOGIN_USERINFO];
+    
+//    [ZCLocalStore removeObjectforKey:KEY_LOGIN_USERNAME];
+//    [ZCLocalStore removeObjectforKey:KEY_LOGIN_USERPWD];
+    
     _loginUserInfo = nil;
     
 //    [self cleanCache];
@@ -153,7 +159,7 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
         [ZZRequsetInterface get:API_findBaseInfo start:^{
             resultBlock(nil,1);
         } finish:^(id response, NSData *data) {
-            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } complete:^(NSDictionary *dict) {
             [self setConfigNetworkDict:dict[@"retData"]];
             resultBlock(_configDict,0);
@@ -197,14 +203,12 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
 
 
 // 执行登录
--(void)saveLoginUserInfo:(NSMutableDictionary *) infoDict view:(UIView *) view{
+-(void)saveLoginUserInfo:(NSMutableDictionary *) infoDict view:(UIView *) view1{
     [ZCLocalStore addObject:infoDict forKey:KEY_LOGIN_USERINFO];
     ZZUserInfo *info = [[ZZDataCache getInstance] getLoginUser];
     
+    [ZCLocalStore addObject:@"0" forKey:KEY_LOGIN_OUTBYSELF];
     if(info){
-        UIStoryboard *stryBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        view.window.rootViewController=[stryBoard instantiateInitialViewController];
-        
         // 设置别名
         [JPUSHService setAlias:convertIntToString(info.userId) completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
             
@@ -215,6 +219,12 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
         [JPUSHService setTags:set completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
             
         } seq:2];
+        
+        if(view1 != nil){
+            UIStoryboard *stryBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            view1.window.rootViewController=[stryBoard instantiateInitialViewController];
+        }
+        
     }
 }
 

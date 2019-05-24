@@ -23,11 +23,11 @@
     [_lineView setBackgroundColor:UIColorFromRGB(BgLineColor)];
 }
 
--(void)dataToItem:(ZZChapterModel *)model{
-    [_imgFaceBackground sd_setImageWithURL:[NSURL URLWithString:model.picture]];
-    [_labAuthor setText:convertToString(model.author)];
-    [_labTime setText:model.createTime];
-    [_labTitle setText:model.title];
+-(void)dataToItem:(ZZKnowledgeTopicModel *)model{
+    [_imgFaceBackground sd_setImageWithURL:[NSURL URLWithString:model.classUrl]];
+    [_labAuthor setText:convertToString(model.adaptUser)];
+    [_labTime setText:dateTransformDateString(FormateTime, model.startTime)];
+    [_labTitle setText:model.className];
 }
 
 

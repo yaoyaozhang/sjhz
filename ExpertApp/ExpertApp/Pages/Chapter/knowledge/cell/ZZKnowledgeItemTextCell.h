@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "ZZChapterModel.h"
+#import "ZZKnowledgeCellDelegate.h"
+
 
 @interface ZZKnowledgeItemTextCell : UITableViewCell
+
+@property (strong, nonatomic) ZZChapterModel *tempModel;
+
+@property (strong, nonatomic) id<ZZKnowledgeItemsCellDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgLine;
 @property (weak, nonatomic) IBOutlet UIImageView *imgIcon;
@@ -20,5 +26,9 @@
 
 
 -(void)dataToView:(ZZChapterModel *) item;
+
+-(IBAction)messageClick:(id)sender;
+
+-(IBAction)moreClick:(id)sender;
 
 @end

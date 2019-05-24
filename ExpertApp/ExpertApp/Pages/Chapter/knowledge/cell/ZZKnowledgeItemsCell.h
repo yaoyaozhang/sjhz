@@ -9,12 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ZZTJListModel.h"
 
-@protocol ZZKnowledgeItemsCellDelegate<NSObject>
-
-// type 1 播放, 2查看更多
--(void)onItemClick:(id) model type:(int ) type;
-
-@end
+#import "ZZKnowledgeCellDelegate.h"
 
 @interface ZZKnowledgeItemsCell : UITableViewCell
 

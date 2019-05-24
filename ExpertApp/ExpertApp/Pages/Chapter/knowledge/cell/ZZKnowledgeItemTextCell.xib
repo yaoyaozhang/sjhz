@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVx-XB-EIJ">
-                        <rect key="frame" x="68" y="11" width="242" height="21"/>
+                        <rect key="frame" x="68" y="11" width="155" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -34,12 +34,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cp-Ow-Ahb">
-                        <rect key="frame" x="68" y="34" width="242" height="21"/>
+                        <rect key="frame" x="68" y="34" width="155" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3B-IL-ISr">
+                        <rect key="frame" x="276" y="11" width="44" height="44"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" image="icon_list_more.png"/>
+                        <connections>
+                            <action selector="moreClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dw4-dy-P01"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9sd-oS-tYb">
+                        <rect key="frame" x="246" y="11" width="29" height="44"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" image="icon_play_menu_text.png"/>
+                        <connections>
+                            <action selector="messageClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8Wg-ZB-clD"/>
+                        </connections>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -51,4 +67,8 @@
             <point key="canvasLocation" x="35" y="65"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_list_more.png" width="24" height="24"/>
+        <image name="icon_play_menu_text.png" width="22" height="22"/>
+    </resources>
 </document>

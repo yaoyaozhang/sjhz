@@ -42,9 +42,10 @@
     [_viewZhic.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     if(model && model.userId>0){
-        [_imgHeader sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]];
+        [_imgHeader sd_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:[UIImage imageNamed:@"docheader"]];
         [_labName setText:convertToString(model.docName)];
         [_labFansChapterS setText:[NSString stringWithFormat:@"粉丝:%d",model.fansNumber]];
+        _labFansChapterS.hidden = YES;
         [_labKes setText:convertToString(model.departmentName)];
         [_labHospital setText:convertToString(model.hospital)];
         [_labDesc setText:convertToString(model.accomplished)];

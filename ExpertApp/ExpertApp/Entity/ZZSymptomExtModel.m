@@ -30,7 +30,7 @@
                       @"dictValue":convertToString(_hospitalGrade),
                       @"dictType":convertIntToString(ZZEditControlTypeChoose),
                       @"valueType":@"1",
-                      @"isOption":@"0",
+                      @"isOption":@"1",
                       }];
     
     [arr1 addObject:@{@"code":@"2",

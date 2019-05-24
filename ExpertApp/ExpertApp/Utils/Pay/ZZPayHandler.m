@@ -14,21 +14,26 @@
 
 @implementation ZZPayHandler
 
-+(void)startJumppay:(int)userId payType:(ZZPayType)payType type:(int)type otherId:(NSString *)otherId desc:(NSString *)desc prict:(CGFloat)price result:(void (^)(int code, NSString *msg))payResult{
-    ZZUserInfo *loginUser = [ZZDataCache getInstance].getLoginUser;
++(void)startJumppay:(int)userId payType:(ZZPayType)payType type:(int)type otherId:(NSString *)othersId desc:(NSString *)desc prict:(CGFloat)price result:(void (^)(int code, NSString *msg))payResult{
+//    ZZUserInfo *loginUser = [ZZDataCache getInstance].getLoginUser;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+    [dict setObject:convertIntToString(userId) forKey:@"userId"];
+    [dict setObject:convertIntToString(type) forKey:@"type"];
     NSString *orderName = @"test";
     // 1，文章，2 会诊，3打赏
     if(type == 1){
        orderName = [NSString stringWithFormat:@"打赏文章--%@",desc];
     }else if(type == 2){
         orderName = [NSString stringWithFormat:@"会诊支付--%@",desc];
+    }else if(type == 4){
+        orderName = [NSString stringWithFormat:@"积分充值--%@",desc];
     }else{
         orderName = [NSString stringWithFormat:@"打赏医生--%@",desc];
     }
     [dict setObject:orderName forKey:@"orderName"];
     [dict setObject:[NSString stringWithFormat:@"%f",price] forKey:@"orderPrice"];
+    
+//    [dict setObject:[NSString stringWithFormat:@"%f",0.01] forKey:@"orderPrice"];
     
     [dict setObject:(payType == ZZPayTypeWX)?@"wx":@"zfb" forKey:@"payType"];
     
@@ -38,7 +43,7 @@
         
     } finish:^(id response, NSData *data) {
         
-        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         [SVProgressHUD dismiss];
         if(payType == ZZPayTypeWX){

@@ -109,7 +109,16 @@
     } complete:^(NSDictionary *dict) {
         if(dict[@"retData"]){
             for (NSDictionary *item in dict[@"retData"]) {
-                [_listArray addObject:[[ZZUserInfo alloc] initWithMyDict:item]];
+                ZZUserInfo *itemUser = [[ZZUserInfo alloc] initWithMyDict:item];
+                NSArray *arr = item[@"mssg"];
+                NSMutableArray *temp = [[NSMutableArray alloc] init];
+                if(arr!=nil && [arr isKindOfClass:[NSArray class]]){
+                    for (NSDictionary *item1 in arr) {
+                        [temp addObject:[[ZZFollowMessageModel alloc] initWithMyDict:item1]];
+                    }
+                }
+                itemUser.tempLeaves = temp;
+                [_listArray addObject:itemUser];
             }
             [_listTable reloadData];
         }
@@ -202,9 +211,9 @@
 // table 行的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90.0f;
-//    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-//    return cell.frame.size.height;
+//    return 90.0f;
+    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return cell.frame.size.height;
 }
 
 // table 行的点击事件
@@ -249,7 +258,8 @@
 }
 
 -(void)onDoctorCellClick:(ZZUserFriendCellType)type model:(ZZUserInfo *)model{
-    if(model.state == 1 && model.fromUserId != loginUser.userId){
+    
+    if(model.state == 1 && model.fromUserid != loginUser.userId){
         // 关注
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:convertIntToString(model.userId) forKey:@"toUserId"];
@@ -270,6 +280,11 @@
     }
 }
 
+
+-(void)onChangedMessage:(ZZUserFriendCellType)type model:(ZZUserInfo *)model{
+    [_listTable reloadData];
+    
+}
 
 
 #pragma mark UITableView delegate end

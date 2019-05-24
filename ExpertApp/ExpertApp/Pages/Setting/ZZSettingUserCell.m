@@ -23,6 +23,10 @@
     
     [_labelQuestionNum setFont:ListDetailFont];
     [_labelQuestionNum setTextColor:UIColorFromRGB(TextLightDarkColor)];
+    
+    [_btnJifen.titleLabel setFont:ListTitleFont];
+    [_btnJifen setTitleColor:UIColorFromRGB(BgTitleColor) forState:0];
+    [_btnJifen addTarget:self action:@selector(didOpenJifen:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -34,14 +38,27 @@
     
     ZZUserInfo *loginUser = [[ZZDataCache getInstance] getLoginUser];
     
+    [_btnJifen setTitle:[NSString stringWithFormat:@"%d积分",loginUser.score] forState:0];
+    
     [_labelUname setText:convertToString(loginUser.userName)];
     if(loginUser.isDoctor){
         [_labelQuestionNum setText:[NSString stringWithFormat:@"会诊%d个  文章%d个",loginUser.orderNumber,loginUser.articleNum]];
     }else{
         _labelQuestionNum.hidden = YES;
         CGRect f = _labelUname.frame;
-        f.origin.y = (self.frame.size.height - f.size.height) / 2;
+        CGRect f2 = _btnJifen.frame;
+        f.origin.y = (self.frame.size.height - f.size.height - f2.size.height) / 2;
         _labelUname.frame = f;
+        
+        f2.origin.y = CGRectGetMaxY(f)+2;
+        _btnJifen.frame = f2;
+        
+    }
+}
+
+-(void)didOpenJifen:(UIButton * )btn{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onCellClick:)]){
+        [self.delegate onCellClick:@"1"];
     }
 }
 

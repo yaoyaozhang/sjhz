@@ -15,7 +15,7 @@
 // 如果外界想使用本播放器,必须遵循和实现协议中的两个方法.
 @protocol MusicPlayToolsDelegate <NSObject>
 // 外界实现这个方法的同时, 也将参数的值拿走了, 这样我们起到了"通过代理方法向外界传递值"的功能.
--(void)getCurTiem:(NSString *)curTime Totle:(NSString *)totleTime Progress:(CGFloat)progress;
+-(void)getCurTiem:(NSString *)curTime Totle:(NSString *)totleTime Progress:(CGFloat)progress totleValue:(NSInteger) total;
 // 播放结束之后, 如何操作由外部决定.
 -(void)endOfPlayAction;
 
@@ -43,5 +43,11 @@
 // 跳转
 -(void)seekToTimeWithValue:(CGFloat)value;
 
+// -15 or 15
+-(void)seekToTimeWithCutValue:(CGFloat) value;
+
 -(BOOL)isPlaying;
+
+-(NSInteger)getTotleTime;
+
 @end

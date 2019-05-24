@@ -29,16 +29,31 @@
 #define UserDefaults                        [NSUserDefaults standardUserDefaults]
 #define NOTIFICATION_CENTER                 [NSNotificationCenter defaultCenter]
 
-// iPhoneX
-#define ZC_iPhoneX (ScreenWidth == 375.f && ScreenHeight == 812.f ? YES : NO)
+#define ScreenWidth                         [[UIScreen mainScreen] bounds].size.width
+#define ScreenHeight                        [[UIScreen mainScreen] bounds].size.height
+
+#define ZC_iPhoneX (((ScreenWidth == 375.f && ScreenHeight == 812.f ) || (ScreenWidth == 414.f && ScreenHeight == 896.f ))? YES : NO)
+
+#define NavBottomHeight                     (ZC_iPhoneX ? 34.f : 0.0) //(iOS7 ? 64.0 : 44.0)
+
+//#define ZC_iPhoneX ({\
+    BOOL iPhoneX = NO;\
+    if (UIDevice.currentDevice.userInterfaceIdiom != UIUserInterfaceIdiomPhone) {\
+        iPhoneX;\
+    }else if (@available(iOS 11.0, *)) {\
+        UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];\
+        if (mainWindow.safeAreaInsets.bottom > 0.0) {\
+            iPhoneX = YES;\
+        }\
+    }\
+    iPhoneX;\
+})
 
 
 #define NavBarHeight                        (ZC_iPhoneX ? 88.f : (iOS7 ? 64.0 : 44.0))//(iOS7 ? 64.0 : 44.0)
 
 #define StatusBarHeight                     (ZC_iPhoneX ? 44.0 : (iOS7 ? 20.0 : 0.0))//(iOS7 ? 20.0 : 0.0)
 
-#define ScreenWidth                         [[UIScreen mainScreen] bounds].size.width
-#define ScreenHeight                        [[UIScreen mainScreen] bounds].size.height
 #define ScreenScale                          (ScreenWidth / 320.f)
 #define ViewWidth(v)                        v.frame.size.width
 #define ViewHeight(v)                       v.frame.size.height

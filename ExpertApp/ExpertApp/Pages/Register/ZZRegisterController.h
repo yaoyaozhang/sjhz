@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtYJDesc;
 @property (weak, nonatomic) IBOutlet UITextField *txtName;
 
+@property (weak, nonatomic) IBOutlet UITextField *txtInviteCode;
+
+
 @property (weak, nonatomic) IBOutlet UIButton *btnLink;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
 
@@ -36,12 +39,17 @@
 @property (weak, nonatomic) IBOutlet UIView *vBorder2;
 @property (weak, nonatomic) IBOutlet UIView *vBorder3;
 @property (weak, nonatomic) IBOutlet UIView *vBorder4;
+@property (weak, nonatomic) IBOutlet UIView *vBorder5;
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *vLine1;
 
 @property (weak, nonatomic) IBOutlet UIImageView *vLine2;
 @property (weak, nonatomic) IBOutlet UIImageView *vLine3;
 @property (weak, nonatomic) IBOutlet UIImageView *vLine4;
+
+@property (weak, nonatomic) IBOutlet UIImageView *vLine5;
+
 
 @property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
 

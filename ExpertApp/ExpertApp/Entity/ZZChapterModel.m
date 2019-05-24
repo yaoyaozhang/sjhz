@@ -11,5 +11,8 @@
 @implementation ZZChapterModel
 
 
+-(id)createChapterModel:(NSDictionary *)dict{
+    return [self initWithMyDict:dict];
+}
 
 @end

@@ -7,8 +7,16 @@
 //
 
 #import "BaseController.h"
+#import "ZZTJListModel.h"
 
 @interface ZZKnowledgeSearchController : BaseController
+
+
+/**
+ 0，搜索，1:文章、2专题、3医生
+ */
+@property(nonatomic,assign) int searchType;
+
 
 @property(nonatomic,strong) NSString *searchText;
 

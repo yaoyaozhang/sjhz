@@ -26,6 +26,7 @@
 #import "ZZCreatePatientController.h"
 #import "ZZPatientDetailController.h"
 #import "ZZAddSymptomController.h"
+#import "ZZAcountController.h"
 
 @interface ZZChoosePatientController ()<UITableViewDelegate,UITableViewDataSource,ZZCaseCellDelegate,ZCActionSheetViewDelegate>{
     
@@ -63,7 +64,18 @@
 }
 
 -(void)buttonClick:(UIButton *)sender{
-    [super buttonClick:sender];
+    if(sender.tag == BACK_BUTTON){
+        NSArray *arr = self.navigationController.viewControllers;
+        if(arr.count > 1){
+            if([arr[arr.count - 2] isKindOfClass:[ZZAcountController class]]){
+                [self.navigationController popToViewController:arr[arr.count - 3] animated:YES];
+            }else{
+                [self goBack:sender];
+            }
+        }else{
+            [self goBack:sender];
+        }
+    }
     if(sender.tag == RIGHT_BUTTON){
         [self loadMoreData];
     }
@@ -73,7 +85,7 @@
     _listArray = [[NSMutableArray alloc] init];
     
     _listTable=[self.view createTableView:self cell:cellIdentifier];
-    [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight - NavBarHeight - 40)];
+    [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight - NavBarHeight - 40 - (ZC_iPhoneX?34:0))];
     
     [_listTable setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     
@@ -91,7 +103,7 @@
     
     
     addHZBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addHZBtn setFrame:CGRectMake(0, ScreenHeight - 40, ScreenWidth, 40)];
+    [addHZBtn setFrame:CGRectMake(0, ScreenHeight - 40 - (ZC_iPhoneX?34:0), ScreenWidth, 40)];
     [addHZBtn setBackgroundColor:UIColorFromRGB(BgTitleColor)];
     [addHZBtn setTitleColor:UIColorFromRGB(TextWhiteColor) forState:UIControlStateNormal];
     [addHZBtn setTitle:@"提交" forState:UIControlStateNormal];
@@ -108,7 +120,7 @@
 }
 
 
-// 选择病例,去支付
+// 选择病例,去下单
 -(void)confirmCase:(UIButton *) btn{
     if(checkedRow<0 || _listArray.count==0){
         [self.view makeToast:@"请选择一个患者"];

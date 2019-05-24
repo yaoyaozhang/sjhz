@@ -195,7 +195,7 @@
         _textField.text = @"";
         
     } finish:^(id response, NSData *data) {
-        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } complete:^(NSDictionary *dict) {
         [_curVC.view makeToast:@"评论成功!"];
         tempModel = nil;

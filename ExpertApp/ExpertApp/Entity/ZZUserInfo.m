@@ -31,6 +31,10 @@
             _userName = _docName;
         }
         
+        if(_fromUserid == 0){
+            _fromUserid = [convertToString(dict[@"fromUserId"]) intValue];
+        }
+        
         
     }
     return self;

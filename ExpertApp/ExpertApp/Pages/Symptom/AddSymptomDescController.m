@@ -157,6 +157,7 @@
         //            [alertView show];
         //
         //        }else{
+        
         [self goBack:nil];
         //        }
         return;
@@ -226,8 +227,10 @@
                     _ZZCreateResultBlock(1);
                 }
                 
-                if(self.navigationController.viewControllers.count > 2){
-                    [self.navigationController popToViewController:self.navigationController.viewControllers[self.navigationController.viewControllers.count - 3] animated:YES];
+                if(self.navigationController.viewControllers.count > 3){
+                    
+                    [self.navigationController.viewControllers[self.navigationController.viewControllers.count - 4].view makeToast:@"问诊提交成功，请耐心等待医生诊断！" duration:3 position:CSToastPositionCenter];
+                    [self.navigationController popToViewController:self.navigationController.viewControllers[self.navigationController.viewControllers.count - 4] animated:YES];
                 }else{
                     [self goBack:nil];
                 }
@@ -277,7 +280,7 @@
     _listArray = [[NSMutableArray alloc] init];
     
     _listTable=[self.view createTableView:self cell:nil];
-    [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight-NavBarHeight - 40)];
+    [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight-NavBarHeight - 40 - (ZC_iPhoneX?34:0))];
     [_listTable registerNib:[UINib nibWithNibName:cellIdentifierG bundle:nil] forCellReuseIdentifier:cellIdentifierG];
     [_listTable registerNib:[UINib nibWithNibName:cellIdentifierM bundle:nil] forCellReuseIdentifier:cellIdentifierM];
     [_listTable registerNib:[UINib nibWithNibName:cellIdentifierPic bundle:nil] forCellReuseIdentifier:cellIdentifierPic];
@@ -302,7 +305,7 @@
     
     
     addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addBtn setFrame:CGRectMake(0, ScreenHeight - 40, ScreenWidth, 40)];
+    [addBtn setFrame:CGRectMake(0, ScreenHeight - 40 - (ZC_iPhoneX?34:0), ScreenWidth, 40)];
     [addBtn setBackgroundColor:UIColorFromRGB(BgTitleColor)];
     [addBtn setTitleColor:UIColorFromRGB(TextWhiteColor) forState:UIControlStateNormal];
     [addBtn setTitle:@"保存" forState:UIControlStateNormal];

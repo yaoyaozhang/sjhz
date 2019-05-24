@@ -15,4 +15,6 @@
 
 @property(nonatomic,strong) ZZChapterModel *model;
 
+@property (nonatomic, strong)  void(^ZZResultBlock) (int status);
+
 @end

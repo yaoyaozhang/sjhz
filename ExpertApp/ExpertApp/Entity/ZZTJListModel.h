@@ -11,8 +11,10 @@
 
 @interface ZZTJListModel : ZZBaseModel
 
-@property(nonatomic,strong) NSString *className;
-@property(nonatomic,assign) int sid;
-@property(nonatomic,strong) NSMutableArray *wenzhang;
+@property(nonatomic,strong) ZZUserInfo *user;
+
+
+
+@property(nonatomic,strong) NSMutableArray *news;
 
 @end

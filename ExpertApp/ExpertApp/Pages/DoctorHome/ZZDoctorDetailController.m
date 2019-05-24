@@ -11,15 +11,23 @@
 #import "UIView+Border.h"
 #import "UIView+Extension.h"
 #import "MJRefresh.h"
+#import "ZZAcountController.h"
 
-#import "ZZChapterUserCell.h"
-#define cellIdentifier @"ZZChapterUserCell"
+//#import "ZZChapterUserCell.h"
+//#define cellIdentifier @"ZZChapterUserCell"
+
+#import "ZZVoiceTools.h"
+#import "ZZKnowledgeItemTextCell.h"
+#define cellIdentifier @"ZZKnowledgeItemTextCell"
+#import "ExpertApp-Swift.h"
+
 
 #import "ZZDoctorHeaderCell.h"
 #define cellIdentifierHeader @"ZZDoctorHeaderCell"
 
 #import "ZZQSListCell.h"
 #define cellIdentifierQS @"ZZQSListCell"
+
 
 
 #import "ZZCommentController.h"
@@ -33,12 +41,14 @@
 #import "ZZQSModel.h"
 #import "ASQController.h"
 
-@interface ZZDoctorDetailController (){
+@interface ZZDoctorDetailController ()<ZZKnowledgeItemsCellDelegate>{
     ZZUserInfo *loginUser;
     int isLook;
     
     BOOL showDesc;
     BOOL showWenjuan;
+    
+    ZZChapterModel *playModel;
 }
 @property(nonatomic,strong)UITableView      *listTable;
 @property(nonatomic,strong)NSMutableArray   *listArray;
@@ -90,6 +100,7 @@
         }];
         [self openWithPresent:vc animated:YES];
     }else if(sender.tag == 222){
+        
         if(isLook == 0){
             [self.view makeToast:@"互相关注后才可以咨询！"];
             return;
@@ -99,11 +110,39 @@
             return;
         }
         
-        // 咨询
-        ZZChoosePatientController *chooseVC = [[ZZChoosePatientController alloc] init];
-        chooseVC.doctorId = convertIntToString(_model.docInfo.userId);
-        chooseVC.doctInfo = _model.docInfo;
-        [self openNav:chooseVC sound:nil];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:@"1" forKey:@"type"];
+        [dict setObject:convertIntToString(loginUser.userId) forKey:@"userId"];
+        [dict setObject:convertIntToString(_docId) forKey:@"souId"];
+        
+        [ZZRequsetInterface post:API_getSourceByUserId param:dict timeOut:HttpGetTimeOut start:^{
+            [SVProgressHUD show];
+        } finish:^(id response, NSData *data) {
+            [SVProgressHUD dismiss];
+            NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            if(dict && dict[@"retData"]){
+                // 已支付
+                if([dict[@"retData"][@"can"] intValue] == 1){
+                    // 咨询
+                    ZZChoosePatientController *chooseVC = [[ZZChoosePatientController alloc] init];
+                    chooseVC.doctorId = convertIntToString(_docId);
+                    chooseVC.doctInfo = _model.docInfo;
+                    [self openNav:chooseVC sound:nil];
+                }else{
+                    ZZAcountController *vc = [[ZZAcountController alloc] init];
+                    vc.type = ZZAcountDoctor;
+                    vc.objModel = _model.docInfo;
+                    vc.otherId = convertIntToString(_docId);
+                    vc.item = dict[@"retData"];
+                    [self openNav:vc sound:nil];
+                }
+            }
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            
+        } progress:^(CGFloat progress) {
+            
+        }];
         
     }else if(sender.tag == 333){
         // 所有文章
@@ -130,6 +169,9 @@
     
     _listTable=[self.view createTableView:self cell:cellIdentifier];
     [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight-NavBarHeight-48)];
+    if(ZC_iPhoneX){
+        [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight-NavBarHeight-48-38)];
+    }
     [_listTable registerNib:[UINib nibWithNibName:cellIdentifierHeader bundle:nil] forCellReuseIdentifier:cellIdentifierHeader];
     [_listTable registerNib:[UINib nibWithNibName:cellIdentifierQS bundle:nil] forCellReuseIdentifier:cellIdentifierQS];
     
@@ -154,7 +196,7 @@
     _colloctBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_colloctBtn setImage:[UIImage imageNamed:@"doctor_follow"] forState:UIControlStateNormal];
     [_colloctBtn setTitle:@"关注" forState:UIControlStateNormal];
-    [_colloctBtn setFrame:CGRectMake(0, ScreenHeight-40, 105, 40)];
+    [_colloctBtn setFrame:CGRectMake(0, ScreenHeight-40-(ZC_iPhoneX?34:0), 105, 40)];
     [_colloctBtn setBackgroundColor:UIColorFromRGB(TextWhiteColor)];
     [_colloctBtn setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
     [_colloctBtn.titleLabel setFont:ListDetailFont];
@@ -165,7 +207,7 @@
     
     UIButton *otherBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [otherBtn setTitle:@"立即咨询" forState:UIControlStateNormal];
-    [otherBtn setFrame:CGRectMake(105, ScreenHeight-40, ScreenWidth-105, 40)];
+    [otherBtn setFrame:CGRectMake(105, ScreenHeight-40-(ZC_iPhoneX?34:0), ScreenWidth-105, 40)];
     [otherBtn setBackgroundColor:UIColorFromRGB(BgTitleColor)];
     [otherBtn setTitleColor:UIColorFromRGB(TextWhiteColor) forState:UIControlStateNormal];
     [otherBtn.titleLabel setFont:ListDetailFont];
@@ -261,7 +303,7 @@
     }else if(section == 3){// 文章
         return 50;
     }else{
-        return 10;
+        return 1;
     }
 }
 
@@ -402,56 +444,66 @@
     
     
     ZZChapterModel *newsModel = _listArray[indexPath.section-4];
-    ZZChapterUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.chapterModel = newsModel;
     
-    [cell setOnItemClickBlock:^(ZZChapterCellClickTag tag){
-        if(tag == ZZChapterCellClickTagSend){
-            // 分享
-            ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeChapter vc:self];
-            shareView.shareModel = newsModel;
-            [shareView show];
-        }
-        if(tag == ZZChapterCellClickTagCollect){
-            // 收藏
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-            if(newsModel.collect){
-                [dict setObject:convertToString(@"0") forKey:@"collectiontType"];
-            }else{
-                [dict setObject:convertToString(@"1") forKey:@"collectiontType"];
-            }
-            [dict setObject:convertIntToString(newsModel.nid) forKey:@"nid"];
-            [dict setObject:convertIntToString([[ZZDataCache getInstance] getLoginUser].userId) forKey:@"uid"];
-            [ZZRequsetInterface post:API_CollectChapter param:dict timeOut:HttpGetTimeOut start:^{
-                
-            } finish:^(id response, NSData *data) {
-                
-            } complete:^(NSDictionary *dict) {
-                if(newsModel.collect){
-                    [self.view makeToast:@"取消收藏成功!"];
-                }else{
-                    [self.view makeToast:@"收藏成功!"];
-                }
-                
-                newsModel.collect = !newsModel.collect;
-                
-                [self.listTable reloadData];
-                
-            } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-                [self.view makeToast:errorMsg];
-            } progress:^(CGFloat progress) {
-                
-            }];
-        }
-        if(tag == ZZChapterCellClickTagComment){
-            // 评论
-            ZZCommentController *vc = [[ZZCommentController alloc] init];
-            vc.nid = newsModel.nid;
-            vc.model = newsModel;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        
-    }];
+    ZZKnowledgeItemTextCell *cell = (ZZKnowledgeItemTextCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[ZZKnowledgeItemTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    cell.delegate = self;
+    [cell dataToView:newsModel];
+    
+    return cell;
+    
+//    ZZChapterUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+//    cell.chapterModel = newsModel;
+//
+//    [cell setOnItemClickBlock:^(ZZChapterCellClickTag tag){
+//        if(tag == ZZChapterCellClickTagSend){
+//            // 分享
+//            ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeChapter vc:self];
+//            shareView.shareModel = newsModel;
+//            [shareView show];
+//        }
+//        if(tag == ZZChapterCellClickTagCollect){
+//            // 收藏
+//            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+//            if(newsModel.collect){
+//                [dict setObject:convertToString(@"0") forKey:@"collectiontType"];
+//            }else{
+//                [dict setObject:convertToString(@"1") forKey:@"collectiontType"];
+//            }
+//            [dict setObject:convertIntToString(newsModel.nid) forKey:@"nid"];
+//            [dict setObject:convertIntToString([[ZZDataCache getInstance] getLoginUser].userId) forKey:@"uid"];
+//            [ZZRequsetInterface post:API_CollectChapter param:dict timeOut:HttpGetTimeOut start:^{
+//
+//            } finish:^(id response, NSData *data) {
+//
+//            } complete:^(NSDictionary *dict) {
+//                if(newsModel.collect){
+//                    [self.view makeToast:@"取消收藏成功!"];
+//                }else{
+//                    [self.view makeToast:@"收藏成功!"];
+//                }
+//
+//                newsModel.collect = !newsModel.collect;
+//
+//                [self.listTable reloadData];
+//
+//            } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+//                [self.view makeToast:errorMsg];
+//            } progress:^(CGFloat progress) {
+//
+//            }];
+//        }
+//        if(tag == ZZChapterCellClickTagComment){
+//            // 评论
+//            ZZCommentController *vc = [[ZZCommentController alloc] init];
+//            vc.nid = newsModel.nid;
+//            vc.model = newsModel;
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+//
+//    }];
    
     
     
@@ -481,7 +533,10 @@
     if(indexPath.section == 2){
         return 44.0f;
     }
-    return 120.0f;
+//    return 120.0f;
+    UITableViewCell * cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    return CGRectGetHeight(cell.frame);
 }
 
 // table 行的点击事件
@@ -497,11 +552,14 @@
     }
     
     if(indexPath.section >= 4){
-        ZZChapterModel *newsModel = [_listArray objectAtIndex:indexPath.section-4];
+        ZZChapterModel *item = [_listArray objectAtIndex:indexPath.section-4];
+        [self chapterOnClick:item index:indexPath.row from:1];
         
-        ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
-        NewsDetailC.model = newsModel;
-        [self.navigationController pushViewController:NewsDetailC animated:YES];
+//        ZZChapterModel *newsModel = [_listArray objectAtIndex:indexPath.section-4];
+//        
+//        ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
+//        NewsDetailC.model = newsModel;
+//        [self.navigationController pushViewController:NewsDetailC animated:YES];
     }
     
 }
@@ -581,6 +639,64 @@
     UIImageView *linev = [[UIImageView alloc] initWithFrame:CGRectMake(0, y, ScreenWidth, .75f)];
     [linev setBackgroundColor:UIColorFromRGB(BgLineColor)];
     [v addSubview:linev];
+}
+
+
+-(void)onItemClick:(id)model type:(int)type obj:(NSMutableArray *)arr{
+    if(type == 3){
+        ZZChapterDetailController *vc = [[ZZChapterDetailController alloc] init];
+        vc.model = model;
+        [self openNav:vc sound:nil];
+    }
+}
+
+
+
+
+-(void)chapterOnClick:(ZZChapterModel *) itemModel index:(NSInteger) index from:(int) from{
+    // 播放、暂停
+    if(itemModel.lclassify == 1 || itemModel.lclassify == 0){
+        ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
+        NewsDetailC.model = itemModel;
+        [self.navigationController pushViewController:NewsDetailC animated:YES];
+    }
+    
+    if(itemModel.lclassify == 2){
+        ZZVoiceTools *tools = [ZZVoiceTools shareVoiceTools];
+        tools.model = itemModel;
+        tools.viewController = self;
+        
+        if(playModel!=nil && playModel.isPlaying){
+            playModel.isPlaying = NO;
+            playModel = nil;
+            
+            [tools stopPlayer];
+            [_listTable reloadData];
+            
+        }
+        playModel = itemModel;
+        playModel.isPlaying = YES;
+        
+        tools.list = _listArray;
+        
+        
+        tools.curIndex = (int)index;
+        [tools show:1];
+        [tools setOnDissmisBlock:^{
+            if(playModel!=nil && playModel.isPlaying){
+                playModel.isPlaying = NO;
+                playModel = nil;
+                [_listTable reloadData];
+            }
+        }];
+        [_listTable reloadData];
+    }
+    
+    if(itemModel.lclassify == 3){
+        ZZVideoController *vc = [[ZZVideoController alloc] init];
+        vc.model = itemModel;
+        [self openNav:vc sound:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

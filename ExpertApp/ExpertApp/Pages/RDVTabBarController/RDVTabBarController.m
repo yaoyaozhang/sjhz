@@ -54,6 +54,8 @@
     }
     
     
+    
+    [self.view setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     [self.view addSubview:[self contentView]];
     [self.view addSubview:[self tabBar]];
 }
@@ -190,7 +192,11 @@
 
 - (UIView *)contentView {
     if (!_contentView) {
-        _contentView = [[UIView alloc] init];
+        CGFloat bottomHeight = ScreenHeight-TabBarHeight;
+        if (ZC_iPhoneX) {
+            bottomHeight = ScreenHeight - TabBarHeight - 34;
+        }
+        _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, bottomHeight)];
         [_contentView setBackgroundColor:[UIColor whiteColor]];
         [_contentView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth|
                                            UIViewAutoresizingFlexibleHeight)];
@@ -213,7 +219,7 @@
             tabBarHeight = 49;
         }
         
-        if (!weakSelf.tabBarHidden) {
+        if (!hidden) {
             tabBarStartingY = viewSize.height - tabBarHeight;
             if (![[weakSelf tabBar] isTranslucent]) {
                 contentViewHeight -= ([[weakSelf tabBar] minimumContentHeight] ?: tabBarHeight);
@@ -221,12 +227,17 @@
             [[weakSelf tabBar] setHidden:NO];
         }
         
+        if (ZC_iPhoneX) {
+            tabBarStartingY = tabBarStartingY - 34;
+            contentViewHeight = contentViewHeight - 34;
+        }
+        
         [[weakSelf tabBar] setFrame:CGRectMake(0, tabBarStartingY, viewSize.width, tabBarHeight)];
         [[weakSelf contentView] setFrame:CGRectMake(0, 0, viewSize.width, contentViewHeight)];
     };
     
     void (^completion)(BOOL) = ^(BOOL finished){
-        if (weakSelf.tabBarHidden) {
+        if (hidden) {
             [[weakSelf tabBar] setHidden:YES];
         }
     };
@@ -238,7 +249,6 @@
         completion(YES);
     }
 }
-
 - (void)setTabBarHidden:(BOOL)hidden {
     [self setTabBarHidden:hidden animated:NO];
 }

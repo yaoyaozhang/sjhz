@@ -34,8 +34,21 @@
     
     [_btnControl.titleLabel setFont:ListDetailFont];
     [_btnControl setBackgroundColor:[UIColor clearColor]];
+    [_btnControl setTitleColor:UIColorFromRGB(BgTitleColor) forState:0];
     [_btnControl addTarget:self action:@selector(itemOnClick:) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    [_btnAccept.titleLabel setFont:ListDetailFont];
+    [_btnAccept setTitle:@"接受" forState:UIControlStateNormal];
+    [_btnAccept setBackgroundColor:[UIColor whiteColor]];
+    [_btnAccept setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    _btnAccept.layer.borderColor = UIColorFromRGB(BgTitleColor).CGColor;
+    _btnAccept.layer.borderWidth = 1.0f;
+    _btnAccept.layer.cornerRadius = 4.0f;
+    _btnAccept.layer.masksToBounds = YES;
+    [_btnAccept setTitleColor:UIColorFromRGB(BgTitleColor) forState:0];
+    [_btnAccept.titleLabel setFrame:_btnControl.bounds];
+    [_btnAccept addTarget:self action:@selector(itemOnClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)itemOnClick:(UIButton *) sender{
@@ -46,19 +59,80 @@
     }
 }
 
+-(void)btnLeave:(UIButton *) btn{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"给他留言" preferredStyle:UIAlertControllerStyleAlert];
+    
+    //增加取消按钮；
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        }]];
+        //增加确定按钮；
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
+        //do something
+        UITextField *envirnmentNameTextField = alertController.textFields.firstObject;
+        if(convertToString(envirnmentNameTextField.text).length == 0){
+            return;
+        }
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:3];
+        
+        [dict setObject:convertIntToString([ZZDataCache getInstance].getLoginUser.userId) forKey:@"forUserId"];
+        if(_tempModel.userId != [ZZDataCache getInstance].getLoginUser.userId){
+            [dict setObject:convertIntToString(_tempModel.userId) forKey:@"toUserId"];
+        }else{
+            if(_tempModel.fromUserid > 0 && _tempModel.fromUserid != [ZZDataCache getInstance].getLoginUser.userId ){
+                [dict setObject:convertIntToString(_tempModel.fromUserid) forKey:@"toUserId"];
+            }else if(_tempModel.toUserId > 0 && _tempModel.toUserId != [ZZDataCache getInstance].getLoginUser.userId){
+                [dict setObject:convertIntToString(_tempModel.toUserId) forKey:@"toUserId"];
+            }else{
+                [dict setObject:convertIntToString(_tempModel.userId) forKey:@"toUserId"];
+            }
+        }
+        [dict setObject:envirnmentNameTextField.text forKey:@"context"];
+        [ZZRequsetInterface post:API_sendFollowMsg param:dict timeOut:HttpGetTimeOut start:^{
+            
+        } finish:^(id response, NSData *data) {
+            NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        } complete:^(NSDictionary *dict) {
+            ZZFollowMessageModel *mm = [ZZFollowMessageModel new];
+            mm.frUserId = convertIntToString(_tempModel.fromUserid);
+            mm.toUserId = convertIntToString(_tempModel.toUserId);
+            mm.context = envirnmentNameTextField.text;
+            mm.userName = [ZZDataCache getInstance].getLoginUser.name;
+            [_tempModel.tempLeaves addObject:mm];
+            
+            if(self.delegate && [self.delegate respondsToSelector:@selector(onDoctorCellClick:model:)]){
+                [self.delegate onChangedMessage:ZZUserFriendCellTypeChanged model:_tempModel];
+            }
+        } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+            
+        } progress:^(CGFloat progress) {
+            
+        }];
+        
+    }]];
+    
+    //定义第一个输入框；
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"对方还不认识你，介绍一下吧";
+//        textField.delegate = self;
+    }];
+    
+    [(UIViewController *)self.delegate presentViewController:alertController animated:true completion:nil];
+}
+
 -(void)dataToView:(ZZUserInfo *)model{
    
-    
+    _btnAccept.hidden = YES;
+    _btnControl.hidden = YES;
     
     if(model){
         _tempModel = model;
         ZZUserInfo *userInfo = [ZZDataCache getInstance].getLoginUser;
         
-        _btnControl.hidden = NO;
         int status = model.state;
         CGRect bf = _btnControl.frame;
         if(status == 1){
-            if(model.fromUserId == userInfo.userId){
+            if(model.fromUserid == userInfo.userId){
                 _btnControl.layer.borderColor = [UIColor clearColor].CGColor;
                 [_btnControl setTitle:@"已关注" forState:UIControlStateNormal];
                 [_btnControl setImage:[UIImage imageNamed:@"mydoctor_havefollow"] forState:UIControlStateNormal];
@@ -66,19 +140,9 @@
                 bf.size.height = 50.0f;
                 bf.origin.y = (90-50)/2;
                 [_btnControl setFrame:bf];
+                _btnControl.hidden = NO;
             }else{
-                [_btnControl setTitle:@"接受" forState:UIControlStateNormal];
-                [_btnControl setImage:nil forState:UIControlStateNormal];
-                [_btnControl setImage:nil forState:UIControlStateSelected];
-                [_btnControl setBackgroundColor:[UIColor whiteColor]];
-                [_btnControl setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-                _btnControl.layer.borderColor = UIColorFromRGB(BgTitleColor).CGColor;
-                _btnControl.layer.borderWidth = 1.0f;
-                _btnControl.layer.cornerRadius = 4.0f;
-                _btnControl.layer.masksToBounds = YES;
-                bf.size.height = 26.0f;
-                bf.origin.y = (90-26)/2;
-                [_btnControl setFrame:bf];
+                _btnAccept.hidden = NO;
             }
         }
         if(status == 2){
@@ -89,7 +153,16 @@
             bf.size.height = 50.0f;
             bf.origin.y = (90-50)/2;
             [_btnControl setFrame:bf];
+            _btnControl.hidden = NO;
+            
+            _viewChat.hidden = YES;
+        }else{
+            _viewChat.hidden = NO;
+            
+            [self createChatViews];
         }
+        
+        
         
         _tempModel = model;
         
@@ -109,7 +182,51 @@
         
         [_imgAvatar sd_setImageWithURL:[NSURL URLWithString:convertToString(model.imageUrl)]];
         
+        if(_viewChat.hidden){
+            self.frame = CGRectMake(0, 0, ScreenHeight, CGRectGetMaxY(_imgAvatar.frame) + 10);
+        }else{
+            self.frame = CGRectMake(0, 0, ScreenHeight, CGRectGetMaxY(_viewChat.frame) + 10);
+        }
+        
     }
+}
+
+
+-(void)createChatViews{
+    [_viewChat.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    _viewChat.layer.cornerRadius = 5.0;
+    _viewChat.layer.masksToBounds = YES;
+    [_viewChat setBackgroundColor:UIColorFromRGB(BgSystemColor)];
+    _viewChat.userInteractionEnabled = true;
+    CGFloat y = 10.0;
+    for (int i= 0; i<_tempModel.tempLeaves.count; i++) {
+        ZZFollowMessageModel *mm = _tempModel.tempLeaves[i];
+        NSString *text = [NSString stringWithFormat:@"%@:%@",mm.userName,mm.context];
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(10, y, ScreenWidth - 50, 0)];
+        lab.numberOfLines = 0;
+        [lab setFont:ListDetailFont];
+        [lab setTextColor:UIColorFromRGB(TextLightDarkColor)];
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:text];
+        [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,_tempModel.userName.length + 1)];
+        lab.attributedText = str;
+        [self autoHeightWidthOfLabel:lab with:ScreenWidth - 50];
+        
+        y = CGRectGetMaxY(lab.frame) + 5;
+        [_viewChat addSubview:lab];
+    }
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setFrame:CGRectMake(ScreenWidth - 40 - 55, y, 50, 24)];
+    [btn setTitle:@"回复" forState:0];
+    [btn setTitleColor:UIColorFromRGB(TextWhiteColor) forState:0];
+    [btn setBackgroundColor:UIColorFromRGB(BgTitleColor)];
+    btn.layer.cornerRadius = 4.0;
+    btn.titleLabel.font = ListDetailFont;
+    btn.layer.masksToBounds = true;
+    [btn addTarget:self action:@selector(btnLeave:) forControlEvents:UIControlEventTouchUpInside];
+    [_viewChat addSubview:btn];
+    
+    [_viewChat setFrame:CGRectMake(15, CGRectGetMaxY(_imgAvatar.frame)+10, ScreenWidth - 30, y + 35)];
 }
 
 
@@ -130,6 +247,22 @@
     //adjust the label the the new height.
     CGRect newFrame = label.frame;
     newFrame.size.width = expectedLabelSize.width;
+    label.frame = newFrame;
+    [label updateConstraintsIfNeeded];
+    
+    return expectedLabelSize;
+}
+
+- (CGSize )autoHeightWidthOfLabel:(UILabel *)label with:(CGFloat )width{
+    //Calculate the expected size based on the font and linebreak mode of your label
+    // FLT_MAX here simply means no constraint in height
+    CGSize maximumLabelSize = CGSizeMake(width,FLT_MAX);
+    
+    CGSize expectedLabelSize = [label sizeThatFits:maximumLabelSize];
+    
+    //adjust the label the the new height.
+    CGRect newFrame = label.frame;
+    newFrame.size.height = expectedLabelSize.height;
     label.frame = newFrame;
     [label updateConstraintsIfNeeded];
     

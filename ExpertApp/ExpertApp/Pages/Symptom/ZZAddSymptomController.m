@@ -43,6 +43,10 @@
     [self createTitleMenu];
     [self.menuTitleButton setTitle:@"常见症状" forState:0];
     
+    self.menuRightButton.hidden = NO;
+    [self.menuRightButton setTitle:@"跳过" forState:0];
+    
+    
     symptomTitle = @"点击下面的症状马上为你检查疾病";
     bsSymptomTitle = @"是否还有其他不适伴随症状";
     
@@ -62,7 +66,7 @@
     
     _listTable=[self.view createTableView:self cell:nil];
     [_listTable registerClass:[ZZSymptomCell class] forCellReuseIdentifier:cellIdentifier];
-    [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight-NavBarHeight - 40)];
+    [_listTable setFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight-NavBarHeight - 40 - (ZC_iPhoneX?34:0))];
     [_listTable setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     
     if (iOS7) {
@@ -83,8 +87,25 @@
     [btn setTitle:@"下一步" forState:0];
     [btn setBackgroundColor:UIColorFromRGB(BgTitleColor)];
     [btn addTarget:self action:@selector(addClick:) forControlEvents:UIControlEventTouchUpInside];
-    [btn setFrame:CGRectMake(0,ScreenHeight - 40, ScreenWidth, 40)];
+    [btn setFrame:CGRectMake(0,ScreenHeight - 40 - (ZC_iPhoneX?34:0), ScreenWidth, 40)];
     [self.view addSubview:btn];
+}
+
+-(void)buttonClick:(UIButton *)sender{
+    [super buttonClick:sender];
+    
+    if(sender.tag == RIGHT_BUTTON){
+        AddSymptomDescController *desc = [[AddSymptomDescController alloc] init];
+        desc.model = [ZZSymptomModel new];
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:convertIntToString(_patient.patientId) forKey:@"patientId"];
+        [dict setObject:@(_docId) forKey:@"docId"];
+        
+        desc.preParams = dict;
+        [desc setZZCreateResultBlock:_ZZCreateResultBlock];
+        [self openNav:desc sound:nil];
+    }
 }
 
 

@@ -15,9 +15,13 @@
 #import "ZZShareView.h"
 #import "ExpertApp-Swift.h"
 
+#import "ZZKnowledgeItemTextCell.h"
+#define cellIndentifer @"ZZKnowledgeItemTextCell"
 
-@interface ZZChapterTVC (){
+
+@interface ZZChapterTVC ()<ZZKnowledgeItemsCellDelegate>{
     int pageNum;
+    ZZChapterModel *playModel;
 }
 
 @property (nonatomic, strong) NSMutableArray *dataList;
@@ -45,6 +49,8 @@
     [self.tableView setSeparatorColor:UIColorFromRGB(BgLineColor)];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
+    // 注册
+    [self.tableView registerNib:[UINib nibWithNibName:cellIndentifer bundle:nil] forCellReuseIdentifier:cellIndentifer];
     if(iOS7){
         [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     }
@@ -124,15 +130,15 @@
                 [_dataList addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
             }
         }else{
-            if(dict[@"retData"][@"pic"]){
-                NSMutableArray *arr = [[NSMutableArray alloc] init];
-                for (NSDictionary *item in dict[@"retData"][@"pic"]) {
-                    [arr addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
-                }
-                ZZChapterModel *topModel = [ZZChapterModel new];
-                topModel.pics = arr;
-                [_dataList addObject:topModel];
-            }
+//            if(dict[@"retData"][@"pic"]){
+//                NSMutableArray *arr = [[NSMutableArray alloc] init];
+//                for (NSDictionary *item in dict[@"retData"][@"pic"]) {
+//                    [arr addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
+//                }
+//                ZZChapterModel *topModel = [ZZChapterModel new];
+//                topModel.pics = arr;
+//                [_dataList addObject:topModel];
+//            }
             for (NSDictionary *item in dict[@"retData"][@"news"]) {
                 [_dataList addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
             }
@@ -172,18 +178,30 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZZChapterModel *newsModel = self.dataList[indexPath.section];
-    ZZChapterCell *cell = [tableView dequeueReusableCellWithIdentifier:[ZZChapterCell cellReuseID:newsModel] forIndexPath:indexPath];
-    cell.chapterModel = newsModel;
-    [self setupCycleImageClickWithCell:cell newsModel:newsModel];
+    ZZKnowledgeItemTextCell *cell = (ZZKnowledgeItemTextCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifer];
+    if (cell == nil) {
+        cell = [[ZZKnowledgeItemTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifer];
+    }
+    cell.delegate = self;
+    [cell dataToView:newsModel];
+    
     return cell;
+    
+//    ZZChapterCell *cell = [tableView dequeueReusableCellWithIdentifier:[ZZChapterCell cellReuseID:newsModel] forIndexPath:indexPath];
+//    cell.chapterModel = newsModel;
+//    [self setupCycleImageClickWithCell:cell newsModel:newsModel];
+//    return cell;
 }
 
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ZZChapterModel *newsModel = self.dataList[indexPath.section];
-
-    return [ZZChapterCell cellForHeight:newsModel];
+//    ZZChapterModel *newsModel = self.dataList[indexPath.section];
+//
+//    return [ZZChapterCell cellForHeight:newsModel];
+    UITableViewCell * cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    return CGRectGetHeight(cell.frame);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -194,27 +212,23 @@
     // 记录是否已读
     // [[DDNewsCache sharedInstance] addObject:cell.titleLabel.text];
     
-    ZZChapterCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.titleLabel.textColor = [UIColor lightGrayColor];
+//    ZZKnowledgeItemTextCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    cell.titleLabel.textColor = [UIColor lightGrayColor];
     
     if(indexPath.section== _dataList.count-1){
         [self setTableSeparatorInset];
     }
     
     
-    ZZChapterModel *newsModel = cell.chapterModel;
+    ZZChapterModel *newsModel = self.dataList[indexPath.section];
 
+    [self chapterOnClick:newsModel cur:indexPath.section];
     
 //   ZZVoiceController *NewsDetailC = [[ZZVoiceController alloc] init];
-    ZZVideoController *NewsDetailC = [[ZZVideoController alloc] init];
+//    ZZVideoController *NewsDetailC = [[ZZVideoController alloc] init];
     
 //    ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
 //    NewsDetailC.model = newsModel;
-    if(self.preVC){
-        [((UIViewController *)self.preVC).navigationController pushViewController:NewsDetailC animated:YES];
-    }else{
-        [self.navigationController pushViewController:NewsDetailC animated:YES];
-    }
     
     
     
@@ -300,6 +314,74 @@
 
 -(void)viewDidLayoutSubviews{
     [self setTableSeparatorInset];
+}
+
+
+
+-(void)onItemClick:(id)model type:(int)type obj:(NSMutableArray *)arr{
+    if(type == 3){
+        ZZChapterDetailController *vc = [[ZZChapterDetailController alloc] init];
+        vc.model = model;
+        if(self.preVC){
+            [((UIViewController *)self.preVC).navigationController pushViewController:vc animated:YES];
+        }else{
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+}
+
+
+
+-(void)chapterOnClick:(ZZChapterModel *) itemModel cur:(NSUInteger )index{
+    // 播放、暂停
+    if(itemModel.lclassify == 1 || itemModel.lclassify == 0){
+        ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
+        NewsDetailC.model = itemModel;
+        if(self.preVC){
+            [((UIViewController *)self.preVC).navigationController pushViewController:NewsDetailC animated:YES];
+        }else{
+            [self.navigationController pushViewController:NewsDetailC animated:YES];
+        }
+    }
+    
+    if(itemModel.lclassify == 2){
+        ZZVoiceTools *tools = [ZZVoiceTools shareVoiceTools];
+        tools.model = itemModel;
+        tools.viewController = self;
+        tools.curIndex = (int)index;
+        tools.list = _dataList;
+        
+        if(playModel!=nil && playModel.isPlaying){
+            playModel.isPlaying = NO;
+            playModel = nil;
+            
+            [tools stopPlayer];
+            [self.tableView reloadData];
+        }
+        
+        playModel = itemModel;
+        playModel.isPlaying = YES;
+        [tools show:1];
+        [tools setOnDissmisBlock:^{
+            if(playModel!=nil && playModel.isPlaying){
+                playModel.isPlaying = NO;
+                playModel = nil;
+                [self.tableView reloadData];
+            }
+        }];
+        
+        [self.tableView reloadData];
+    }
+    
+    if(itemModel.lclassify == 3){
+        ZZVideoController *vc = [[ZZVideoController alloc] init];
+        vc.model = itemModel;
+        if(self.preVC){
+            [((UIViewController *)self.preVC).navigationController pushViewController:vc animated:YES];
+        }else{
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
 }
 
 /**

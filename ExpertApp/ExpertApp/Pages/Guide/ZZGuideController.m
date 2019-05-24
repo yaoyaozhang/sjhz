@@ -23,14 +23,12 @@
 
 
 #pragma mark - 设置自定义视图
-- (void)loadView{
-    self.guideView = [[ZZGuideView alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    self.view = _guideView;
-    
-}
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithWhite:0.5f alpha:0.5f];
+    
+    self.guideView = [[ZZGuideView alloc]initWithFrame:self.view.bounds];
+    [self.view addSubview:self.guideView];
     // 设置scrollerView的代理
     _guideView.scrollView.delegate = self;
     
@@ -52,7 +50,7 @@
     [_guideView.scrollView setContentOffset:offSetPoint animated:YES];
     
     // 判断并且决定是否显示进入按钮
-    if(index == 2){
+    if(index == 1){
         _guideView.enterButton.hidden = NO;
         
     }else{
@@ -85,7 +83,7 @@
     // 停止滑动后修改“点”的位置
     _guideView.pageControl.currentPage = index;
     // 判断是否显示“进入按钮“
-    if(index == 2){
+    if(index == 1){
         _guideView.enterButton.hidden = NO;
     }else{
         _guideView.enterButton.hidden = YES;

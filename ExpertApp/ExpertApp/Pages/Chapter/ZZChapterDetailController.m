@@ -18,7 +18,9 @@
 #import "ZZPayHandler.h"
 #import "ZZRewardController.h"
 
-@interface ZZChapterDetailController ()<UIWebViewDelegate>
+@interface ZZChapterDetailController ()<UIWebViewDelegate>{
+    BOOL isBack;
+}
 
 @property(nonatomic,strong) UIWebView *webView;
 //@property(nonatomic,strong) UIWebView *tmpWebview;
@@ -53,8 +55,9 @@
 
 -(void) viewDidDisappear:(BOOL)animated
 {
+    isBack = YES;
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
-    
+    [SVProgressHUD dismiss];
 }
 
 -(void)buttonClick:(UIButton *)sender{
@@ -147,7 +150,9 @@
 }
 //开始加载网页
 - (void)webViewDidStartLoad:(UIWebView *)webView{
-    [SVProgressHUD show];
+    if(!isBack){
+        [SVProgressHUD show];
+    }
     //显示网络请求加载
     [UIApplication sharedApplication].networkActivityIndicatorVisible = true;
 }

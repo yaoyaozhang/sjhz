@@ -9,10 +9,14 @@
 #import "BaseController.h"
 
 typedef void(^ZZResultSearchBlcok)(NSString *link);
+typedef void(^ZZOpenVCBlock)(UIViewController *vc);
 
 @interface ZZKnowledgeSearchResultController : BaseController
 
+@property(nonatomic,assign) int searchType;
+
 @property(nonatomic,copy) ZZResultSearchBlcok block;
+@property(nonatomic,copy) ZZOpenVCBlock openBlock;
 
 -(void)loadResult:(NSString *) text;
 

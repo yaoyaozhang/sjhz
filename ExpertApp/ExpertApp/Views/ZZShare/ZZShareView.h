@@ -13,6 +13,9 @@ typedef NS_ENUM(NSInteger,ZZShareType) {
     ZZShareTypeHZResult = 3,
     ZZShareTypeLiangBiao = 4,// 
     ZZShareTypeWenJuan = 5,
+    ZZShareTypeKnowledgeDetail = 6, // 精品课
+    ZZShareTypeKnowledgeList = 7, // 精品课
+    ZZShareTypeUserImage = 8, // 精品课
 };
 
 

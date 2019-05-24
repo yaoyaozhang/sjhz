@@ -21,6 +21,7 @@
 #import "ZZNickController.h"
 #import "ZZPerfectInfoController.h"
 #import "ZZDoctorArchivesController.h"
+#import "ZZShareSelfController.h"
 
 
 
@@ -89,12 +90,14 @@
     
     _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"头像"},
                    @{@"code":@"2",@"icon":@"",@"text":@"昵称"},
-                   @{@"code":@"3",@"icon":@"",@"text":@"手机号绑定"}];
+                   @{@"code":@"3",@"icon":@"",@"text":@"手机号绑定"},
+                   @{@"code":@"7",@"icon":@"",@"text":[NSString stringWithFormat:@"我的邀请码[%@]",_loginUser.invtCode]}];
     if(_loginUser.isDoctor){
         _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"头像"},
                        @{@"code":@"4",@"icon":@"",@"text":@"基本资料"},
                        @{@"code":@"5",@"icon":@"",@"text":@"擅长"},
-                       @{@"code":@"6",@"icon":@"",@"text":@"背景资料"}];
+                       @{@"code":@"6",@"icon":@"",@"text":@"背景资料"},
+                       @{@"code":@"7",@"icon":@"",@"text":[NSString stringWithFormat:@"我的邀请码[%@]",_loginUser.invtCode]}];
     }
     
     [_listTable reloadData];
@@ -225,6 +228,11 @@
     if(code == 6){
         ZZDoctorArchivesController *vc = [[ZZDoctorArchivesController alloc] init];
         [self openNav:vc sound:nil];
+    }
+    if(code == 7){
+        ZZShareSelfController *vc = [[ZZShareSelfController alloc] init];
+//        [self openNav:vc sound:nil];
+        [self openWithPresent:vc animated:YES];
     }
     
 }

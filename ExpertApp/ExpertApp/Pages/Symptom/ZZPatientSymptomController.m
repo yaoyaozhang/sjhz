@@ -196,6 +196,9 @@
         }
     }else{
         NSString *textDesc = [NSString stringWithFormat:@"%@ 伴随 %@",convertToString(detailModel.symptom.sname),convertToString(detailModel.symptom.bssym)];
+        if(textDesc.length<5){
+            textDesc = @"无";
+        }
         [_listArray addObject:@{@"code":@"20",
                                 @"dictName":@"disease",
                                 @"dictDesc":@"患者症状",

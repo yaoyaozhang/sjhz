@@ -11,16 +11,24 @@
 
 #define cellIndentiferRich @"ZZKnowledgeRichCell"
 #define cellIndentifer @"ZZKnowledgeItemsCell"
+#define cellIndentiferItems @"ZZKnowledgeItemTextCell"
 
 #import "ZZKnowledgeRichCell.h"
 #import "ZZKnowledgeItemsCell.h"
+#import "ZZKnowledgeItemTextCell.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "ZZChapterDetailController.h"
+#import "ExpertApp-Swift.h"
+#import "ZZKnowledgeDetailController.h"
 
-@interface ZZKnowledgeSearchResultController ()<UITableViewDelegate,UITableViewDataSource>{
+@interface ZZKnowledgeSearchResultController ()<UITableViewDelegate,UITableViewDataSource,ZZKnowledgeItemsCellDelegate>{
     
     
     int page;
+    ZZChapterModel *playModel;
+    
+    ZZVoiceView *zzvoiceView;
 }
 
 
@@ -51,6 +59,8 @@
     // 注册
     [_listTable registerNib:[UINib nibWithNibName:cellIndentifer bundle:nil] forCellReuseIdentifier:cellIndentifer];
     [_listTable registerNib:[UINib nibWithNibName:cellIndentiferRich bundle:nil] forCellReuseIdentifier:cellIndentiferRich];
+    [_listTable registerNib:[UINib nibWithNibName:cellIndentiferItems bundle:nil] forCellReuseIdentifier:cellIndentiferItems];
+    
     _listArray  = [[NSMutableArray alloc] init];
     [self setTableSeparatorInset];
 }
@@ -65,36 +75,37 @@
 
 -(void)loadResult:(NSString *)text{
     //调取接口
-    //刷新数据
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:convertToString(text) forKey:@"title"];
-    [dict setObject:@"24" forKey:@"pageSize"];
-    [dict setObject:convertIntToString(page) forKey:@"pageNum"];
-    [ZZRequsetInterface post:API_searchWikit param:dict timeOut:HttpGetTimeOut start:^{
-        [SVProgressHUD show];
+    [dict setObject:convertToString(text) forKey:@"search"];
+    [dict setObject:convertIntToString(_searchType) forKey:@"type"];
+    
+    [ZZRequsetInterface post:API_getKnowledgeSearch param:dict timeOut:HttpGetTimeOut start:^{
+        
     } finish:^(id response, NSData *data) {
         NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        [SVProgressHUD dismiss];
-        //            NSDictionary *dict= [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-        //            NSArray *arr = [dict objectForKey:@"lemmaList"];
-        //            [_listArray addObjectsFromArray:arr];
-        //            [_collectionView reloadData];
-    } complete:^(NSDictionary *dict) {
-        NSArray *arr = dict[@"retData"];
         
+        if(_listTable.footer && [_listTable.footer respondsToSelector:@selector(endRefreshing)]){
+            [_listTable.footer endRefreshing];
+        }
+    } complete:^(NSDictionary *dict) {
         if(page == 1){
             [_listArray removeAllObjects];
         }
-        
+        NSArray *arr = dict[@"retData"];
         for (NSDictionary *item in arr) {
-//            [_listArray addObject:[[LemmaModel alloc] initWithMyDict:item]];
+            if(_searchType == 2){
+                [_listArray addObject:[[ZZKnowledgeTopicModel alloc] initWithMyDict:item]];
+            }else if(_searchType == 3){
+                [_listArray addObject:[[ZZTJListModel alloc] initWithMyDict:item]];
+            }else{
+                [_listArray addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
+            }
         }
-        [_listTable reloadData];
-        if(arr.count >= 24){
-            page = page  + 1;
-        }
-    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
         
+        
+        [_listTable reloadData];
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        [_listTable reloadData];
     } progress:^(CGFloat progress) {
         
     }];
@@ -150,27 +161,48 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section==0){
+    if(_searchType == 1){
+        ZZKnowledgeItemTextCell *cell = (ZZKnowledgeItemTextCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentiferItems];
+        if (cell == nil) {
+            cell = [[ZZKnowledgeItemTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentiferItems];
+        }
+        cell.delegate = self;
+        [cell dataToView:[_listArray objectAtIndex:indexPath.row]];
         
+        return cell;
+    }else if(_searchType == 3){
         ZZKnowledgeItemsCell *cell = (ZZKnowledgeItemsCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifer];
         if (cell == nil) {
             cell = [[ZZKnowledgeItemsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifer];
         }
-        return cell;
-    }
-    else{
+        cell.delegate = self;
+        [cell dataToItem:[_listArray objectAtIndex:indexPath.row]];
         
+        return cell;
+    }else{
         ZZKnowledgeRichCell *cell = (ZZKnowledgeRichCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentiferRich];
         if (cell == nil) {
             cell = [[ZZKnowledgeRichCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentiferRich];
         }
+        [cell dataToItem:[_listArray objectAtIndex:indexPath.row]];
         return cell;
     }
-    
-    
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if(_searchType == 1){
+        [self chapterOnClick:[_listArray objectAtIndex:indexPath.row] playArr:_listArray from:1];
+    }
+    
+    if(_searchType == 2){
+        ZZKnowledgeTopicModel *itemModel = [_listArray objectAtIndex:indexPath.row];
+        
+        
+        ZZKnowledgeDetailController *vc = [[ZZKnowledgeDetailController alloc] init];
+        vc.model = itemModel;
+        [self openNav:vc sound:nil];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -179,6 +211,90 @@
     return CGRectGetHeight(cell.frame);
 }
 
+
+
+
+-(void)onItemClick:(id)model type:(int)type obj:(NSMutableArray *)arr{
+    if(type == 1){
+        ZZChapterModel *itemModel = (ZZChapterModel *)model;
+        // 播放、暂停
+        
+        [self chapterOnClick:itemModel playArr:arr from:1];
+    }
+    
+    if(type == 2){
+        ZZKnowledgeDetailController *vc = [[ZZKnowledgeDetailController alloc] init];
+        vc.model = (ZZKnowledgeTopicModel *)model;
+        [self openNav:vc sound:nil];
+    }
+    if(type == 3){
+        ZZChapterDetailController *vc = [[ZZChapterDetailController alloc] init];
+        vc.model = model;
+        [self openNav:vc sound:nil];
+    }
+}
+
+
+-(void)openNav:(UIViewController *)controller sound:(NSString *)soundName{
+    if(_openBlock){
+        _openBlock(controller);
+    }
+}
+
+-(void)chapterOnClick:(ZZChapterModel *) itemModel playArr:(NSMutableArray *) arr from:(int) from{
+    // 播放、暂停
+    if(itemModel.lclassify == 1 || itemModel.lclassify == 0){
+        ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
+        NewsDetailC.model = itemModel;
+        [self.navigationController pushViewController:NewsDetailC animated:YES];
+    }
+    
+    if(itemModel.lclassify == 2){
+        ZZVoiceTools *tools = [ZZVoiceTools shareVoiceTools];
+        tools.model = itemModel;
+        tools.viewController = self;
+        
+        if(playModel!=nil && playModel.isPlaying){
+            playModel.isPlaying = NO;
+            playModel = nil;
+            
+            [tools stopPlayer];
+            [_listTable reloadData];
+        }
+        playModel = itemModel;
+        playModel.isPlaying = YES;
+        
+        
+        if(arr && arr.count>0){
+            for (int i = 0; i<arr.count; i++) {
+                ZZChapterModel *tm = [arr objectAtIndex:i];
+                if(itemModel.nid == tm.nid){
+                    
+                    tools.curIndex = i;
+                }
+            }
+            tools.list = arr;
+        }else{
+            tools.curIndex = 0;
+        }
+        [tools show:1];
+        [tools setOnDissmisBlock:^{
+            if(playModel!=nil && playModel.isPlaying){
+                playModel.isPlaying = NO;
+                playModel = nil;
+                [_listTable reloadData];
+            }
+        }];
+        
+        [_listTable reloadData];
+    }
+    
+    if(itemModel.lclassify == 3){
+        ZZVideoController *vc = [[ZZVideoController alloc] init];
+        vc.model = itemModel;
+        [self openNav:vc sound:nil];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

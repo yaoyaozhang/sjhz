@@ -29,7 +29,7 @@
 
 - (void)verticalImageAndTitle:(CGFloat)spacing
 {
-    self.titleLabel.backgroundColor = [UIColor greenColor];
+    self.titleLabel.backgroundColor = [UIColor clearColor];
     CGSize imageSize = self.imageView.frame.size;
     CGSize titleSize = self.titleLabel.frame.size;
     CGSize textSize = [self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, titleSize.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.titleLabel.font} context:nil].size;

@@ -13,15 +13,16 @@
 -(id)initWithMyDict:(NSDictionary *)dict{
     self= [super initWithMyDict:dict];
     if(self){
-        _sid = [convertToString(dict[@"sid"]) intValue];
-        _className = convertToString(dict[@"className"]);
+        _user = [[ZZUserInfo alloc] initWithMyDict:dict];
         
-        _wenzhang  = [[NSMutableArray alloc] init];
+        _news  = [[NSMutableArray alloc] init];
         
-        NSArray *arr = dict[@"wenzhang"];
+        NSArray *arr = dict[@"news"];
         if(arr!=nil && arr.count>0){
             for (NSDictionary *item in arr ) {
-                [_wenzhang addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
+                ZZChapterModel *model = [[ZZChapterModel alloc] initWithMyDict:item];
+                [_news addObject:model];
+                
             }
         }
     }

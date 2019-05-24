@@ -10,4 +10,8 @@
 
 @interface ZZKnowledgeHomeController : BaseController
 
+@property(nonatomic,strong)UIViewController *preVC;
+
+- (void)beginNetRefreshData;
+
 @end

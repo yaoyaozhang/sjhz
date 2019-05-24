@@ -41,11 +41,21 @@
 // 是否是医生
 @property(nonatomic,assign) int isDoctor;
 
+// 用户个人积分
+@property(nonatomic,assign) int score;
+
+// 我的邀请码
+@property(nonatomic,strong) NSString *invtCode;
+
+
+
+
 
 // 0无关系，1 fromUserId=自己?已关注:对方关注我 2 互相关注
 @property(nonatomic,assign) int state;
 // 当state=1时，发起关注方
-@property(nonatomic,assign) int fromUserId;
+@property(nonatomic,assign) int fromUserid;
+@property(nonatomic,assign) int toUserId;
 
 @property(nonatomic,strong) NSString *context;
 @property(nonatomic,strong) NSString *lableName;
@@ -86,6 +96,15 @@
 @property(nonatomic,assign) int     orderNumber;//": 问诊量
 @property(nonatomic,assign) int     articleNum;//: 文章量
 @property(nonatomic,assign) int     fansNumber;//: 粉丝数
+
+// 自定义名称
+@property(nonatomic,strong) NSString *signName;
+// 封面
+@property(nonatomic,strong) NSString *signUrl;
+
+
+// 加好友时的，留言数据
+@property(nonatomic,strong) NSMutableArray *tempLeaves;
 
 
 

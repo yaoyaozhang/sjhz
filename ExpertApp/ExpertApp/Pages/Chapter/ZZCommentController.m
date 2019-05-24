@@ -51,6 +51,14 @@
     }];
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    if(_ZZResultBlock){
+        _ZZResultBlock(0);
+    }
+}
+
 
 -(void)createTableView{
     _listArray = [[NSMutableArray alloc] init];

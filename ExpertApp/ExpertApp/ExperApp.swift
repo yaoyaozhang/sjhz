@@ -19,7 +19,7 @@ public let kSCREEN_WIDTH:CGFloat  = UIScreen.main.bounds.size.width
 /* 屏幕的高 */
 public let kSCREEN_HEIGHT:CGFloat  = UIScreen.main.bounds.size.height
 
-public let ZC_iPhoneX = ((kSCREEN_WIDTH == 375.0 && kSCREEN_HEIGHT == 812.0) ? true : false)
+public let ZC_iPhoneX = ((kSCREEN_WIDTH == 375.0 && kSCREEN_HEIGHT == 812.0) || (kSCREEN_WIDTH == 414.0 && kSCREEN_HEIGHT == 896.0 ) ? true : false)
 
 public let NavBarHeight:CGFloat = (ZC_iPhoneX ? 88.0 : 64.0)
 
@@ -89,6 +89,8 @@ let TextListColor:Int64         =   0x8B98AD
 let TextPlaceHolderColor:Int64  =   0xBDC3D1
 let TextUnPlaceHolderColor:Int64 =   0x3D4966
 
+let API_getKnowledgeDetail:String = getApiHost()+"/news/appOneNews"
+let API_CollectChapter:String = getApiHost() + "/comment/opertionCollection"
 
 func UIColorFromRGB(rgbValue:Int64) -> UIColor {
     return UIColor.init(red:CGFloat(((CGFloat)((rgbValue & 0xFF0000) >> 16))/255.0), green: ((CGFloat)((rgbValue & 0xFF00) >> 8))/255.0, blue: ((CGFloat)(rgbValue & 0xFF))/255.0, alpha: 1.0)
@@ -108,9 +110,9 @@ func getLabHeigh(label:UILabel,width:CGFloat) -> CGFloat {
     
     let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
     
-    let dic = NSDictionary(object: label.font, forKey: NSFontAttributeName as NSCopying)
+    let dic = NSDictionary(object: label.font, forKey: NSAttributedStringKey.font as NSCopying)
     
-    let strSize = label.text?.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as? [String : AnyObject], context: nil).size
+    let strSize = label.text?.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as! [NSAttributedStringKey : Any], context: nil).size
     
     return strSize!.height
 }
@@ -120,9 +122,13 @@ func getLabHeigh(label:UILabel,width:CGFloat) -> CGFloat {
 func getLabWidth(label:UILabel,height:CGFloat) -> CGFloat {
     let size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: height)
     
-    let dic = NSDictionary(object:  label.font, forKey: NSFontAttributeName as NSCopying)
+    let dic = NSDictionary(object:  label.font, forKey: NSAttributedStringKey.font as NSCopying)
     
-    let strSize =  label.text?.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as? [String : AnyObject], context: nil).size
+    let strSize =  label.text?.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as? [NSAttributedStringKey : AnyObject], context: nil).size
     
     return strSize!.width
+}
+
+func getApiHost()->String{
+    return "http://www.sanjiahuizhen.com"
 }

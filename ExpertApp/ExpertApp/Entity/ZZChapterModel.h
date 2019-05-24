@@ -36,8 +36,7 @@
 @property(nonatomic,strong) NSString *updateUser;
 
 
-@property(nonatomic,strong) NSString *videoUrl;
-@property(nonatomic,strong) NSString *audioUrl;
+@property(nonatomic,strong) NSString *addressUrl;
 
 
 
@@ -72,6 +71,10 @@
 
 
 @property(nonatomic,assign) BOOL isPlaying;
+
+
+
+-(id) createChapterModel:(NSDictionary *) dict;
 
 
 

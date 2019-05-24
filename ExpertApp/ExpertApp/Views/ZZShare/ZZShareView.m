@@ -12,6 +12,7 @@
 
 #import "ZZUserHomeModel.h"
 #import "ZZChapterModel.h"
+#import "ZZKnowledgeTopicModel.h"
 #import "ZZHZEngity.h"
 #import "ZZQSModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -35,7 +36,11 @@
     self = [super initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight)];
     if (self)
     {
+//        JumpToBizProfileReq *req = [JumpToBizProfileReq new];req.username = @"gh_xxxxxxx"; // 原始ID
+//        req.profileType = WXBizProfileType_Normal;//这里还可以选择硬件公众号req.extMsg = @"";
+//        //选择硬件公众号，这里加入绑定设备的链接[WXApi sendReq:req];
         _type = type;
+        
         _curVC = vc;
         self.backgroundColor = [UIColor clearColor];
         
@@ -104,6 +109,7 @@
     
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
     NSString *action = @"";
     if(_type == ZZShareTypeUser){
         ZZUserInfo *userModel = (ZZUserInfo *)_shareModel;
@@ -121,8 +127,30 @@
         messageObject.title = convertToString(userModel.departmentName);
         
         
+        UIImage *thumbImage = [UIImage imageNamed:@"Icon120"];
+        UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+        shareObject.title = [NSString stringWithFormat:@"%@-%@",convertToString(userModel.docName),convertToString(userModel.departmentName)];
+        shareObject.descr = convertToString(userModel.context);
+//        shareObject.shareImage = convertToString(userModel.imageUrl);
+        UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:userModel.imageUrl];
+        if (cachedImage == nil) {
+            shareObject.thumbImage = thumbImage;
+            shareObject.shareImage = thumbImage;
+        }else {
+            
+            CGSize newsize = CGSizeMake(100, 100);
+            UIGraphicsBeginImageContext(newsize);
+            [cachedImage drawInRect:CGRectMake(0, 0, 100, 100)];
+            UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            [shareObject setThumbImage:[UIImage imageWithData:UIImagePNGRepresentation(newImage)]];
+            
+            shareObject.shareImage = [UIImage imageWithData:UIImagePNGRepresentation(newImage)];
+        }
+        
         // 必须为视频
-//        messageObject.shareObject = shareObject;
+        messageObject.shareObject = shareObject;
     }else if(_type == ZZShareTypeChapter){
         ZZChapterModel *model = (ZZChapterModel *)_shareModel;
 //        shareObject = [UMShareObject shareObjectWithTitle:model.author descr:model.title thumImage:model.picture];
@@ -133,7 +161,71 @@
         
         action = [NSString stringWithFormat:@"sjhz://news?id=%d",model.nid];
         
-//        messageObject.shareObject = shareObject1;
+        UIImage *thumbImage = [UIImage imageNamed:@"Icon120"];
+        //        shareObject.shareImage = convertToString(userModel.imageUrl);
+        UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:model.picture];
+        if (cachedImage != nil) {
+            CGSize newsize = CGSizeMake(100, 100);
+            UIGraphicsBeginImageContext(newsize);
+            [cachedImage drawInRect:CGRectMake(0, 0, 100, 100)];
+            UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            thumbImage = [UIImage imageWithData:UIImagePNGRepresentation(newImage)];
+        }
+        
+        
+        // 文章、音频、视频 1,2，3
+        if(model.lclassify == 1){
+            UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+            shareObject.title = convertToString(model.title);
+            shareObject.descr = convertToString(model.content);
+            
+            shareObject.thumbImage = thumbImage;
+            shareObject.shareImage = thumbImage;
+            messageObject.shareObject = shareObject;
+        }else if(model.lclassify == 2){
+            UMShareMusicObject *shareObject = [UMShareMusicObject shareObjectWithTitle:convertToString(model.title) descr:convertToString(model.content) thumImage:thumbImage];
+            shareObject.musicUrl = model.addressUrl;
+            messageObject.shareObject = shareObject;
+            
+        }else{
+            UMShareVideoObject *shareObject = [UMShareVideoObject shareObjectWithTitle:convertToString(model.title) descr:convertToString(model.content) thumImage:thumbImage];
+            shareObject.videoUrl = model.addressUrl;
+            messageObject.shareObject = shareObject;
+        }
+        
+    }else if(_type == ZZShareTypeKnowledgeDetail){
+        ZZKnowledgeTopicModel *model = (ZZKnowledgeTopicModel *)_shareModel;
+        //        shareObject = [UMShareObject shareObjectWithTitle:model.author descr:model.title thumImage:model.picture];
+        //        shareObject.thumbImage = @"http://www.w3school.com.cn/example/html5/mov_bbb.mp4";
+        
+        messageObject.text = convertToString(model.introduce).length > 100 ? [convertToString(model.introduce) substringToIndex:99]: convertToString(model.introduce);
+        messageObject.title =  convertToString(model.className);
+        
+        action = [NSString stringWithFormat:@"sjhz://knowledge?id=%d",model.sid];
+        
+        UIImage *thumbImage = [UIImage imageNamed:@"Icon120"];
+        //        shareObject.shareImage = convertToString(userModel.imageUrl);
+        UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:model.classUrl];
+        if (cachedImage != nil) {
+            CGSize newsize = CGSizeMake(100, 100);
+            UIGraphicsBeginImageContext(newsize);
+            [cachedImage drawInRect:CGRectMake(0, 0, 100, 100)];
+            UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            thumbImage = [UIImage imageWithData:UIImagePNGRepresentation(newImage)];
+        }
+        
+        UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+        shareObject.title = convertToString(messageObject.title);
+        shareObject.descr = convertToString(messageObject.text);
+        
+        shareObject.thumbImage = thumbImage;
+        shareObject.shareImage = thumbImage;
+        messageObject.shareObject = shareObject;
+        
     }else if(_type == ZZShareTypeHZResult){
         ZZHZEngity *model = (ZZHZEngity *)_shareModel;
 //        shareObject = [UMShareObject shareObjectWithTitle:model.caseName descr:model.caseResult thumImage:nil];
@@ -156,6 +248,33 @@
         }else{
             action = [NSString stringWithFormat:@"sjhz://wenjuan?wjId=%d&type=%d",model.wenjuanId,model.type];
         }
+    }else if(_type == ZZShareTypeKnowledgeList){
+//        ZZQSListModel *model = (ZZQSListModel *)_shareModel;
+        //        shareObject = [UMShareObject shareObjectWithTitle:model.caseName descr:model.caseResult thumImage:nil];
+        
+        messageObject.text = @"";
+        
+        messageObject.title =[NSString stringWithFormat:@"%@-%@",[ZZCoreTools getAppName],@"精品课"];
+        
+        UIImage *thumbImage = [UIImage imageNamed:@"Icon120"];
+        UMShareWebpageObject *webOjb = [UMShareWebpageObject shareObjectWithTitle:messageObject.title descr:@"" thumImage:thumbImage];
+        webOjb.webpageUrl = @"http://www.sanjiahuizhen.com/news/zhuanti/allCourse.html";
+        action = [NSString stringWithFormat:@"sjhz://jpklist?type=2"];
+       
+                  
+        messageObject.shareObject = webOjb;
+    }else if(_type == ZZShareTypeUserImage){
+        messageObject.text = @"";
+        
+        messageObject.title =[NSString stringWithFormat:@"%@-%@",[ZZCoreTools getAppName],[ZZDataCache getInstance].getLoginUser.userName];
+        
+        UIImage *thumbImage = [UIImage imageNamed:@"Icon120"];
+        UMShareImageObject *webOjb = [UMShareImageObject shareObjectWithTitle:messageObject.title descr:@"" thumImage:thumbImage];
+        webOjb.shareImage = _shareModel;
+        action = @"";
+        
+        
+        messageObject.shareObject = webOjb;
     }
     
     
@@ -219,8 +338,8 @@
     static NSString *kAppMessageAction = @"<action>sjhz</action>";
     WXAppExtendObject *ext = [WXAppExtendObject object];
     ext.extInfo = @"<xml>extend info</xml>";
-    ext.url = [NSString stringWithFormat:@"http://47.94.131.85:8080/home.html?1=1"];
-    ext.fileData = [@"三甲会诊" dataUsingEncoding:NSUTF8StringEncoding];
+    ext.url = [NSString stringWithFormat:@"http://www.sanjiahuizhen.com/home.html?1=1"];
+    ext.fileData = [@"三甲慧诊" dataUsingEncoding:NSUTF8StringEncoding];
     
     //分享网页给好友
     WXMediaMessage *message = [WXMediaMessage message];
@@ -240,22 +359,54 @@
 //        [message setThumbImage:thumbImage];
         UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:userModel.imageUrl];
         
-        if (cachedImage == nil) {
-            [message setThumbImage:thumbImage];
-        }else {
-            
+        if (cachedImage != nil) {
             CGSize newsize = CGSizeMake(100, 100);
             UIGraphicsBeginImageContext(newsize);
             [cachedImage drawInRect:CGRectMake(0, 0, 100, 100)];
             UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
             
-            [message setThumbImage:[UIImage imageWithData:UIImagePNGRepresentation(newImage)]];
-//            [message setThumbData:[ZZImageTools compressionImageToData:cachedImage targetWH:100 maxFileSize:30]];
+            thumbImage = [UIImage imageWithData:UIImagePNGRepresentation(newImage)];
         }
-        
+        [message setThumbImage:thumbImage];
         ext.url = API_getShareDoctorDetail(userModel.userId, [ZZDataCache getInstance].getLoginUser.userId);
         
+        
+    }else if(_type == ZZShareTypeKnowledgeDetail){
+        ZZKnowledgeTopicModel *model = (ZZKnowledgeTopicModel *)_shareModel;
+        //        shareObject = [UMShareObject shareObjectWithTitle:model.author descr:model.title thumImage:model.picture];
+        //        shareObject.thumbImage = @"http://www.w3school.com.cn/example/html5/mov_bbb.mp4";
+        
+        message.description = convertToString(model.introduce).length > 100 ? [convertToString(model.introduce) substringToIndex:100]: convertToString(model.introduce);
+        message.title =  convertToString(model.className);
+        
+        
+        message.messageExt =  [NSString stringWithFormat:@"sjhz://knowledge?id=%d",model.sid];
+        message.messageAction = kAppMessageAction;
+        message.mediaTagName = nil;
+        
+        
+        UIImage *thumbImage = [UIImage imageNamed:@"Icon120"];
+        //        shareObject.shareImage = convertToString(userModel.imageUrl);
+        UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:model.classUrl];
+        if (cachedImage != nil) {
+            CGSize newsize = CGSizeMake(100, 100);
+            UIGraphicsBeginImageContext(newsize);
+            [cachedImage drawInRect:CGRectMake(0, 0, 100, 100)];
+            UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            thumbImage = [UIImage imageWithData:UIImagePNGRepresentation(newImage)];
+        }
+        
+        [message setThumbImage:thumbImage];
+        
+        ext.url = API_getKnowledgeDetailH5(model.sid);
+        
+        
+        WXWebpageObject *page = [WXWebpageObject object];
+        page.webpageUrl = ext.url;
+        message.mediaObject = page;
     }else if(_type == ZZShareTypeChapter){
         ZZChapterModel *model = (ZZChapterModel *)_shareModel;
         
@@ -267,18 +418,32 @@
 //        [message setThumbImage:thumbImage];
         
         UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:model.picture];
-        if (cachedImage == nil) {
-            [message setThumbImage:thumbImage];
-        }else {
-            
+        
+        if (cachedImage != nil) {
             CGSize newsize = CGSizeMake(100, 100);
             UIGraphicsBeginImageContext(newsize);
             [cachedImage drawInRect:CGRectMake(0, 0, 100, 100)];
             UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
             
-            [message setThumbImage:[UIImage imageWithData:UIImagePNGRepresentation(newImage)]];
-            //            [message setThumbData:[ZZImageTools compressionImageToData:cachedImage targetWH:100 maxFileSize:30]];
+            thumbImage = [UIImage imageWithData:UIImagePNGRepresentation(newImage)];
+        }
+        [message setThumbImage:thumbImage];
+        
+        
+        // 文章、音频、视频 1,2，3
+        if(model.lclassify == 1){
+            WXImageObject *shareObject = [WXImageObject object];
+            shareObject.imageData =  UIImagePNGRepresentation(thumbImage);
+            message.mediaObject = shareObject;
+        }else if(model.lclassify == 2){
+            WXMusicObject *shareObject = [WXMusicObject object];
+            shareObject.musicUrl =  model.addressUrl;
+            message.mediaObject = shareObject;
+        }else{
+            WXVideoObject *shareObject = [WXVideoObject object];
+            shareObject.videoUrl = model.addressUrl;
+            message.mediaObject = shareObject;
         }
         
         ext.url = API_getChapterDetail(model.nid);
@@ -305,6 +470,33 @@
         message.mediaTagName = nil;
         [message setThumbImage:thumbImage];
         //        messageObject.shareObject = shareObject;
+    }else if(_type == ZZShareTypeKnowledgeList){
+        //        shareObject = [UMShareObject shareObjectWithTitle:model.caseName descr:model.caseResult thumImage:nil];
+       
+        message.messageExt = [NSString stringWithFormat:@"sjhz://jpklist?type=2"];
+        
+        message.title = [NSString stringWithFormat:@"%@-%@",[ZZCoreTools getAppName],@"精品课"];
+        message.description = @"";
+        message.messageAction = kAppMessageAction;
+        
+        WXWebpageObject *webOjb = [WXWebpageObject object];
+        webOjb.webpageUrl = @"http://www.sanjiahuizhen.com/news/zhuanti/allCourse.html";
+        
+        ext.url = webOjb.webpageUrl;
+        
+        message.mediaObject = webOjb;
+    }else if(_type == ZZShareTypeUserImage){
+//        message.messageExt = [NSString stringWithFormat:@"sjhz://jpklist?type=2"];
+//        message.messageExt = @"";
+//        message.title = [NSString stringWithFormat:@"%@-%@",[ZZCoreTools getAppName],[ZZDataCache getInstance].getLoginUser.userName];
+//        message.description = @"";
+        message.messageAction = kAppMessageAction;
+        
+        WXImageObject *webOjb = [WXImageObject object];
+        webOjb.imageData = UIImageJPEGRepresentation(_shareModel,1);
+        
+        
+        message.mediaObject = webOjb;
     }
     
 //    朋友圈   from=timeline&isappinstalled=0
@@ -316,11 +508,11 @@
 //        ext.url = [ext.url stringByAppendingString:@"&from=singlemessage&isappinstalled=0"];
 //    }
     
-    if(_type == ZZShareTypeChapter || _type == ZZShareTypeUser){
+    if(_type == ZZShareTypeChapter || _type == ZZShareTypeUser || _type == ZZShareTypeKnowledgeList || _type == ZZShareTypeKnowledgeDetail){
         WXWebpageObject *obj = [WXWebpageObject object];
         obj.webpageUrl = ext.url;
         message.mediaObject = obj;
-    }else{
+    }else if(_type != ZZShareTypeUserImage){
         ext.extInfo = message.messageExt;
         message.mediaObject = ext;
     }

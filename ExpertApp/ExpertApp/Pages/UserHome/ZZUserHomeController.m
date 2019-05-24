@@ -187,7 +187,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
 
 
 -(void) cretateScrollView{
-    _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, NavBarHeight, ScreenWidth, self.view.frame.size.height - NavBarHeight - 50)];
+    _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, NavBarHeight, ScreenWidth, self.view.frame.size.height - NavBarHeight - 50 - (ZC_iPhoneX?34:0))];
     [_mainScrollView setBackgroundColor:UIColorFromRGB(BgSystemColor)];
     [self.view addSubview:_mainScrollView];
     
@@ -215,15 +215,16 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth, ZZHomeTopHeight) delegate:nil placeholderImage:[UIImage imageNamed:@"placeholder_big"]];
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView.currentPageDotColor = [UIColor whiteColor];
-    cycleScrollView.titlesGroup = ({
-        NSMutableArray *titleArrayM = [NSMutableArray array];
-        for (int i = 0; i < _headerArr.count; i++) {
-            NSDictionary *item = _headerArr[i];
-            [titleArrayM addObject:item[@"title"]];
-        }
-        
-        titleArrayM;
-    });
+    cycleScrollView.titleLabelBackgroundColor = [UIColor clearColor];
+//    cycleScrollView.titlesGroup = ({
+//        NSMutableArray *titleArrayM = [NSMutableArray array];
+//        for (int i = 0; i < _headerArr.count; i++) {
+//            NSDictionary *item = _headerArr[i];
+//            [titleArrayM addObject:item[@"title"]];
+//        }
+//
+//        titleArrayM;
+//    });
     
     cycleScrollView.imageURLStringsGroup = ({
         NSMutableArray *urlArrayM = [NSMutableArray array];
@@ -332,14 +333,18 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     _headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
     [_headerLabel setBackgroundColor:[UIColor clearColor]];
     [_headerLabel setFont:ListTitleFont];
-    [_headerLabel setText:@"名医入驻"];
+//    [_headerLabel setText:@"名医入驻"];
+    [_headerLabel setText:@"AI医生"];
     [_headerLabel setTextAlignment:NSTextAlignmentCenter];
     [_headerLabel setTextColor:UIColorFromRGB(TextBlackColor)];
     [titleView addSubview:_headerLabel];
     
     UIButton *btnButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [btnButton setImage:[UIImage imageNamed:@"btn_more"] forState:UIControlStateNormal];
+//    [btnButton setImage:[UIImage imageNamed:@"btn_more"] forState:UIControlStateNormal];
+    [btnButton setTitle:@"更多" forState:0];
+    [btnButton.titleLabel setFont:ListDetailFont];
+    [btnButton setTitleColor:UIColorFromRGB(BgTitleColor) forState:0];
     [btnButton setFrame:CGRectMake(ScreenWidth - 50, 0, 50, 50)];
     [btnButton setContentMode:UIViewContentModeCenter];
     [btnButton setBackgroundColor:[UIColor clearColor]];
@@ -349,10 +354,12 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     
     y = y+50;
     CGRect frameRect	= CGRectMake(0, y, ScreenWidth, 125.0f);
-    self.horizontalView = [[EasyTableView alloc] initWithFrame:frameRect ofWidth:331.0f];
+//    self.horizontalView = [[EasyTableView alloc] initWithFrame:frameRect ofWidth:331.0f];
+    self.horizontalView = [[EasyTableView alloc] initWithFrame:frameRect ofWidth:ScreenWidth];
     self.horizontalView.delegate					= self;
     self.horizontalView.tableView.backgroundColor	= [UIColor clearColor];
     self.horizontalView.tableView.allowsSelection	= YES;
+    self.horizontalView.tableView.bounces = NO;
     self.horizontalView.tableView.separatorColor	= [UIColor clearColor];
     self.horizontalView.autoresizingMask			= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [self.horizontalView.tableView registerNib:[UINib nibWithNibName:cellIdentifier bundle:nil] forCellReuseIdentifier:cellIdentifier];
@@ -360,7 +367,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
 }
 
 -(NSInteger)easyTableView:(EasyTableView *)easyTableView numberOfRowsInSection:(NSInteger)section{
-    return _docArr.count;
+    return _docArr.count>0?1:0;
 }
 
 -(UITableViewCell *)easyTableView:(EasyTableView *)easyTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

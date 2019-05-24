@@ -16,7 +16,9 @@ class ZZVoiceController: BaseController{
         
         
         self.view.addSubview(voiceView)
-        voiceView.showViewAllFull(CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT))
+        voiceView.allFrame = CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT)
+        voiceView.simpleFrame = CGRect(x: 0, y: kSCREEN_HEIGHT - 50, width: kSCREEN_WIDTH, height: 50)
+        voiceView.showViewAllFull()
         
         self.createTitleMenu()
         self.titleMenu.backgroundColor=UIColor.clear

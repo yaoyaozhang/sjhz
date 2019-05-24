@@ -13,17 +13,26 @@
 
 #define cellIndentiferRich @"ZZKnowledgeRichCell"
 #define cellIndentifer @"ZZKnowledgeItemsCell"
+#define cellIndentiferItems @"ZZKnowledgeItemTextCell"
 
 #import "ZZKnowledgeRichCell.h"
 #import "ZZKnowledgeItemsCell.h"
+#import "ZZKnowledgeItemTextCell.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "ZZChapterDetailController.h"
+#import "ExpertApp-Swift.h"
+#import "ZZKnowledgeDetailController.h"
+#import "ZZKnowledgeUserController.h"
 
-@interface ZZKnowledgeSearchController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchResultsUpdating>{
+
+@interface ZZKnowledgeSearchController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchResultsUpdating,ZZKnowledgeItemsCellDelegate>{
     UISearchController * _searchVC;//搜索视图
     ZZKnowledgeSearchResultController * _searchTableView;//搜索结果的表格视图
     
     int page;
+    ZZChapterModel *playModel;
+    ZZVoiceView *zzvoiceView;
 }
 
 
@@ -39,7 +48,7 @@
     _listTable = [[UITableView alloc]initWithFrame:CGRectMake(0, NavBarHeight + 64, ScreenWidth, ScreenHeight -NavBarHeight-64) style:UITableViewStylePlain];
     _listTable.dataSource = self;
     _listTable.delegate = self;
-    [_listTable setBackgroundColor:[UIColor redColor]];
+    [_listTable setBackgroundColor:[UIColor clearColor]];
     [_listTable setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [_listTable setSeparatorColor:UIColorFromRGB(BgLineColor)];
     [_listTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -54,6 +63,7 @@
     // 注册
     [_listTable registerNib:[UINib nibWithNibName:cellIndentifer bundle:nil] forCellReuseIdentifier:cellIndentifer];
     [_listTable registerNib:[UINib nibWithNibName:cellIndentiferRich bundle:nil] forCellReuseIdentifier:cellIndentiferRich];
+    [_listTable registerNib:[UINib nibWithNibName:cellIndentiferItems bundle:nil] forCellReuseIdentifier:cellIndentiferItems];
     _listArray  = [[NSMutableArray alloc] init];
     [self setTableSeparatorInset];
     
@@ -61,7 +71,6 @@
     MJRefreshBackNormalFooter *footer=[MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(endNetRefreshData)];
     footer.stateLabel.hidden=YES;
     _listTable.footer=footer;
-    
     
     
 }
@@ -93,7 +102,10 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:UIColorFromRGB(BgTitleColor)] forBarMetrics:UIBarMetricsDefault];
     
     [self createLeftBarItemSelect:@selector(goBack:) norImageName:nil highImageName:nil];
-    //
+    
+    if(_searchType == 2){
+        [self createRightBarItemSelect:@selector(shareButton:) norImageName:@"nav_share" highImageName:@"nav_share"];
+    }
     //     [UITabBar appearance].translucent = NO;
     //      [[UITabBar appearance] setBackgroundColor:UIColor.redColor];
 }
@@ -137,6 +149,43 @@
     
 }
 
+- (void)createRightBarItemSelect:(SEL)select norImageName:(NSString *)imageName highImageName:(NSString *)heightImageName{
+    //12 * 19
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn.titleLabel setFont:ListTitleFont];
+    [btn addTarget:self action:select forControlEvents:UIControlEventTouchUpInside];
+    btn.frame = CGRectMake(0, 0, 44,44) ;
+    if (imageName) {
+        [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    }else{
+        btn.frame = CGRectMake(0, 0, 44, 44);
+        [btn setImage:[UIImage imageNamed:@"nav_share"] forState:UIControlStateNormal];
+    }
+    if (heightImageName) {
+        [btn setImage:[UIImage imageNamed:heightImageName] forState:UIControlStateHighlighted];
+    }else{
+        [btn setImage:[UIImage imageNamed:@"nav_share"] forState:UIControlStateHighlighted];
+    }
+    
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitleColor:UIColorFromRGBAlpha(TextWhiteColor, 0.7) forState:UIControlStateHighlighted];
+    [btn setTitleColor:UIColorFromRGBAlpha(TextWhiteColor, 0.7) forState:UIControlStateDisabled];
+    [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    
+    //    self.navigationItem.leftBarButtonItem = item;
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]   initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace   target:nil action:nil];
+    
+    /**
+     width为负数时，相当于btn向右移动width数值个像素，由于按钮本身和  边界间距为5pix，所以width设为-5时，间距正好调整为0；width为正数 时，正好相反，相当于往左移动width数值个像素
+     */
+//    negativeSpacer.width = 5;
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:negativeSpacer, item, nil];
+    
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
@@ -157,6 +206,14 @@
     
     [self setNavigationBarStyle];
     self.title = @"热点搜索";
+    if(_searchType == 1){
+        self.title = @"推荐";
+    }
+    if(_searchType == 2){
+        self.title = @"精品课";
+    }
+    
+    
     
     _listArray = [[NSMutableArray alloc] init];
     page = 1;
@@ -168,6 +225,19 @@
     }else{
         [self beginNetRefreshData];
     }
+    
+    
+    
+    zzvoiceView = [[ZZVoiceView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 50, ScreenWidth, 50)];
+    zzvoiceView.hidden = YES;
+    [self.view addSubview:zzvoiceView];
+}
+
+-(void)shareButton:(UIButton *)btn{
+    // 分享
+    ZZShareView *shareView = [[ZZShareView alloc] initWithShareType:ZZShareTypeKnowledgeList vc:self];
+    shareView.shareModel = @"http://www.sanjiahuizhen.com/news/zhuanti/allCourse.html";
+    [shareView show];
 }
 
 #pragma mark 搜索视图
@@ -177,6 +247,7 @@
     _searchTableView = [[ZZKnowledgeSearchResultController alloc] init];
     //创建搜索界面
     _searchVC = [[UISearchController alloc]initWithSearchResultsController:_searchTableView];
+    _searchTableView.searchType = _searchType;
     //    _searchVC.delegate=self;
     //把表格视图控制器跟搜索界面相关联（防止searchBar发生64像素的偏移量）
     self.definesPresentationContext = YES;
@@ -187,6 +258,14 @@
 //        NSURL *url = [NSURL URLWithString:webUrl];
 //        SVWebViewController *web = [[SVWebViewController alloc] initWithURL:url];
 //        [safeSelf openNav:web sound:nil];
+    }];
+    [_searchTableView setOpenBlock:^(UIViewController *vc) {
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [safeSelf.navigationController setNavigationBarHidden:YES];
+        });
+        [safeSelf openNav:vc sound:nil];
     }];
     
     //在tableView存在右侧索引情况下防止搜索框右侧缺少一块
@@ -224,6 +303,84 @@
     
     
     [self.view addSubview:headerView];
+}
+
+
+
+-(void)onItemClick:(id)model type:(int)type obj:(NSMutableArray *)arr{
+    if(type == 1){
+        ZZChapterModel *itemModel = (ZZChapterModel *)model;
+        
+        [self chapterOnClick:itemModel playArr:arr from:1];
+    }
+    
+    if(type == 2){
+        ZZKnowledgeUserController *userVC = [[ZZKnowledgeUserController alloc] init];
+        userVC.model = model;
+        [self openNav:userVC sound:nil];
+    }
+    
+    if(type == 3){
+        ZZChapterDetailController *vc = [[ZZChapterDetailController alloc] init];
+        vc.model = model;
+        [self openNav:vc sound:nil];
+    }
+}
+
+
+-(void)chapterOnClick:(ZZChapterModel *) itemModel playArr:(NSMutableArray *) arr from:(int) from{
+    // 播放、暂停
+    if(itemModel.lclassify == 1 || itemModel.lclassify == 0){
+        ZZChapterDetailController *NewsDetailC = [[ZZChapterDetailController alloc] init];
+        NewsDetailC.model = itemModel;
+        [self.navigationController pushViewController:NewsDetailC animated:YES];
+    }
+    
+    if(itemModel.lclassify == 2){
+        ZZVoiceTools *tools = [ZZVoiceTools shareVoiceTools];
+        tools.model = itemModel;
+        tools.viewController = self;
+        
+        if(playModel!=nil && playModel.isPlaying){
+            playModel.isPlaying = NO;
+            playModel = nil;
+            
+            [tools stopPlayer];
+            [_listTable reloadData];
+        }
+        
+            playModel = itemModel;
+            playModel.isPlaying = YES;
+            
+            if(arr && arr.count>0){
+                for (int i = 0; i<arr.count; i++) {
+                    ZZChapterModel *tm = [arr objectAtIndex:i];
+                    if(itemModel.nid == tm.nid){
+                        
+                        tools.curIndex = i;
+                    }
+                }
+                tools.list = arr;
+            }else{
+                tools.curIndex = 0;
+            }
+            [tools show:1];
+            [tools setOnDissmisBlock:^{
+                if(playModel!=nil && playModel.isPlaying){
+                    playModel.isPlaying = NO;
+                    playModel = nil;
+                    [_listTable reloadData];
+                }
+            }];
+        
+        [_listTable reloadData];
+    }
+    
+    if(itemModel.lclassify == 3){
+        ZZVideoController *vc = [[ZZVideoController alloc] init];
+        vc.model = itemModel;
+        [self openNav:vc sound:nil];
+    }
 }
 
 #pragma mark 搜索的协议方法
@@ -272,12 +429,13 @@
 
 -(void)endNetRefreshData{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:convertToString(_searchText) forKey:@"search"];
+    [dict setObject:convertIntToString(_searchType) forKey:@"type"];
     
-    
-    [ZZRequsetInterface post:API_searchDoctor param:dict timeOut:HttpGetTimeOut start:^{
+    [ZZRequsetInterface post:API_getKnowledgeSearch param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
-        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         
         if(_listTable.footer && [_listTable.footer respondsToSelector:@selector(endRefreshing)]){
             [_listTable.footer endRefreshing];
@@ -289,7 +447,13 @@
         NSArray *arr = dict[@"retData"];
         
         for (NSDictionary *item in arr) {
-            [_listArray addObject:[[ZZUserInfo alloc] initWithMyDict:item]];
+            if(_searchType == 2){
+                [_listArray addObject:[[ZZKnowledgeTopicModel alloc] initWithMyDict:item]];
+            }else if(_searchType == 3){
+                [_listArray addObject:[[ZZTJListModel alloc] initWithMyDict:item]];
+            }else{
+                [_listArray addObject:[[ZZChapterModel alloc] initWithMyDict:item]];
+            }
         }
         
         [_listTable reloadData];
@@ -298,6 +462,7 @@
     } progress:^(CGFloat progress) {
         
     }];
+    
 }
 
 
@@ -352,28 +517,51 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section==0){
+    if(_searchType == 1){
+        ZZKnowledgeItemTextCell *cell = (ZZKnowledgeItemTextCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentiferItems];
+        if (cell == nil) {
+            cell = [[ZZKnowledgeItemTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentiferItems];
+        }
+        cell.delegate = self;
+        [cell dataToView:[_listArray objectAtIndex:indexPath.row]];
         
+        return cell;
+    }else if(_searchType == 3){
         ZZKnowledgeItemsCell *cell = (ZZKnowledgeItemsCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifer];
         if (cell == nil) {
             cell = [[ZZKnowledgeItemsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifer];
         }
-        return cell;
-    }
-    else{
+        cell.delegate = self;
+        [cell dataToItem:[_listArray objectAtIndex:indexPath.row]];
         
+        return cell;
+    }else{
         ZZKnowledgeRichCell *cell = (ZZKnowledgeRichCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentiferRich];
         if (cell == nil) {
             cell = [[ZZKnowledgeRichCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentiferRich];
         }
+        [cell dataToItem:[_listArray objectAtIndex:indexPath.row]];
         return cell;
     }
-    
-    
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    if(_searchType == 1){
+        [self chapterOnClick:[_listArray objectAtIndex:indexPath.row] playArr:_listArray from:1];
+    }
+    
+    if(_searchType == 2){
+        ZZKnowledgeTopicModel *itemModel = [_listArray objectAtIndex:indexPath.row];
+        
+        
+        ZZKnowledgeDetailController *vc = [[ZZKnowledgeDetailController alloc] init];
+        vc.model = itemModel;
+        [self openNav:vc sound:nil];
+    }
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell * cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];

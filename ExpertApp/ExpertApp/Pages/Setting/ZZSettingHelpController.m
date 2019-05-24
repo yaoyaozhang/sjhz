@@ -58,7 +58,7 @@
     }
     
     UIButton *footerButton =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [footerButton setFrame:CGRectMake(0, ScreenHeight-44, ScreenWidth, 44)];
+    [footerButton setFrame:CGRectMake(0, ScreenHeight-44 - (ZC_iPhoneX?34:0), ScreenWidth, 44)];
     [footerButton setBackgroundColor:[UIColor whiteColor]];
     [footerButton addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
     [footerButton setTitle:@"退出登录" forState:UIControlStateNormal];
@@ -81,7 +81,7 @@
     [alertview setActionClickBlock:^(NSInteger tag) {
         if(tag == 1){
             [[ZZDataCache getInstance] loginOut];
-            
+            [ZCLocalStore addObject:@"1" forKey:KEY_LOGIN_OUTBYSELF];
             ZZLoginController * login = [[ZZLoginController alloc] initWithNibName:@"ZZLoginController" bundle:nil];
             UINavigationController *nav=[[UINavigationController alloc] initWithRootViewController:login];
             nav.navigationBarHidden=YES;

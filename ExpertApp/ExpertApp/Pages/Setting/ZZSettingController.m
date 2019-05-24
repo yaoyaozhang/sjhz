@@ -38,10 +38,12 @@
 #import "ASQListController.h"
 
 #import "ZZPatientListController.h"
+#import "ZZKnowledgeSearchController.h"
+#import "ZZMyIntegralController.h"
 
 
 
-@interface ZZSettingController ()<UITableViewDelegate,UITableViewDataSource>{
+@interface ZZSettingController ()<UITableViewDelegate,UITableViewDataSource,ZZSettingUserCellDelegate>{
     ZZUserInfo *loginUser;
 }
 
@@ -103,6 +105,41 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self getUserInfo];
+    });
+}
+
+-(void)getUserInfo{
+    
+    // 重新登录，重置数据
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
+    [dict setObject:convertIntToString([ZZDataCache getInstance].getLoginUser.userId) forKey:@"userId"];
+    
+    [ZZRequsetInterface post:API_getUserInfoByUserId param:dict timeOut:HttpGetTimeOut start:^{
+//        [SVProgressHUD show];
+    } finish:^(id response, NSData *data) {
+        
+        NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    } complete:^(NSDictionary *dict) {
+        if(dict[@"retData"]){
+            //            [SVProgressHUD dismiss];
+            // 清理数据
+            [[ZZDataCache getInstance] loginOut];
+            
+            [[ZZDataCache getInstance] saveLoginUserInfo:dict[@"retData"] view:nil];
+            
+            
+            [self loadMoreData];
+        }
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+//        [SVProgressHUD showErrorWithStatus:errorMsg];
+    } progress:^(CGFloat progress) {
+        
+    }];
+}
 
 /**
  加载更多
@@ -130,6 +167,7 @@
         NSArray *arr1 = @[@{@"code":@"8",@"icon":@"my_data",@"text":@"我的资料"},
                           @{@"code":@"15",@"icon":@"my_healthrecords",@"text":@"我的问卷"},
                           @{@"code":@"9",@"icon":@"my_article",@"text":@"文章管理"},
+//                          @{@"code":@"17",@"icon":@"tab_knowledge_selected",@"text":@"精品课程"},
                           @{@"code":@"10",@"icon":@"my_fans",@"text":@"我的粉丝"},
                           @{@"code":@"11",@"icon":@"Doctor_friend",@"text":@"我的医生朋友"}];
         [_listArray addObject:arr1];
@@ -143,6 +181,12 @@
 }
 
 
+-(void)onCellClick:(NSString *)tag{
+    
+    ZZMyIntegralController *vc = [[ZZMyIntegralController alloc] init];
+    
+    [self openNav:vc sound:nil];
+}
 
 #pragma mark UITableView delegate Start
 // 返回section数
@@ -189,6 +233,7 @@
         if (cell == nil) {
             cell = [[ZZSettingUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierUser];
         }
+        cell.delegate = self;
         
         [cell dataToView:_listArray[indexPath.section][indexPath.row]];
         
@@ -270,6 +315,10 @@
         
     }else if(code == 16){
         SVWebViewController *vc = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:API_About]];
+        [self openNav:vc sound:nil];
+    }else if(code == 17){
+        ZZKnowledgeSearchController *vc = [[ZZKnowledgeSearchController alloc] init];
+        vc.searchType = 2;
         [self openNav:vc sound:nil];
     }else if(code == 13){
         ZZDrawMoneyController *vc = [[ZZDrawMoneyController alloc] init];

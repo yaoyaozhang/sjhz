@@ -56,19 +56,23 @@ static MusicPlayTools * mp = nil;
 // 准备播放,我们在外部调用播放器播放时,不会调用"直接播放",而是调用这个"准备播放",当它准备好时,会直接播放.
 -(void)musicPrePlay:(NSString *)url
 {
+    if(![url hasPrefix:@"http"]){
+        url = [NSString stringWithFormat:@"%@%@",API_HOST,url];
+    }
+    
     // 通过下面的逻辑,只要AVPlayer有currentItem,那么一定被添加了观察者.
     // 所以上来直接移除之.
     if (self.player.currentItem) {
-        [self.player.currentItem removeObserver:self forKeyPath:@"status"];
+        [self musicPause];
     }
     
     // 根据传入的URL(MP3歌曲地址),创建一个item对象
     // initWithURL的初始化方法建立异步链接. 什么时候连接建立完成我们不知道.但是它完成连接之后,会修改自身内部的属性status. 所以,我们要观察这个属性,当它的状态变为AVPlayerItemStatusReadyToPlay时,我们便能得知,播放器已经准备好,可以播放了.
     AVPlayerItem * item = [[ AVPlayerItem alloc] initWithURL:[NSURL URLWithString:url]];
     
+    
     // 为item的status添加观察者.
     [item addObserver:self forKeyPath:@"status" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
-    
     // 用新创建的item,替换AVPlayer之前的item.新的item是带着观察者的哦.
     [self.player replaceCurrentItemWithPlayerItem:item];
     
@@ -82,6 +86,9 @@ static MusicPlayTools * mp = nil;
         switch ([[change valueForKey:@"new"] integerValue]) {
             case AVPlayerItemStatusUnknown:
                 NSLog(@"不知道什么错误");
+                if(self.delegate){
+                    [self.delegate endOfPlayAction];
+                }
                 break;
             case AVPlayerItemStatusReadyToPlay:
                 // 只有观察到status变为这种状态,才会真正的播放.
@@ -90,6 +97,9 @@ static MusicPlayTools * mp = nil;
             case AVPlayerItemStatusFailed:
                 // mini设备不插耳机或者某些耳机会导致准备失败.
                 NSLog(@"准备失败");
+                if(self.delegate){
+                    [self.delegate endOfPlayAction];
+                }
                 break;
             default:
                 break;
@@ -109,7 +119,20 @@ static MusicPlayTools * mp = nil;
     // 播放后,我们开启一个计时器.
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
     
-    [self.player play];
+    
+    
+    double version = [UIDevice currentDevice].systemVersion.doubleValue;
+    
+    if(version >=10.0) {
+        
+        [self.player playImmediatelyAtRate:1.0];
+        
+    }else{
+        
+        [self.player play];
+        
+    }
+    
     _curPlayState = YES;
     
     if(self.delegate){
@@ -121,12 +144,20 @@ static MusicPlayTools * mp = nil;
 {
     // !! 计时器的处理方法中,不断的调用代理方法,将播放进度返回出去.
     // 一定要掌握这种形式.
-    [self.delegate getCurTiem:[self valueToString:[self getCurTime]] Totle:[self valueToString:[self getTotleTime]] Progress:[self getProgress]];
+    [self.delegate getCurTiem:[self valueToString:[self getCurTime]] Totle:[self valueToString:[self getTotleTime]] Progress:[self getProgress] totleValue:[self getTotleTime]];
 }
 
 // 暂停方法
 -(void)musicPause
 {
+    @try {
+        [self.player.currentItem removeObserver:self forKeyPath:@"status"];
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
+    
     [self.timer invalidate];
     self.timer = nil;
     [self.player pause];
@@ -136,6 +167,7 @@ static MusicPlayTools * mp = nil;
     if(self.delegate){
         [self.delegate pausePlayAction];
     }
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 // 跳转方法
@@ -145,11 +177,30 @@ static MusicPlayTools * mp = nil;
     [self musicPause];
     
     // 跳转
-    [self.player seekToTime:CMTimeMake(value * [self getTotleTime], 1) completionHandler:^(BOOL finished) {
+//    [self.player seekToTime:CMTimeMake(value / [self getTotleTime], 1) completionHandler:^(BOOL finished) {
+//        if (finished == YES) {
+//            [self musicPlay];
+//        }
+//    }];
+    [self.player seekToTime:CMTimeMakeWithSeconds(value, self.player.currentTime.timescale) toleranceBefore:CMTimeMake(1, self.player.currentTime.timescale) toleranceAfter:CMTimeMake(1, self.player.currentTime.timescale) completionHandler:^(BOOL finished) {
         if (finished == YES) {
             [self musicPlay];
         }
     }];
+    
+}
+
+-(void)seekToTimeWithCutValue:(CGFloat)value{
+    NSInteger cur = [self getCurTime];
+    cur = cur + value;
+    if(cur < 0){
+        value = 0;
+    }
+    if(cur > [self getTotleTime]){
+        value = [self getTotleTime]-1;
+    }
+    
+    [self seekToTimeWithValue:self.player.currentTime.value/self.player.currentTime.timescale + value];
 }
 
 // 获取当前的播放时间

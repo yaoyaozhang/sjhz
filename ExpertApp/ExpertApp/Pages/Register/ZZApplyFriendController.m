@@ -11,6 +11,7 @@
 @interface ZZApplyFriendController (){
     UITextField *textfield;
     ZZUserInfo *loginUser;
+    
 }
 
 @end

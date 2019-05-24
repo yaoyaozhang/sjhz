@@ -33,24 +33,26 @@
     [self addSubview:_scrollView];
     _scrollView.backgroundColor = [UIColor clearColor];
     //3.设置内容视图大小
-    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width*3, _scrollView.bounds.size.height);
+    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width*2, _scrollView.bounds.size.height);
     
     //4.添加图片
-    for (int i = 0;i<3 ; i++) {
+    for (int i = 0;i<2 ; i++) {
         
         
-        if (ScreenHeight == 480 && ScreenWidth == 320 ) {
-            NSString *iagName = [NSString stringWithFormat:@"icon_guide%d",i];
-            _imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:iagName]];
-        }else{
-            NSString *iagName = [NSString stringWithFormat:@"guide%d",i];
-            _imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:iagName]];
-        }
+//        if (ScreenHeight == 480 && ScreenWidth == 320 ) {
+//            NSString *iagName = [NSString stringWithFormat:@"icon_guide%d",i];
+//            _imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:iagName]];
+//        }else{
+//            NSString *iagName = [NSString stringWithFormat:@"guide%d",i];
+//            _imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:iagName]];
+//        }
+        _imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"guide%d",i+1]]];
+        [_imageView setContentMode:UIViewContentModeScaleAspectFill];
         
         // 设置imageView的位置和大小
         _imageView.frame = CGRectMake(_scrollView.bounds.size.width*i, 0, _scrollView.bounds.size.width, _scrollView.bounds.size.height);
         [_scrollView addSubview:_imageView];
-        if (i== 2) {
+        if (i== 1) {
             [_imageView addSubview:_enterButton];
         }
     }
@@ -70,7 +72,7 @@
     //添加进入按钮
     self.enterButton  = [UIButton buttonWithType:UIButtonTypeCustom];
     [_enterButton setTitle:@"" forState:UIControlStateNormal];
-    _enterButton.frame = CGRectMake(0.3*ScreenWidth, 0.845*ScreenHeight, 150, 40);
+    _enterButton.frame = CGRectMake((ScreenWidth-ScreenWidth*0.4)/2, 0.785*ScreenHeight, ScreenWidth*0.4, 45);
     _enterButton.layer.cornerRadius = 10;
     _enterButton.layer.masksToBounds = YES;
     _enterButton.hidden = YES;

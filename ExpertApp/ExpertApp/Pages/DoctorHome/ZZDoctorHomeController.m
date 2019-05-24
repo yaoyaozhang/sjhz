@@ -145,7 +145,7 @@
     
     
     
-    _listTable=[self.view createTableView:self cell:cellIdentifierCase formY:NavBarHeight withHeight:ScreenHeight-NavBarHeight - 48*3];
+    _listTable=[self.view createTableView:self cell:cellIdentifierCase formY:NavBarHeight withHeight:ScreenHeight - 49 - (ZC_iPhoneX?34:0)];
     
     [_listTable registerNib:[UINib nibWithNibName:cellIdentifierHeader bundle:nil] forCellReuseIdentifier:cellIdentifierHeader];
 //    _listTable.bounces = NO;
@@ -189,7 +189,7 @@
         }
     } finish:^(id response, NSData *data) {
         [SVProgressHUD dismiss];
-        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         if([_listTable.header isRefreshing]){
             [_listTable.header endRefreshing];
         }
@@ -239,7 +239,7 @@
         }
     } finish:^(id response, NSData *data) {
         [SVProgressHUD dismiss];
-        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         if([_listTable.header isRefreshing]){
             [_listTable.header endRefreshing];
         }

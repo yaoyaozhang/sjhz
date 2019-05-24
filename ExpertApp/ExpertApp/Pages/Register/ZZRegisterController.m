@@ -27,14 +27,17 @@
     [self setBorderStyle:_vBorder2];
     [self setBorderStyle:_vBorder3];
     [self setBorderStyle:_vBorder4];
+    [self setBorderStyle:_vBorder5];
     [self setBorderStyle:_txtYJDesc];
     [self setBorderStyle:_txtYJOtherName];
     [self setBorderStyle:_txtName];
+//    [self setBorderStyle:_txtInviteCode];
     
     [_vLine1 setBackgroundColor:UIColorFromRGB(BgLineColor)];
     [_vLine2 setBackgroundColor:UIColorFromRGB(BgLineColor)];
     [_vLine3 setBackgroundColor:UIColorFromRGB(BgLineColor)];
     [_vLine4 setBackgroundColor:UIColorFromRGB(BgLineColor)];
+    [_vLine5 setBackgroundColor:UIColorFromRGB(BgLineColor)];
     
     [_btnSendCode setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
     [_btnDoctor setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateNormal];
@@ -126,6 +129,7 @@
     [_txtCode resignFirstResponder];
     [_txtPwdConfim resignFirstResponder];
     [_txtPhone resignFirstResponder];
+    [_txtInviteCode resignFirstResponder];
 }
 -(BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch {
     
@@ -223,6 +227,7 @@
         [dict setObject:code forKey:@"verCode"];
         [dict setObject:convertToString(@"") forKey:@"thirdId"];
         [dict setObject:tel forKey:@"userName"];
+        [dict setObject:convertToString(_txtInviteCode.text) forKey:@"yaoCode"];
         if(_btnYJ.selected){
             [dict setObject:convertToString(_txtYJDesc.text) forKey:@"yjBackGround"];
             [dict setObject:convertToString(_txtName.text) forKey:@"name"];

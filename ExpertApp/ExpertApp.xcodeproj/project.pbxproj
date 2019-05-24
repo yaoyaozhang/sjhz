@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0437C00421F07DBC00AAD481 /* downcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 0437C00321F07DBC00AAD481 /* downcode.png */; };
+		0437C00721F1BD2800AAD481 /* ZZFollowMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437C00621F1BD2800AAD481 /* ZZFollowMessageModel.m */; };
 		5A2887CE60F44B1687F3D9BD /* libPods-ExpertApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9E80BE5C94B20551097585 /* libPods-ExpertApp.a */; };
 		7B00F8DC1F30708000E29561 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B00F8DB1F30708000E29561 /* EasyTableView.m */; };
 		7B00F8E01F30712E00E29561 /* ZZUserHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B00F8DE1F30712E00E29561 /* ZZUserHomeCell.m */; };
@@ -67,6 +69,7 @@
 		7B20C16F1F721D0D00FBFD9F /* ZZDiscussCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B20C16D1F721D0D00FBFD9F /* ZZDiscussCell.xib */; };
 		7B20C1721F72645600FBFD9F /* ZZMyHZListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C1711F72645600FBFD9F /* ZZMyHZListController.m */; };
 		7B20C1751F727F6A00FBFD9F /* ZZRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B20C1741F727F6A00FBFD9F /* ZZRewardController.m */; };
+		7B24F1FA2146171A00974CC2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B24F1F92146171A00974CC2 /* Default-568h@2x.png */; };
 		7B250E251FCE994C00C2D72A /* AlertUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B250E231FCE994B00C2D72A /* AlertUtil.m */; };
 		7B2D6C452015E3C400445A6B /* ZZSQPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D6C432015E3C400445A6B /* ZZSQPicCell.m */; };
 		7B2D6C462015E3C400445A6B /* ZZSQPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B2D6C442015E3C400445A6B /* ZZSQPicCell.xib */; };
@@ -131,6 +134,8 @@
 		7B3D83DD2089B02600823951 /* icon_list_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3D83DB2089B02600823951 /* icon_list_video@2x.png */; };
 		7B3DFDD31FBAD98800AD39AE /* ZZQSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DFDD21FBAD98800AD39AE /* ZZQSModel.m */; };
 		7B3DFE351FBC3E3100AD39AE /* ASQListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DFE341FBC3E3000AD39AE /* ASQListController.m */; };
+		7B467D8820C50FCF006071DB /* guide2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B467D8620C50FCB006071DB /* guide2.png */; };
+		7B467D8920C50FCF006071DB /* guide1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B467D8720C50FCB006071DB /* guide1.png */; };
 		7B5365571FB04619000CD932 /* ZZRemarkUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5365561FB04619000CD932 /* ZZRemarkUserController.m */; };
 		7B53655B1FB046B7000CD932 /* ZZRemakBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B53655A1FB046B7000CD932 /* ZZRemakBaseCell.m */; };
 		7B53655F1FB0470D000CD932 /* ZZBasicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B53655D1FB0470D000CD932 /* ZZBasicCell.m */; };
@@ -145,6 +150,8 @@
 		7B53657D1FB2DB1F000CD932 /* ZZChooseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B53657B1FB2DB1F000CD932 /* ZZChooseCell.xib */; };
 		7B5365811FB2DB34000CD932 /* ZZSQTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B53657F1FB2DB34000CD932 /* ZZSQTextCell.m */; };
 		7B5365821FB2DB34000CD932 /* ZZSQTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5365801FB2DB34000CD932 /* ZZSQTextCell.xib */; };
+		7B538BCB209AADF10019D71C /* ZZKnowledgeUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B538BCA209AADF10019D71C /* ZZKnowledgeUserController.m */; };
+		7B538BCE209B0C1F0019D71C /* ZZKnowledgeTopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B538BCD209B0C1F0019D71C /* ZZKnowledgeTopicModel.m */; };
 		7B5C1C7F1F1F532500DDDA78 /* ZZChapterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C1C7E1F1F532500DDDA78 /* ZZChapterListController.m */; };
 		7B5C1C831F1F534A00DDDA78 /* ZZChapterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C1C811F1F534A00DDDA78 /* ZZChapterCell.m */; };
 		7B5C1C871F1F53DF00DDDA78 /* ZZDoctorHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5C1C861F1F53DF00DDDA78 /* ZZDoctorHomeController.m */; };
@@ -185,6 +192,11 @@
 		7B61C8C3200D9BA500C932D9 /* LemmaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B61C8C2200D9BA500C932D9 /* LemmaModel.m */; };
 		7B61C8C6200DAE8B00C932D9 /* ZZTipsAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B61C8C5200DAE8B00C932D9 /* ZZTipsAlertView.m */; };
 		7B61C8C9200DC53D00C932D9 /* ZZBaseAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B61C8C8200DC53D00C932D9 /* ZZBaseAlertView.m */; };
+		7B67D659209C09BC0051FCB3 /* ZZOperaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B67D658209C09BC0051FCB3 /* ZZOperaterView.m */; };
+		7B67D66120A04EB10051FCB3 /* nav_more_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B67D65D20A04EB00051FCB3 /* nav_more_normal@2x.png */; };
+		7B67D66220A04EB10051FCB3 /* nav_more_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B67D65E20A04EB00051FCB3 /* nav_more_normal@3x.png */; };
+		7B67D66320A04EB10051FCB3 /* nav_more_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B67D65F20A04EB10051FCB3 /* nav_more_pressed@2x.png */; };
+		7B67D66420A04EB10051FCB3 /* nav_more_pressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B67D66020A04EB10051FCB3 /* nav_more_pressed@3x.png */; };
 		7B7000031F3AF90A00C59281 /* ZZAlertview.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7000021F3AF90A00C59281 /* ZZAlertview.m */; };
 		7B7000061F3AFEB300C59281 /* ZZPushSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7000051F3AFEB300C59281 /* ZZPushSettingController.m */; };
 		7B70000A1F3B06E700C59281 /* ZZAttentionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7000091F3B06E700C59281 /* ZZAttentionController.m */; };
@@ -492,6 +504,40 @@
 		7B8EBD3D1FA03A600039E602 /* ZZFriendUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8EBD3B1FA03A600039E602 /* ZZFriendUserCell.m */; };
 		7B8EBD3E1FA03A600039E602 /* ZZFriendUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B8EBD3C1FA03A600039E602 /* ZZFriendUserCell.xib */; };
 		7B8EBD421FA1E9890039E602 /* docheader.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B8EBD411FA1E9890039E602 /* docheader.png */; };
+		7BA0CE9B21E73696000474D2 /* zzicon_jf_wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8321E73695000474D2 /* zzicon_jf_wechat@2x.png */; };
+		7BA0CE9C21E73696000474D2 /* zzicon_jf_checked@2x@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8421E73695000474D2 /* zzicon_jf_checked@2x@3x.png */; };
+		7BA0CE9D21E73696000474D2 /* zzicon_jf_myself_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8521E73695000474D2 /* zzicon_jf_myself_bg@2x.png */; };
+		7BA0CE9E21E73696000474D2 /* zzicon_jf_look_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8621E73695000474D2 /* zzicon_jf_look_video@2x.png */; };
+		7BA0CE9F21E73696000474D2 /* zzicon_jf_look_video@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8721E73695000474D2 /* zzicon_jf_look_video@3x.png */; };
+		7BA0CEA021E73696000474D2 /* zzicon_jf_wechat@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8821E73695000474D2 /* zzicon_jf_wechat@3x.png */; };
+		7BA0CEA121E73696000474D2 /* zzicon_jf_wechatpay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8921E73695000474D2 /* zzicon_jf_wechatpay@3x.png */; };
+		7BA0CEA221E73696000474D2 /* zzicon_jf_uncheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8A21E73695000474D2 /* zzicon_jf_uncheck@2x.png */; };
+		7BA0CEA321E73696000474D2 /* zzicon_jf_zfb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8B21E73695000474D2 /* zzicon_jf_zfb@2x.png */; };
+		7BA0CEA421E73696000474D2 /* zzicon_jf_zfb@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8C21E73695000474D2 /* zzicon_jf_zfb@3x.png */; };
+		7BA0CEA521E73696000474D2 /* zzicon_jf_myself_bg@2x@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8D21E73695000474D2 /* zzicon_jf_myself_bg@2x@3x.png */; };
+		7BA0CEA621E73696000474D2 /* zzicon_jf_uncheck@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8E21E73695000474D2 /* zzicon_jf_uncheck@3x.png */; };
+		7BA0CEA721E73696000474D2 /* zzicon_jf_wechatpay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE8F21E73695000474D2 /* zzicon_jf_wechatpay@2x.png */; };
+		7BA0CEA821E73696000474D2 /* zzicon_jf_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE9021E73695000474D2 /* zzicon_jf_checked@2x.png */; };
+		7BA0CEA921E73696000474D2 /* zzicon_jf_greencheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE9121E73695000474D2 /* zzicon_jf_greencheck@2x.png */; };
+		7BA0CEAA21E73696000474D2 /* zzicon_jf_open@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE9221E73695000474D2 /* zzicon_jf_open@3x.png */; };
+		7BA0CEAB21E73696000474D2 /* zzicon_jf_open@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE9321E73695000474D2 /* zzicon_jf_open@2x.png */; };
+		7BA0CEAC21E73696000474D2 /* zzicon_jf_greencheck@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE9421E73695000474D2 /* zzicon_jf_greencheck@3x.png */; };
+		7BA0CEAD21E73696000474D2 /* zzicon_jf_zfbpay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE9521E73695000474D2 /* zzicon_jf_zfbpay@3x.png */; };
+		7BA0CEAE21E73696000474D2 /* zzicon_jf_unopen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE9621E73695000474D2 /* zzicon_jf_unopen@3x.png */; };
+		7BA0CEAF21E73696000474D2 /* zzicon_jf_wechatsession@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE9721E73695000474D2 /* zzicon_jf_wechatsession@2x.png */; };
+		7BA0CEB021E73696000474D2 /* zzicon_jf_wechatsession@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE9821E73695000474D2 /* zzicon_jf_wechatsession@3x.png */; };
+		7BA0CEB121E73696000474D2 /* zzicon_jf_unopen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE9921E73695000474D2 /* zzicon_jf_unopen@2x.png */; };
+		7BA0CEB221E73696000474D2 /* zzicon_jf_zfbpay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CE9A21E73695000474D2 /* zzicon_jf_zfbpay@2x.png */; };
+		7BA0CEB721E749D8000474D2 /* ZZIntegralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0CEB521E749D8000474D2 /* ZZIntegralCell.m */; };
+		7BA0CEB821E749D8000474D2 /* ZZIntegralCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BA0CEB621E749D8000474D2 /* ZZIntegralCell.xib */; };
+		7BA9C09B21E5D251007A45A4 /* ZZShareSelfController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA9C09A21E5D251007A45A4 /* ZZShareSelfController.m */; };
+		7BA9C09E21E5D4FB007A45A4 /* ZZMyIntegralController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA9C09D21E5D4FB007A45A4 /* ZZMyIntegralController.m */; };
+		7BA9C0A221E5D687007A45A4 /* ZZMyIntegralListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA9C0A121E5D687007A45A4 /* ZZMyIntegralListController.m */; };
+		7BA9C0A521E5EF2D007A45A4 /* ZZAcountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA9C0A421E5EF2D007A45A4 /* ZZAcountController.m */; };
+		7BA9C0AA21E60157007A45A4 /* ZZAcountInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA9C0A821E60157007A45A4 /* ZZAcountInfoCell.m */; };
+		7BA9C0AB21E60157007A45A4 /* ZZAcountInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BA9C0A921E60157007A45A4 /* ZZAcountInfoCell.xib */; };
+		7BA9C0AF21E60253007A45A4 /* ZZAcountTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA9C0AD21E60253007A45A4 /* ZZAcountTypeCell.m */; };
+		7BA9C0B021E60253007A45A4 /* ZZAcountTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BA9C0AE21E60253007A45A4 /* ZZAcountTypeCell.xib */; };
 		7BABAD3A1F67E958004C85FB /* Bounty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BABAD321F67E958004C85FB /* Bounty@2x.png */; };
 		7BABAD3B1F67E958004C85FB /* Bounty@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BABAD331F67E958004C85FB /* Bounty@3x.png */; };
 		7BABAD3C1F67E958004C85FB /* gray_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BABAD341F67E958004C85FB /* gray_close@2x.png */; };
@@ -606,10 +652,13 @@
 		7BD950CF1FFDC8180016C3D6 /* ZZSymptomWTCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD950CD1FFDC8180016C3D6 /* ZZSymptomWTCell.xib */; };
 		7BD950D21FFE41C30016C3D6 /* AddSymptomDescController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950D11FFE41C30016C3D6 /* AddSymptomDescController.m */; };
 		7BD950D51FFE42CB0016C3D6 /* ZZSymptomExtModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD950D41FFE42CB0016C3D6 /* ZZSymptomExtModel.m */; };
+		7BDC40EE2294F6C10087163B /* ZZKnowledgeSegmentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC40ED2294F6C10087163B /* ZZKnowledgeSegmentController.m */; };
+		7BDC40F12294F7590087163B /* ZZKnowledgeCollegeListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC40F02294F7590087163B /* ZZKnowledgeCollegeListController.m */; };
 		7BE654902004BB26000B57AE /* ZZPatientSymptomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE6548F2004BB26000B57AE /* ZZPatientSymptomController.m */; };
 		7BE654932005BCF9000B57AE /* ZZDiseaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE654922005BCF9000B57AE /* ZZDiseaseModel.m */; };
 		7BE654972005C830000B57AE /* ZZSymptomDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE654952005C830000B57AE /* ZZSymptomDetailCell.m */; };
 		7BE654982005C830000B57AE /* ZZSymptomDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BE654962005C830000B57AE /* ZZSymptomDetailCell.xib */; };
+		7BEE9AD5208F3BA5009F8DCD /* ZZVoiceTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BEE9AD4208F3BA5009F8DCD /* ZZVoiceTools.m */; };
 		7BF110091F18678C00456E55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF110081F18678C00456E55 /* main.m */; };
 		7BF1100C1F18678C00456E55 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1100B1F18678C00456E55 /* AppDelegate.m */; };
 		7BF1100F1F18678C00456E55 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1100E1F18678C00456E55 /* ViewController.m */; };
@@ -655,6 +704,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0437C00321F07DBC00AAD481 /* downcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downcode.png; sourceTree = "<group>"; };
+		0437C00521F1BD2800AAD481 /* ZZFollowMessageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZFollowMessageModel.h; sourceTree = "<group>"; };
+		0437C00621F1BD2800AAD481 /* ZZFollowMessageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZFollowMessageModel.m; sourceTree = "<group>"; };
 		0C8FE523BE6EF9708DA98AC7 /* Pods-ExpertApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExpertApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExpertApp/Pods-ExpertApp.debug.xcconfig"; sourceTree = "<group>"; };
 		1B9E80BE5C94B20551097585 /* libPods-ExpertApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ExpertApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BFF83052A5736BE29B3415E /* Pods-ExpertApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExpertApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExpertApp/Pods-ExpertApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -745,6 +797,7 @@
 		7B20C1711F72645600FBFD9F /* ZZMyHZListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMyHZListController.m; sourceTree = "<group>"; };
 		7B20C1731F727F6A00FBFD9F /* ZZRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRewardController.h; sourceTree = "<group>"; };
 		7B20C1741F727F6A00FBFD9F /* ZZRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRewardController.m; sourceTree = "<group>"; };
+		7B24F1F92146171A00974CC2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7B250E231FCE994B00C2D72A /* AlertUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertUtil.m; sourceTree = "<group>"; };
 		7B250E241FCE994B00C2D72A /* AlertUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertUtil.h; sourceTree = "<group>"; };
 		7B2D6C422015E3C400445A6B /* ZZSQPicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSQPicCell.h; sourceTree = "<group>"; };
@@ -815,6 +868,8 @@
 		7B3DFDD21FBAD98800AD39AE /* ZZQSModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZQSModel.m; sourceTree = "<group>"; };
 		7B3DFE331FBC3E3000AD39AE /* ASQListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASQListController.h; sourceTree = "<group>"; };
 		7B3DFE341FBC3E3000AD39AE /* ASQListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASQListController.m; sourceTree = "<group>"; };
+		7B467D8620C50FCB006071DB /* guide2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide2.png; sourceTree = "<group>"; };
+		7B467D8720C50FCB006071DB /* guide1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide1.png; sourceTree = "<group>"; };
 		7B5365551FB04619000CD932 /* ZZRemarkUserController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZRemarkUserController.h; sourceTree = "<group>"; };
 		7B5365561FB04619000CD932 /* ZZRemarkUserController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZRemarkUserController.m; sourceTree = "<group>"; };
 		7B5365591FB046B7000CD932 /* ZZRemakBaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZRemakBaseCell.h; sourceTree = "<group>"; };
@@ -838,6 +893,10 @@
 		7B53657E1FB2DB34000CD932 /* ZZSQTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSQTextCell.h; sourceTree = "<group>"; };
 		7B53657F1FB2DB34000CD932 /* ZZSQTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSQTextCell.m; sourceTree = "<group>"; };
 		7B5365801FB2DB34000CD932 /* ZZSQTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZSQTextCell.xib; sourceTree = "<group>"; };
+		7B538BC9209AADF10019D71C /* ZZKnowledgeUserController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeUserController.h; sourceTree = "<group>"; };
+		7B538BCA209AADF10019D71C /* ZZKnowledgeUserController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeUserController.m; sourceTree = "<group>"; };
+		7B538BCC209B0C1F0019D71C /* ZZKnowledgeTopicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeTopicModel.h; sourceTree = "<group>"; };
+		7B538BCD209B0C1F0019D71C /* ZZKnowledgeTopicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeTopicModel.m; sourceTree = "<group>"; };
 		7B5C1C7D1F1F532500DDDA78 /* ZZChapterListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZChapterListController.h; sourceTree = "<group>"; };
 		7B5C1C7E1F1F532500DDDA78 /* ZZChapterListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZChapterListController.m; sourceTree = "<group>"; };
 		7B5C1C801F1F534A00DDDA78 /* ZZChapterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZChapterCell.h; sourceTree = "<group>"; };
@@ -911,6 +970,12 @@
 		7B61C8C5200DAE8B00C932D9 /* ZZTipsAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZTipsAlertView.m; sourceTree = "<group>"; };
 		7B61C8C7200DC53D00C932D9 /* ZZBaseAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZBaseAlertView.h; sourceTree = "<group>"; };
 		7B61C8C8200DC53D00C932D9 /* ZZBaseAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZBaseAlertView.m; sourceTree = "<group>"; };
+		7B67D657209C09BC0051FCB3 /* ZZOperaterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZOperaterView.h; sourceTree = "<group>"; };
+		7B67D658209C09BC0051FCB3 /* ZZOperaterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZOperaterView.m; sourceTree = "<group>"; };
+		7B67D65D20A04EB00051FCB3 /* nav_more_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_more_normal@2x.png"; sourceTree = "<group>"; };
+		7B67D65E20A04EB00051FCB3 /* nav_more_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_more_normal@3x.png"; sourceTree = "<group>"; };
+		7B67D65F20A04EB10051FCB3 /* nav_more_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_more_pressed@2x.png"; sourceTree = "<group>"; };
+		7B67D66020A04EB10051FCB3 /* nav_more_pressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_more_pressed@3x.png"; sourceTree = "<group>"; };
 		7B7000011F3AF90A00C59281 /* ZZAlertview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAlertview.h; sourceTree = "<group>"; };
 		7B7000021F3AF90A00C59281 /* ZZAlertview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAlertview.m; sourceTree = "<group>"; };
 		7B7000041F3AFEB300C59281 /* ZZPushSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPushSettingController.h; sourceTree = "<group>"; };
@@ -1310,6 +1375,47 @@
 		7B8EBD3B1FA03A600039E602 /* ZZFriendUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFriendUserCell.m; sourceTree = "<group>"; };
 		7B8EBD3C1FA03A600039E602 /* ZZFriendUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZZFriendUserCell.xib; sourceTree = "<group>"; };
 		7B8EBD411FA1E9890039E602 /* docheader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docheader.png; sourceTree = "<group>"; };
+		7BA0CE8321E73695000474D2 /* zzicon_jf_wechat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_wechat@2x.png"; sourceTree = "<group>"; };
+		7BA0CE8421E73695000474D2 /* zzicon_jf_checked@2x@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_checked@2x@3x.png"; sourceTree = "<group>"; };
+		7BA0CE8521E73695000474D2 /* zzicon_jf_myself_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_myself_bg@2x.png"; sourceTree = "<group>"; };
+		7BA0CE8621E73695000474D2 /* zzicon_jf_look_video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_look_video@2x.png"; sourceTree = "<group>"; };
+		7BA0CE8721E73695000474D2 /* zzicon_jf_look_video@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_look_video@3x.png"; sourceTree = "<group>"; };
+		7BA0CE8821E73695000474D2 /* zzicon_jf_wechat@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_wechat@3x.png"; sourceTree = "<group>"; };
+		7BA0CE8921E73695000474D2 /* zzicon_jf_wechatpay@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_wechatpay@3x.png"; sourceTree = "<group>"; };
+		7BA0CE8A21E73695000474D2 /* zzicon_jf_uncheck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_uncheck@2x.png"; sourceTree = "<group>"; };
+		7BA0CE8B21E73695000474D2 /* zzicon_jf_zfb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_zfb@2x.png"; sourceTree = "<group>"; };
+		7BA0CE8C21E73695000474D2 /* zzicon_jf_zfb@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_zfb@3x.png"; sourceTree = "<group>"; };
+		7BA0CE8D21E73695000474D2 /* zzicon_jf_myself_bg@2x@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_myself_bg@2x@3x.png"; sourceTree = "<group>"; };
+		7BA0CE8E21E73695000474D2 /* zzicon_jf_uncheck@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_uncheck@3x.png"; sourceTree = "<group>"; };
+		7BA0CE8F21E73695000474D2 /* zzicon_jf_wechatpay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_wechatpay@2x.png"; sourceTree = "<group>"; };
+		7BA0CE9021E73695000474D2 /* zzicon_jf_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_checked@2x.png"; sourceTree = "<group>"; };
+		7BA0CE9121E73695000474D2 /* zzicon_jf_greencheck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_greencheck@2x.png"; sourceTree = "<group>"; };
+		7BA0CE9221E73695000474D2 /* zzicon_jf_open@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_open@3x.png"; sourceTree = "<group>"; };
+		7BA0CE9321E73695000474D2 /* zzicon_jf_open@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_open@2x.png"; sourceTree = "<group>"; };
+		7BA0CE9421E73695000474D2 /* zzicon_jf_greencheck@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_greencheck@3x.png"; sourceTree = "<group>"; };
+		7BA0CE9521E73695000474D2 /* zzicon_jf_zfbpay@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_zfbpay@3x.png"; sourceTree = "<group>"; };
+		7BA0CE9621E73695000474D2 /* zzicon_jf_unopen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_unopen@3x.png"; sourceTree = "<group>"; };
+		7BA0CE9721E73695000474D2 /* zzicon_jf_wechatsession@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_wechatsession@2x.png"; sourceTree = "<group>"; };
+		7BA0CE9821E73695000474D2 /* zzicon_jf_wechatsession@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_wechatsession@3x.png"; sourceTree = "<group>"; };
+		7BA0CE9921E73695000474D2 /* zzicon_jf_unopen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_unopen@2x.png"; sourceTree = "<group>"; };
+		7BA0CE9A21E73695000474D2 /* zzicon_jf_zfbpay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zzicon_jf_zfbpay@2x.png"; sourceTree = "<group>"; };
+		7BA0CEB421E749D8000474D2 /* ZZIntegralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZIntegralCell.h; sourceTree = "<group>"; };
+		7BA0CEB521E749D8000474D2 /* ZZIntegralCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZIntegralCell.m; sourceTree = "<group>"; };
+		7BA0CEB621E749D8000474D2 /* ZZIntegralCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZIntegralCell.xib; sourceTree = "<group>"; };
+		7BA9C09921E5D251007A45A4 /* ZZShareSelfController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZShareSelfController.h; sourceTree = "<group>"; };
+		7BA9C09A21E5D251007A45A4 /* ZZShareSelfController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZShareSelfController.m; sourceTree = "<group>"; };
+		7BA9C09C21E5D4FB007A45A4 /* ZZMyIntegralController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZMyIntegralController.h; sourceTree = "<group>"; };
+		7BA9C09D21E5D4FB007A45A4 /* ZZMyIntegralController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZMyIntegralController.m; sourceTree = "<group>"; };
+		7BA9C0A021E5D687007A45A4 /* ZZMyIntegralListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZMyIntegralListController.h; sourceTree = "<group>"; };
+		7BA9C0A121E5D687007A45A4 /* ZZMyIntegralListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZMyIntegralListController.m; sourceTree = "<group>"; };
+		7BA9C0A321E5EF2D007A45A4 /* ZZAcountController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZAcountController.h; sourceTree = "<group>"; };
+		7BA9C0A421E5EF2D007A45A4 /* ZZAcountController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZAcountController.m; sourceTree = "<group>"; };
+		7BA9C0A721E60157007A45A4 /* ZZAcountInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZAcountInfoCell.h; sourceTree = "<group>"; };
+		7BA9C0A821E60157007A45A4 /* ZZAcountInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZAcountInfoCell.m; sourceTree = "<group>"; };
+		7BA9C0A921E60157007A45A4 /* ZZAcountInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZAcountInfoCell.xib; sourceTree = "<group>"; };
+		7BA9C0AC21E60253007A45A4 /* ZZAcountTypeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZAcountTypeCell.h; sourceTree = "<group>"; };
+		7BA9C0AD21E60253007A45A4 /* ZZAcountTypeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZAcountTypeCell.m; sourceTree = "<group>"; };
+		7BA9C0AE21E60253007A45A4 /* ZZAcountTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZAcountTypeCell.xib; sourceTree = "<group>"; };
 		7BABAD321F67E958004C85FB /* Bounty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bounty@2x.png"; sourceTree = "<group>"; };
 		7BABAD331F67E958004C85FB /* Bounty@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bounty@3x.png"; sourceTree = "<group>"; };
 		7BABAD341F67E958004C85FB /* gray_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray_close@2x.png"; sourceTree = "<group>"; };
@@ -1462,6 +1568,10 @@
 		7BD950D11FFE41C30016C3D6 /* AddSymptomDescController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSymptomDescController.m; sourceTree = "<group>"; };
 		7BD950D31FFE42CB0016C3D6 /* ZZSymptomExtModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomExtModel.h; sourceTree = "<group>"; };
 		7BD950D41FFE42CB0016C3D6 /* ZZSymptomExtModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomExtModel.m; sourceTree = "<group>"; };
+		7BDC40EC2294F6C10087163B /* ZZKnowledgeSegmentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeSegmentController.h; sourceTree = "<group>"; };
+		7BDC40ED2294F6C10087163B /* ZZKnowledgeSegmentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeSegmentController.m; sourceTree = "<group>"; };
+		7BDC40EF2294F7590087163B /* ZZKnowledgeCollegeListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeCollegeListController.h; sourceTree = "<group>"; };
+		7BDC40F02294F7590087163B /* ZZKnowledgeCollegeListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZKnowledgeCollegeListController.m; sourceTree = "<group>"; };
 		7BE6548E2004BB26000B57AE /* ZZPatientSymptomController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZPatientSymptomController.h; sourceTree = "<group>"; };
 		7BE6548F2004BB26000B57AE /* ZZPatientSymptomController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZPatientSymptomController.m; sourceTree = "<group>"; };
 		7BE654912005BCF9000B57AE /* ZZDiseaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZDiseaseModel.h; sourceTree = "<group>"; };
@@ -1469,6 +1579,9 @@
 		7BE654942005C830000B57AE /* ZZSymptomDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSymptomDetailCell.h; sourceTree = "<group>"; };
 		7BE654952005C830000B57AE /* ZZSymptomDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZSymptomDetailCell.m; sourceTree = "<group>"; };
 		7BE654962005C830000B57AE /* ZZSymptomDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZZSymptomDetailCell.xib; sourceTree = "<group>"; };
+		7BEE9AD2208F1C2A009F8DCD /* ZZKnowledgeCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZKnowledgeCellDelegate.h; sourceTree = "<group>"; };
+		7BEE9AD3208F3BA5009F8DCD /* ZZVoiceTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZVoiceTools.h; sourceTree = "<group>"; };
+		7BEE9AD4208F3BA5009F8DCD /* ZZVoiceTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZVoiceTools.m; sourceTree = "<group>"; };
 		7BF110041F18678C00456E55 /* ExpertApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpertApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF110081F18678C00456E55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7BF1100A1F18678C00456E55 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1611,6 +1724,8 @@
 				7B1DCC352074B79F0061B755 /* MusicPlayTools.m */,
 				7B1DCC3D2074B8990061B755 /* ZZMusicPlayView.h */,
 				7B1DCC3E2074B8990061B755 /* ZZMusicPlayView.m */,
+				7BEE9AD3208F3BA5009F8DCD /* ZZVoiceTools.h */,
+				7BEE9AD4208F3BA5009F8DCD /* ZZVoiceTools.m */,
 			);
 			path = "player util";
 			sourceTree = "<group>";
@@ -1712,6 +1827,10 @@
 		7B371E9E2085A4A400D5D617 /* 20180417 */ = {
 			isa = PBXGroup;
 			children = (
+				7B67D65D20A04EB00051FCB3 /* nav_more_normal@2x.png */,
+				7B67D65E20A04EB00051FCB3 /* nav_more_normal@3x.png */,
+				7B67D65F20A04EB10051FCB3 /* nav_more_pressed@2x.png */,
+				7B67D66020A04EB10051FCB3 /* nav_more_pressed@3x.png */,
 				7B3D83DB2089B02600823951 /* icon_list_video@2x.png */,
 				7B3D83DA2089B02500823951 /* icon_list_video@3x.png */,
 				7BB4884E2088703400376930 /* icon_list_pause@2x.png */,
@@ -2501,6 +2620,8 @@
 			children = (
 				7B7002BF1F6126D300C59281 /* ZZShareView.h */,
 				7B7002C01F6126D300C59281 /* ZZShareView.m */,
+				7B67D657209C09BC0051FCB3 /* ZZOperaterView.h */,
+				7B67D658209C09BC0051FCB3 /* ZZOperaterView.m */,
 			);
 			path = ZZShare;
 			sourceTree = "<group>";
@@ -2616,6 +2737,10 @@
 				7B1DCC3B2074B86E0061B755 /* MusicLyricModel.m */,
 				7BB4884A2088698600376930 /* ZZTJListModel.h */,
 				7BB4884B2088698600376930 /* ZZTJListModel.m */,
+				7B538BCC209B0C1F0019D71C /* ZZKnowledgeTopicModel.h */,
+				7B538BCD209B0C1F0019D71C /* ZZKnowledgeTopicModel.m */,
+				0437C00521F1BD2800AAD481 /* ZZFollowMessageModel.h */,
+				0437C00621F1BD2800AAD481 /* ZZFollowMessageModel.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2688,6 +2813,9 @@
 		7B8A8FE11F189FA500FC53D7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0437C00321F07DBC00AAD481 /* downcode.png */,
+				7BA0CE8221E73695000474D2 /* 20190110 */,
+				7B24F1F92146171A00974CC2 /* Default-568h@2x.png */,
 				7B371E9E2085A4A400D5D617 /* 20180417 */,
 				7BD950941FFB910D0016C3D6 /* 20180102 */,
 				7B8EBD411FA1E9890039E602 /* docheader.png */,
@@ -2708,6 +2836,8 @@
 		7B8A8FE21F189FA500FC53D7 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				7B467D8720C50FCB006071DB /* guide1.png */,
+				7B467D8620C50FCB006071DB /* guide2.png */,
 				7B7C28051FBD84AE00C3A6D9 /* icon_down@2x.png */,
 				7B8A8FE31F189FA500FC53D7 /* avatar_default@2x.png */,
 				7B8A8FE41F189FA500FC53D7 /* avatar_default@3x.png */,
@@ -2830,6 +2960,67 @@
 			path = Safari;
 			sourceTree = "<group>";
 		};
+		7BA0CE8221E73695000474D2 /* 20190110 */ = {
+			isa = PBXGroup;
+			children = (
+				7BA0CE8321E73695000474D2 /* zzicon_jf_wechat@2x.png */,
+				7BA0CE8421E73695000474D2 /* zzicon_jf_checked@2x@3x.png */,
+				7BA0CE8521E73695000474D2 /* zzicon_jf_myself_bg@2x.png */,
+				7BA0CE8621E73695000474D2 /* zzicon_jf_look_video@2x.png */,
+				7BA0CE8721E73695000474D2 /* zzicon_jf_look_video@3x.png */,
+				7BA0CE8821E73695000474D2 /* zzicon_jf_wechat@3x.png */,
+				7BA0CE8921E73695000474D2 /* zzicon_jf_wechatpay@3x.png */,
+				7BA0CE8A21E73695000474D2 /* zzicon_jf_uncheck@2x.png */,
+				7BA0CE8B21E73695000474D2 /* zzicon_jf_zfb@2x.png */,
+				7BA0CE8C21E73695000474D2 /* zzicon_jf_zfb@3x.png */,
+				7BA0CE8D21E73695000474D2 /* zzicon_jf_myself_bg@2x@3x.png */,
+				7BA0CE8E21E73695000474D2 /* zzicon_jf_uncheck@3x.png */,
+				7BA0CE8F21E73695000474D2 /* zzicon_jf_wechatpay@2x.png */,
+				7BA0CE9021E73695000474D2 /* zzicon_jf_checked@2x.png */,
+				7BA0CE9121E73695000474D2 /* zzicon_jf_greencheck@2x.png */,
+				7BA0CE9221E73695000474D2 /* zzicon_jf_open@3x.png */,
+				7BA0CE9321E73695000474D2 /* zzicon_jf_open@2x.png */,
+				7BA0CE9421E73695000474D2 /* zzicon_jf_greencheck@3x.png */,
+				7BA0CE9521E73695000474D2 /* zzicon_jf_zfbpay@3x.png */,
+				7BA0CE9621E73695000474D2 /* zzicon_jf_unopen@3x.png */,
+				7BA0CE9721E73695000474D2 /* zzicon_jf_wechatsession@2x.png */,
+				7BA0CE9821E73695000474D2 /* zzicon_jf_wechatsession@3x.png */,
+				7BA0CE9921E73695000474D2 /* zzicon_jf_unopen@2x.png */,
+				7BA0CE9A21E73695000474D2 /* zzicon_jf_zfbpay@2x.png */,
+			);
+			path = 20190110;
+			sourceTree = "<group>";
+		};
+		7BA9C09F21E5D666007A45A4 /* Integral */ = {
+			isa = PBXGroup;
+			children = (
+				7BA9C0A621E6013C007A45A4 /* account */,
+				7BA9C09C21E5D4FB007A45A4 /* ZZMyIntegralController.h */,
+				7BA9C09D21E5D4FB007A45A4 /* ZZMyIntegralController.m */,
+				7BA9C0A021E5D687007A45A4 /* ZZMyIntegralListController.h */,
+				7BA9C0A121E5D687007A45A4 /* ZZMyIntegralListController.m */,
+				7BA9C0A321E5EF2D007A45A4 /* ZZAcountController.h */,
+				7BA9C0A421E5EF2D007A45A4 /* ZZAcountController.m */,
+				7BA0CEB421E749D8000474D2 /* ZZIntegralCell.h */,
+				7BA0CEB521E749D8000474D2 /* ZZIntegralCell.m */,
+				7BA0CEB621E749D8000474D2 /* ZZIntegralCell.xib */,
+			);
+			name = Integral;
+			sourceTree = "<group>";
+		};
+		7BA9C0A621E6013C007A45A4 /* account */ = {
+			isa = PBXGroup;
+			children = (
+				7BA9C0A721E60157007A45A4 /* ZZAcountInfoCell.h */,
+				7BA9C0A821E60157007A45A4 /* ZZAcountInfoCell.m */,
+				7BA9C0A921E60157007A45A4 /* ZZAcountInfoCell.xib */,
+				7BA9C0AC21E60253007A45A4 /* ZZAcountTypeCell.h */,
+				7BA9C0AD21E60253007A45A4 /* ZZAcountTypeCell.m */,
+				7BA9C0AE21E60253007A45A4 /* ZZAcountTypeCell.xib */,
+			);
+			name = account;
+			sourceTree = "<group>";
+		};
 		7BAE10681F6291380034AB76 /* ZZKeyboardView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2851,6 +3042,12 @@
 				7BB4883820874B9400376930 /* ZZKnowledgeSearchResultController.m */,
 				7BB4885920898ED800376930 /* ZZKnowledgeDetailController.h */,
 				7BB4885A20898ED800376930 /* ZZKnowledgeDetailController.m */,
+				7B538BC9209AADF10019D71C /* ZZKnowledgeUserController.h */,
+				7B538BCA209AADF10019D71C /* ZZKnowledgeUserController.m */,
+				7BDC40EC2294F6C10087163B /* ZZKnowledgeSegmentController.h */,
+				7BDC40ED2294F6C10087163B /* ZZKnowledgeSegmentController.m */,
+				7BDC40EF2294F7590087163B /* ZZKnowledgeCollegeListController.h */,
+				7BDC40F02294F7590087163B /* ZZKnowledgeCollegeListController.m */,
 			);
 			path = knowledge;
 			sourceTree = "<group>";
@@ -2867,6 +3064,7 @@
 				7BB48861208990A400376930 /* ZZKnowledgeItemTextCell.h */,
 				7BB48862208990A400376930 /* ZZKnowledgeItemTextCell.m */,
 				7BB48863208990A400376930 /* ZZKnowledgeItemTextCell.xib */,
+				7BEE9AD2208F1C2A009F8DCD /* ZZKnowledgeCellDelegate.h */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -3171,6 +3369,7 @@
 		7BF110431F18801400456E55 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				7BA9C09F21E5D666007A45A4 /* Integral */,
 				7B74A7271F7CF14E00FA2BF3 /* Drawmoney */,
 				7B74A71E1F7CE55700FA2BF3 /* Fans */,
 				7B70002A1F3B11D100C59281 /* EditUser */,
@@ -3189,6 +3388,8 @@
 				7B70FFF81F3AE6A400C59281 /* ZZSettingHelpController.m */,
 				7B7000041F3AFEB300C59281 /* ZZPushSettingController.h */,
 				7B7000051F3AFEB300C59281 /* ZZPushSettingController.m */,
+				7BA9C09921E5D251007A45A4 /* ZZShareSelfController.h */,
+				7BA9C09A21E5D251007A45A4 /* ZZShareSelfController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -3294,6 +3495,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				"zh-Hans",
@@ -3329,11 +3531,13 @@
 				7B7001101F45414100C59281 /* btn_cannotselected@2x.png in Resources */,
 				7BAE109C1F66977B0034AB76 /* treatment_5@2x.png in Resources */,
 				7BF545452003555C00198886 /* ZZAddPicCell.xib in Resources */,
+				7BA0CE9F21E73696000474D2 /* zzicon_jf_look_video@3x.png in Resources */,
 				7BABAD401F67E958004C85FB /* prompt@2x.png in Resources */,
 				7BAE109B1F66977B0034AB76 /* treatment_4@3x.png in Resources */,
 				7B371EC22085A4A400D5D617 /* icon_play_open@3x.png in Resources */,
 				7BB488542088703700376930 /* icon_list_pause@2x.png in Resources */,
 				7B06B9C01F79198600C5EF83 /* tab_bill_selected@3x.png in Resources */,
+				7B24F1FA2146171A00974CC2 /* Default-568h@2x.png in Resources */,
 				7BF110171F18678C00456E55 /* LaunchScreen.storyboard in Resources */,
 				7B06B9C21F79198600C5EF83 /* tab_bill@3x.png in Resources */,
 				7B7001251F45414100C59281 /* choosedoctor_pay@3x.png in Resources */,
@@ -3344,6 +3548,7 @@
 				7B7001661F45414100C59281 /* pop_album@2x.png in Resources */,
 				7BB4883520872F6F00376930 /* icon_knowledge_type4@3x.png in Resources */,
 				7B7001651F45414100C59281 /* personalpage_bg@3x.png in Resources */,
+				7BA0CE9B21E73696000474D2 /* zzicon_jf_wechat@2x.png in Resources */,
 				7BFB1AFD2011EB8A004AC296 /* scale_6@2x.png in Resources */,
 				7BFB1B032011EB8A004AC296 /* scale_5@2x.png in Resources */,
 				7B7001881F45414100C59281 /* tab_mine@2x.png in Resources */,
@@ -3355,6 +3560,7 @@
 				7BFB1B0D2011EB8A004AC296 /* scale_1@3x.png in Resources */,
 				7BFB1B012011EB8A004AC296 /* scale_7@3x.png in Resources */,
 				7BAE109D1F66977B0034AB76 /* treatment_5@3x.png in Resources */,
+				7BA0CEAD21E73696000474D2 /* zzicon_jf_zfbpay@3x.png in Resources */,
 				7B70015D1F45414100C59281 /* nav_share@3x.png in Resources */,
 				7B7001261F45414100C59281 /* classificationbgl@2x.png in Resources */,
 				7B7001811F45414100C59281 /* share_wechat_circle@3x.png in Resources */,
@@ -3364,11 +3570,13 @@
 				7B7001171F45414100C59281 /* btn_into@3x.png in Resources */,
 				7B7001271F45414100C59281 /* classificationbgl@3x.png in Resources */,
 				7B7001241F45414100C59281 /* choosedoctor_pay@2x.png in Resources */,
+				7BA0CEAF21E73696000474D2 /* zzicon_jf_wechatsession@2x.png in Resources */,
 				7B7001311F45414100C59281 /* icon_new@3x.png in Resources */,
 				7B70011A1F45414100C59281 /* btn_selected@2x.png in Resources */,
 				7BFB1B002011EB8A004AC296 /* scale_8@3x.png in Resources */,
 				7BD950A81FFB910E0016C3D6 /* close@2x.png in Resources */,
 				7B7001431F45414100C59281 /* my_consultationresult@3x.png in Resources */,
+				7B467D8820C50FCF006071DB /* guide2.png in Resources */,
 				7B371ECA2085A4A400D5D617 /* icon_play_comment@3x.png in Resources */,
 				7B371EBE2085A4A400D5D617 /* icon_play_pause@3x.png in Resources */,
 				7B7001341F45414100C59281 /* icon_phone@2x.png in Resources */,
@@ -3377,9 +3585,11 @@
 				7B371F08208601E900D5D617 /* progressDot.png in Resources */,
 				7B20C1571F7101C800FBFD9F /* ZZCaseDtailCell.xib in Resources */,
 				7B8A900A1F189FA500FC53D7 /* robot_default@2x.png in Resources */,
+				7BA0CE9D21E73696000474D2 /* zzicon_jf_myself_bg@2x.png in Resources */,
 				7BD9509F1FFB910E0016C3D6 /* Upload_photos@2x.png in Resources */,
 				7BAE10A71F66977B0034AB76 /* treatment_10@3x.png in Resources */,
 				7B8A90081F189FA500FC53D7 /* icon_password_nol@3x.png in Resources */,
+				7BA0CEA121E73696000474D2 /* zzicon_jf_wechatpay@3x.png in Resources */,
 				7B8A90001F189FA500FC53D7 /* Icon120.png in Resources */,
 				7BFB1B042011EB8A004AC296 /* scale_1@2x.png in Resources */,
 				7B7001481F45414100C59281 /* my_healthrecords@2x.png in Resources */,
@@ -3402,6 +3612,7 @@
 				7B7001231F45414100C59281 /* choosecase_delete@3x.png in Resources */,
 				7B7001A51F45414100C59281 /* treatment_tumour@3x.png in Resources */,
 				7BD950A61FFB910E0016C3D6 /* Add_more@3x.png in Resources */,
+				7BA0CEA321E73696000474D2 /* zzicon_jf_zfb@2x.png in Resources */,
 				7B8A900D1F189FA500FC53D7 /* root_menu1_nor@2x.png in Resources */,
 				7B7001A41F45414100C59281 /* treatment_tumour@2x.png in Resources */,
 				7BAE108E1F66977B0034AB76 /* knowledge_video@2x.png in Resources */,
@@ -3411,15 +3622,19 @@
 				7B8A90651F18A72A00FC53D7 /* SVWebViewControllerActivitySafari-iPad@2x.png in Resources */,
 				7B7001941F45414100C59281 /* treatment_child@2x.png in Resources */,
 				7BAE10991F66977B0034AB76 /* treatment_3@3x.png in Resources */,
+				7BA0CEA721E73696000474D2 /* zzicon_jf_wechatpay@2x.png in Resources */,
 				7B7001631F45414100C59281 /* pay_wechat@3x.png in Resources */,
 				7B7001801F45414100C59281 /* share_wechat_circle@2x.png in Resources */,
 				7B7001511F45414100C59281 /* mydoctor_havefollow@3x.png in Resources */,
 				7B70016A1F45414100C59281 /* search_cleanup@2x.png in Resources */,
 				7BB4882E20872F6F00376930 /* icon_knowledge_type3@2x.png in Resources */,
 				7B70015A1F45414100C59281 /* nav_search@2x.png in Resources */,
+				7B67D66220A04EB10051FCB3 /* nav_more_normal@3x.png in Resources */,
 				7B7F3D561F31A8E600132669 /* ZZCommentCell.xib in Resources */,
 				7B70018E1F45414100C59281 /* tab_news_selected@2x.png in Resources */,
 				7B70001D1F3B104A00C59281 /* ZZArchivesCell.xib in Resources */,
+				7BA0CEAE21E73696000474D2 /* zzicon_jf_unopen@3x.png in Resources */,
+				7BA0CE9E21E73696000474D2 /* zzicon_jf_look_video@2x.png in Resources */,
 				7B70010F1F45414100C59281 /* btn_alreadycollected@3x.png in Resources */,
 				7B7F3D5B1F31AA5D00132669 /* ZZNewsCell.xib in Resources */,
 				7B8EBD3E1FA03A600039E602 /* ZZFriendUserCell.xib in Resources */,
@@ -3440,7 +3655,9 @@
 				7BD950A71FFB910E0016C3D6 /* close@3x.png in Resources */,
 				7B3D83DC2089B02600823951 /* icon_list_video@3x.png in Resources */,
 				7B8A8FFF1F189FA500FC53D7 /* avatar_default@3x.png in Resources */,
+				7BA0CEAA21E73696000474D2 /* zzicon_jf_open@3x.png in Resources */,
 				7B7001361F45414100C59281 /* icon_required@2x.png in Resources */,
+				7BA0CEA521E73696000474D2 /* zzicon_jf_myself_bg@2x@3x.png in Resources */,
 				7B371ED92085A4A400D5D617 /* icon_play_pre@3x.png in Resources */,
 				7BAE10971F66977B0034AB76 /* treatment_2@3x.png in Resources */,
 				7B70015B1F45414100C59281 /* nav_search@3x.png in Resources */,
@@ -3476,9 +3693,12 @@
 				7BB4883620872F6F00376930 /* icon_knowledge_type1@3x.png in Resources */,
 				7BABAD411F67E958004C85FB /* prompt@3x.png in Resources */,
 				7B53657D1FB2DB1F000CD932 /* ZZChooseCell.xib in Resources */,
+				7B67D66120A04EB10051FCB3 /* nav_more_normal@2x.png in Resources */,
 				7BB4883420872F6F00376930 /* icon_knowledge_type3@3x.png in Resources */,
 				7B06B9BB1F79198600C5EF83 /* my_fans@2x.png in Resources */,
 				7B8A90031F189FA500FC53D7 /* icon_email_nol@3x.png in Resources */,
+				7B67D66420A04EB10051FCB3 /* nav_more_pressed@3x.png in Resources */,
+				7BA0CEB121E73696000474D2 /* zzicon_jf_unopen@2x.png in Resources */,
 				7B371EE72085E0AF00D5D617 /* icon_play_down@3x.png in Resources */,
 				7B20C15F1F71030F00FBFD9F /* ZZCaseDetailMulCell.xib in Resources */,
 				7B70019E1F45414100C59281 /* treatment_pain@2x.png in Resources */,
@@ -3510,6 +3730,8 @@
 				7B7001281F45414100C59281 /* classificationbg@2x.png in Resources */,
 				7B70014C1F45414100C59281 /* my_recommend@2x.png in Resources */,
 				7BFB1B052011EB8A004AC296 /* scale_3@3x.png in Resources */,
+				7BA0CE9C21E73696000474D2 /* zzicon_jf_checked@2x@3x.png in Resources */,
+				7BA0CEA921E73696000474D2 /* zzicon_jf_greencheck@2x.png in Resources */,
 				7B70017E1F45414100C59281 /* share_wechat@2x.png in Resources */,
 				7B70019B1F45414100C59281 /* treatment_heart@3x.png in Resources */,
 				7B371EC12085A4A400D5D617 /* icon_play_open@2x.png in Resources */,
@@ -3528,10 +3750,12 @@
 				7B7001581F45414100C59281 /* nav_register_back@2x.png in Resources */,
 				7B70027E1F556A4A00C59281 /* ZZUserIndexCell.xib in Resources */,
 				7B70014F1F45414100C59281 /* my_set@3x.png in Resources */,
+				7BA0CEB221E73696000474D2 /* zzicon_jf_zfbpay@2x.png in Resources */,
 				7BABAD3E1F67E958004C85FB /* nav_retract@2x.png in Resources */,
 				7B8A905E1F18A72A00FC53D7 /* SVWebViewController.bundle in Resources */,
 				7BB4883120872F6F00376930 /* icon_knowledge_type5@3x.png in Resources */,
 				7B371ED12085A4A400D5D617 /* icon_play_next_fast@2x.png in Resources */,
+				7BA9C0AB21E60157007A45A4 /* ZZAcountInfoCell.xib in Resources */,
 				7B8A90601F18A72A00FC53D7 /* SVWebViewControllerActivityChrome-iPad.png in Resources */,
 				7B7001961F45414100C59281 /* treatment_critical@2x.png in Resources */,
 				7B7002761F55493800C59281 /* ZZCreateCaseMulCell.xib in Resources */,
@@ -3546,13 +3770,16 @@
 				7B06B9B31F79198600C5EF83 /* increase@2x.png in Resources */,
 				7B7001761F45414100C59281 /* service_satisfied@2x.png in Resources */,
 				7B8A90101F189FA500FC53D7 /* root_menu2@3x.png in Resources */,
+				7B67D66320A04EB10051FCB3 /* nav_more_pressed@2x.png in Resources */,
 				7BB4883220872F6F00376930 /* icon_knowledge_type2@3x.png in Resources */,
 				7B7000291F3B112C00C59281 /* ZZHZResultCell.xib in Resources */,
+				7BA0CEAC21E73696000474D2 /* zzicon_jf_greencheck@3x.png in Resources */,
 				7B371F0B208601E900D5D617 /* Next.png in Resources */,
 				7B3D83DD2089B02600823951 /* icon_list_video@2x.png in Resources */,
 				7B70013A1F45414100C59281 /* icon_verification@2x.png in Resources */,
 				7B7001691F45414100C59281 /* pop_photograph@3x.png in Resources */,
 				7B06B9B21F79198600C5EF83 /* frame@3x.png in Resources */,
+				7BA0CEA021E73696000474D2 /* zzicon_jf_wechat@3x.png in Resources */,
 				7B7001111F45414100C59281 /* btn_cannotselected@3x.png in Resources */,
 				7B7001641F45414100C59281 /* personalpage_bg@2x.png in Resources */,
 				7BABAD3B1F67E958004C85FB /* Bounty@3x.png in Resources */,
@@ -3566,6 +3793,7 @@
 				7BAE108F1F66977B0034AB76 /* knowledge_video@3x.png in Resources */,
 				7B7F3D9B1F31DD5700132669 /* YWFeedbackBundle.bundle in Resources */,
 				7BFB1B0A2011EB8A004AC296 /* scale_9@2x.png in Resources */,
+				7BA0CEB821E749D8000474D2 /* ZZIntegralCell.xib in Resources */,
 				7BB4882120872B3C00376930 /* icon_list_more@3x.png in Resources */,
 				7B371EC92085A4A400D5D617 /* icon_play_collect@2x.png in Resources */,
 				7B7000121F3B09D600C59281 /* ZZChapterUserCell.xib in Resources */,
@@ -3590,6 +3818,8 @@
 				7B7001421F45414100C59281 /* my_consultationresult@2x.png in Resources */,
 				7BFB1B0B2011EB8A004AC296 /* scale_6@3x.png in Resources */,
 				7B7001751F45414100C59281 /* service_dissatisfied@3x.png in Resources */,
+				7BA0CEA821E73696000474D2 /* zzicon_jf_checked@2x.png in Resources */,
+				7BA9C0B021E60253007A45A4 /* ZZAcountTypeCell.xib in Resources */,
 				7B70019F1F45414100C59281 /* treatment_pain@3x.png in Resources */,
 				7B371EDA2085A4A400D5D617 /* icon_play_text@2x.png in Resources */,
 				7B70012B1F45414100C59281 /* doctor_follow@3x.png in Resources */,
@@ -3601,6 +3831,7 @@
 				7BABAD3A1F67E958004C85FB /* Bounty@2x.png in Resources */,
 				7B7001221F45414100C59281 /* choosecase_delete@2x.png in Resources */,
 				7B70010E1F45414100C59281 /* btn_alreadycollected@2x.png in Resources */,
+				7BA0CEB021E73696000474D2 /* zzicon_jf_wechatsession@3x.png in Resources */,
 				7B7C28061FBD84AF00C3A6D9 /* icon_down@2x.png in Resources */,
 				7BB4882220872B3C00376930 /* icon_list_more@2x.png in Resources */,
 				7B7001491F45414100C59281 /* my_healthrecords@3x.png in Resources */,
@@ -3630,11 +3861,13 @@
 				7B8A8FFE1F189FA500FC53D7 /* avatar_default@2x.png in Resources */,
 				7B7001301F45414100C59281 /* icon_new@2x.png in Resources */,
 				7B371F0C208601E900D5D617 /* play.png in Resources */,
+				7BA0CEA221E73696000474D2 /* zzicon_jf_uncheck@2x.png in Resources */,
 				7BFB1AFC2011EB8A004AC296 /* scale_2@3x.png in Resources */,
 				7B06B9AF1F79198600C5EF83 /* Doctor_friend@2x.png in Resources */,
 				7B7001461F45414100C59281 /* my_edit@2x.png in Resources */,
 				7BB488552088703700376930 /* icon_list_text@2x.png in Resources */,
 				7B371ED22085A4A400D5D617 /* search_icon@3x.png in Resources */,
+				7BA0CEA621E73696000474D2 /* zzicon_jf_uncheck@3x.png in Resources */,
 				7B70012E1F45414100C59281 /* icon_grade@2x.png in Resources */,
 				7B70017F1F45414100C59281 /* share_wechat@3x.png in Resources */,
 				7B8A90671F18A72A00FC53D7 /* SVWebViewControllerActivitySafari@2x.png in Resources */,
@@ -3650,6 +3883,7 @@
 				7BAE10981F66977B0034AB76 /* treatment_3@2x.png in Resources */,
 				7B7000171F3B0E2000C59281 /* ZZDoctorUserCell.xib in Resources */,
 				7BD950A51FFB910E0016C3D6 /* Selected_state@3x.png in Resources */,
+				7BA0CEAB21E73696000474D2 /* zzicon_jf_open@2x.png in Resources */,
 				7BE654982005C830000B57AE /* ZZSymptomDetailCell.xib in Resources */,
 				7B371EE62085E0AF00D5D617 /* icon_play_down@2x.png in Resources */,
 				7BAE108C1F66977B0034AB76 /* classificationbg2@2x.png in Resources */,
@@ -3659,6 +3893,7 @@
 				7B70014A1F45414100C59281 /* my_opinion@2x.png in Resources */,
 				7B06B9BD1F79198600C5EF83 /* my_withdrawdeposit@2x.png in Resources */,
 				7B7001781F45414100C59281 /* share_close@2x.png in Resources */,
+				7BA0CEA421E73696000474D2 /* zzicon_jf_zfb@3x.png in Resources */,
 				7B70019C1F45414100C59281 /* treatment_liver@2x.png in Resources */,
 				7B70016D1F45414100C59281 /* search_dropdown@3x.png in Resources */,
 				7B371EBF2085A4A400D5D617 /* icon_play_dot@3x.png in Resources */,
@@ -3678,6 +3913,7 @@
 				7BF110121F18678C00456E55 /* Main.storyboard in Resources */,
 				7BB488532088703700376930 /* icon_list_play@2x.png in Resources */,
 				7B06B9BA1F79198600C5EF83 /* my_data@3x.png in Resources */,
+				0437C00421F07DBC00AAD481 /* downcode.png in Resources */,
 				7B8A90171F189FA500FC53D7 /* titlebar_back_normal@2x.png in Resources */,
 				7B06B9B51F79198600C5EF83 /* increased@2x.png in Resources */,
 				7B7001741F45414100C59281 /* service_dissatisfied@2x.png in Resources */,
@@ -3689,6 +3925,7 @@
 				7BF1104D1F18807600456E55 /* ZZLoginController.xib in Resources */,
 				7B7001141F45414100C59281 /* btn_comment@2x.png in Resources */,
 				7B7001601F45414100C59281 /* pay_free@2x.png in Resources */,
+				7B467D8920C50FCF006071DB /* guide1.png in Resources */,
 				7B7001371F45414100C59281 /* icon_required@3x.png in Resources */,
 				7B70011E1F45414100C59281 /* btn_slide@2x.png in Resources */,
 				7B7001A31F45414100C59281 /* treatment_thyroid@3x.png in Resources */,
@@ -3771,6 +4008,7 @@
 				7BD9506C1FFB718E0016C3D6 /* ZZPatientModel.m in Sources */,
 				7BF110411F187FE300456E55 /* ZZRegisterController.m in Sources */,
 				7B7F3D3C1F31778200132669 /* TAAbstractDotView.m in Sources */,
+				7BA9C0A521E5EF2D007A45A4 /* ZZAcountController.m in Sources */,
 				7B3DFE351FBC3E3100AD39AE /* ASQListController.m in Sources */,
 				7B70028E1F56647700C59281 /* ZZSportCaseEntity.m in Sources */,
 				7B61C8C9200DC53D00C932D9 /* ZZBaseAlertView.m in Sources */,
@@ -3795,8 +4033,11 @@
 				7B20C16E1F721D0D00FBFD9F /* ZZDiscussCell.m in Sources */,
 				7B8A90341F18A1F400FC53D7 /* ZZCoreTools.m in Sources */,
 				7BB48818208725FF00376930 /* ZZKnowledgeItemsCell.m in Sources */,
+				7BEE9AD5208F3BA5009F8DCD /* ZZVoiceTools.m in Sources */,
 				7BD950651FFB625C0016C3D6 /* ZZCreatePatientController.m in Sources */,
+				7BA0CEB721E749D8000474D2 /* ZZIntegralCell.m in Sources */,
 				7B7F3D3D1F31778200132669 /* TAAnimatedDotView.m in Sources */,
+				7BA9C0AA21E60157007A45A4 /* ZZAcountInfoCell.m in Sources */,
 				7B70006E1F42E8AD00C59281 /* ZCActionSheetView.m in Sources */,
 				7B00F8E01F30712E00E29561 /* ZZUserHomeCell.m in Sources */,
 				7B7002811F55730700C59281 /* ZZDoctorDetailController.m in Sources */,
@@ -3816,6 +4057,7 @@
 				7B3DFDD31FBAD98800AD39AE /* ZZQSModel.m in Sources */,
 				7B1DCC332074B4840061B755 /* ZZAudioPlayerView.m in Sources */,
 				7BD950C71FFCD7C50016C3D6 /* ZZChoosePatientController.m in Sources */,
+				7BA9C0A221E5D687007A45A4 /* ZZMyIntegralListController.m in Sources */,
 				7B8A90621F18A72A00FC53D7 /* SVWebViewControllerActivityChrome.m in Sources */,
 				7BB48813208724B800376930 /* ZZKnowledgeSearchController.m in Sources */,
 				7B5365811FB2DB34000CD932 /* ZZSQTextCell.m in Sources */,
@@ -3875,9 +4117,11 @@
 				7B20C15E1F71030F00FBFD9F /* ZZCaseDetailMulCell.m in Sources */,
 				7BAE106B1F6291510034AB76 /* ZZKeyboardView.m in Sources */,
 				7B371E9D2085A13200D5D617 /* ZZVideoView.swift in Sources */,
+				7B538BCE209B0C1F0019D71C /* ZZKnowledgeTopicModel.m in Sources */,
 				7B7F3D411F31778200132669 /* SDCycleScrollView.m in Sources */,
 				7B371F04208601E900D5D617 /* MHTopMenu.swift in Sources */,
 				7B5365641FB0474D000CD932 /* ZZRemarkLabelCell.m in Sources */,
+				7BDC40EE2294F6C10087163B /* ZZKnowledgeSegmentController.m in Sources */,
 				7B5C1C831F1F534A00DDDA78 /* ZZChapterCell.m in Sources */,
 				7B7F3D4A1F318E9600132669 /* ZZChannelLabel.m in Sources */,
 				7B20C1751F727F6A00FBFD9F /* ZZRewardController.m in Sources */,
@@ -3888,6 +4132,7 @@
 				7B8A90681F18A72A00FC53D7 /* SVWebViewControllerActivity.m in Sources */,
 				7B7F3D5A1F31AA5D00132669 /* ZZNewsCell.m in Sources */,
 				7B7002651F550EC300C59281 /* ZZBuyController.m in Sources */,
+				7B67D659209C09BC0051FCB3 /* ZZOperaterView.m in Sources */,
 				7B5C1C8A1F1F541300DDDA78 /* ZZUserHomeController.m in Sources */,
 				7B5C1CDB1F1F5B7B00DDDA78 /* NSString+XHMD5.m in Sources */,
 				7B1DCD77208587F20061B755 /* ZZVoiceController.swift in Sources */,
@@ -3904,6 +4149,7 @@
 				7B06B9911F78AB2100C5EF83 /* ZZInviteDoctorController.m in Sources */,
 				7B250E251FCE994C00C2D72A /* AlertUtil.m in Sources */,
 				7B8A902F1F18A16D00FC53D7 /* UIView+Border.m in Sources */,
+				7BA9C09E21E5D4FB007A45A4 /* ZZMyIntegralController.m in Sources */,
 				7B8A902D1F18A16D00FC53D7 /* UIImage+ImageWithColor.m in Sources */,
 				7B5C1C8E1F1F544D00DDDA78 /* ZZSearchDoctorController.m in Sources */,
 				7B61C8C3200D9BA500C932D9 /* LemmaModel.m in Sources */,
@@ -3914,6 +4160,7 @@
 				7BD950891FFB833F0016C3D6 /* PGPickerColumnView.m in Sources */,
 				7B7002BD1F60F12400C59281 /* ZZUserHomeModel.m in Sources */,
 				7B7F3D651F31B6D800132669 /* ZZSettingCell.m in Sources */,
+				7BA9C0AF21E60253007A45A4 /* ZZAcountTypeCell.m in Sources */,
 				7B20C1451F70BF6F00FBFD9F /* WXApiManager.m in Sources */,
 				7BB488102087233D00376930 /* ZZKnowledgeHomeController.m in Sources */,
 				7B20C0551F692D0300FBFD9F /* ZZPayHandler.m in Sources */,
@@ -3923,8 +4170,10 @@
 				7B7001B21F45970B00C59281 /* ZZFindPwdController.m in Sources */,
 				7B7F3D281F3176CF00132669 /* ZZBaseModel.m in Sources */,
 				7B8A90661F18A72A00FC53D7 /* SVWebViewControllerActivitySafari.m in Sources */,
+				0437C00721F1BD2800AAD481 /* ZZFollowMessageModel.m in Sources */,
 				7BD950AC1FFB91670016C3D6 /* ZZAddSymptomController.m in Sources */,
 				7BD9508B1FFB833F0016C3D6 /* PGPickerView.m in Sources */,
+				7BA9C09B21E5D251007A45A4 /* ZZShareSelfController.m in Sources */,
 				7BD950CE1FFDC8180016C3D6 /* ZZSymptomWTCell.m in Sources */,
 				7BF1100C1F18678C00456E55 /* AppDelegate.m in Sources */,
 				7B5C1C871F1F53DF00DDDA78 /* ZZDoctorHomeController.m in Sources */,
@@ -3938,6 +4187,7 @@
 				7B8A905F1F18A72A00FC53D7 /* SVWebViewController.m in Sources */,
 				7B70000A1F3B06E700C59281 /* ZZAttentionController.m in Sources */,
 				7BE654902004BB26000B57AE /* ZZPatientSymptomController.m in Sources */,
+				7BDC40F12294F7590087163B /* ZZKnowledgeCollegeListController.m in Sources */,
 				7BB48864208990A400376930 /* ZZKnowledgeItemTextCell.m in Sources */,
 				7B7F3D451F317DB900132669 /* ZZChannelCell.m in Sources */,
 				7B5C1CDF1F1F5B7B00DDDA78 /* XHFileAttribute.m in Sources */,
@@ -3974,6 +4224,7 @@
 				7BF110471F18802200456E55 /* ZZSettingController.m in Sources */,
 				7B5C1C7F1F1F532500DDDA78 /* ZZChapterListController.m in Sources */,
 				7BD950C31FFCC0170016C3D6 /* ZZPatientDetailController.m in Sources */,
+				7B538BCB209AADF10019D71C /* ZZKnowledgeUserController.m in Sources */,
 				7B7002691F55117600C59281 /* ZZCaseModel.m in Sources */,
 				7B5365571FB04619000CD932 /* ZZRemarkUserController.m in Sources */,
 				7B5C1CE71F1F5B7B00DDDA78 /* ZCTTMLEmojiLabel.m in Sources */,
@@ -4132,7 +4383,6 @@
 			baseConfigurationReference = 0C8FE523BE6EF9708DA98AC7 /* Pods-ExpertApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ExpertApp/ExpertApp.entitlements;
 				DEFINES_MODULE = YES;
@@ -4204,7 +4454,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ExpertApp/ExpertApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Debug;
@@ -4214,7 +4464,6 @@
 			baseConfigurationReference = 2BFF83052A5736BE29B3415E /* Pods-ExpertApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ExpertApp/ExpertApp.entitlements;
 				DEFINES_MODULE = YES;
@@ -4285,7 +4534,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sjhz.mobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ExpertApp/ExpertApp-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Release;

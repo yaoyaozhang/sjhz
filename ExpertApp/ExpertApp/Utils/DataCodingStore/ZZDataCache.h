@@ -15,6 +15,7 @@
 /** 用户ID 用户的唯一标识 */
 extern NSString * const KEY_LOGIN_USERINFO;
 extern NSString * const KEY_LOGIN_USERNAME;
+extern NSString * const KEY_LOGIN_OUTBYSELF;
 extern NSString * const KEY_LOGIN_USERPWD;
 
 
@@ -29,6 +30,7 @@ extern NSString * const KEY_CONFIG_RELATION;
 
 
 extern NSString * const KEY_SEARCH_KEYWORD;
+extern NSString * const KEY_CONFIG_CHAPTERTYPE;
 
 
 
