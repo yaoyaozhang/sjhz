@@ -359,13 +359,19 @@
     if(type == 2){
         ZZKnowledgeUserController *userVC = [[ZZKnowledgeUserController alloc] init];
         userVC.model = model;
-        [self openNav:userVC sound:nil];
+//        [self openNav:userVC sound:nil];
+        
+        
+        [self.preVC.navigationController pushViewController:userVC animated:nil];
     }
     
     if(type == 3){
         ZZChapterDetailController *vc = [[ZZChapterDetailController alloc] init];
         vc.model = model;
-        [self openNav:vc sound:nil];
+//        [self openNav:vc sound:nil];
+        
+        
+        [self.preVC.navigationController pushViewController:vc animated:nil];
     }
 }
 
@@ -562,7 +568,10 @@
     ZZDoctorChapterController *vc = [[ZZDoctorChapterController alloc] init];
     vc.fromType = [model.code intValue];
     vc.pageTitle = model.name;
-    [self openNav:vc sound:nil];
+//    [self openNav:vc sound:nil];
+    
+    
+    [self.preVC.navigationController pushViewController:vc animated:nil];
 }
 
 
