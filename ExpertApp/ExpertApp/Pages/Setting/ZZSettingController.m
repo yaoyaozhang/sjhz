@@ -40,6 +40,7 @@
 #import "ZZPatientListController.h"
 #import "ZZKnowledgeSearchController.h"
 #import "ZZMyIntegralController.h"
+#import "ZZMyIntegralListController.h"
 
 
 
@@ -182,10 +183,15 @@
 
 
 -(void)onCellClick:(NSString *)tag{
-    
-    ZZMyIntegralController *vc = [[ZZMyIntegralController alloc] init];
-    
-    [self openNav:vc sound:nil];
+    if([ZZDataCache getInstance].getCheckStatusUser){
+        return;
+//        ZZMyIntegralListController *vc = [[ZZMyIntegralListController alloc] init];
+//        [self openNav:vc sound:nil];
+    }else{
+        ZZMyIntegralController *vc = [[ZZMyIntegralController alloc] init];
+        
+        [self openNav:vc sound:nil];
+    }
 }
 
 #pragma mark UITableView delegate Start

@@ -111,6 +111,15 @@ NSString * const KEY_SEARCH_KEYWORD = @"ZZSearchKeyword";
 //    [self cleanCache];
 }
 
+-(BOOL)getCheckStatusUser{
+    if([self isLogin]){
+        if([@"18611622736" isEqual:convertToString(_loginUserInfo.phone)]){
+            return YES;
+        }
+    }
+    return NO;
+}
+
 
 
 

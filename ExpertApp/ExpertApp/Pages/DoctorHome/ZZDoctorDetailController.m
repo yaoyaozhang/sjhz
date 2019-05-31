@@ -123,7 +123,7 @@
         } complete:^(NSDictionary *dict) {
             if(dict && dict[@"retData"]){
                 // 已支付
-                if([dict[@"retData"][@"can"] intValue] == 1){
+                if([dict[@"retData"][@"can"] intValue] == 1 || [[ZZDataCache getInstance] getCheckStatusUser]){
                     // 咨询
                     ZZChoosePatientController *chooseVC = [[ZZChoosePatientController alloc] init];
                     chooseVC.doctorId = convertIntToString(_docId);

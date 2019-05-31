@@ -306,6 +306,8 @@
 
 
 #define API_getKnowledgeHome [NSString stringWithFormat:@"%@/news/appSecondByNewsType",API_HOST]
+#define API_getKnowledgeHomeList [NSString stringWithFormat:@"%@/news/appFindXueYuanList",API_HOST]
+#define API_getKnowledgeHomePics [NSString stringWithFormat:@"%@/news/appXueYuan",API_HOST]
 #define API_getKnowledgeSearch [NSString stringWithFormat:@"%@/news/appSecondByNewsSerach",API_HOST]
 #define API_getKnowledgeTJListById [NSString stringWithFormat:@"%@/news/appTuijianList",API_HOST]
 #define API_getKnowledgeDetail [NSString stringWithFormat:@"%@/news/appOneNews",API_HOST]

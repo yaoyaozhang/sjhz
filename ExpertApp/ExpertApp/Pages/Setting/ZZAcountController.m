@@ -20,6 +20,7 @@
 #import "ZZMyIntegralController.h"
 #import "ZZChoosePatientController.h"
 #import "ZZKnowledgeTopicModel.h"
+#import <UMSocialCore/UMSocialCore.h>
 
 @interface ZZAcountController ()<UITableViewDelegate,UITableViewDataSource,ZZAcountTypeCellDelegate>{
     ZZUserInfo *user;
@@ -149,9 +150,17 @@
  加载更多
  */
 -(void)loadMoreData{
-    _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"您选择的服务"},
-                   @{@"code":@"2",@"icon":@"",@"text":@"选择支付方式"},
-                   @{@"code":@"3",@"icon":@"",@"text":@"您购买的商品是虚拟内容服务，购买不支持退订、转让、退换，请斟酌确认。"}];
+    // 不要支付
+    if([ZZDataCache getInstance].getCheckStatusUser){
+        
+        _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"您选择的服务"},
+                       @{@"code":@"2",@"icon":@"",@"text":@"选择支付方式"}];
+    }else{
+        
+        _listArray = @[@{@"code":@"1",@"icon":@"",@"text":@"您选择的服务"},
+                       @{@"code":@"2",@"icon":@"",@"text":@"选择支付方式"},
+                       @{@"code":@"3",@"icon":@"",@"text":@"您购买的商品是虚拟内容服务，购买不支持退订、转让、退换，请斟酌确认。"}];
+    }
     [_listTable reloadData];
 }
 

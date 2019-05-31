@@ -111,7 +111,7 @@
     btnSegmentLeft.tag = 1;
     [btnSegmentLeft.titleLabel setFont:ListTitleFont];
     [btnSegmentLeft addRightBorderWithColor:UIColorFromRGB(TextWhiteColor) andWidth:1.0f];
-    [btnSegmentLeft setTitle:@"知识" forState:UIControlStateNormal];
+    [btnSegmentLeft setTitle:@"专业论坛" forState:UIControlStateNormal];
     [btnSegmentLeft setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btnSegmentLeft setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateSelected];
     [btnSegmentLeft setTitleColor:UIColorFromRGB(BgTitleColor) forState:UIControlStateHighlighted];

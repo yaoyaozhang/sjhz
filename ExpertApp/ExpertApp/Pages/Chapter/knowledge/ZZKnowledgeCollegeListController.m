@@ -36,7 +36,7 @@
 @interface ZZKnowledgeCollegeListController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate,SDCycleScrollViewDelegate,ZZKnowledgeItemsCellDelegate>{
     
     
-    NSMutableArray     *_tjArray;
+//    NSMutableArray     *_tjArray;
     NSMutableArray     *_listArray;
     NSMutableArray     *_picArray;
     
@@ -86,7 +86,6 @@
     
     loginUser = [[ZZDataCache getInstance] getLoginUser];
     
-    [self beginNetRefreshData];
     
 }
 
@@ -128,43 +127,61 @@
         [SVProgressHUD show];
     }
     
-    [self endNetRefreshData];
     
-    [[ZZDataCache getInstance] getCacheConfigDict:^(NSMutableDictionary *dict, int status) {
-        if(status == 0){
-            [SVProgressHUD dismiss];
-            
-            if(dict[KEY_CONFIG_CHAPTERTYPE]){
-                NSArray *arr = dict[KEY_CONFIG_CHAPTERTYPE];
-                [titles addObjectsFromArray:arr];
-                
-                [_listTable reloadData];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [ZZRequsetInterface post:API_getKnowledgeHomePics param:dict timeOut:HttpGetTimeOut start:^{
+        
+    } finish:^(id response, NSData *data) {
+        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        
+//        if(_listTable.footer && [_listTable.footer respondsToSelector:@selector(endRefreshing)]){
+//            [_listTable.footer endRefreshing];
+//        }
+//        if(_listTable.header && [_listTable.header respondsToSelector:@selector(endRefreshing)]){
+//            [_listTable.header endRefreshing];
+//        }
+//        [SVProgressHUD dismiss];
+        
+        
+        [self endNetRefreshData];
+    } complete:^(NSDictionary *dict) {
+        [_picArray removeAllObjects];
+        NSArray *arr = dict[@"retData"];
+        if(arr!=nil && arr.count > 1) {
+            if(_dataType == 1){
+                [_picArray addObject:arr[0]];
+            }else{
+                [_picArray addObject:arr[1]];
             }
         }
-        if(status == 1){
-            [SVProgressHUD show];
-        }
-        if(status == 2){
-            [SVProgressHUD showErrorWithStatus:@"加载配置信息错误"];
-        }
+        
+    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+        [_listTable reloadData];
+    } progress:^(CGFloat progress) {
+        
     }];
 }
 
 -(void)endNetRefreshData{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:@"0" forKey:@"newsType"];
+//    [dict setObject:@"0" forKey:@"newsType"];
     [dict setObject:@"30" forKey:@"pageSize"];
     [dict setObject:convertIntToString(pageNumber) forKey:@"pageNum"];
     
     
     if(_dataType == 2){
-        
+        // 长者运动学院
+        [dict setObject:@"1" forKey:@"type"];
+    }else{
+        // msep-cpx
+        [dict setObject:@"2" forKey:@"type"];
     }
     
-    [ZZRequsetInterface post:API_getKnowledgeHome param:dict timeOut:HttpGetTimeOut start:^{
+    [ZZRequsetInterface post:API_getKnowledgeHomeList param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
-        //        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         
         if(_listTable.footer && [_listTable.footer respondsToSelector:@selector(endRefreshing)]){
             [_listTable.footer endRefreshing];
@@ -176,20 +193,16 @@
     } complete:^(NSDictionary *dict) {
         if(pageNumber == 1){
             [_listArray removeAllObjects];
-            [_picArray removeAllObjects];
-            [_tjArray removeAllObjects];
+//            [_tjArray removeAllObjects];
             
         }
-        NSDictionary *data= dict[@"retData"];
-        
-        for (NSDictionary *item in data[@"pic"]) {
-            [_picArray addObject:item];
-        }
-        for (NSDictionary *item in data[@"jinpingke"]) {
+//        NSDictionary *data= dict[@"retData"];
+//
+//        for (NSDictionary *item in data[@"pic"]) {
+//            [_picArray addObject:item];
+//        }
+        for (NSDictionary *item in dict[@"retData"]) {
             [_listArray addObject:[[ZZKnowledgeTopicModel alloc] initWithMyDict:item]];
-        }
-        for (NSDictionary *item in data[@"tuijian"]) {
-            [_tjArray addObject:[[ZZTJListModel alloc] initWithMyDict:item]];
         }
         
         
@@ -206,7 +219,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == _listTable) {
-        CGFloat sectionHeaderHeight = 10;
+        CGFloat sectionHeaderHeight = 170;
         
         if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y >= 0) {
             scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
@@ -214,6 +227,8 @@
             scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
         }
     }
+    
+    
 }
 
 /**
@@ -299,45 +314,45 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(section == 0){
-        return 0;
-    }
-    if(section == 1){
-        return _tjArray.count;
-    }
+//    if(section == 0){
+//        return 0;
+//    }
+//    if(section == 1){
+//        return _tjArray.count;
+//    }
     
     return _listArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section==1){
-        
-        ZZKnowledgeItemsCell *cell = (ZZKnowledgeItemsCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifer];
-        if (cell == nil) {
-            cell = [[ZZKnowledgeItemsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifer];
-        }
-        cell.delegate = self;
-        
-        [cell dataToItem:[_tjArray objectAtIndex:indexPath.row]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    else{
-        
+//    if(indexPath.section==1){
+//
+//        ZZKnowledgeItemsCell *cell = (ZZKnowledgeItemsCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentifer];
+//        if (cell == nil) {
+//            cell = [[ZZKnowledgeItemsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifer];
+//        }
+//        cell.delegate = self;
+//
+//        [cell dataToItem:[_tjArray objectAtIndex:indexPath.row]];
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        return cell;
+//    }
+//    else{
+    
         ZZKnowledgeRichCell *cell = (ZZKnowledgeRichCell*)[tableView dequeueReusableCellWithIdentifier:cellIndentiferRich];
         if (cell == nil) {
             cell = [[ZZKnowledgeRichCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentiferRich];
         }
         [cell dataToItem:[_listArray objectAtIndex:indexPath.row]];
         return cell;
-    }
+//    }
     
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    if(indexPath.section == 2){
+//    if(indexPath.section == 2){
         ZZKnowledgeTopicModel *itemModel = [_listArray objectAtIndex:indexPath.row];
         
         
@@ -345,7 +360,7 @@
         vc.model = itemModel;
         [self.preVC.navigationController pushViewController:vc animated:nil];
 //        [self openNav:vc sound:nil];
-    }
+//    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -353,6 +368,7 @@
     
     return CGRectGetHeight(cell.frame);
 }
+
 
 
 -(void)onItemClick:(id)model type:(int)type obj:(NSMutableArray *)arr{
@@ -487,7 +503,7 @@
 {
     NSDictionary *item = _picArray[index];
     NSLog(@"%@",item);
-    [((AppDelegate*)[UIApplication sharedApplication].delegate) openNewPage:item[@"exUrl"]];
+    [((AppDelegate*)[UIApplication sharedApplication].delegate) openNewPage:item[@"exurl"]];
 }
 
 -(void)chapterOnClick:(ZZChapterModel *) itemModel playArr:(NSMutableArray *) arr from:(int) from{

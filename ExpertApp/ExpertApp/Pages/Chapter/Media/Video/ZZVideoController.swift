@@ -181,22 +181,25 @@ class ZZVideoController: BaseController {
     
     // 记录播放数量
     func countClickNumber() {
-//        let params : NSMutableDictionary = NSMutableDictionary()
-//        params["nid"] = convertIntToString((self.model?.nid)!)
-//        ZZRequsetInterface.post(API_getKnowledgeDetail, param:params, timeOut: CGFloat(HttpPostTimeOut), start: {
-//            
-//        }, finish: { (_ obj:Any!, data:Data!) in
-//            
-//        }, complete: { (dictValue:Dictionary!) in
-//            let v:Dictionary<String,Any> = dictValue["retData"]! as! Dictionary
-//            
-//            print(v)
-//            
-//        }, fail: { (_ obj:Any!, msg:String!,err:Error!) in
-//            
-//        },progress: { (_p:CGFloat) in
-//            
-//        })
+        let params : NSMutableDictionary = NSMutableDictionary()
+        params["idfabulousType"] = convertIntToString(3)
+        params["nid"] = convertIntToString((self.model?.nid)!)
+        params["uid"] = convertIntToString(ZZDataCache.getInstance().getLoginUser().userId)
+        ZZRequsetInterface.post(API_CollectChapterFabulous, param:params, timeOut: CGFloat(HttpPostTimeOut), start: {
+            
+        }, finish: { (_ obj:Any!, data:Data!) in
+            //                print(String.init(data: data, encoding: .utf8)!)
+        }, complete: { (dictValue:Dictionary!) in
+            
+            
+//            self.model?.collect = (self.model?.collect)! + 1
+            
+        }, fail: { (_ obj:Any!, msg:String!,err:Error!) in
+//            self.view.makeToast(msg)
+//            print(err)
+        },progress: { (_p:CGFloat) in
+            
+        })
     }
 
     override func didReceiveMemoryWarning() {

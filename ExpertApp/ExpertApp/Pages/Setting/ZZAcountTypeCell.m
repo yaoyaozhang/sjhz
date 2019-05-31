@@ -7,6 +7,7 @@
 //
 
 #import "ZZAcountTypeCell.h"
+#import <UMSocialCore/UMSocialCore.h>
 
 @implementation ZZAcountTypeCell
 
@@ -48,6 +49,16 @@
         [self setFrame:CGRectMake(0, 0, ScreenWidth, 50)];
         _imgLine.hidden = YES;
         [_imgCheck setImage:[UIImage imageNamed:@"zzicon_jf_greencheck"]];
+    }
+    
+    // 不要支付
+    if([ZZDataCache getInstance].getCheckStatusUser){
+        
+        _btnPay.hidden = YES;
+        _labName.hidden = YES;
+        _labTips.hidden = YES;
+        
+        self.frame = CGRectMake(0, 0, ScreenWidth, 44);
     }
 }
 

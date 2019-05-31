@@ -53,6 +53,8 @@ extern NSString * const KEY_CONFIG_CHAPTERTYPE;
 
 -(void)loginOut;
 
+-(BOOL)getCheckStatusUser;
+
 
 -(void)cleanCache;
 

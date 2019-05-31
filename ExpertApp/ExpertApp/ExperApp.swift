@@ -91,6 +91,7 @@ let TextUnPlaceHolderColor:Int64 =   0x3D4966
 
 let API_getKnowledgeDetail:String = getApiHost()+"/news/appOneNews"
 let API_CollectChapter:String = getApiHost() + "/comment/opertionCollection"
+let API_CollectChapterFabulous:String = getApiHost() + "/comment/appOpertionFabulous"
 
 func UIColorFromRGB(rgbValue:Int64) -> UIColor {
     return UIColor.init(red:CGFloat(((CGFloat)((rgbValue & 0xFF0000) >> 16))/255.0), green: ((CGFloat)((rgbValue & 0xFF00) >> 8))/255.0, blue: ((CGFloat)(rgbValue & 0xFF))/255.0, alpha: 1.0)

@@ -159,7 +159,7 @@
     [ZZRequsetInterface post:API_getKnowledgeHome param:dict timeOut:HttpGetTimeOut start:^{
         
     } finish:^(id response, NSData *data) {
-//        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         
         if(_listTable.footer && [_listTable.footer respondsToSelector:@selector(endRefreshing)]){
             [_listTable.footer endRefreshing];

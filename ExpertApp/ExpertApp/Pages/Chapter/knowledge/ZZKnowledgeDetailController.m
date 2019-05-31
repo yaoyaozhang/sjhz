@@ -104,7 +104,7 @@
     } complete:^(NSDictionary *dict) {
         if(dict && dict[@"retData"]){
             // 已支付
-            if([dict[@"retData"][@"can"] intValue] == 1){
+            if([dict[@"retData"][@"can"] intValue] == 1 || [[ZZDataCache getInstance] getCheckStatusUser]){
                 
                 isCanRead = YES;
                 if(itemModel){
@@ -163,8 +163,11 @@
             
             [_listArray addObjectsFromArray:_model.wenzhang];
             
-            
-            [otherBtn setTitle:[NSString stringWithFormat:@"立即观看(%.0f积分)",_model.score] forState:UIControlStateNormal];
+            if(![ZZDataCache getInstance].getCheckStatusUser){
+                [otherBtn setTitle:[NSString stringWithFormat:@"立即观看(%.0f积分)",_model.score] forState:UIControlStateNormal];
+            }else{
+                [otherBtn setTitle:[NSString stringWithFormat:@"立即观看"] forState:UIControlStateNormal];
+            }
             [_listTable reloadData];
             
         }
