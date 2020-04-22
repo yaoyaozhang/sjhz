@@ -56,6 +56,15 @@
     }
     
     
+    CGRect f = _btnBack.frame;
+    CGRect tf = _labTitle.frame;
+    
+    f.origin.y = StatusBarHeight;
+    tf.origin.y = StatusBarHeight;
+    
+    _btnBack.frame = f;
+    _labTitle.frame = tf;
+    
 }
 
 -(IBAction)onButtonClick:(UIButton *) btn{

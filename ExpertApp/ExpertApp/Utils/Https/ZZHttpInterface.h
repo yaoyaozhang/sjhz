@@ -17,11 +17,12 @@
 //#define API_HOST @"http://www.sanjiahuizhen.com"
 //#define API_HOST @"http://ycl.ngrok.cc/sjhz-yu"
 //#define API_HOST @"http://219.142.225.98:8123"
-//#define API_HOST @"http://192.168.8.102:8080"
+#define API_HOST @"http://yucl.vipgz4.idcfengye.com"
+
 
 #define ZCNSUF [NSUserDefaults standardUserDefaults]
 #define ZCKEY_APIHOST @"ZCKEY_APIHOST"
-#define API_HOST ([[NSUserDefaults standardUserDefaults] objectForKey:ZCKEY_APIHOST]!=nil && [[[NSUserDefaults standardUserDefaults] objectForKey:ZCKEY_APIHOST] length]>0)?[ZCNSUF objectForKey:ZCKEY_APIHOST]:@"http://www.sanjiahuizhen.com"
+//#define API_HOST ([[NSUserDefaults standardUserDefaults] objectForKey:ZCKEY_APIHOST]!=nil && [[[NSUserDefaults standardUserDefaults] objectForKey:ZCKEY_APIHOST] length]>0)?[ZCNSUF objectForKey:ZCKEY_APIHOST]:@"http://www.sanjiahuizhen.com"
 
 /**
  *  发送验证码

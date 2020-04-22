@@ -30,28 +30,23 @@
 
 //**************************项目中的导航栏一部分是自定义的View,一部分是系统自带的NavigationBar*********************************
 - (void)setNavigationBarStyle{
-    if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]){
-        NSArray *list=self.navigationController.navigationBar.subviews;
-        for (id obj in list) {
-            if ([obj isKindOfClass:[UIImageView class]]) {
-                UIImageView *imageView=(UIImageView *)obj;
-                imageView.hidden=YES;
-            }
-        }
-        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, iOS7?-20:0,ScreenWidth, NavBarHeight)];
-        imageView.image=[UIImage imageWithColor:UIColorFromRGB(BgTitleColor)];
-        imageView.tag=10001;
-        [self.navigationController.navigationBar addSubview:imageView];
-        [self.navigationController.navigationBar sendSubviewToBack:imageView];
-    }
-    
+
     if(iOS7){
         [self.navigationController.navigationBar setTranslucent:YES];
     }
     [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,TitleFont, NSFontAttributeName, nil]];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:UIColorFromRGB(BgTitleColor)] forBarMetrics:UIBarMetricsDefault];
-    
+
+    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(BgTitleColor)];
+//    if ([ZCUICore getUICore].kitInfo.topViewBgColor != nil) {
+//        [self.navigationController.navigationBar setBarTintColor:[ZCUICore getUICore].kitInfo.topViewBgColor];
+//    }else{
+////            2.8.0  消除阴影
+//            [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//
+//            self.navigationController.navigationBar.shadowImage = [UIImage new];
+//    }
     [self createLeftBarItemSelect:@selector(goBack:) norImageName:nil highImageName:nil];
 }
 

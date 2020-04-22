@@ -80,7 +80,7 @@
 }
 
 -(void)lookViewClick:(ZZChapterModel *) itemModel{
-    if(isCanRead){
+//    if(isCanRead){
         if(itemModel){
             [self chapterOnClick:itemModel];
         }else{
@@ -89,46 +89,46 @@
                 [self chapterOnClick:item];
             }
         }
-        return;
-    }
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:@"2" forKey:@"type"];
-    [dict setObject:convertIntToString([ZZDataCache getInstance].getLoginUser.userId) forKey:@"userId"];
-    [dict setObject:convertIntToString(_model.sid) forKey:@"souId"];
-    
-    [ZZRequsetInterface post:API_getSourceByUserId param:dict timeOut:HttpGetTimeOut start:^{
-        [SVProgressHUD show];
-    } finish:^(id response, NSData *data) {
-        [SVProgressHUD dismiss];
-        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    } complete:^(NSDictionary *dict) {
-        if(dict && dict[@"retData"]){
-            // 已支付
-            if([dict[@"retData"][@"can"] intValue] == 1 || [[ZZDataCache getInstance] getCheckStatusUser]){
-                
-                isCanRead = YES;
-                if(itemModel){
-                    [self chapterOnClick:itemModel];
-                }else{
-                    if(_listArray.count > 0){
-                        ZZChapterModel *item = [_listArray objectAtIndex:0];
-                        [self chapterOnClick:item];
-                    }
-                }
-            }else{
-                ZZAcountController *vc = [[ZZAcountController alloc] init];
-                vc.type = ZZAcountDoctorVideo;
-                vc.objModel = _model;
-                vc.otherId = convertIntToString(_model.sid);
-                vc.item = dict[@"retData"];
-                [self openNav:vc sound:nil];
-            }
-        }
-    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
-        
-    } progress:^(CGFloat progress) {
-        
-    }];
+//        return;
+//    }
+//    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+//    [dict setObject:@"2" forKey:@"type"];
+//    [dict setObject:convertIntToString([ZZDataCache getInstance].getLoginUser.userId) forKey:@"userId"];
+//    [dict setObject:convertIntToString(_model.sid) forKey:@"souId"];
+//
+//    [ZZRequsetInterface post:API_getSourceByUserId param:dict timeOut:HttpGetTimeOut start:^{
+//        [SVProgressHUD show];
+//    } finish:^(id response, NSData *data) {
+//        [SVProgressHUD dismiss];
+//        NSLog(@"返回数据：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//    } complete:^(NSDictionary *dict) {
+//        if(dict && dict[@"retData"]){
+//            // 已支付
+//            if([dict[@"retData"][@"can"] intValue] == 1 || [[ZZDataCache getInstance] getCheckStatusUser]){
+//
+//                isCanRead = YES;
+//                if(itemModel){
+//                    [self chapterOnClick:itemModel];
+//                }else{
+//                    if(_listArray.count > 0){
+//                        ZZChapterModel *item = [_listArray objectAtIndex:0];
+//                        [self chapterOnClick:item];
+//                    }
+//                }
+//            }else{
+//                ZZAcountController *vc = [[ZZAcountController alloc] init];
+//                vc.type = ZZAcountDoctorVideo;
+//                vc.objModel = _model;
+//                vc.otherId = convertIntToString(_model.sid);
+//                vc.item = dict[@"retData"];
+//                [self openNav:vc sound:nil];
+//            }
+//        }
+//    } fail:^(id response, NSString *errorMsg, NSError *connectError) {
+//
+//    } progress:^(CGFloat progress) {
+//
+//    }];
     
 }
 
@@ -163,11 +163,11 @@
             
             [_listArray addObjectsFromArray:_model.wenzhang];
             
-            if(![ZZDataCache getInstance].getCheckStatusUser){
-                [otherBtn setTitle:[NSString stringWithFormat:@"立即观看(%.0f积分)",_model.score] forState:UIControlStateNormal];
-            }else{
+//            if(![ZZDataCache getInstance].getCheckStatusUser){
+//                [otherBtn setTitle:[NSString stringWithFormat:@"立即观看(%.0f积分)",_model.score] forState:UIControlStateNormal];
+//            }else{
                 [otherBtn setTitle:[NSString stringWithFormat:@"立即观看"] forState:UIControlStateNormal];
-            }
+//            }
             [_listTable reloadData];
             
         }

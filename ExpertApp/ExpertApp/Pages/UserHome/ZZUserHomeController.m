@@ -349,7 +349,7 @@ typedef NS_ENUM(NSInteger,ZZHomeButtonTags){
     [btnButton setContentMode:UIViewContentModeCenter];
     [btnButton setBackgroundColor:[UIColor clearColor]];
     btnButton.tag = ZZHomeButtonTagsMore;
-    [titleView addSubview:btnButton];
+//    [titleView addSubview:btnButton];
     
     
     y = y+50;
