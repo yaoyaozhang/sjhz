@@ -38,7 +38,8 @@
     
     ZZUserInfo *loginUser = [[ZZDataCache getInstance] getLoginUser];
     
-    [_btnJifen setTitle:[NSString stringWithFormat:@"%d积分",loginUser.score] forState:0];
+//    [_btnJifen setTitle:[NSString stringWithFormat:@"%d积分",loginUser.score] forState:0];
+    [_btnJifen setTitle:[NSString stringWithFormat:@"%@",loginUser.userName] forState:0];
     
     [_labelUname setText:convertToString(loginUser.userName)];
     if(loginUser.isDoctor){

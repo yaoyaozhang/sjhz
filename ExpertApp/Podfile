@@ -1,6 +1,13 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
 target 'ExpertApp' do
 
-platform :ios,’6.0’
+
+platform :ios,'8.0'
+
+pod 'TXLiteAVSDK_Professional', :podspec => 'http://pod-1252463788.cosgz.myqcloud.com/liteavsdkspec/TXLiteAVSDK_Professional.podspec'
+
+
 pod 'ASIHTTPRequest', '~> 1.8.2'
 pod 'Toast', '~> 2.4'
 pod 'MJRefresh', '~> 2.4.7'
@@ -8,7 +15,6 @@ pod 'SDWebImage'
 pod 'QBPopupMenu'
 pod 'FMDB', '~> 2.5'
 pod 'PICircularProgressView', '~> 0.1.1'
-
 # 友盟统计
 pod 'UMengAnalytics-NO-IDFA'
 

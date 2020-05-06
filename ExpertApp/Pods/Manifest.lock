@@ -23,25 +23,26 @@ PODS:
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
   - Toast (2.4)
+  - TXLiteAVSDK_Professional (7.2.8932)
   - UMengAnalytics-NO-IDFA (4.2.5)
-  - UMengUShare/Core (6.4.5):
+  - UMengUShare/Core (6.4.8.2):
     - UMengUShare/Network
-  - UMengUShare/Network (6.4.5)
-  - UMengUShare/Social/AlipayShare (6.4.5):
+  - UMengUShare/Network (6.4.8.2)
+  - UMengUShare/Social/AlipayShare (6.4.8.2):
     - UMengUShare/Core
-  - UMengUShare/Social/QQ (6.4.5):
+  - UMengUShare/Social/QQ (6.4.8.2):
     - UMengUShare/Core
     - UMengUShare/Social/ReducedQQ
-  - UMengUShare/Social/ReducedQQ (6.4.5):
+  - UMengUShare/Social/ReducedQQ (6.4.8.2):
     - UMengUShare/Core
-  - UMengUShare/Social/ReducedSina (6.4.5):
+  - UMengUShare/Social/ReducedSina (6.4.8.2):
     - UMengUShare/Core
-  - UMengUShare/Social/ReducedWeChat (6.4.5):
+  - UMengUShare/Social/ReducedWeChat (6.4.8.2):
     - UMengUShare/Core
-  - UMengUShare/Social/WeChat (6.4.5):
+  - UMengUShare/Social/WeChat (6.4.8.2):
     - UMengUShare/Core
     - UMengUShare/Social/ReducedWeChat
-  - UMengUShare/UI (6.4.5):
+  - UMengUShare/UI (6.4.8.2):
     - UMengUShare/Core
 
 DEPENDENCIES:
@@ -52,6 +53,7 @@ DEPENDENCIES:
   - QBPopupMenu
   - SDWebImage
   - Toast (~> 2.4)
+  - TXLiteAVSDK_Professional (from `http://pod-1252463788.cosgz.myqcloud.com/liteavsdkspec/TXLiteAVSDK_Professional.podspec`)
   - UMengAnalytics-NO-IDFA
   - UMengUShare/Social/AlipayShare
   - UMengUShare/Social/QQ
@@ -59,6 +61,23 @@ DEPENDENCIES:
   - UMengUShare/Social/ReducedSina
   - UMengUShare/Social/WeChat
   - UMengUShare/UI
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - ASIHTTPRequest
+    - FMDB
+    - MJRefresh
+    - PICircularProgressView
+    - QBPopupMenu
+    - Reachability
+    - SDWebImage
+    - Toast
+    - UMengAnalytics-NO-IDFA
+    - UMengUShare
+
+EXTERNAL SOURCES:
+  TXLiteAVSDK_Professional:
+    :podspec: http://pod-1252463788.cosgz.myqcloud.com/liteavsdkspec/TXLiteAVSDK_Professional.podspec
 
 SPEC CHECKSUMS:
   ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
@@ -69,9 +88,10 @@ SPEC CHECKSUMS:
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
+  TXLiteAVSDK_Professional: a93f4d5fbc38382906ce4b38560b08d5b3b9a192
   UMengAnalytics-NO-IDFA: 16666e32edce5be44ae5b14aaaa7f3582e09d6ab
-  UMengUShare: a5711c54e640b04e3048e931d2b88d50f9cfa55c
+  UMengUShare: 370d180101e13ee0227ae657ab119ba97243d2b3
 
-PODFILE CHECKSUM: 915a8545e16bf557962c42b70874c222a3483466
+PODFILE CHECKSUM: 3efa5b5fd083b5e16f6338f3e3ba087733901716
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.9.1

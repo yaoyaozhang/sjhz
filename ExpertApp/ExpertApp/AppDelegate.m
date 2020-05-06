@@ -35,6 +35,7 @@
 #import <AdSupport/AdSupport.h>
 
 #import "ZZKnowledgeDetailController.h"
+@import TXLiteAVSDK_Professional;
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 
@@ -46,10 +47,10 @@
 {
     NSString *key = @"CFBundleVersion";
 //     上一次的使用版本（存储在沙盒中的版本号）
-    NSString *lastVersion = [ZZCoreTools getValueFromNSUserDefaultsByKey:key];
+//    NSString *lastVersion = [ZZCoreTools getValueFromNSUserDefaultsByKey:key];
 
     // 当前软件的版本号（从Info.plist中获得）
-    NSString *currentVersion = [ZZCoreTools getAppBuildVersion];
+//    NSString *currentVersion = [ZZCoreTools getAppBuildVersion];
     
     // 版本号相同：这次打开和上次打开的是同一个版本
 //    if ([currentVersion isEqualToString:lastVersion]) {
@@ -118,6 +119,13 @@
     
     
     [self launchImageView];
+    
+    NSString * const licenceURL = @"<获取到的licenseUrl>";
+    NSString * const licenceKey = @"<获取到的key>";
+
+    //TXLiveBase 位于 "TXLiveBase.h" 头文件中
+    [TXLiveBase setLicenceURL:licenceURL key:licenceKey];
+    NSLog(@"SDK Version = %@", [TXLiveBase getSDKVersionStr]);
     
     return YES;
 }

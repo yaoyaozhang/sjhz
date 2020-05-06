@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '509D72E23C40DA8564DC34493220FC80'
-               BlueprintName = 'PICircularProgressView'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPICircularProgressView.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AB3E5E452EC625E8931989A84FD547C4"
+               BuildableName = "libPICircularProgressView.a"
+               BlueprintName = "PICircularProgressView"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

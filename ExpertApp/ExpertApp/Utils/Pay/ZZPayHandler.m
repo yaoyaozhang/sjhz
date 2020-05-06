@@ -70,17 +70,22 @@
             NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
             
             //调起微信支付
-            PayReq* req             = [[PayReq alloc] init];
-            req.partnerId           = [dict objectForKey:@"partnerid"];
-            req.prepayId            = [dict objectForKey:@"prepayid"];
-            req.nonceStr            = [dict objectForKey:@"noncestr"];
-            req.timeStamp           = stamp.intValue;
-            req.package             = [dict objectForKey:@"package"];
-            req.sign                = [dict objectForKey:@"sign"];
-            BOOL isOK = [WXApi sendReq:req];
+//            PayReq* req             = [[PayReq alloc] init];
+//            req.partnerId           = [dict objectForKey:@"partnerid"];
+//            req.prepayId            = [dict objectForKey:@"prepayid"];
+//            req.nonceStr            = [dict objectForKey:@"noncestr"];
+//            req.timeStamp           = stamp.intValue;
+//            req.package             = [dict objectForKey:@"package"];
+//            req.sign                = [dict objectForKey:@"sign"];
             //日志输出
-            NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@ ---- %d",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign,isOK);
+//            NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@ ---- %d",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign,isOK);
             
+            WXNontaxPayReq *req = [[WXNontaxPayReq alloc] init];
+            req.urlString = payInfo;
+            BOOL isOK = [WXApi sendReq:req];
+            
+            //日志输出
+            NSLog(@"- isOK -%d 支付：%@ ",isOK,payInfo);
 //            [[UIApplication sharedApplication].delegate.window makeToast:@"支付成功"];
 //            payResult(0,[dict objectForKey:@"retmsg"]);
         }else{
