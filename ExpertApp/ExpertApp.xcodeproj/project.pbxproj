@@ -4386,7 +4386,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ExpertApp/ExFramework/umsdk_IOS_analyics_no-idfa_v4.2.5",
 					"$(PROJECT_DIR)/ExpertApp/ExFramework/BCFeedback",
 					"$(PROJECT_DIR)/ExpertApp/ExFramework/Alipay",
 				);
@@ -4467,7 +4466,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ExpertApp/ExFramework/umsdk_IOS_analyics_no-idfa_v4.2.5",
 					"$(PROJECT_DIR)/ExpertApp/ExFramework/BCFeedback",
 					"$(PROJECT_DIR)/ExpertApp/ExFramework/Alipay",
 				);

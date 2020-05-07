@@ -39,11 +39,9 @@ PODS:
     - UMengUShare/Core
   - UMengUShare/Social/ReducedWeChat (6.4.8.2):
     - UMengUShare/Core
-  - UMengUShare/Social/WeChat (6.4.8.2):
-    - UMengUShare/Core
-    - UMengUShare/Social/ReducedWeChat
   - UMengUShare/UI (6.4.8.2):
     - UMengUShare/Core
+  - WechatOpenSDK (1.8.7.1)
 
 DEPENDENCIES:
   - ASIHTTPRequest (~> 1.8.2)
@@ -59,8 +57,9 @@ DEPENDENCIES:
   - UMengUShare/Social/QQ
   - UMengUShare/Social/ReducedQQ
   - UMengUShare/Social/ReducedSina
-  - UMengUShare/Social/WeChat
+  - UMengUShare/Social/ReducedWeChat
   - UMengUShare/UI
+  - WechatOpenSDK
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -74,6 +73,7 @@ SPEC REPOS:
     - Toast
     - UMengAnalytics-NO-IDFA
     - UMengUShare
+    - WechatOpenSDK
 
 EXTERNAL SOURCES:
   TXLiteAVSDK_Professional:
@@ -91,7 +91,8 @@ SPEC CHECKSUMS:
   TXLiteAVSDK_Professional: a93f4d5fbc38382906ce4b38560b08d5b3b9a192
   UMengAnalytics-NO-IDFA: 16666e32edce5be44ae5b14aaaa7f3582e09d6ab
   UMengUShare: 370d180101e13ee0227ae657ab119ba97243d2b3
+  WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
 
-PODFILE CHECKSUM: 3efa5b5fd083b5e16f6338f3e3ba087733901716
+PODFILE CHECKSUM: 45fadd16a901ab280d9670f3469bb6bf554e0710
 
 COCOAPODS: 1.9.1

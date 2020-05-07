@@ -526,17 +526,17 @@
         req.scene = WXSceneTimeline;
     }
     
-    BOOL isOK = [WXApi sendReq:req];
-    
-    if (!isOK) {
-        [_curVC.view makeToast:@"分享失败！"];
-    }else{
-//        NSLog(@"response data is %@",data);
-//        [_curVC.view makeToast:@"分享成功！"];
-    }
-    
-    [self dissmisMenu];
-    
+    [WXApi sendReq:req completion:^(BOOL success) {
+        if (!success) {
+                [_curVC.view makeToast:@"分享失败！"];
+            }else{
+        //        NSLog(@"response data is %@",data);
+        //        [_curVC.view makeToast:@"分享成功！"];
+            }
+
+        [self dissmisMenu];
+    }];
+//    BOOL isOK = [WXApi sendReq:req];
 }
 
     
